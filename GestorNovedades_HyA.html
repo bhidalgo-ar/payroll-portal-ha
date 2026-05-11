@@ -4,24 +4,94 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>H&A · Gestor de Novedades</title>
+<link rel="icon" type="image/png" href="Logo Solo - CONSULTORA.png"/>
+<link rel="shortcut icon" type="image/png" href="Logo Solo - CONSULTORA.png"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.2/babel.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
 <style>
-  body{margin:0;background:#0f172a;font-family:'Segoe UI','IBM Plex Sans',system-ui,sans-serif}
-  ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#1e293b}::-webkit-scrollbar-thumb{background:#475569;border-radius:3px}
-  .erp-badge-axton{background:#1e3a5f;color:#60a5fa;border:1px solid #2563eb}
-  .erp-badge-meta4{background:#4c1d95;color:#c4b5fd;border:1px solid #7c3aed}
-  select option{background:#1e293b}
+  /* H&A Brand · Tema oscuro (default) */
+  :root{
+    --bg-base:#0f172a;
+    --bg-card:#1e293b;
+    --bg-input:#0f172a;
+    --bg-select:#334155;
+    --bg-header:#1E3A5F;
+    --border:#334155;
+    --border-strong:#475569;
+    --text:#e2e8f0;
+    --text-bright:#ffffff;
+    --text-muted:#94a3b8;
+    --text-dim:#64748b;
+    --brand-primary:#00ACD4;
+    --brand-secondary:#1E3A5F;
+    --brand-on-primary:#ffffff;
+    --accent-warning:#fbbf24;
+    --accent-error:#f87171;
+    --accent-info:#60a5fa;
+    --accent-mutual:#8C837B;
+    --row-alt:rgba(30,41,59,.5);
+    --row-hover:rgba(0,172,212,.10);
+    --shadow:0 1px 3px rgba(0,0,0,.3);
+  }
+  /* H&A Brand · Tema claro (editorial: base blanca, navy texto, celeste acento) */
+  [data-theme="light"]{
+    --bg-base:#f8fafc;
+    --bg-card:#ffffff;
+    --bg-input:#f1f5f9;
+    --bg-select:#e2e8f0;
+    --bg-header:#ffffff;
+    --border:#cbd5e1;
+    --border-strong:#94a3b8;
+    --text:#1E3A5F;
+    --text-bright:#0f172a;
+    --text-muted:#475569;
+    --text-dim:#64748b;
+    --brand-primary:#00ACD4;
+    --brand-secondary:#1E3A5F;
+    --brand-on-primary:#ffffff;
+    --accent-warning:#b45309;
+    --accent-error:#b91c1c;
+    --accent-info:#1d4ed8;
+    --accent-mutual:#5C544E;
+    --row-alt:rgba(241,245,249,.7);
+    --row-hover:rgba(0,172,212,.14);
+    --shadow:0 1px 3px rgba(30,58,95,.08);
+  }
+  body{margin:0;background:var(--bg-base);color:var(--text);font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;transition:background .2s ease,color .2s ease}
+  .ha-wordmark{font-family:'Source Sans Pro',Arial,sans-serif;font-weight:300;color:#8C837B;letter-spacing:.2px}
+  .ha-iso{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:#00ACD4;color:#fff;font-family:'Source Sans Pro',Arial,sans-serif;font-weight:700;letter-spacing:-.5px;flex-shrink:0}
+  .vendor-chip{display:inline-flex;align-items:center;justify-content:center;background:#fff;padding:4px 8px;border-radius:6px;border:1px solid rgba(0,0,0,.06);box-shadow:0 1px 2px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s}
+  .vendor-chip:hover{transform:scale(1.05);box-shadow:0 2px 6px rgba(0,0,0,.12)}
+  .vendor-logo{height:18px;object-fit:contain;display:block}
+  .erp-icon{height:32px;width:auto;max-width:90px;object-fit:contain;display:block;margin:0 auto}
+  .erp-icon-wrap{background:#fff;padding:6px 12px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;min-height:44px}
+  /* Barra de progreso archivo en proceso */
+  .file-progress{height:3px;background:rgba(0,172,212,.15);border-radius:2px;overflow:hidden;margin-top:6px}
+  .file-progress-bar{height:100%;background:var(--brand-primary);border-radius:2px;transition:width .25s ease}
+  .file-progress-bar.indeterminate{width:35%;animation:slideProgress 1.1s ease-in-out infinite}
+  @keyframes slideProgress{0%{margin-left:-35%}50%{margin-left:50%}100%{margin-left:100%}}
+  .privacy-notice{background:rgba(0,172,212,.08);border-left:4px solid #00ACD4;padding:12px 16px;margin:0 0 16px 0;font-size:13px;color:var(--text);border-radius:0 8px 8px 0}
+  .privacy-notice strong{color:#00ACD4}
+  ::-webkit-scrollbar{width:6px}
+  ::-webkit-scrollbar-track{background:var(--bg-card)}
+  ::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:3px}
+  .erp-badge-axton{background:rgba(0,172,212,.14);color:var(--brand-primary);border:1px solid var(--brand-primary)}
+  .erp-badge-meta4{background:rgba(30,58,95,.18);color:var(--brand-secondary);border:1px solid var(--brand-secondary)}
+  select option{background:var(--bg-card);color:var(--text)}
   .fade-in{animation:fadeIn .3s ease}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
   .preview-table{font-size:11px;border-collapse:collapse;width:100%}
-  .preview-table th{background:#334155;color:#94a3b8;padding:4px 8px;text-align:left;font-weight:600;position:sticky;top:0}
-  .preview-table td{padding:3px 8px;color:#cbd5e1;border-bottom:1px solid #1e293b}
-  .preview-table tr:nth-child(even) td{background:rgba(30,41,59,.5)}
-  .preview-table tr:hover td{background:rgba(56,189,248,.08)}
-  .detected-tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:4px;background:#065f46;color:#6ee7b7;margin-left:6px}
+  .preview-table th{background:var(--bg-select);color:var(--text-muted);padding:4px 8px;text-align:left;font-weight:600;position:sticky;top:0}
+  .preview-table td{padding:3px 8px;color:var(--text);border-bottom:1px solid var(--border)}
+  .preview-table tr:nth-child(even) td{background:var(--row-alt)}
+  .preview-table tr:hover td{background:var(--row-hover)}
+  .detected-tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:4px;background:rgba(0,172,212,.18);color:var(--brand-primary);margin-left:6px}
+  .ha-brand-line{height:3px;background:var(--brand-primary);width:100%}
+  .theme-toggle{background:transparent;border:1px solid var(--border-strong);color:var(--text);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:12px;font-weight:600;font-family:inherit;transition:all .2s}
+  .theme-toggle:hover{background:var(--bg-input);color:var(--brand-primary);border-color:var(--brand-primary)}
 </style>
 </head>
 <body>
@@ -63,9 +133,25 @@ const DEFAULT_CLIENTS=[
 
 /* ERP de origen */
 const SOURCE_ERPS={
-  axton:{label:"Axton IT",icon:"🔷",desc:"Archivo exportado desde Axton IT"},
-  meta4:{label:"Meta 4",  icon:"🟣",desc:"Archivo exportado desde Meta 4"},
-  otro: {label:"Otro / Desconocido",icon:"📄",desc:"Excel genérico, detección automática"},
+  axton:{label:"Axton IT",icon:"axton",desc:"Archivo exportado desde Axton IT"},
+  meta4:{label:"Meta 4",  icon:"meta4",desc:"Archivo exportado desde Meta 4"},
+  otro: {label:"Otro / Desconocido",icon:"otro",desc:"Excel genérico, detección automática"},
+};
+/* Render del ícono del ERP — usa logos reales para Axton/Meta4, emoji para "otro" */
+function renderErpIcon(key){
+  if(key==="axton")return(<span className="erp-icon-wrap"><img src="Axton_LOGO_ColorAzul-1-1536x293.png" alt="Axton IT" className="erp-icon"/></span>);
+  if(key==="meta4")return(<span className="erp-icon-wrap"><img src="meta4_logo_orh.png" alt="Meta 4" className="erp-icon"/></span>);
+  return(<span style={{fontSize:32,display:"inline-block",lineHeight:1}}>📄</span>);
+}
+
+/* Tipos de archivo de novedades — fuente única de verdad para claves, labels y colores.
+   Paleta 100% alineada a brand H&A (skill v2.0): sin verde, sin naranja, sin lavanda.
+   Celeste oficial #00ACD4, gris cálido #8C837B, negro y rojo semántico únicamente. */
+const FILE_TYPES={
+  auto:  {key:"auto",   label:"Fase de Alta (Auto)", badge:"AUTO",   groupLabel:"FASE DE ALTA", color:"#00ACD4",bg:"rgba(0,172,212,.14)"},
+  mutual:{key:"mutual", label:"Incidencia (Mutual)", badge:"MUTUAL", groupLabel:"INCIDENCIA",   color:"#8C837B",bg:"rgba(140,131,123,.14)"},
+  axton: {key:"axton",  label:"Axton",               badge:"AXTON",  groupLabel:"AXTON",        color:"#1E3A5F",bg:"rgba(30,58,95,.14)"},
+  error: {key:"error",  label:"Error",               badge:"ERROR",  groupLabel:"ERRORES",      color:"#dc2626",bg:"rgba(220,38,38,.14)"},
 };
 
 const ls=k=>{try{return JSON.parse(localStorage.getItem(k))}catch{return null}};
@@ -143,15 +229,97 @@ function parseExcel(file){
         wb.SheetNames.forEach(name=>{
           sheets[name]=XLSX.utils.sheet_to_json(wb.Sheets[name],{header:1,raw:false,defval:""});
         });
-        res({sheets,sheetNames:wb.SheetNames,firstSheet:sheets[wb.SheetNames[0]]});
+        const ws0=wb.Sheets[wb.SheetNames[0]];
+        const hadFilter=!!(ws0&&(ws0["!autofilter"]||(ws0["!rows"]&&ws0["!rows"].some(r=>r&&r.hidden))));
+        res({sheets,sheetNames:wb.SheetNames,firstSheet:sheets[wb.SheetNames[0]],hadFilter,worksheets:wb.Sheets});
       }catch(err){rej(err)}
     };
     r.readAsArrayBuffer(file);
   });
 }
 
-/* Smart header row detection */
-function findHRow(data,maxScan=6){
+/* ─── Multi-file helpers (porteados del Agrupador) ─── */
+function toAK(row){
+  const r=[...(row||[])];
+  while(r.length<11)r.push(null);
+  return r.slice(0,11);
+}
+function fmtDateDDMMYYYY(d){
+  if(!d||!(d instanceof Date)||isNaN(d.getTime()))return "";
+  const dd=String(d.getUTCDate()).padStart(2,"0");
+  const mm=String(d.getUTCMonth()+1).padStart(2,"0");
+  return `${dd}/${mm}/${d.getUTCFullYear()}`;
+}
+function normTxt(s){
+  if(s===null||s===undefined)return "";
+  return String(s).normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim();
+}
+/* Normaliza strings de fecha a DD/MM/AAAA — soporta ISO, DD/MM/YYYY y variantes con guion */
+function normDateStr(s){
+  if(s===null||s===undefined)return"";
+  const str=String(s).trim();
+  if(!str||str==="—")return str;
+  let m=str.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/);
+  if(m)return`${m[3].padStart(2,"0")}/${m[2].padStart(2,"0")}/${m[1]}`;
+  m=str.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
+  if(m){const y=m[3].length===2?"20"+m[3]:m[3];return`${m[1].padStart(2,"0")}/${m[2].padStart(2,"0")}/${y}`;}
+  return str;
+}
+/* Parsea string de fecha a JS Date (asume formato día primero — castellano AR) */
+function parseDateAR(s){
+  if(s===null||s===undefined||s==="")return null;
+  if(s instanceof Date)return isNaN(s.getTime())?null:s;
+  const str=String(s).trim();
+  if(!str)return null;
+  /* ISO YYYY-MM-DD o YYYY/MM/DD */
+  let m=str.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/);
+  if(m)return new Date(Date.UTC(+m[1],+m[2]-1,+m[3]));
+  /* DD/MM/YYYY o DD-MM-YYYY (formato AR — día primero) */
+  m=str.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
+  if(m){const y=m[3].length===2?2000+(+m[3]):+m[3];return new Date(Date.UTC(y,+m[2]-1,+m[1]));}
+  return null;
+}
+/* Parsea número en formato argentino ("1.003,00") o estándar ("1003.00") → number | null */
+function parseArgNum(v){
+  if(v===null||v===undefined||v==="")return null;
+  if(typeof v==="number")return v;
+  const s=String(v).trim().replace(/\s/g,"");
+  if(!s)return null;
+  if(/^-?\d{1,3}(\.\d{3})*(,\d{1,2})?$/.test(s))return parseFloat(s.replace(/\./g,"").replace(",","."));
+  if(/^-?\d+(,\d{1,2})?$/.test(s)&&s.includes(","))return parseFloat(s.replace(",","."));
+  if(/^-?\d+(\.\d+)?$/.test(s))return parseFloat(s);
+  return null;
+}
+/* Detecta si un encabezado de columna corresponde a un campo numérico exportable */
+function isNumericHeader(h){
+  return/\b(cant|cantidad|monto|valor|importe|sueldo|salario|basico|horas?|dias?|unidad)\b/i.test(normTxt(h));
+}
+/* Detecta si un encabezado corresponde a un campo fecha */
+function isDateHeader(h){
+  const n=normTxt(h);
+  return/fecha/.test(n)||/^fec[_\s]/.test(n);
+}
+function isLegajoLbl(s){return s.includes("legajo")||s.includes("leg.")||s==="leg"||s.startsWith("leg ");}
+function isCodigoLbl(s){
+  if(s.includes("codigo"))return true;
+  if(s==="id")return true;
+  if(s.startsWith("id ")||s.startsWith("id_"))return true;
+  return false;
+}
+/* Detecta tipo por posición de Codigo vs Valor en A:K (regla del Agrupador).
+   Devuelve 'auto' (Valor antes de Codigo), 'mutual' (Codigo antes), o null. */
+function detectTypeByPosition(headers){
+  const ak=toAK(headers||[]);
+  const normH=ak.map(h=>normTxt(h));
+  const codigoIdx=normH.findIndex(isCodigoLbl);
+  const valorIdx =normH.findIndex(h=>h.includes("valor")||h==="monto"||h==="importe");
+  if(codigoIdx<0||valorIdx<0)return null;
+  if(codigoIdx===valorIdx)return null;
+  return codigoIdx<valorIdx?FILE_TYPES.mutual.key:FILE_TYPES.auto.key;
+}
+
+/* Smart header row detection — escanea hasta 20 filas para archivos con cabeceras antes del encabezado */
+function findHRow(data,maxScan=20){
   let best=0,bestScore=0;
   for(let i=0;i<Math.min(maxScan,data.length);i++){
     const row=data[i]||[];
@@ -262,19 +430,24 @@ function Badge({system}){
   return <span style={{background:s.bg,color:s.text,border:`1px solid ${s.border}`,fontSize:11,fontWeight:700,padding:"2px 8px",borderRadius:4}}>{s.badge}</span>;
 }
 
-function DropZone({onFile,label,accept=".xlsx,.xls,.csv"}){
+function DropZone({onFile,onFiles,label,accept=".xlsx,.xls,.csv",multiple=false}){
   const ref=useRef();
   const [drag,setDrag]=useState(false);
+  const handleFiles=(fl)=>{
+    if(!fl||!fl.length)return;
+    if(multiple&&onFiles){onFiles(fl);return;}
+    if(onFile)onFile(fl[0]);
+  };
   return(
     <div onClick={()=>ref.current?.click()}
       onDragOver={e=>{e.preventDefault();setDrag(true)}}
       onDragLeave={()=>setDrag(false)}
-      onDrop={e=>{e.preventDefault();setDrag(false);const f=e.dataTransfer.files[0];if(f)onFile(f)}}
-      style={{border:`2px dashed ${drag?"#22d3ee":"#475569"}`,borderRadius:12,padding:"2rem",textAlign:"center",cursor:"pointer",transition:"all .2s",background:drag?"rgba(34,211,238,.06)":"transparent"}}>
-      <input ref={ref} type="file" accept={accept} style={{display:"none"}} onChange={e=>{const f=e.target.files?.[0];if(f)onFile(f);e.target.value=""}}/>
+      onDrop={e=>{e.preventDefault();setDrag(false);handleFiles(e.dataTransfer.files);}}
+      style={{border:`2px dashed ${drag?"var(--brand-primary)":"var(--border-strong)"}`,borderRadius:12,padding:"2rem",textAlign:"center",cursor:"pointer",transition:"all .2s",background:drag?"rgba(34,211,238,.06)":"transparent"}}>
+      <input ref={ref} type="file" accept={accept} multiple={multiple} style={{display:"none"}} onChange={e=>{handleFiles(e.target.files);e.target.value=""}}/>
       <div style={{fontSize:36,marginBottom:8}}>📂</div>
-      <p style={{color:"#cbd5e1",fontWeight:500,fontSize:14}}>{label}</p>
-      <p style={{color:"#64748b",fontSize:12,marginTop:4}}>Arrastrá o hacé click — .xlsx / .xls / .csv</p>
+      <p style={{color:"var(--text)",fontWeight:500,fontSize:14}}>{label}</p>
+      <p style={{color:"var(--text-dim)",fontSize:12,marginTop:4}}>Arrastrá o hacé click {multiple?"— uno o más archivos":""} — .xlsx / .xls / .csv</p>
     </div>
   );
 }
@@ -282,17 +455,17 @@ function DropZone({onFile,label,accept=".xlsx,.xls,.csv"}){
 function Field({label,value,onChange,placeholder="",style={}}){
   return(
     <div style={style}>
-      <label style={{display:"block",fontSize:11,color:"#94a3b8",marginBottom:4,textTransform:"uppercase",letterSpacing:1,fontWeight:500}}>{label}</label>
+      <label style={{display:"block",fontSize:11,color:"var(--text-muted)",marginBottom:4,textTransform:"uppercase",letterSpacing:1,fontWeight:500}}>{label}</label>
       <input value={value} placeholder={placeholder} onChange={e=>onChange(e.target.value)}
-        style={{width:"100%",background:"#334155",border:"1px solid #475569",color:"#fff",borderRadius:8,padding:"8px 12px",fontSize:13,outline:"none",boxSizing:"border-box"}}/>
+        style={{width:"100%",background:"var(--bg-select)",border:"1px solid var(--border-strong)",color:"var(--text)",borderRadius:8,padding:"8px 12px",fontSize:13,outline:"none",boxSizing:"border-box"}}/>
     </div>
   );
 }
 
 function StatPill({label,value,color="#fff"}){
   return(
-    <div style={{background:"#1e293b",borderRadius:12,border:"1px solid #334155",padding:"12px 16px"}}>
-      <p style={{fontSize:11,color:"#64748b",textTransform:"uppercase",letterSpacing:1}}>{label}</p>
+    <div style={{background:"var(--bg-card)",borderRadius:12,border:"1px solid #334155",padding:"12px 16px"}}>
+      <p style={{fontSize:11,color:"var(--text-dim)",textTransform:"uppercase",letterSpacing:1}}>{label}</p>
       <p style={{fontSize:24,fontWeight:700,color,marginTop:2}}>{value}</p>
     </div>
   );
@@ -303,11 +476,11 @@ function ErpSelector({value,onChange}){
     <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8}}>
       {Object.entries(SOURCE_ERPS).map(([k,erp])=>(
         <button key={k} onClick={()=>onChange(k)}
-          style={{padding:"12px",borderRadius:8,border:`2px solid ${value===k?"#22d3ee":"#475569"}`,
-            background:value===k?"rgba(34,211,238,.1)":"#1e293b",cursor:"pointer",textAlign:"center",transition:"all .2s"}}>
-          <div style={{fontSize:24}}>{erp.icon}</div>
-          <div style={{color:value===k?"#22d3ee":"#e2e8f0",fontWeight:600,fontSize:13,marginTop:4}}>{erp.label}</div>
-          <div style={{color:"#64748b",fontSize:11,marginTop:2}}>{erp.desc}</div>
+          style={{padding:"12px",borderRadius:8,border:`2px solid ${value===k?"var(--brand-primary)":"var(--border-strong)"}`,
+            background:value===k?"rgba(0,172,212,.10)":"var(--bg-card)",cursor:"pointer",textAlign:"center",transition:"all .2s"}}>
+          <div style={{minHeight:44,display:"flex",alignItems:"center",justifyContent:"center"}}>{renderErpIcon(k)}</div>
+          <div style={{color:value===k?"var(--brand-primary)":"var(--text)",fontWeight:600,fontSize:13,marginTop:6}}>{erp.label}</div>
+          <div style={{color:"var(--text-dim)",fontSize:11,marginTop:2}}>{erp.desc}</div>
         </button>
       ))}
     </div>
@@ -325,7 +498,7 @@ function DataPreview({data,headerRow,maxRows=8,detected={}}){
       <table className="preview-table">
         <thead>
           <tr>{headers.map((h,i)=>(
-            <th key={i} style={detectedIdxs.has(i)?{background:"#065f46",color:"#6ee7b7"}:{}}>
+            <th key={i} style={detectedIdxs.has(i)?{background:"rgba(0,172,212,.18)",color:"var(--brand-primary)"}:{}}>
               {String(h||`Col ${i+1}`).trim()}
               {detectedIdxs.has(i)&&<span className="detected-tag">✓</span>}
             </th>
@@ -333,7 +506,7 @@ function DataPreview({data,headerRow,maxRows=8,detected={}}){
         </thead>
         <tbody>{rows.map((row,ri)=>(
           <tr key={ri}>{headers.map((_,ci)=>(
-            <td key={ci} style={detectedIdxs.has(ci)?{color:"#6ee7b7"}:{}}>{String(row[ci]||"").trim()||"—"}</td>
+            <td key={ci} style={detectedIdxs.has(ci)?{color:"var(--brand-primary)"}:{}}>{String(row[ci]||"").trim()||"—"}</td>
           ))}</tr>
         ))}</tbody>
       </table>
@@ -344,30 +517,30 @@ function DataPreview({data,headerRow,maxRows=8,detected={}}){
 /* Analysis panel showing what was detected */
 function AnalysisPanel({analysis,detected}){
   if(!analysis)return null;
-  const confColor={high:"#22c55e",medium:"#eab308",low:"#ef4444"};
+  const confColor={high:"var(--brand-primary)",medium:"#eab308",low:"#ef4444"};
   const confLabel={high:"Alta",medium:"Media",low:"Baja"};
   return(
-    <div className="fade-in" style={{background:"#1e293b",borderRadius:12,border:"1px solid #334155",padding:16,marginTop:12}}>
+    <div className="fade-in" style={{background:"var(--bg-card)",borderRadius:12,border:"1px solid #334155",padding:16,marginTop:12}}>
       <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:12,flexWrap:"wrap"}}>
-        <span style={{fontSize:11,color:"#94a3b8",textTransform:"uppercase",letterSpacing:1,fontWeight:600}}>Análisis del archivo</span>
+        <span style={{fontSize:11,color:"var(--text-muted)",textTransform:"uppercase",letterSpacing:1,fontWeight:600}}>Análisis del archivo</span>
         <span style={{fontSize:11,padding:"2px 8px",borderRadius:4,background:confColor[analysis.confidence]+"22",color:confColor[analysis.confidence],fontWeight:600}}>
           Confianza: {confLabel[analysis.confidence]}
         </span>
-        <span style={{fontSize:12,color:"#94a3b8"}}>{analysis.rowCount} filas · {analysis.columnCount} columnas</span>
+        <span style={{fontSize:12,color:"var(--text-muted)"}}>{analysis.rowCount} filas · {analysis.columnCount} columnas</span>
       </div>
       {analysis.notes.length>0&&(
         <div style={{marginBottom:12}}>
           {analysis.notes.map((n,i)=>(
-            <div key={i} style={{fontSize:12,color:"#94a3b8",padding:"2px 0"}}>💡 {n}</div>
+            <div key={i} style={{fontSize:12,color:"var(--text-muted)",padding:"2px 0"}}>💡 {n}</div>
           ))}
         </div>
       )}
       {Object.keys(detected).length>0&&(
         <div>
-          <div style={{fontSize:11,color:"#64748b",textTransform:"uppercase",letterSpacing:1,fontWeight:600,marginBottom:8}}>Columnas detectadas</div>
+          <div style={{fontSize:11,color:"var(--text-dim)",textTransform:"uppercase",letterSpacing:1,fontWeight:600,marginBottom:8}}>Columnas detectadas</div>
           <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
             {Object.entries(detected).map(([field,d])=>(
-              <span key={field} style={{fontSize:11,padding:"4px 10px",borderRadius:6,background:"#065f46",color:"#6ee7b7",fontWeight:500}}>
+              <span key={field} style={{fontSize:11,padding:"4px 10px",borderRadius:6,background:"rgba(0,172,212,.18)",color:"var(--brand-primary)",fontWeight:500}}>
                 {field}: "{d.label}"
               </span>
             ))}
@@ -386,6 +559,7 @@ function AnalysisPanel({analysis,detected}){
 function App(){
   /* ── Persistent state ── */
   const [tab,setTab]=useState("procesar");
+  const [theme,setTheme]=useState(()=>ls("hya_theme")||"dark");
   const [clients,setClients]=useState(()=>{
     const saved=ls("hya_clients")||[];
     const savedIds=new Set(saved.map(c=>c.id));
@@ -399,38 +573,36 @@ function App(){
   const [history,setHistory]=useState(()=>ls("hya_history")||[]);
   /* Axton concept map — global, persisted */
   const [axtonMap,setAxtonMap]=useState(()=>ls("hya_axton_map")||null);
-  /* ── Processing state ── */
+  /* ── Processing state (multi-file) ── */
   const [selId,setSelId]=useState("");
   const [meta4Format,setMeta4Format]=useState("incidencias");
   const [sourceErp,setSourceErp]=useState("otro");
   const [period,setPeriod]=useState({month:new Date().getMonth()+1,year:new Date().getFullYear()});
-  const [fileName,setFileName]=useState(null);
-  const [rawData,setRawData]=useState(null);
-  const [hRow,setHRow]=useState(0);
-  const [headers,setHeaders]=useState([]);
-  const [colLeg,setColLeg]=useState("");
-  const [colNom,setColNom]=useState("");
-  const [colConcepto,setColConcepto]=useState("");
-  const [colValor,setColValor]=useState("");
-  const [colFecha,setColFecha]=useState("");
-  const [isRowFormat,setIsRowFormat]=useState(false);
-  const [cMaps,setCMaps]=useState([]);
+  /* files: lista de descriptores. Cada item:
+     { id, name, rawData, headers, hRow, analysis, detected,
+       type, typeAuto, typeOverridden, isRowFormat,
+       colLeg, colNom, colConcepto, colValor, colFecha,
+       cMaps, hadFilter, errorMsg, validation } */
+  const [files,setFiles]=useState([]);
+  const [selFileId,setSelFileId]=useState(null);
+  const [validateOnLoad,setValidateOnLoad]=useState(false);
+  /* Progreso de procesamiento — array de {id, name, phase, progress} mientras se cargan archivos */
+  const [procStatus,setProcStatus]=useState({active:false,current:0,total:0,items:[]});
   const [conceptsOpen,setConceptsOpen]=useState(true);
   /* Meta4 concept map — per-session */
   const [clientMap,setClientMap]=useState(null);
-  const [valid,setValid]=useState(null);
   const [step,setStep]=useState(1);
-  const [analysis,setAnalysis]=useState(null);
-  const [detected,setDetected]=useState({});
   const [modal,setModal]=useState(false);
   const [editCli,setEditCli]=useState(null);
-  const [mapTab,setMapTab]=useState("tabla"); // for concept map view: tabla|subir
+  /* Convenience: archivo actualmente seleccionado */
+  const selFile=files.find(f=>f.id===selFileId)||null;
 
   /* ── Effects ── */
   useEffect(()=>{lss("hya_clients",clients.filter(c=>c._modified||!c.isDefault))},[clients]);
   useEffect(()=>{lss("hya_nomina",{data:nomina,updated:nomUpdated})},[nomina,nomUpdated]);
   useEffect(()=>{lss("hya_history",history)},[history]);
   useEffect(()=>{lss("hya_axton_map",axtonMap)},[axtonMap]);
+  useEffect(()=>{document.body.dataset.theme=theme;lss("hya_theme",theme);},[theme]);
 
   /* ═══════════════════════════════════════════
      SECCIÓN: CONCEPT MAP HANDLERS
@@ -439,9 +611,11 @@ function App(){
      ═══════════════════════════════════════════ */
   /* ── Reset helpers ── */
   function resetProcessing(){
-    setRawData(null);setFileName(null);setValid(null);setAnalysis(null);setDetected({});
-    setIsRowFormat(false);setColConcepto("");setColValor("");setColFecha("");
-    setColLeg("");setColNom("");setCMaps([]);setClientMap(null);
+    setFiles([]);setSelFileId(null);setClientMap(null);
+  }
+  /* Patch helper: actualiza un archivo por id */
+  function patchFile(id,patch){
+    setFiles(fs=>fs.map(f=>f.id===id?{...f,...(typeof patch==="function"?patch(f):patch)}:f));
   }
 
   /* ── Parse uploaded concept files ── */
@@ -495,52 +669,104 @@ function App(){
      handleNovFile — carga, análisis, detección
      de formato, auto-mapeo de columnas
      ═══════════════════════════════════════════ */
-  /* ── Handle novedades file ── */
-  async function handleNovFile(file){
-    setFileName(file.name);
-    try{
-      const {firstSheet:data}=await parseExcel(file);
-      setRawData(data);
-      const info=analyzeStructure(data,sourceErp);
-      setAnalysis(info);
-      const hr=info.headerRow;
-      const hdrs=(data[hr]||[]).map((c,i)=>({label:String(c||`Col ${i+1}`).trim(),idx:i}));
-      setHRow(hr);setHeaders(hdrs);
-      const det=detectColumns(hdrs,info.detectedErp);
-      setDetected(det);
-      /* Auto-map legajo/nombre */
-      const liIdx=det.legajo?.idx??hdrs.findIndex(h=>/legajo|leg\b/i.test(h.label));
-      const niIdx=det.nombre?.idx??hdrs.findIndex(h=>/nombre|apellido/i.test(h.label));
-      setColLeg(liIdx>=0?String(liIdx):"");
-      setColNom(niIdx>=0?String(niIdx):"");
-      /* Detect row format */
-      const coIdx=hdrs.findIndex(h=>/c[oó]d(igo)?\s*(de\s*)?concepto/i.test(h.label)||(/^concepto$/i.test(h.label)&&hdrs.some(x=>/^valor$/i.test(x.label))));
-      const vaIdx=hdrs.findIndex(h=>/^valor$/i.test(h.label)||/^monto$/i.test(h.label)||/^importe$/i.test(h.label));
-      const feIdx=hdrs.findIndex(h=>/fecha\s*(de\s*)?imputaci[oó]n/i.test(h.label)||/^fecha$/i.test(h.label));
-      const rowFmt=coIdx>=0&&vaIdx>=0;
-      setIsRowFormat(rowFmt);
-      setColConcepto(coIdx>=0?String(coIdx):"");
-      setColValor(vaIdx>=0?String(vaIdx):"");
-      setColFecha(feIdx>=0?String(feIdx):"");
-      if(!rowFmt){
-        /* Column format: auto-map from concept map or client config */
-        const cli=clients.find(c=>c.id===selId);
-        const effectiveSystem=cli?.system;
-        const mapSource=effectiveSystem==="axton"?axtonMap:clientMap;
-        const sourceConcepts=mapSource?.concepts||cli?.concepts||[];
-        if(sourceConcepts.length){
-          setCMaps(sourceConcepts.map(c=>{
+  /* ── Handle novedades files (multi) ── */
+  async function handleNovFiles(fileList){
+    const list=Array.from(fileList||[]);
+    if(!list.length)return;
+    const cli=clients.find(c=>c.id===selId);
+    const effectiveSystem=cli?.system;
+    const mapSource=effectiveSystem==="axton"?axtonMap:clientMap;
+    const sourceConcepts=mapSource?.concepts||cli?.concepts||[];
+    const newFiles=[];
+    /* Inicializar panel de progreso */
+    setProcStatus({
+      active:true,current:0,total:list.length,
+      items:list.map(f=>({name:f.name,phase:"queued",progress:0})),
+    });
+    /* Helper para forzar repaint entre fases (microtask) */
+    const tick=()=>new Promise(r=>setTimeout(r,0));
+    for(let i=0;i<list.length;i++){
+      const file=list[i];
+      const setItem=(patch)=>setProcStatus(s=>({...s,current:i,items:s.items.map((it,idx)=>idx===i?{...it,...patch}:it)}));
+      try{
+        setItem({phase:"reading",progress:20});await tick();
+        const parsed=await parseExcel(file);
+        const data=parsed.firstSheet;
+        const hadFilter=!!parsed.hadFilter;
+        setItem({phase:"analyzing",progress:55});await tick();
+        const info=analyzeStructure(data,sourceErp);
+        const hr=info.headerRow;
+        const hdrs=(data[hr]||[]).map((c,i)=>({label:String(c||`Col ${i+1}`).trim(),idx:i}));
+        const det=detectColumns(hdrs,info.detectedErp);
+        const liIdx=det.legajo?.idx??hdrs.findIndex(h=>/legajo|leg\b/i.test(h.label));
+        const niIdx=det.nombre?.idx??hdrs.findIndex(h=>/nombre|apellido/i.test(h.label));
+        const coIdx=hdrs.findIndex(h=>{
+          const n=normTxt(h.label);
+          /* "Código de Concepto", "Cod Concepto", "Concepto" (cuando hay Valor/Monto), "Codigo" (cuando hay columna "Concepto") */
+          return/c[oó]d(igo)?.*concepto/.test(n)
+            ||(n==="concepto"&&hdrs.some(x=>/valor|monto|importe|cant/i.test(x.label)))
+            ||(n==="codigo"&&hdrs.some(x=>normTxt(x.label)==="concepto"));
+        });
+        const vaIdx=hdrs.findIndex(h=>/^(valor|monto|importe)$/i.test(normTxt(h.label)));
+        const feIdx=hdrs.findIndex(h=>{
+          const n=normTxt(h.label);
+          return/fecha.*imputac/.test(n)||/^fec.*imputac/.test(n)||/^fec_/.test(n)||n==="fecha";
+        });
+        const isRowFmt=coIdx>=0&&vaIdx>=0;
+        /* ── Detección de tipo en cascada: Gestor (ERP) → Agrupador (posición) → error ── */
+        let typeAuto=null,errorMsg=null;
+        if(info.detectedErp==="axton"){typeAuto=FILE_TYPES.axton.key;}
+        else{
+          const byPos=detectTypeByPosition(hdrs.map(h=>h.label));
+          if(byPos)typeAuto=byPos;
+          else if(liIdx<0)errorMsg="No se encontró columna Legajo";
+          else if(!isRowFmt&&!sourceConcepts.length)errorMsg="No se detectó tipo y no hay mapa de conceptos";
+          else typeAuto=FILE_TYPES.mutual.key; /* fallback razonable */
+        }
+        /* Concepts auto-map para formato columna */
+        let cMaps=[];
+        if(!isRowFmt&&sourceConcepts.length){
+          cMaps=sourceConcepts.map(c=>{
             const hint=(c.clientHint||c.nombre||c.name||"").toLowerCase();
             const ci=hdrs.findIndex(h=>hint&&h.label.toLowerCase().includes(hint));
             return{code:c.id||c.code,name:c.nombre||c.name,col:ci>=0?String(ci):"",tipoValor:c.tipoValor||"monto"};
-          }));
-        }else setCMaps([]);
-      }else{
-        setCMaps([]);
-        info.notes.push("Modo pass-through: archivo ya en formato fila (Legajo·Concepto·Valor)");
+          });
+        }
+        const newFile={
+          id:Date.now()+"_"+Math.random().toString(36).slice(2,8),
+          name:file.name,
+          rawData:data,headers:hdrs,hRow:hr,analysis:info,detected:det,
+          type:errorMsg?FILE_TYPES.error.key:typeAuto,
+          typeAuto:errorMsg?FILE_TYPES.error.key:typeAuto,
+          typeOverridden:false,
+          isRowFormat:isRowFmt,
+          colLeg:liIdx>=0?String(liIdx):"",
+          colNom:niIdx>=0?String(niIdx):"",
+          colConcepto:coIdx>=0?String(coIdx):"",
+          colValor:vaIdx>=0?String(vaIdx):"",
+          colFecha:feIdx>=0?String(feIdx):"",
+          cMaps,hadFilter,errorMsg,validation:null,
+        };
+        setItem({phase:"validating",progress:80});await tick();
+        if(validateOnLoad)newFile.validation=runValidationFor(newFile);
+        newFiles.push(newFile);
+        setItem({phase:errorMsg?"error":"done",progress:100});
+      }catch(err){
+        newFiles.push({
+          id:Date.now()+"_"+Math.random().toString(36).slice(2,8),
+          name:file.name,rawData:null,headers:[],hRow:0,analysis:null,detected:{},
+          type:FILE_TYPES.error.key,typeAuto:FILE_TYPES.error.key,typeOverridden:false,isRowFormat:false,
+          colLeg:"",colNom:"",colConcepto:"",colValor:"",colFecha:"",
+          cMaps:[],hadFilter:false,errorMsg:"Error leyendo: "+err.message,validation:null,
+        });
+        setItem({phase:"error",progress:100});
       }
-      setValid(null);setStep(3);
-    }catch(err){alert("Error leyendo archivo: "+err.message);}
+    }
+    setFiles(fs=>[...fs,...newFiles]);
+    if(!selFileId&&newFiles.length)setSelFileId(newFiles[0].id);
+    if(step<3)setStep(3);
+    /* Mantener el panel un momento para que el usuario vea el ✓ y luego ocultar */
+    setTimeout(()=>setProcStatus({active:false,current:0,total:0,items:[]}),700);
   }
 
   /* ═══════════════════════════════════════════
@@ -548,8 +774,9 @@ function App(){
      runValidation, downloadValidationXls, doExport
      ═══════════════════════════════════════════ */
   /* ── Validation ── */
-  function runValidation(){
-    if(!rawData||colLeg==="")return;
+  function runValidationFor(file){
+    if(!file||!file.rawData||file.colLeg==="")return null;
+    const {rawData,hRow,colLeg,colConcepto,colValor,colFecha,isRowFormat,cMaps}=file;
     const li=parseInt(colLeg);
     const rows=rawData.slice(hRow+1).filter(r=>r.some(c=>c&&String(c).trim()));
     const nMap=new Map(nomina.map(e=>[String(e.legajo).trim(),e]));
@@ -672,12 +899,21 @@ function App(){
       min:s.min===Infinity?0:s.min,max:s.max===-Infinity?0:s.max,legajosCount:s.legajos.size
     })).sort((a,b)=>b.sum-a.sum);
     const allErrors=[...issues.vacios,...issues.noEnNomina,...issues.duplicados,...issues.valorNoNumerico,...issues.legajoDadoDeBaja];
-    setValid({issues,errors:allErrors,warnings:[...issues.conceptoNoEnMapa,...issues.tipoValorInvalido,...issues.valoresAltos,...issues.fechasFuera],total:rows.length,ok:allErrors.length===0,legajosUnicos:legajosUnicos.size,conceptStats,importeTotal:conceptStats.reduce((a,b)=>a+b.sum,0)});
-    setStep(4);
+    return{issues,errors:allErrors,warnings:[...issues.conceptoNoEnMapa,...issues.tipoValorInvalido,...issues.valoresAltos,...issues.fechasFuera],total:rows.length,ok:allErrors.length===0,legajosUnicos:legajosUnicos.size,conceptStats,importeTotal:conceptStats.reduce((a,b)=>a+b.sum,0)};
+  }
+  /* Valida todos los archivos cargados (no errores) */
+  function runValidationAll(){
+    setFiles(fs=>fs.map(f=>{
+      if(f.type===FILE_TYPES.error.key)return f;
+      const v=runValidationFor(f);
+      return{...f,validation:v};
+    }));
+    setStep(Math.max(step,4));
   }
 
-  /* ── Download validation report ── */
+  /* ── Download validation report (del archivo seleccionado) ── */
   function downloadValidationXls(){
+    const valid=selFile?.validation;
     if(!valid)return;
     const wb=XLSX.utils.book_new();
     const addSheet=(name,rows,cols)=>{
@@ -711,87 +947,187 @@ function App(){
     XLSX.writeFile(wb,`Validacion_${(cli?.shortName||cli?.name||"").replace(/\s/g,"")}_${period.year}${String(period.month).padStart(2,"0")}.xlsx`);
   }
 
-  /* ── Export ── */
-  function doExport(){
-    if(!rawData||colLeg==="")return;
-    const cli=clients.find(c=>c.id===selId);if(!cli)return;
-    const li=parseInt(colLeg);
-    const rows=rawData.slice(hRow+1).filter(r=>r.some(c=>c&&String(c).trim()));
-    const dateStr=`${period.year}-${String(period.month).padStart(2,"0")}-25`;
+  /* ── Export agrupado por tipo (auto/mutual/axton) ── */
+  function getMMAAAA(){return String(period.month).padStart(2,"0")+period.year;}
+  function doExportGrouped(type){
+    const group=files.filter(f=>f.type===type);
+    if(!group.length)return;
+    const cli=clients.find(c=>c.id===selId);
     const monthStr=`${MONTHS_ES[period.month-1]} ${period.year}`;
-    const nMap=new Map(nomina.map(e=>[String(e.legajo).trim(),e]));
-    const effectiveSystem=cli.system==="axton"?"axton":meta4Format;
-    let out=[];
+    if(type===FILE_TYPES.auto.key||type===FILE_TYPES.mutual.key){
+      const first=group[0];
+      /* Encabezados del primer archivo — sin clipear a A:K */
+      const rawHeaders=(first.rawData[first.hRow]||[]).map(h=>String(h||"").trim());
+      const masterHeaders=[...rawHeaders,"Archivo origen","Observaciones"];
 
-    if(effectiveSystem==="axton"){
-      const concepts=cMaps.length?cMaps:(axtonMap?.concepts||[]);
+      /* Índices de columnas numéricas y de fecha para formateo */
+      const numCols=rawHeaders.reduce((a,h,i)=>{if(isNumericHeader(h))a.push(i);return a;},[]);
+      const dateCols=rawHeaders.reduce((a,h,i)=>{if(isDateHeader(h))a.push(i);return a;},[]);
+      /* Columna de valor/cantidad para detectar vacíos */
+      const valColIdx=rawHeaders.findIndex(h=>/\b(valor|monto|importe|cant|cantidad)\b/i.test(normTxt(h)));
+
+      const allRows=group.flatMap(f=>{
+        const rows=f.rawData.slice(f.hRow+1)
+          .filter(r=>r.some(c=>c!==null&&c!==undefined&&String(c).trim()!==""));
+        return rows.map(r=>{
+          const row=[...r];
+          /* Alinear al ancho del master */
+          while(row.length<rawHeaders.length)row.push("");
+          /* Convertir numéricos */
+          numCols.forEach(ci=>{
+            const n=parseArgNum(row[ci]);
+            if(n!==null)row[ci]=n;
+          });
+          /* Normalizar fechas → JS Date (Excel las renderizará con formato dd/mm/yyyy) */
+          dateCols.forEach(ci=>{
+            const d=parseDateAR(row[ci]);
+            row[ci]=d?d:(row[ci]==null?"":String(row[ci]));
+          });
+          /* Detectar valor vacío (distinto de 0) */
+          let obs="";
+          if(valColIdx>=0){
+            const v=row[valColIdx];
+            if(v===""||v===null||v===undefined)obs="Valor vacío";
+          }
+          row.push(String(f.name||""),obs);
+          return row;
+        });
+      });
+
+      const ws=XLSX.utils.aoa_to_sheet([masterHeaders,...allRows],{cellDates:true});
+
+      /* Aplicar formato numérico 0.00 (sin separador de miles) y fechas dd/mm/yyyy */
+      if(allRows.length>0){
+        const range=XLSX.utils.decode_range(ws["!ref"]);
+        numCols.forEach(ci=>{
+          for(let ri=1;ri<=range.e.r;ri++){
+            const cell=ws[XLSX.utils.encode_cell({r:ri,c:ci})];
+            if(cell&&cell.t==="n")cell.z="0.00";
+          }
+        });
+        /* Formato fecha castellano (dd/mm/yyyy) sobre celdas que ya son Date/number */
+        dateCols.forEach(ci=>{
+          for(let ri=1;ri<=range.e.r;ri++){
+            const cell=ws[XLSX.utils.encode_cell({r:ri,c:ci})];
+            if(cell&&(cell.t==="d"||cell.t==="n"))cell.z="dd/mm/yyyy";
+          }
+        });
+        /* Forzar columna "Archivo origen" como texto explícito ("@") para evitar
+           que Excel intente convertirla por puntos/guiones en el nombre */
+        const archivoColIdx=masterHeaders.length-2;
+        for(let ri=1;ri<=range.e.r;ri++){
+          const addr=XLSX.utils.encode_cell({r:ri,c:archivoColIdx});
+          const cell=ws[addr];
+          if(cell){cell.t="s";cell.v=String(cell.v==null?"":cell.v);cell.z="@";}
+        }
+      }
+
+      ws["!cols"]=masterHeaders.map(h=>{
+        const n=normTxt(h);
+        if(n.includes("nombre")||n.includes("concepto"))return{wch:36};
+        if(n.includes("fecha")||n.includes("fec"))return{wch:14};
+        if(n.includes("archivo")||n.includes("observ"))return{wch:42};
+        if(n.includes("legajo")||n.includes("codigo")||n.includes("valor")||n.includes("monto"))return{wch:16};
+        return{wch:12};
+      });
+      const wb=XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb,ws,"Datos");
+      const prefix=FILE_TYPES[type].badge;
+      const fname=`${prefix}_${getMMAAAA()}_OTROS.xlsx`;
+      XLSX.writeFile(wb,fname);
+      const totalRows=allRows.length;
+      const aggErr=group.reduce((s,f)=>s+(f.validation?.errors?.length||0),0);
+      const aggWarn=group.reduce((s,f)=>s+(f.validation?.warnings?.length||0),0);
+      setHistory(h=>[{id:Date.now(),client:cli?.name||"—",system:type,period:monthStr,
+        rows:totalRows,file:fname,date:new Date().toLocaleString("es-AR"),
+        sourceErp,errors:aggErr,warnings:aggWarn},...h].slice(0,100));
+      setStep(5);
+      return;
+    }
+    /* Tipo axton: lógica original del Gestor, unificada */
+    if(type===FILE_TYPES.axton.key){
+      if(!cli){alert("Seleccioná un cliente para exportar Axton");return;}
+      const dateStr=`${period.year}-${String(period.month).padStart(2,"0")}-25`;
+      const concepts=group[0].cMaps.length?group[0].cMaps:(axtonMap?.concepts||[]);
       const r0=["Unidad Organizativa",cli.orgId||"",`${cli.name}${cli.convenio?"_"+cli.convenio:""}`,
         "Fecha","","","","",""];
       concepts.forEach(c=>r0.push(c.nombre||c.name||""));
       const r1=["Legajo","LNodNro","Apellido y Nombres","Cliente","U.O. Cliente","Sueldo",
         "Fecha Ingreso","Fecha Egreso","Fecha Ultimo Pago"];
       concepts.forEach(c=>r1.push(c.id||c.code||""));
-      out=[r0,r1];
-      rows.forEach(row=>{
-        const leg=String(row[li]||"").trim();
-        const emp=nMap.get(leg)||{};
-        const niIdx=colNom!==""?parseInt(colNom):-1;
-        const nombre=niIdx>=0?String(row[niIdx]||""):(emp.nombre||"");
-        const dr=[leg,emp.lnodNro||"",nombre,cli.name,emp.uo||cli.convenio||"",
-          emp.sueldo||"",emp.fechaIngreso||"",emp.fechaEgreso||"",""];
-        concepts.forEach(c=>{
-          const m=cMaps.find(x=>(x.code||x.id)===c.id||(x.code||x.id)===c.code);
-          dr.push(m&&m.col!==""?String(row[parseInt(m.col)]||""):"");
-        });
-        out.push(dr);
-      });
-    }else{
-      const isIncidencias=effectiveSystem==="incidencias";
-      if(!isIncidencias)out.push(["FORMATO 2","","","","","","","","",""]);
-      out.push(isIncidencias
-        ?["Legajo","*","*","*","*","Código de Concepto","*","*","Valor","Nombre de Concepto","Fecha de Imputación"]
-        :["Legajo","*","*","*","*","*","Valor","Código de\nconcepto","Nombre de concepto","Fecha de imputación"]);
-      if(isRowFormat){
-        const coIdx2=colConcepto!==""?parseInt(colConcepto):-1;
-        const vaIdx2=colValor!==""?parseInt(colValor):-1;
-        const feIdx2=colFecha!==""?parseInt(colFecha):-1;
-        const noConIdx=headers.findIndex(h=>/nombre\s*(de\s*)?concepto/i.test(h.label));
+      const out=[r0,r1];
+      const nMap=new Map(nomina.map(e=>[String(e.legajo).trim(),e]));
+      group.forEach(f=>{
+        const li=parseInt(f.colLeg);
+        const rows=f.rawData.slice(f.hRow+1).filter(r=>r.some(c=>c&&String(c).trim()));
         rows.forEach(row=>{
           const leg=String(row[li]||"").trim();
           const emp=nMap.get(leg)||{};
-          const cod=coIdx2>=0?String(row[coIdx2]||"").trim():"";
-          const val=vaIdx2>=0?String(row[vaIdx2]||"").trim():"";
-          const fecha=feIdx2>=0?String(row[feIdx2]||"").trim():dateStr;
-          const nomCon=noConIdx>=0?String(row[noConIdx]||"").trim():"";
-          if(leg&&val&&val!=="0")
-            out.push(isIncidencias
-              ?[leg,emp.lnodNro||"","","","",cod,"","",val,nomCon,fecha]
-              :[leg,emp.lnodNro||"","","","","",val,cod,nomCon,fecha]);
-        });
-      }else{
-        rows.forEach(row=>{
-          const leg=String(row[li]||"").trim();
-          const emp=nMap.get(leg)||{};
-          cMaps.forEach(m=>{
-            if(m.col==="")return;
-            const val=String(row[parseInt(m.col)]||"").trim();
-            if(val&&val!=="0")
-              out.push(isIncidencias
-                ?[leg,emp.lnodNro||"","","","",m.code,"","",val,m.name,dateStr]
-                :[leg,emp.lnodNro||"","","","","",val,m.code,m.name,dateStr]);
+          const niIdx=f.colNom!==""?parseInt(f.colNom):-1;
+          const nombre=niIdx>=0?String(row[niIdx]||""):(emp.nombre||"");
+          const dr=[leg,emp.lnodNro||"",nombre,cli.name,emp.uo||cli.convenio||"",
+            emp.sueldo||"",emp.fechaIngreso||"",emp.fechaEgreso||"",""];
+          concepts.forEach(c=>{
+            const m=f.cMaps.find(x=>(x.code||x.id)===c.id||(x.code||x.id)===c.code);
+            dr.push(m&&m.col!==""?String(row[parseInt(m.col)]||""):"");
           });
+          out.push(dr);
         });
-      }
+      });
+      const ws=XLSX.utils.aoa_to_sheet(out);
+      const wb=XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb,ws,"Novedades");
+      const fname=`AXTON_${getMMAAAA()}_${(cli.shortName||cli.name).replace(/\s/g,"").slice(0,8)}.xlsx`;
+      XLSX.writeFile(wb,fname);
+      setHistory(h=>[{id:Date.now(),client:cli.name,system:"axton",period:monthStr,
+        rows:out.length-2,file:fname,date:new Date().toLocaleString("es-AR"),
+        sourceErp,errors:0,warnings:0},...h].slice(0,100));
+      setStep(5);
+      return;
     }
-    const ws2=XLSX.utils.aoa_to_sheet(out);
-    const wb2=XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb2,ws2,"Novedades");
-    const fname=`${(cli.shortName||cli.name).replace(/\s/g,"").slice(0,8)}_${effectiveSystem.toUpperCase()}_${period.year}${String(period.month).padStart(2,"0")}.xlsx`;
-    XLSX.writeFile(wb2,fname);
-    setHistory(h=>[{id:Date.now(),client:cli.name,system:effectiveSystem,period:monthStr,
-      rows:rows.length,file:fname,date:new Date().toLocaleString("es-AR"),
-      sourceErp,errors:valid?.errors?.length||0,warnings:valid?.warnings?.length||0},...h].slice(0,100));
-    setStep(5);
+  }
+  /* ── Reporte (2 hojas) — porteado del Agrupador ── */
+  function doDownloadReport(){
+    if(!files.length)return;
+    const wb=XLSX.utils.book_new();
+    const h1=["Archivo","Tipo","Filas procesadas","Filtro activo","Errores","Advertencias","Estado"];
+    const rows1=files.map(f=>{
+      const lblTipo=FILE_TYPES[f.type]?.label||"—";
+      const filas=f.rawData?f.rawData.slice(f.hRow+1).filter(r=>r.some(c=>c&&String(c).trim())).length:0;
+      return[
+        f.name,lblTipo,filas,
+        f.hadFilter?"Sí (desactivado)":"No",
+        f.validation?.errors?.length||0,
+        f.validation?.warnings?.length||0,
+        f.type===FILE_TYPES.error.key?(f.errorMsg||"Error"):"OK",
+      ];
+    });
+    const ws1=XLSX.utils.aoa_to_sheet([h1,...rows1]);
+    ws1["!cols"]=[{wch:42},{wch:22},{wch:18},{wch:18},{wch:12},{wch:14},{wch:36}];
+    XLSX.utils.book_append_sheet(wb,ws1,"Detalle Archivos");
+    /* Hoja 2: Por código de concepto */
+    const counts={},nombres={};
+    files.filter(f=>f.type!==FILE_TYPES.error.key).forEach(f=>{
+      if(f.colConcepto===""||!f.rawData)return;
+      const ci=parseInt(f.colConcepto);
+      const ni=f.headers.findIndex(h=>/nombre\s*(de\s*)?concepto/i.test(h.label));
+      const rows=f.rawData.slice(f.hRow+1).filter(r=>r.some(c=>c&&String(c).trim()));
+      rows.forEach(row=>{
+        const v=row[ci];if(v===null||v===undefined||v==="")return;
+        const k=String(v).trim();
+        counts[k]=(counts[k]||0)+1;
+        if(!nombres[k]&&ni>=0&&row[ni])nombres[k]=String(row[ni]).trim();
+      });
+    });
+    const h2=["Código de Concepto","Nombre de Concepto","Cantidad de Filas"];
+    const rows2=Object.entries(counts).sort((a,b)=>a[0].localeCompare(b[0],"es",{numeric:true}))
+      .map(([k,v])=>[k,nombres[k]||"—",v]);
+    const total=rows2.reduce((s,r)=>s+r[2],0);
+    rows2.push(["TOTAL","",total]);
+    const ws2=XLSX.utils.aoa_to_sheet([h2,...rows2]);
+    ws2["!cols"]=[{wch:22},{wch:40},{wch:20}];
+    XLSX.utils.book_append_sheet(wb,ws2,"Por Código de Concepto");
+    XLSX.writeFile(wb,`Reporte_${getMMAAAA()}.xlsx`);
   }
 
   /* ═══════════════════════════════════════════
@@ -851,49 +1187,78 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
      UI HISTORIAL / MODAL CLIENTE
      ═══════════════════════════════════════════ */
   const selCli=clients.find(c=>c.id===selId);
-  const dataRows=rawData?rawData.slice(hRow+1).filter(r=>r.some(c=>c&&String(c).trim())):[];
   const activeMap=selCli?.system==="axton"?axtonMap:clientMap;
+  /* Agregados multi-archivo */
+  const fileGroups={
+    auto:  files.filter(f=>f.type===FILE_TYPES.auto.key),
+    mutual:files.filter(f=>f.type===FILE_TYPES.mutual.key),
+    axton: files.filter(f=>f.type===FILE_TYPES.axton.key),
+    error: files.filter(f=>f.type===FILE_TYPES.error.key),
+  };
+  const totalRows=(grp)=>grp.reduce((s,f)=>s+(f.rawData?f.rawData.slice(f.hRow+1).filter(r=>r.some(c=>c&&String(c).trim())).length:0),0);
+  const aggValidation=files.reduce((acc,f)=>{
+    if(!f.validation)return acc;
+    return{errors:acc.errors+f.validation.errors.length,warnings:acc.warnings+f.validation.warnings.length,validated:acc.validated+1};
+  },{errors:0,warnings:0,validated:0});
 
   /* ─── Styles ─── */
   const S={
-    card:{background:"#1e293b",borderRadius:12,border:"1px solid #334155",padding:20},
-    h2:{fontSize:11,fontWeight:700,color:"#94a3b8",textTransform:"uppercase",letterSpacing:2,marginBottom:16},
-    select:{width:"100%",background:"#334155",border:"1px solid #475569",color:"#fff",borderRadius:8,padding:"8px 12px",fontSize:13,outline:"none"},
-    btn:{padding:"10px 20px",borderRadius:8,border:"none",cursor:"pointer",fontWeight:600,fontSize:13,transition:"all .2s"},
-    btnPrimary:{background:"#0e7490",color:"#fff"},
-    btnSuccess:{background:"#15803d",color:"#fff"},
-    btnSecondary:{background:"#334155",color:"#e2e8f0"},
-    tabActive:{padding:"12px 20px",fontSize:13,fontWeight:500,color:"#67e8f9",background:"none",border:"none",borderBottom:"2px solid #22d3ee",cursor:"pointer"},
-    tabInactive:{padding:"12px 20px",fontSize:13,fontWeight:500,color:"#94a3b8",background:"none",border:"none",borderBottom:"2px solid transparent",cursor:"pointer"},
+    card:{background:"var(--bg-card)",borderRadius:12,border:"1px solid var(--border)",padding:20,boxShadow:"var(--shadow)"},
+    h2:{fontSize:11,fontWeight:700,color:"var(--text-muted)",textTransform:"uppercase",letterSpacing:2,marginBottom:16},
+    select:{width:"100%",background:"var(--bg-select)",border:"1px solid var(--border-strong)",color:"var(--text)",borderRadius:8,padding:"8px 12px",fontSize:13,outline:"none",fontFamily:"inherit"},
+    btn:{padding:"10px 20px",borderRadius:8,border:"none",cursor:"pointer",fontWeight:600,fontSize:13,transition:"all .2s",fontFamily:"inherit"},
+    btnPrimary:{background:"var(--brand-primary)",color:"var(--brand-on-primary)"},
+    btnSuccess:{background:"var(--brand-secondary)",color:"#fff"},
+    btnSecondary:{background:"var(--bg-select)",color:"var(--text)"},
+    tabActive:{padding:"12px 20px",fontSize:13,fontWeight:600,color:"var(--brand-primary)",background:"none",border:"none",borderBottom:"2px solid var(--brand-primary)",cursor:"pointer",fontFamily:"inherit"},
+    tabInactive:{padding:"12px 20px",fontSize:13,fontWeight:500,color:"var(--text-muted)",background:"none",border:"none",borderBottom:"2px solid transparent",cursor:"pointer",fontFamily:"inherit"},
     pill:(color,bg,border)=>({display:"inline-flex",alignItems:"center",gap:4,fontSize:11,padding:"2px 8px",borderRadius:4,background:bg,color,border:`1px solid ${border}`,fontWeight:600}),
   };
 
   return(
-    <div style={{minHeight:"100vh",color:"#e2e8f0"}}>
+    <div style={{minHeight:"100vh",color:"var(--text)"}}>
+
+      {/* Línea brand H&A · separator celeste superior */}
+      <div className="ha-brand-line"></div>
 
       {/* Header */}
-      <div style={{background:"#1e293b",borderBottom:"1px solid #334155",padding:"12px 24px",display:"flex",alignItems:"center",gap:16,position:"sticky",top:0,zIndex:10}}>
-        <div style={{width:40,height:40,borderRadius:"50%",background:"#18B7E8",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
-          <span style={{color:"#fff",fontWeight:900,fontSize:13}}>H&A</span>
+      <div style={{background:"var(--bg-card)",borderBottom:"1px solid var(--border)",padding:"14px 24px",display:"flex",alignItems:"center",gap:16,position:"sticky",top:0,zIndex:10}}>
+        {/* Isotipo + wordmark H&A oficial */}
+        <img src="Logo Solo - CONSULTORA.png" alt="Hidalgo & Asociados"
+          style={{width:44,height:44,objectFit:"contain",flexShrink:0}}
+          onError={e=>{
+            const f=document.createElement("div");
+            f.className="ha-iso";f.style.width="44px";f.style.height="44px";f.style.fontSize="16px";f.textContent="H&A";
+            e.target.replaceWith(f);
+          }}/>
+        <div style={{display:"flex",flexDirection:"column",lineHeight:1.15}}>
+          <span className="ha-wordmark" style={{fontSize:18}}>Hidalgo & Asociados</span>
+          <h1 style={{fontWeight:700,fontSize:14,color:"var(--text-bright)",margin:0,letterSpacing:.3}}>Gestor de Novedades · Payroll</h1>
         </div>
-        <div>
-          <h1 style={{fontWeight:700,fontSize:18,color:"#fff",margin:0,lineHeight:1.2}}>Gestor de Novedades</h1>
-          <p style={{fontSize:12,color:"#94a3b8",margin:0}}>Hidalgo & Asociados · Payroll Processing</p>
-        </div>
-        <div style={{marginLeft:"auto",display:"flex",alignItems:"center",gap:10}}>
-          <div style={{fontSize:12,padding:"6px 12px",borderRadius:8,border:`1px solid ${nomina.length>0?"#166534":"#92400e"}`,
-            background:nomina.length>0?"rgba(22,101,52,.2)":"rgba(146,64,14,.2)",color:nomina.length>0?"#4ade80":"#fbbf24"}}>
+        <div style={{marginLeft:"auto",display:"flex",alignItems:"center",gap:14,flexWrap:"wrap"}}>
+          {/* Integra con: logos Axton + Meta4 (sobre chip blanco para legibilidad en ambos temas) */}
+          <div style={{display:"flex",alignItems:"center",gap:8,paddingRight:14,borderRight:"1px solid var(--border)"}}>
+            <span style={{fontSize:10,color:"var(--text-dim)",textTransform:"uppercase",letterSpacing:1,fontWeight:600}}>Integra con</span>
+            <span className="vendor-chip" title="Axton IT"><img src="Axton_LOGO_ColorAzul-1-1536x293.png" alt="Axton IT" className="vendor-logo" style={{height:16}}/></span>
+            <span className="vendor-chip" title="Meta 4"><img src="meta4_logo_orh.png" alt="Meta 4" className="vendor-logo" style={{height:16}}/></span>
+          </div>
+          <div style={{fontSize:12,padding:"6px 12px",borderRadius:8,border:`1px solid ${nomina.length>0?"var(--brand-primary)":"var(--accent-warning)"}`,
+            background:nomina.length>0?"rgba(0,172,212,.14)":"rgba(251,191,36,.14)",color:nomina.length>0?"var(--brand-primary)":"var(--accent-warning)"}}>
             {nomina.length>0?`✓ Nómina: ${nomina.length} emp.`:"⚠ Sin nómina activa"}
           </div>
-          <div style={{fontSize:12,padding:"6px 12px",borderRadius:8,border:`1px solid ${axtonMap?"#1d4ed8":"#334155"}`,
-            background:axtonMap?"rgba(29,78,216,.15)":"transparent",color:axtonMap?"#60a5fa":"#475569"}}>
+          <div style={{fontSize:12,padding:"6px 12px",borderRadius:8,border:`1px solid ${axtonMap?"var(--brand-secondary)":"var(--border)"}`,
+            background:axtonMap?"rgba(30,58,95,.14)":"transparent",color:axtonMap?"var(--brand-secondary)":"var(--text-dim)"}}>
             {axtonMap?`AX: ${axtonMap.concepts.length} conceptos`:"AX: sin mapa"}
           </div>
+          <button className="theme-toggle" onClick={()=>setTheme(t=>t==="dark"?"light":"dark")}
+            title={theme==="dark"?"Cambiar a modo claro":"Cambiar a modo oscuro"}>
+            {theme==="dark"?"☀ Claro":"🌙 Oscuro"}
+          </button>
         </div>
       </div>
 
       {/* Tab Bar */}
-      <div style={{display:"flex",background:"#1e293b",borderBottom:"1px solid #334155",paddingLeft:24}}>
+      <div style={{display:"flex",background:"var(--bg-card)",borderBottom:"1px solid #334155",paddingLeft:24}}>
         {[["procesar","📋 Procesar"],["clientes","🏢 Clientes"],["nomina","👥 Nómina"],["historial","📜 Historial"]].map(([id,label])=>(
           <button key={id} onClick={()=>setTab(id)} style={tab===id?S.tabActive:S.tabInactive}>{label}</button>
         ))}
@@ -905,18 +1270,23 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
         {tab==="procesar"&&(
           <div style={{maxWidth:920,margin:"0 auto"}}>
 
+            {/* Aviso de privacidad obligatorio (H&A brand skill v2.0 — §5.7) */}
+            <div className="privacy-notice">
+              <strong>⚠ Aviso de privacidad:</strong> Por seguridad, no subas información personal real de empleados o clientes a esta herramienta. Usá datos de prueba o anonimizados.
+            </div>
+
             {/* Step indicators */}
-            <div style={{display:"flex",alignItems:"center",gap:6,fontSize:11,color:"#64748b",marginBottom:16,flexWrap:"wrap"}}>
+            <div style={{display:"flex",alignItems:"center",gap:6,fontSize:11,color:"var(--text-dim)",marginBottom:16,flexWrap:"wrap"}}>
               {["Cliente·Período","ERP origen","Archivo","Mapeo","Validar","Exportar"].map((s,i)=>(
                 <span key={i} style={{display:"flex",alignItems:"center",gap:4}}>
                   <span style={{width:20,height:20,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",
                     fontWeight:700,fontSize:10,flexShrink:0,
-                    background:step>i+1?"#15803d":step===i+1?"#0e7490":"#334155",
-                    color:step>i+1?"#bbf7d0":step===i+1?"#cffafe":"#64748b"}}>
+                    background:step>i+1?"var(--brand-secondary)":step===i+1?"var(--brand-primary)":"var(--border)",
+                    color:step>i+1?"#fff":step===i+1?"#fff":"var(--text-dim)"}}>
                     {step>i+1?"✓":i+1}
                   </span>
-                  <span style={{color:step===i+1?"#67e8f9":step>i+1?"#4ade80":""}}>{s}</span>
-                  {i<5&&<span style={{color:"#334155"}}>›</span>}
+                  <span style={{color:step===i+1?"var(--brand-primary)":step>i+1?"var(--brand-primary)":""}}>{s}</span>
+                  {i<5&&<span style={{color:"var(--border)"}}>›</span>}
                 </span>
               ))}
             </div>
@@ -926,7 +1296,7 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
               <h2 style={S.h2}>① Cliente · Sistema · Período a procesar</h2>
               <div style={{display:"flex",gap:12,flexWrap:"wrap",alignItems:"flex-end"}}>
                 <div style={{flex:1,minWidth:180}}>
-                  <label style={{display:"block",fontSize:11,color:"#94a3b8",marginBottom:4}}>Cliente *</label>
+                  <label style={{display:"block",fontSize:11,color:"var(--text-muted)",marginBottom:4}}>Cliente *</label>
                   <select value={selId} onChange={e=>{setSelId(e.target.value);setStep(2);resetProcessing();}}
                     style={S.select}>
                     <option value="">— Seleccioná un cliente —</option>
@@ -940,14 +1310,14 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                     <span style={{fontSize:12,fontWeight:500,color:SYSTEMS[selCli.system]?.text}}>{SYSTEMS[selCli.system]?.label}</span>
                   </div>
                 )}
-                <div style={{display:"flex",alignItems:"center",gap:8,background:"#334155",padding:"8px 12px",borderRadius:8,border:"1px solid #475569"}}>
-                  <span style={{fontSize:11,color:"#94a3b8",fontWeight:600,textTransform:"uppercase",letterSpacing:1}}>Período:</span>
+                <div style={{display:"flex",alignItems:"center",gap:8,background:"var(--bg-select)",padding:"8px 12px",borderRadius:8,border:"1px solid var(--border-strong)"}}>
+                  <span style={{fontSize:11,color:"var(--text-muted)",fontWeight:600,textTransform:"uppercase",letterSpacing:1}}>Período:</span>
                   <select value={period.month} onChange={e=>setPeriod(p=>({...p,month:parseInt(e.target.value)}))}
-                    style={{background:"transparent",color:"#fff",fontSize:13,border:"none",outline:"none",cursor:"pointer"}}>
+                    style={{background:"transparent",color:"var(--text)",fontSize:13,border:"none",outline:"none",cursor:"pointer",fontFamily:"inherit"}}>
                     {MONTHS_ES.map((m,i)=><option key={i} value={i+1}>{m}</option>)}
                   </select>
                   <select value={period.year} onChange={e=>setPeriod(p=>({...p,year:parseInt(e.target.value)}))}
-                    style={{background:"transparent",color:"#fff",fontSize:13,border:"none",outline:"none",cursor:"pointer"}}>
+                    style={{background:"transparent",color:"var(--text)",fontSize:13,border:"none",outline:"none",cursor:"pointer",fontFamily:"inherit"}}>
                     {YEARS.map(y=><option key={y} value={y}>{y}</option>)}
                   </select>
                 </div>
@@ -955,13 +1325,13 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
               {/* Meta4 format selector */}
               {selCli?.system==="meta4"&&(
                 <div style={{marginTop:14,paddingTop:14,borderTop:"1px solid #334155"}}>
-                  <label style={{display:"block",fontSize:11,color:"#94a3b8",marginBottom:8,textTransform:"uppercase",letterSpacing:1,fontWeight:600}}>Formato de salida Meta 4</label>
+                  <label style={{display:"block",fontSize:11,color:"var(--text-muted)",marginBottom:8,textTransform:"uppercase",letterSpacing:1,fontWeight:600}}>Formato de salida Meta 4</label>
                   <div style={{display:"flex",gap:8}}>
                     {Object.entries(META4_FORMATS).map(([k,f])=>(
                       <button key={k} onClick={()=>setMeta4Format(k)}
-                        style={{padding:"8px 20px",borderRadius:8,border:`2px solid ${meta4Format===k?f.border:"#475569"}`,
-                          background:meta4Format===k?f.bg:"#334155",cursor:"pointer",transition:"all .2s",
-                          color:meta4Format===k?f.text:"#94a3b8",fontWeight:600,fontSize:12}}>
+                        style={{padding:"8px 20px",borderRadius:8,border:`2px solid ${meta4Format===k?f.border:"var(--border-strong)"}`,
+                          background:meta4Format===k?f.bg:"var(--border)",cursor:"pointer",transition:"all .2s",
+                          color:meta4Format===k?f.text:"var(--text-muted)",fontWeight:600,fontSize:12}}>
                         {f.badge} — {f.label}
                       </button>
                     ))}
@@ -977,11 +1347,11 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                 <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8}}>
                   {Object.entries(SOURCE_ERPS).map(([k,erp])=>(
                     <button key={k} onClick={()=>{setSourceErp(k);if(step<3)setStep(2);}}
-                      style={{padding:"10px",borderRadius:8,border:`2px solid ${sourceErp===k?"#22d3ee":"#475569"}`,
-                        background:sourceErp===k?"rgba(34,211,238,.1)":"#1e293b",cursor:"pointer",textAlign:"center",transition:"all .2s"}}>
+                      style={{padding:"10px",borderRadius:8,border:`2px solid ${sourceErp===k?"var(--brand-primary)":"var(--border-strong)"}`,
+                        background:sourceErp===k?"rgba(34,211,238,.1)":"var(--bg-card)",cursor:"pointer",textAlign:"center",transition:"all .2s"}}>
                       <div style={{fontSize:22}}>{erp.icon}</div>
-                      <div style={{color:sourceErp===k?"#22d3ee":"#e2e8f0",fontWeight:600,fontSize:12,marginTop:4}}>{erp.label}</div>
-                      <div style={{color:"#64748b",fontSize:11,marginTop:2}}>{erp.desc}</div>
+                      <div style={{color:sourceErp===k?"var(--brand-primary)":"var(--text)",fontWeight:600,fontSize:12,marginTop:4}}>{erp.label}</div>
+                      <div style={{color:"var(--text-dim)",fontSize:11,marginTop:2}}>{erp.desc}</div>
                     </button>
                   ))}
                 </div>
@@ -994,11 +1364,11 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                 <h2 style={S.h2}>③ Mapa de conceptos del cliente</h2>
                 {selCli?.system==="axton"?(
                   axtonMap?(
-                    <div style={{display:"flex",alignItems:"center",gap:12,background:"rgba(22,101,52,.12)",border:"1px solid #166534",borderRadius:8,padding:"10px 14px"}}>
+                    <div style={{display:"flex",alignItems:"center",gap:12,background:"rgba(0,172,212,.10)",border:"1px solid var(--brand-primary)",borderRadius:8,padding:"10px 14px"}}>
                       <span style={{fontSize:18}}>✅</span>
                       <div style={{flex:1}}>
-                        <p style={{margin:0,fontSize:12,color:"#4ade80",fontWeight:500}}>{axtonMap.name}</p>
-                        <p style={{margin:0,fontSize:11,color:"#94a3b8"}}>{axtonMap.concepts.length} conceptos cargados globalmente</p>
+                        <p style={{margin:0,fontSize:12,color:"var(--brand-primary)",fontWeight:500}}>{axtonMap.name}</p>
+                        <p style={{margin:0,fontSize:11,color:"var(--text-muted)"}}>{axtonMap.concepts.length} conceptos cargados globalmente</p>
                       </div>
                       <button onClick={()=>setTab("nomina")} style={{fontSize:11,color:"#60a5fa",background:"none",border:"1px solid #2563eb",borderRadius:6,padding:"4px 10px",cursor:"pointer"}}>Ver / cambiar →</button>
                     </div>
@@ -1009,13 +1379,13 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                   )
                 ):(
                   clientMap?(
-                    <div style={{display:"flex",alignItems:"center",gap:12,background:"rgba(22,101,52,.12)",border:"1px solid #166534",borderRadius:8,padding:"10px 14px"}}>
+                    <div style={{display:"flex",alignItems:"center",gap:12,background:"rgba(0,172,212,.10)",border:"1px solid var(--brand-primary)",borderRadius:8,padding:"10px 14px"}}>
                       <span style={{fontSize:18}}>✅</span>
                       <div style={{flex:1}}>
-                        <p style={{margin:0,fontSize:12,color:"#4ade80",fontWeight:500}}>{clientMap.name}</p>
-                        <p style={{margin:0,fontSize:11,color:"#94a3b8"}}>{clientMap.concepts.length} conceptos</p>
+                        <p style={{margin:0,fontSize:12,color:"var(--brand-primary)",fontWeight:500}}>{clientMap.name}</p>
+                        <p style={{margin:0,fontSize:11,color:"var(--text-muted)"}}>{clientMap.concepts.length} conceptos</p>
                       </div>
-                      <button onClick={()=>setClientMap(null)} style={{color:"#64748b",background:"none",border:"none",cursor:"pointer",fontSize:12}}>✕</button>
+                      <button onClick={()=>setClientMap(null)} style={{color:"var(--text-dim)",background:"none",border:"none",cursor:"pointer",fontSize:12}}>✕</button>
                     </div>
                   ):(
                     <label style={{display:"flex",alignItems:"center",gap:10,border:"1px dashed #7c3aed",borderRadius:8,padding:"12px 14px",cursor:"pointer",background:"rgba(124,58,237,.05)"}}>
@@ -1024,7 +1394,7 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                       <span style={{fontSize:24}}>📁</span>
                       <div>
                         <p style={{margin:0,fontSize:12,color:"#c4b5fd",fontWeight:500}}>Subir mapa de conceptos Meta 4</p>
-                        <p style={{margin:0,fontSize:11,color:"#64748b"}}>Excel con hoja CONCEPTO_UNIDAD — auto-parseo + inferencia de tipo</p>
+                        <p style={{margin:0,fontSize:11,color:"var(--text-dim)"}}>Excel con hoja CONCEPTO_UNIDAD — auto-parseo + inferencia de tipo</p>
                       </div>
                     </label>
                   )
@@ -1033,81 +1403,177 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                 {activeMap&&activeMap.concepts.length>0&&(
                   <div style={{marginTop:12}}>
                     <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:6}}>
-                      <span style={{fontSize:11,color:"#64748b",textTransform:"uppercase",letterSpacing:1}}>Vista previa ({Math.min(8,activeMap.concepts.length)} de {activeMap.concepts.length})</span>
+                      <span style={{fontSize:11,color:"var(--text-dim)",textTransform:"uppercase",letterSpacing:1}}>Vista previa ({Math.min(8,activeMap.concepts.length)} de {activeMap.concepts.length})</span>
                     </div>
                     <div style={{maxHeight:200,overflow:"auto",borderRadius:8,border:"1px solid #334155"}}>
                       <table className="preview-table">
                         <thead><tr><th>ID</th><th>Nombre</th><th>{selCli?.system==="axton"?"Grupo":"Unidad"}</th><th>Tipo valor</th></tr></thead>
                         <tbody>{activeMap.concepts.slice(0,50).map((c,i)=>(
                           <tr key={i}>
-                            <td style={{fontFamily:"monospace",color:"#22d3ee"}}>{c.id}</td>
+                            <td style={{fontFamily:"monospace",color:"var(--brand-primary)"}}>{c.id}</td>
                             <td>{c.nombre}</td>
-                            <td style={{color:"#94a3b8",fontSize:10}}>{c.grupo||c.unidadNombre||""}</td>
+                            <td style={{color:"var(--text-muted)",fontSize:10}}>{c.grupo||c.unidadNombre||""}</td>
                             <td>
                               <button onClick={()=>toggleTipoManual(activeMap,selCli?.system==="axton"?setAxtonMap:setClientMap,i)}
                                 style={{fontSize:10,padding:"2px 8px",borderRadius:4,cursor:"pointer",border:"none",fontWeight:600,
                                   background:c.tipoValor==="cantidad"?"rgba(34,211,238,.15)":"rgba(167,139,250,.15)",
-                                  color:c.tipoValor==="cantidad"?"#22d3ee":"#c4b5fd"}}>
+                                  color:c.tipoValor==="cantidad"?"var(--brand-primary)":"#c4b5fd"}}>
                                 {c.tipoValor==="cantidad"?"# Cantidad":"$ Monto"}{c.tipoManual?"*":""}
                               </button>
                             </td>
                           </tr>
                         ))}</tbody>
                       </table>
-                      {activeMap.concepts.length>50&&<p style={{fontSize:11,color:"#64748b",textAlign:"center",padding:6}}>... y {activeMap.concepts.length-50} más</p>}
+                      {activeMap.concepts.length>50&&<p style={{fontSize:11,color:"var(--text-dim)",textAlign:"center",padding:6}}>... y {activeMap.concepts.length-50} más</p>}
                     </div>
-                    <p style={{fontSize:10,color:"#475569",marginTop:4}}>* = modificado manualmente · Click en el tipo para cambiarlo</p>
+                    <p style={{fontSize:10,color:"var(--border-strong)",marginTop:4}}>* = modificado manualmente · Click en el tipo para cambiarlo</p>
                   </div>
                 )}
               </div>
             )}
 
-            {/* Step 3: Upload novedades */}
+            {/* Step 3: Multi-file upload + viewer */}
             {selId&&(
               <div style={{...S.card,marginBottom:12}}>
-                <h2 style={S.h2}>④ Archivo de novedades del cliente</h2>
-                {fileName?(
-                  <div>
-                    <div style={{display:"flex",alignItems:"center",gap:12,background:"rgba(51,65,85,.6)",borderRadius:8,padding:"10px 14px",border:"1px solid #475569"}}>
-                      <span style={{fontSize:22}}>📄</span>
-                      <div>
-                        <p style={{color:"#fff",fontWeight:500,fontSize:13,margin:0}}>{fileName}</p>
-                        <p style={{color:"#94a3b8",fontSize:11,margin:0}}>
-                          {dataRows.length} filas · {headers.length} cols · ERP: {SOURCE_ERPS[sourceErp]?.label}
-                          {isRowFormat&&<span style={{marginLeft:8,color:"#22d3ee"}}>🔁 Formato fila</span>}
-                        </p>
-                      </div>
-                      <button onClick={()=>{setFileName(null);setRawData(null);setValid(null);setStep(2);setAnalysis(null);setDetected({});setIsRowFormat(false);setColConcepto("");setColValor("");setColFecha("");}}
-                        style={{marginLeft:"auto",color:"#64748b",cursor:"pointer",background:"none",border:"none",fontSize:14,padding:4}}>✕</button>
+                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12,flexWrap:"wrap",gap:8}}>
+                  <h2 style={{...S.h2,margin:0}}>④ Archivos de novedades (múltiples)</h2>
+                  <label style={{display:"flex",alignItems:"center",gap:6,fontSize:11,color:"var(--text-muted)",cursor:"pointer"}}>
+                    <input type="checkbox" checked={validateOnLoad} onChange={e=>setValidateOnLoad(e.target.checked)}/>
+                    Validar contra nómina y mapa de conceptos
+                  </label>
+                </div>
+                <DropZone multiple onFiles={handleNovFiles}
+                  label={`Arrastrá uno o más archivos de novedades${selCli?` de ${selCli.name}`:""}`}/>
+                {/* Panel de progreso durante carga */}
+                {procStatus.active&&(
+                  <div style={{marginTop:14,padding:14,borderRadius:10,background:"rgba(0,172,212,.06)",border:"1px solid var(--brand-primary)"}}>
+                    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
+                      <span style={{fontSize:12,fontWeight:700,color:"var(--brand-primary)",textTransform:"uppercase",letterSpacing:1}}>
+                        ⚙ Procesando {procStatus.current+1} de {procStatus.total}
+                      </span>
+                      <span style={{fontSize:11,color:"var(--text-muted)"}}>{Math.round(procStatus.items.reduce((s,it)=>s+it.progress,0)/procStatus.total)}%</span>
                     </div>
-                    <AnalysisPanel analysis={analysis} detected={detected}/>
-                    {rawData&&<div style={{marginTop:10}}><DataPreview data={rawData} headerRow={hRow} detected={detected}/></div>}
+                    {/* Barra global */}
+                    <div className="file-progress" style={{height:6,marginBottom:12}}>
+                      <div className="file-progress-bar" style={{width:`${procStatus.items.reduce((s,it)=>s+it.progress,0)/procStatus.total}%`}}></div>
+                    </div>
+                    {/* Lista de archivos con su barra individual */}
+                    <div style={{display:"flex",flexDirection:"column",gap:8,maxHeight:200,overflowY:"auto"}}>
+                      {procStatus.items.map((it,idx)=>{
+                        const phaseLbl={queued:"En cola",reading:"Leyendo…",analyzing:"Analizando…",validating:"Validando…",done:"Listo",error:"Error"}[it.phase]||it.phase;
+                        const phaseIcon={queued:"⏳",reading:"📖",analyzing:"🔍",validating:"✓",done:"✅",error:"⚠"}[it.phase]||"•";
+                        return(
+                          <div key={idx}>
+                            <div style={{display:"flex",alignItems:"center",gap:8,fontSize:11}}>
+                              <span style={{flexShrink:0}}>{phaseIcon}</span>
+                              <span style={{flex:1,color:"var(--text-bright)",fontWeight:500,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{it.name}</span>
+                              <span style={{color:it.phase==="error"?"#dc2626":it.phase==="done"?"var(--brand-primary)":"var(--text-muted)",fontWeight:600,flexShrink:0}}>{phaseLbl}</span>
+                            </div>
+                            <div className="file-progress">
+                              <div className={it.phase==="reading"||it.phase==="analyzing"?"file-progress-bar indeterminate":"file-progress-bar"}
+                                   style={it.phase==="reading"||it.phase==="analyzing"?{}:{width:`${it.progress}%`,background:it.phase==="error"?"#dc2626":"var(--brand-primary)"}}></div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
-                ):(
-                  <DropZone label={`Subí el archivo de novedades de ${selCli?.name||"cliente"}`} onFile={handleNovFile}/>
+                )}
+                {files.length>0&&(
+                  <div style={{marginTop:14}}>
+                    {/* Resumen de grupos */}
+                    <div style={{display:"flex",gap:8,marginBottom:10,flexWrap:"wrap"}}>
+                      {Object.values(FILE_TYPES).map(t=>{
+                        const n=fileGroups[t.key].length,r=totalRows(fileGroups[t.key]);
+                        if(!n)return null;
+                        return(
+                          <div key={t.key} style={{padding:"6px 12px",background:t.bg,border:`1px solid ${t.color}`,borderRadius:6,fontSize:11,color:t.color,fontWeight:600}}>
+                            {t.groupLabel} · {n} {n===1?"archivo":"archivos"}{r>0?` · ${r} filas`:""}
+                          </div>
+                        );
+                      })}
+                    </div>
+                    {/* Lista de archivos */}
+                    <div style={{display:"flex",flexDirection:"column",gap:6}}>
+                      {files.map(f=>{
+                        const isSel=f.id===selFileId;
+                        const ft=FILE_TYPES[f.type];
+                        const c=ft?.color||"var(--text-dim)";
+                        const filas=f.rawData?f.rawData.slice(f.hRow+1).filter(r=>r.some(x=>x&&String(x).trim())).length:0;
+                        const v=f.validation;
+                        return(
+                          <div key={f.id} onClick={()=>setSelFileId(f.id)}
+                            style={{display:"flex",alignItems:"center",gap:10,padding:"8px 12px",
+                              borderRadius:8,cursor:"pointer",
+                              background:isSel?"rgba(34,211,238,.08)":"var(--bg-base)",
+                              border:`1px solid ${isSel?"var(--brand-primary)":"var(--border)"}`}}>
+                            <span style={{fontSize:10,fontWeight:700,padding:"3px 8px",borderRadius:4,
+                              background:c+"22",color:c,border:`1px solid ${c}`,minWidth:60,textAlign:"center"}}>
+                              {ft?.badge||"?"}{f.typeOverridden?"*":""}
+                            </span>
+                            <div style={{flex:1,minWidth:0}}>
+                              <div style={{fontSize:12,color:"var(--text-bright)",fontWeight:500,whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{f.name}</div>
+                              <div style={{fontSize:11,color:"var(--text-muted)"}}>
+                                {f.type===FILE_TYPES.error.key?(<span style={{color:"#f87171"}}>{f.errorMsg}</span>):
+                                  <>{filas} filas · {f.headers.length} cols
+                                    {f.hadFilter&&<span style={{marginLeft:6,color:"#fbbf24"}}>🔍 filtros desactivados</span>}
+                                    {f.isRowFormat&&<span style={{marginLeft:6,color:"var(--brand-primary)"}}>🔁 formato fila</span>}
+                                    {v&&<span style={{marginLeft:8,color:v.errors.length>0?"#f87171":"var(--brand-primary)"}}>
+                                      ✓ {v.errors.length} err · {v.warnings.length} adv
+                                    </span>}
+                                  </>}
+                              </div>
+                            </div>
+                            <select value={f.type} onClick={e=>e.stopPropagation()}
+                              onChange={e=>patchFile(f.id,{type:e.target.value,typeOverridden:e.target.value!==f.typeAuto})}
+                              style={{...S.select,width:120,fontSize:11,padding:"4px 6px"}}>
+                              <option value={FILE_TYPES.auto.key}>Auto (Fase Alta)</option>
+                              <option value={FILE_TYPES.mutual.key}>Mutual (Incidencia)</option>
+                              <option value={FILE_TYPES.axton.key}>Axton</option>
+                              <option value={FILE_TYPES.error.key}>Error</option>
+                            </select>
+                            <button onClick={e=>{e.stopPropagation();setFiles(fs=>fs.filter(x=>x.id!==f.id));if(selFileId===f.id)setSelFileId(null);}}
+                              style={{background:"none",border:"none",color:"var(--text-dim)",cursor:"pointer",fontSize:14,padding:4}}>✕</button>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <div style={{marginTop:10,display:"flex",gap:8,flexWrap:"wrap"}}>
+                      <button onClick={()=>{setFiles([]);setSelFileId(null);}}
+                        style={{...S.btn,...S.btnSecondary,fontSize:12,padding:"6px 12px"}}>🗑 Vaciar lista</button>
+                      <button onClick={runValidationAll} disabled={!files.some(f=>f.type!==FILE_TYPES.error.key)}
+                        style={{...S.btn,...S.btnPrimary,fontSize:12,padding:"6px 12px",opacity:files.some(f=>f.type!==FILE_TYPES.error.key)?1:.4}}>
+                        ✓ Validar todos
+                      </button>
+                    </div>
+                  </div>
                 )}
               </div>
             )}
 
-            {/* Step 4: Column mapping */}
-            {rawData&&step>=3&&(
+            {/* Step 4: Column mapping (selected file) */}
+            {selFile&&selFile.rawData&&(
               <div style={{...S.card,marginBottom:12}} className="fade-in">
-                <h2 style={S.h2}>⑤ Mapeo de columnas</h2>
-                {isRowFormat?(
+                <h2 style={S.h2}>⑤ Mapeo de columnas — {selFile.name}</h2>
+                <AnalysisPanel analysis={selFile.analysis} detected={selFile.detected}/>
+                <div style={{marginTop:10,marginBottom:14}}>
+                  <DataPreview data={selFile.rawData} headerRow={selFile.hRow} detected={selFile.detected}/>
+                </div>
+                {selFile.isRowFormat?(
                   <div>
-                    <div style={{display:"inline-flex",alignItems:"center",gap:6,background:"rgba(34,211,238,.08)",border:"1px solid #0e7490",borderRadius:6,padding:"5px 12px",marginBottom:12,fontSize:12,color:"#22d3ee"}}>
+                    <div style={{display:"inline-flex",alignItems:"center",gap:6,background:"rgba(34,211,238,.08)",border:"1px solid #0e7490",borderRadius:6,padding:"5px 12px",marginBottom:12,fontSize:12,color:"var(--brand-primary)"}}>
                       🔁 Pass-through — confirmá las columnas clave
                     </div>
                     <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
-                      {[["Legajo *",colLeg,setColLeg],["Nombre",colNom,setColNom],
-                        ["Código Concepto",colConcepto,setColConcepto],["Valor",colValor,setColValor],
-                        ["Fecha Imputación",colFecha,setColFecha]
-                      ].map(([lbl,val,setter],i)=>(
+                      {[["Legajo *","colLeg"],["Nombre","colNom"],
+                        ["Código Concepto","colConcepto"],["Valor","colValor"],
+                        ["Fecha Imputación","colFecha"]
+                      ].map(([lbl,key],i)=>(
                         <div key={i}>
-                          <label style={{display:"block",fontSize:11,color:"#94a3b8",marginBottom:4,textTransform:"uppercase",letterSpacing:1}}>{lbl}</label>
-                          <select value={val} onChange={e=>setter(e.target.value)} style={S.select}>
+                          <label style={{display:"block",fontSize:11,color:"var(--text-muted)",marginBottom:4,textTransform:"uppercase",letterSpacing:1}}>{lbl}</label>
+                          <select value={selFile[key]} onChange={e=>patchFile(selFile.id,{[key]:e.target.value})} style={S.select}>
                             <option value="">— no mapeada —</option>
-                            {headers.map((h,k)=><option key={k} value={String(h.idx)}>{h.label}</option>)}
+                            {selFile.headers.map((h,k)=><option key={k} value={String(h.idx)}>{h.label}</option>)}
                           </select>
                         </div>
                       ))}
@@ -1117,17 +1583,17 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                   <div>
                     <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginBottom:16}}>
                       <div>
-                        <label style={{display:"block",fontSize:11,color:"#94a3b8",marginBottom:4,textTransform:"uppercase",letterSpacing:1}}>Columna LEGAJO *</label>
-                        <select value={colLeg} onChange={e=>setColLeg(e.target.value)} style={S.select}>
+                        <label style={{display:"block",fontSize:11,color:"var(--text-muted)",marginBottom:4,textTransform:"uppercase",letterSpacing:1}}>Columna LEGAJO *</label>
+                        <select value={selFile.colLeg} onChange={e=>patchFile(selFile.id,{colLeg:e.target.value})} style={S.select}>
                           <option value="">— no mapeada —</option>
-                          {headers.map((h,i)=><option key={i} value={String(h.idx)}>{h.label}{detected.legajo?.idx===h.idx?" ✓":""}</option>)}
+                          {selFile.headers.map((h,i)=><option key={i} value={String(h.idx)}>{h.label}{selFile.detected.legajo?.idx===h.idx?" ✓":""}</option>)}
                         </select>
                       </div>
                       <div>
-                        <label style={{display:"block",fontSize:11,color:"#94a3b8",marginBottom:4,textTransform:"uppercase",letterSpacing:1}}>Columna NOMBRE</label>
-                        <select value={colNom} onChange={e=>setColNom(e.target.value)} style={S.select}>
+                        <label style={{display:"block",fontSize:11,color:"var(--text-muted)",marginBottom:4,textTransform:"uppercase",letterSpacing:1}}>Columna NOMBRE</label>
+                        <select value={selFile.colNom} onChange={e=>patchFile(selFile.id,{colNom:e.target.value})} style={S.select}>
                           <option value="">— no mapeada —</option>
-                          {headers.map((h,i)=><option key={i} value={String(h.idx)}>{h.label}{detected.nombre?.idx===h.idx?" ✓":""}</option>)}
+                          {selFile.headers.map((h,i)=><option key={i} value={String(h.idx)}>{h.label}{selFile.detected.nombre?.idx===h.idx?" ✓":""}</option>)}
                         </select>
                       </div>
                     </div>
@@ -1135,57 +1601,57 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                       <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:conceptsOpen?10:0}}>
                         <button onClick={()=>setConceptsOpen(o=>!o)}
                           style={{display:"flex",alignItems:"center",gap:6,background:"none",border:"none",cursor:"pointer",padding:0}}>
-                          <span style={{fontSize:11,fontWeight:700,color:"#94a3b8",textTransform:"uppercase",letterSpacing:2}}>
+                          <span style={{fontSize:11,fontWeight:700,color:"var(--text-muted)",textTransform:"uppercase",letterSpacing:2}}>
                             {conceptsOpen?"▾":"▸"} Conceptos a exportar
                           </span>
-                          <span style={{fontSize:10,color:"#475569"}}>({cMaps.length})</span>
+                          <span style={{fontSize:10,color:"var(--border-strong)"}}>({selFile.cMaps.length})</span>
                         </button>
                         {conceptsOpen&&(
-                          <button onClick={()=>setCMaps(m=>[...m,{code:"",name:"",col:"",tipoValor:"monto"}])}
-                            style={{fontSize:12,color:"#22d3ee",background:"none",border:"none",cursor:"pointer"}}>+ Agregar</button>
+                          <button onClick={()=>patchFile(selFile.id,f=>({cMaps:[...f.cMaps,{code:"",name:"",col:"",tipoValor:"monto"}]}))}
+                            style={{fontSize:12,color:"var(--brand-primary)",background:"none",border:"none",cursor:"pointer"}}>+ Agregar</button>
                         )}
                       </div>
                       {conceptsOpen&&(
                         <div>
-                          {cMaps.map((m,i)=>(
+                          {selFile.cMaps.map((m,i)=>(
                             <div key={i} style={{display:"flex",gap:6,alignItems:"center",marginBottom:6}}>
-                              <input placeholder="Código" value={m.code} onChange={e=>setCMaps(p=>p.map((x,j)=>j===i?{...x,code:e.target.value}:x))}
-                                style={{width:70,background:"#334155",border:"1px solid #475569",color:"#fff",borderRadius:6,padding:"5px 8px",fontSize:12,outline:"none"}}/>
-                              <input placeholder="Nombre" value={m.name} onChange={e=>setCMaps(p=>p.map((x,j)=>j===i?{...x,name:e.target.value}:x))}
-                                style={{flex:1,background:"#334155",border:"1px solid #475569",color:"#fff",borderRadius:6,padding:"5px 8px",fontSize:12,outline:"none"}}/>
-                              <select value={m.col} onChange={e=>setCMaps(p=>p.map((x,j)=>j===i?{...x,col:e.target.value}:x))}
-                                style={{width:160,background:"#334155",border:"1px solid #475569",color:"#fff",borderRadius:6,padding:"5px 8px",fontSize:12,outline:"none"}}>
+                              <input placeholder="Código" value={m.code} onChange={e=>patchFile(selFile.id,f=>({cMaps:f.cMaps.map((x,j)=>j===i?{...x,code:e.target.value}:x)}))}
+                                style={{width:70,background:"var(--bg-select)",border:"1px solid var(--border-strong)",color:"var(--text)",borderRadius:6,padding:"5px 8px",fontSize:12,outline:"none"}}/>
+                              <input placeholder="Nombre" value={m.name} onChange={e=>patchFile(selFile.id,f=>({cMaps:f.cMaps.map((x,j)=>j===i?{...x,name:e.target.value}:x)}))}
+                                style={{flex:1,background:"var(--bg-select)",border:"1px solid var(--border-strong)",color:"var(--text)",borderRadius:6,padding:"5px 8px",fontSize:12,outline:"none"}}/>
+                              <select value={m.col} onChange={e=>patchFile(selFile.id,f=>({cMaps:f.cMaps.map((x,j)=>j===i?{...x,col:e.target.value}:x)}))}
+                                style={{width:160,background:"var(--bg-select)",border:"1px solid var(--border-strong)",color:"var(--text)",borderRadius:6,padding:"5px 8px",fontSize:12,outline:"none"}}>
                                 <option value="">— sin mapear —</option>
-                                {headers.map((h,k)=><option key={k} value={String(h.idx)}>{h.label}</option>)}
+                                {selFile.headers.map((h,k)=><option key={k} value={String(h.idx)}>{h.label}</option>)}
                               </select>
-                              <button onClick={()=>setCMaps(p=>p.map((x,j)=>j===i?{...x,tipoValor:x.tipoValor==="monto"?"cantidad":"monto"}:x))}
+                              <button onClick={()=>patchFile(selFile.id,f=>({cMaps:f.cMaps.map((x,j)=>j===i?{...x,tipoValor:x.tipoValor==="monto"?"cantidad":"monto"}:x)}))}
                                 style={{fontSize:10,padding:"4px 8px",borderRadius:4,cursor:"pointer",border:"none",fontWeight:600,flexShrink:0,
                                   background:m.tipoValor==="cantidad"?"rgba(34,211,238,.15)":"rgba(167,139,250,.15)",
-                                  color:m.tipoValor==="cantidad"?"#22d3ee":"#c4b5fd"}}>
+                                  color:m.tipoValor==="cantidad"?"var(--brand-primary)":"#c4b5fd"}}>
                                 {m.tipoValor==="cantidad"?"#":"$"}
                               </button>
-                              <button onClick={()=>setCMaps(p=>p.filter((_,j)=>j!==i))}
-                                style={{color:"#64748b",cursor:"pointer",background:"none",border:"none",fontSize:12}}>✕</button>
+                              <button onClick={()=>patchFile(selFile.id,f=>({cMaps:f.cMaps.filter((_,j)=>j!==i)}))}
+                                style={{color:"var(--text-dim)",cursor:"pointer",background:"none",border:"none",fontSize:12}}>✕</button>
                             </div>
                           ))}
-                          {!cMaps.length&&<p style={{color:"#475569",fontSize:12,fontStyle:"italic"}}>Sin conceptos. Se agregarán del mapa si hay uno cargado.</p>}
+                          {!selFile.cMaps.length&&<p style={{color:"var(--border-strong)",fontSize:12,fontStyle:"italic"}}>Sin conceptos. Se agregarán del mapa si hay uno cargado.</p>}
                         </div>
                       )}
                     </div>
                   </div>
                 )}
-                <button onClick={runValidation} disabled={colLeg===""}
-                  style={{...S.btn,...S.btnPrimary,width:"100%",marginTop:16,opacity:colLeg===""?.4:1,cursor:colLeg===""?"not-allowed":"pointer"}}>
-                  Validar datos →
+                <button onClick={()=>patchFile(selFile.id,{validation:runValidationFor(selFile)})} disabled={selFile.colLeg===""}
+                  style={{...S.btn,...S.btnPrimary,width:"100%",marginTop:16,opacity:selFile.colLeg===""?.4:1,cursor:selFile.colLeg===""?"not-allowed":"pointer"}}>
+                  Validar este archivo →
                 </button>
               </div>
             )}
 
-           {/* Step 5: Validation results */}
-{valid&&step>=4&&(
+           {/* Step 5: Validation results (selected file) */}
+{selFile&&selFile.validation&&(()=>{const valid=selFile.validation;return(
   <div style={{...S.card,marginBottom:12}} className="fade-in">
     <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}}>
-      <h2 style={{...S.h2,margin:0}}>⑥ Resultados de validación</h2>
+      <h2 style={{...S.h2,margin:0}}>⑥ Validación — {selFile.name}</h2>
       <button onClick={downloadValidationXls}
         style={{...S.btn,background:"#1e3a5f",color:"#60a5fa",border:"1px solid #2563eb",padding:"6px 14px",fontSize:12}}>
         📥 Descargar reporte .xlsx
@@ -1193,11 +1659,11 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
     </div>
     <div style={{display:"flex",gap:10,marginBottom:14,flexWrap:"wrap"}}>
       <StatPill label="Total filas" value={valid.total}/>
-      <StatPill label="Errores" value={valid.errors.length} color={valid.errors.length>0?"#f87171":"#4ade80"}/>
-      <StatPill label="Advertencias" value={valid.warnings.length} color={valid.warnings.length>0?"#fbbf24":"#4ade80"}/>
+      <StatPill label="Errores" value={valid.errors.length} color={valid.errors.length>0?"#f87171":"var(--brand-primary)"}/>
+      <StatPill label="Advertencias" value={valid.warnings.length} color={valid.warnings.length>0?"#fbbf24":"var(--brand-primary)"}/>
       <div style={{display:"flex",alignItems:"center",gap:8,padding:"0 14px",borderRadius:12,
-        background:valid.ok?"rgba(22,101,52,.25)":"rgba(127,29,29,.25)",
-        color:valid.ok?"#4ade80":"#f87171",border:`1px solid ${valid.ok?"#166534":"#991b1b"}`}}>
+        background:valid.ok?"rgba(0,172,212,.18)":"rgba(220,38,38,.18)",
+        color:valid.ok?"var(--brand-primary)":"#dc2626",border:`1px solid ${valid.ok?"var(--brand-primary)":"#dc2626"}`}}>
         <span>{valid.ok?"✓":"✕"}</span>
         <span style={{fontSize:12,fontWeight:600}}>{valid.ok?"Listo para exportar":"Errores críticos"}</span>
       </div>
@@ -1216,7 +1682,7 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
               <span style={{fontSize:11,color,fontWeight:700,textTransform:"uppercase",letterSpacing:1}}>
                 {isErr?"⛔":"⚠"} {label}
               </span>
-              <span style={{fontSize:11,color:"#64748b",marginLeft:4}}>({count})</span>
+              <span style={{fontSize:11,color:"var(--text-dim)",marginLeft:4}}>({count})</span>
             </button>
             {open&&<div>{children}</div>}
           </div>
@@ -1228,9 +1694,9 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
         <div style={{maxHeight:110,overflowY:"auto"}}>
           {items.map((e,i)=>(
             <div key={i} style={{fontSize:12,background:bg,borderRadius:4,padding:"4px 10px",marginBottom:2,display:"flex",gap:10,color:isErr?"#fca5a5":"#fde68a"}}>
-              <span style={{color:"#64748b",minWidth:44,flexShrink:0}}>Fila {e.row}</span>
-              <span style={{color:"#94a3b8",minWidth:55,fontFamily:"monospace",flexShrink:0}}>{e.leg}</span>
-              {e.nombre&&<span style={{color:"#cbd5e1",minWidth:110,flexShrink:0}}>{e.nombre}</span>}
+              <span style={{color:"var(--text-dim)",minWidth:44,flexShrink:0}}>Fila {e.row}</span>
+              <span style={{color:"var(--text-muted)",minWidth:55,fontFamily:"monospace",flexShrink:0}}>{e.leg}</span>
+              {e.nombre&&<span style={{color:"var(--text)",minWidth:110,flexShrink:0}}>{e.nombre}</span>}
               <span style={{flex:1}}>{e.msg}</span>
             </div>
           ))}
@@ -1248,18 +1714,18 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                 <button onClick={()=>toggle(key)}
                   style={{display:"flex",alignItems:"center",gap:6,width:"100%",background:bg,border:"none",borderRadius:4,
                     padding:"5px 10px",cursor:"pointer",textAlign:"left"}}>
-                  <span style={{fontSize:10,color:"#94a3b8",minWidth:10}}>{openGroups[key]?"▾":"▸"}</span>
+                  <span style={{fontSize:10,color:"var(--text-muted)",minWidth:10}}>{openGroups[key]?"▾":"▸"}</span>
                   <span style={{fontSize:12,fontFamily:"monospace",color:isErr?"#fca5a5":"#fde68a",fontWeight:600}}>{groupLabel} {key}</span>
-                  <span style={{fontSize:11,color:"#64748b",marginLeft:"auto"}}>{items.length} {items.length===1?"fila":"filas"}</span>
+                  <span style={{fontSize:11,color:"var(--text-dim)",marginLeft:"auto"}}>{items.length} {items.length===1?"fila":"filas"}</span>
                 </button>
                 {openGroups[key]&&(
                   <div style={{paddingLeft:12,marginTop:2}}>
                     {items.map((e,i)=>(
                       <div key={i} style={{fontSize:11,background:"rgba(0,0,0,.15)",borderRadius:3,padding:"3px 8px",marginBottom:2,
                         display:"flex",gap:8,color:isErr?"#fca5a5":"#fde68a"}}>
-                        <span style={{color:"#64748b",minWidth:44,flexShrink:0}}>Fila {e.row}</span>
-                        <span style={{color:"#94a3b8",minWidth:55,fontFamily:"monospace",flexShrink:0}}>{e.leg}</span>
-                        {e.nombre&&<span style={{color:"#cbd5e1",flexShrink:0}}>{e.nombre}</span>}
+                        <span style={{color:"var(--text-dim)",minWidth:44,flexShrink:0}}>Fila {e.row}</span>
+                        <span style={{color:"var(--text-muted)",minWidth:55,fontFamily:"monospace",flexShrink:0}}>{e.leg}</span>
+                        {e.nombre&&<span style={{color:"var(--text)",flexShrink:0}}>{e.nombre}</span>}
                       </div>
                     ))}
                   </div>
@@ -1344,19 +1810,50 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
       );
     })()}
 
-    <button onClick={doExport} disabled={!valid.ok}
-      style={{...S.btn,...S.btnSuccess,width:"100%",marginTop:8,opacity:valid.ok?1:.4,cursor:valid.ok?"pointer":"not-allowed",fontSize:14}}>
-      📥 Generar archivo — {selCli?.system==="axton"?"Axton IT":META4_FORMATS[meta4Format]?.label}
-    </button>
   </div>
-)}
+);})()}
+
+            {/* Step 6: Export agrupado */}
+            {files.length>0&&(
+              <div style={{...S.card,marginBottom:12}}>
+                <h2 style={S.h2}>⑦ Exportar agrupado por tipo</h2>
+                {aggValidation.validated>0&&(
+                  <div style={{display:"flex",gap:8,marginBottom:12,flexWrap:"wrap",fontSize:11,color:"var(--text-muted)"}}>
+                    <span>Validados: <strong style={{color:"var(--text-bright)"}}>{aggValidation.validated}</strong></span>
+                    <span style={{color:aggValidation.errors>0?"#f87171":"var(--brand-primary)"}}>Errores: <strong>{aggValidation.errors}</strong></span>
+                    <span style={{color:aggValidation.warnings>0?"#fbbf24":"var(--brand-primary)"}}>Advertencias: <strong>{aggValidation.warnings}</strong></span>
+                  </div>
+                )}
+                <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+                  <button onClick={()=>doExportGrouped(FILE_TYPES.auto.key)} disabled={!fileGroups.auto.length}
+                    style={{...S.btn,background:FILE_TYPES.auto.color,color:"#fff",opacity:fileGroups.auto.length?1:.4,cursor:fileGroups.auto.length?"pointer":"not-allowed"}}>
+                    ⬇ Descargar {FILE_TYPES.auto.label} — {fileGroups.auto.length}
+                  </button>
+                  <button onClick={()=>doExportGrouped(FILE_TYPES.mutual.key)} disabled={!fileGroups.mutual.length}
+                    style={{...S.btn,background:FILE_TYPES.mutual.color,color:"#fff",opacity:fileGroups.mutual.length?1:.4,cursor:fileGroups.mutual.length?"pointer":"not-allowed"}}>
+                    ⬇ Descargar {FILE_TYPES.mutual.label} — {fileGroups.mutual.length}
+                  </button>
+                  <button onClick={()=>doExportGrouped(FILE_TYPES.axton.key)} disabled={!fileGroups.axton.length}
+                    style={{...S.btn,background:FILE_TYPES.axton.color,color:"#fff",opacity:fileGroups.axton.length?1:.4,cursor:fileGroups.axton.length?"pointer":"not-allowed"}}>
+                    ⬇ Descargar {FILE_TYPES.axton.label} — {fileGroups.axton.length}
+                  </button>
+                  <button onClick={doDownloadReport}
+                    style={{...S.btn,background:"#a855f7",color:"#fff"}}>
+                    📊 Descargar Reporte
+                  </button>
+                </div>
+                <p style={{fontSize:11,color:"var(--text-dim)",marginTop:10}}>
+                  Cada grupo se exporta a un único xlsx unificando los archivos del mismo tipo. Nombres: AUTO_{getMMAAAA()}_OTROS.xlsx, MUTUAL_{getMMAAAA()}_OTROS.xlsx.
+                </p>
+              </div>
+            )}
 
             {/* Done */}
             {step===5&&(
-              <div className="fade-in" style={{background:"rgba(22,101,52,.18)",border:"1px solid #166534",borderRadius:12,padding:24,textAlign:"center"}}>
+              <div className="fade-in" style={{background:"rgba(0,172,212,.14)",border:"1px solid var(--brand-primary)",borderRadius:12,padding:24,textAlign:"center"}}>
                 <div style={{fontSize:44,marginBottom:10}}>🎉</div>
-                <p style={{color:"#4ade80",fontWeight:700,fontSize:18}}>¡Archivo generado!</p>
-                <p style={{color:"#94a3b8",fontSize:13,marginTop:4}}>La descarga debería iniciarse automáticamente.</p>
+                <p style={{color:"var(--brand-primary)",fontWeight:700,fontSize:18}}>¡Archivo(s) generado(s)!</p>
+                <p style={{color:"var(--text-muted)",fontSize:13,marginTop:4}}>La descarga debería iniciarse automáticamente.</p>
                 <button onClick={()=>{setStep(1);setSelId("");resetProcessing();setSourceErp("otro");}}
                   style={{...S.btn,...S.btnSecondary,marginTop:14}}>Procesar otro cliente →</button>
               </div>
@@ -1368,9 +1865,9 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
         {tab==="clientes"&&(
           <div style={{maxWidth:1100,margin:"0 auto"}}>
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:20}}>
-              <h2 style={{fontSize:20,fontWeight:700,color:"#fff",margin:0}}>Clientes <span style={{fontSize:13,fontWeight:400,color:"#64748b"}}>({clients.length})</span></h2>
+              <h2 style={{fontSize:20,fontWeight:700,color:"var(--text-bright)",margin:0}}>Clientes <span style={{fontSize:13,fontWeight:400,color:"var(--text-dim)"}}>({clients.length})</span></h2>
               <div style={{display:"flex",gap:10}}>
-                <label style={{cursor:"pointer",fontSize:12,color:"#22d3ee",display:"flex",alignItems:"center",gap:4,padding:"7px 12px",background:"#1e293b",border:"1px solid #334155",borderRadius:8}}>
+                <label style={{cursor:"pointer",fontSize:12,color:"var(--brand-primary)",display:"flex",alignItems:"center",gap:4,padding:"7px 12px",background:"var(--bg-card)",border:"1px solid #334155",borderRadius:8}}>
                   📥 Importar JSON
                   <input type="file" accept=".json" style={{display:"none"}} onChange={e=>{
                     const f=e.target.files?.[0];if(!f)return;
@@ -1388,12 +1885,12 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                 <div key={c.id} style={S.card}>
                   <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:10}}>
                     <div>
-                      <h3 style={{fontWeight:700,color:"#fff",margin:0,fontSize:14}}>{c.name}</h3>
-                      {c.shortName&&<p style={{fontSize:11,color:"#64748b",margin:0}}>{c.shortName}</p>}
+                      <h3 style={{fontWeight:700,color:"var(--text-bright)",margin:0,fontSize:14}}>{c.name}</h3>
+                      {c.shortName&&<p style={{fontSize:11,color:"var(--text-dim)",margin:0}}>{c.shortName}</p>}
                     </div>
                     <span style={{...S.pill(SYSTEMS[c.system]?.text,SYSTEMS[c.system]?.bg,SYSTEMS[c.system]?.border)}}>{SYSTEMS[c.system]?.badge}</span>
                   </div>
-                  <div style={{fontSize:11,color:"#64748b",marginBottom:12,lineHeight:1.7}}>
+                  <div style={{fontSize:11,color:"var(--text-dim)",marginBottom:12,lineHeight:1.7}}>
                     <span>{SYSTEMS[c.system]?.label}</span>
                     {c.orgId&&<span> · Org {c.orgId}</span>}
                     {c.convenio&&<span> · {c.convenio}</span>}
@@ -1404,7 +1901,7 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                     <button onClick={()=>{const b=new Blob([JSON.stringify(c,null,2)],{type:"application/json"});const u=URL.createObjectURL(b);const a=document.createElement("a");a.href=u;a.download=`${c.shortName||c.name}.json`;a.click();URL.revokeObjectURL(u);}}
                       style={{...S.btn,...S.btnSecondary,flex:1,fontSize:11,padding:"5px 0"}}>📤 Exportar</button>
                     <button onClick={()=>{if(confirm(`¿Eliminar ${c.name}?`))setClients(p=>p.filter(x=>x.id!==c.id));}}
-                      style={{...S.btn,background:"#334155",color:"#64748b",fontSize:11,padding:"5px 10px"}}>🗑</button>
+                      style={{...S.btn,background:"var(--border)",color:"var(--text-dim)",fontSize:11,padding:"5px 10px"}}>🗑</button>
                   </div>
                 </div>
               ))}
@@ -1415,20 +1912,20 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
         {/* ═══ NÓMINA ═══ */}
         {tab==="nomina"&&(
           <div style={{maxWidth:760,margin:"0 auto"}}>
-            <h2 style={{fontSize:20,fontWeight:700,color:"#fff",margin:"0 0 4px"}}>Nómina Activa</h2>
-            <p style={{color:"#94a3b8",fontSize:13,marginBottom:20}}>F2 Axton o cualquier Excel con Legajo + Nombre.</p>
+            <h2 style={{fontSize:20,fontWeight:700,color:"var(--text-bright)",margin:"0 0 4px"}}>Nómina Activa</h2>
+            <p style={{color:"var(--text-muted)",fontSize:13,marginBottom:20}}>F2 Axton o cualquier Excel con Legajo + Nombre.</p>
             <div style={{display:"grid",gridTemplateColumns:"1fr 2fr",gap:14,marginBottom:20}}>
-              <StatPill label="Empleados" value={nomina.length} color="#22d3ee"/>
-              <div style={{background:"#1e293b",borderRadius:12,border:"1px solid #334155",padding:"12px 14px"}}>
-                <p style={{fontSize:11,color:"#64748b",margin:0}}>Última actualización</p>
-                <p style={{fontSize:12,color:"#cbd5e1",marginTop:2}}>{nomUpdated||"—"}</p>
+              <StatPill label="Empleados" value={nomina.length} color="var(--brand-primary)"/>
+              <div style={{background:"var(--bg-card)",borderRadius:12,border:"1px solid #334155",padding:"12px 14px"}}>
+                <p style={{fontSize:11,color:"var(--text-dim)",margin:0}}>Última actualización</p>
+                <p style={{fontSize:12,color:"var(--text)",marginTop:2}}>{nomUpdated||"—"}</p>
               </div>
             </div>
             <DropZone label="Subí la nómina activa" onFile={handleNominaFile}/>
             {nomina.length>0&&(
               <div style={{marginTop:20}}>
                 <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
-                  <h3 style={{fontSize:12,fontWeight:700,color:"#94a3b8",margin:0}}>Vista previa (primeros 20)</h3>
+                  <h3 style={{fontSize:12,fontWeight:700,color:"var(--text-muted)",margin:0}}>Vista previa (primeros 20)</h3>
                   <button onClick={()=>{if(confirm("¿Limpiar nómina?"))setNomina([]);}} style={{fontSize:11,color:"#f87171",background:"none",border:"none",cursor:"pointer"}}>🗑 Limpiar</button>
                 </div>
                 <div style={{borderRadius:10,border:"1px solid #334155",overflow:"hidden"}}>
@@ -1436,12 +1933,12 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                     <thead><tr>{["Legajo","Nombre","U.O.","Sueldo"].map(h=><th key={h}>{h}</th>)}</tr></thead>
                     <tbody>{nomina.slice(0,20).map((e,i)=>(
                       <tr key={i}>
-                        <td style={{color:"#22d3ee",fontFamily:"monospace"}}>{e.legajo}</td>
-                        <td>{e.nombre}</td><td style={{color:"#94a3b8"}}>{e.uo}</td><td style={{color:"#94a3b8"}}>{e.sueldo}</td>
+                        <td style={{color:"var(--brand-primary)",fontFamily:"monospace"}}>{e.legajo}</td>
+                        <td>{e.nombre}</td><td style={{color:"var(--text-muted)"}}>{e.uo}</td><td style={{color:"var(--text-muted)"}}>{e.sueldo}</td>
                       </tr>
                     ))}</tbody>
                   </table>
-                  {nomina.length>20&&<p style={{fontSize:11,color:"#64748b",textAlign:"center",padding:6}}>... y {nomina.length-20} más</p>}
+                  {nomina.length>20&&<p style={{fontSize:11,color:"var(--text-dim)",textAlign:"center",padding:6}}>... y {nomina.length-20} más</p>}
                 </div>
               </div>
             )}
@@ -1450,16 +1947,16 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
             <div style={{marginTop:32,paddingTop:24,borderTop:"1px solid #334155"}}>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:4}}>
                 <h3 style={{fontSize:14,fontWeight:700,color:"#60a5fa",margin:0}}>📋 Mapa de Conceptos — Axton IT</h3>
-                <span style={{fontSize:11,color:"#64748b"}}>Global · persiste entre sesiones</span>
+                <span style={{fontSize:11,color:"var(--text-dim)"}}>Global · persiste entre sesiones</span>
               </div>
-              <p style={{color:"#64748b",fontSize:12,marginBottom:14}}>Subí el ReporteConceptos.xlsx de Axton. Se usa para todos los clientes Axton y se guarda permanentemente.</p>
+              <p style={{color:"var(--text-dim)",fontSize:12,marginBottom:14}}>Subí el ReporteConceptos.xlsx de Axton. Se usa para todos los clientes Axton y se guarda permanentemente.</p>
               {axtonMap?(
-                <div style={{background:"#1e293b",borderRadius:10,border:"1px solid #166534",padding:14}}>
+                <div style={{background:"var(--bg-card)",borderRadius:10,border:"1px solid var(--brand-primary)",padding:14}}>
                   <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:12}}>
                     <span style={{fontSize:18}}>✅</span>
                     <div style={{flex:1}}>
-                      <p style={{margin:0,color:"#4ade80",fontWeight:600,fontSize:12}}>{axtonMap.name}</p>
-                      <p style={{margin:0,color:"#94a3b8",fontSize:11}}>{axtonMap.concepts.length} conceptos · Actualizado: {axtonMap.updated}</p>
+                      <p style={{margin:0,color:"var(--brand-primary)",fontWeight:600,fontSize:12}}>{axtonMap.name}</p>
+                      <p style={{margin:0,color:"var(--text-muted)",fontSize:11}}>{axtonMap.concepts.length} conceptos · Actualizado: {axtonMap.updated}</p>
                     </div>
                     <button onClick={()=>{if(confirm("¿Limpiar mapa Axton?"))setAxtonMap(null);}} style={{fontSize:11,color:"#f87171",background:"none",border:"none",cursor:"pointer"}}>🗑 Limpiar</button>
                   </div>
@@ -1470,22 +1967,22 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                         <tr key={i}>
                           <td style={{fontFamily:"monospace",color:"#60a5fa"}}>{c.id}</td>
                           <td>{c.nombre}</td>
-                          <td style={{fontSize:10,color:"#94a3b8"}}>{c.grupo}</td>
-                          <td style={{fontSize:10,color:"#64748b"}}>{c.tipoAxton}</td>
+                          <td style={{fontSize:10,color:"var(--text-muted)"}}>{c.grupo}</td>
+                          <td style={{fontSize:10,color:"var(--text-dim)"}}>{c.tipoAxton}</td>
                           <td>
                             <button onClick={()=>toggleTipoManual(axtonMap,setAxtonMap,i)}
                               style={{fontSize:10,padding:"1px 6px",borderRadius:4,cursor:"pointer",border:"none",fontWeight:600,
                                 background:c.tipoValor==="cantidad"?"rgba(34,211,238,.15)":"rgba(167,139,250,.15)",
-                                color:c.tipoValor==="cantidad"?"#22d3ee":"#c4b5fd"}}>
+                                color:c.tipoValor==="cantidad"?"var(--brand-primary)":"#c4b5fd"}}>
                               {c.tipoValor==="cantidad"?"# Cantidad":"$ Monto"}{c.tipoManual?"*":""}
                             </button>
                           </td>
                         </tr>
                       ))}</tbody>
                     </table>
-                    {axtonMap.concepts.length>100&&<p style={{fontSize:11,color:"#64748b",textAlign:"center",padding:6}}>... y {axtonMap.concepts.length-100} más</p>}
+                    {axtonMap.concepts.length>100&&<p style={{fontSize:11,color:"var(--text-dim)",textAlign:"center",padding:6}}>... y {axtonMap.concepts.length-100} más</p>}
                   </div>
-                  <p style={{fontSize:10,color:"#475569",marginTop:6}}>* = modificado manualmente · Click en el tipo para cambiarlo</p>
+                  <p style={{fontSize:10,color:"var(--border-strong)",marginTop:6}}>* = modificado manualmente · Click en el tipo para cambiarlo</p>
                 </div>
               ):(
                 <label style={{display:"flex",alignItems:"center",gap:12,border:"1px dashed #2563eb",borderRadius:10,padding:14,cursor:"pointer",background:"rgba(37,99,235,.05)"}}>
@@ -1494,7 +1991,7 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                   <span style={{fontSize:26}}>📁</span>
                   <div>
                     <p style={{margin:0,fontSize:12,color:"#93c5fd",fontWeight:500}}>Subir ReporteConceptos.xlsx (Axton)</p>
-                    <p style={{margin:0,fontSize:11,color:"#64748b"}}>Auto-detecta columnas Numero/Concepto/Tipo/Grupo · Infiere tipo de valor por nombre</p>
+                    <p style={{margin:0,fontSize:11,color:"var(--text-dim)"}}>Auto-detecta columnas Numero/Concepto/Tipo/Grupo · Infiere tipo de valor por nombre</p>
                   </div>
                 </label>
               )}
@@ -1506,11 +2003,11 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
         {tab==="historial"&&(
           <div style={{maxWidth:1100,margin:"0 auto"}}>
             <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:20}}>
-              <h2 style={{fontSize:20,fontWeight:700,color:"#fff",margin:0}}>Historial</h2>
+              <h2 style={{fontSize:20,fontWeight:700,color:"var(--text-bright)",margin:0}}>Historial</h2>
               {history.length>0&&<button onClick={()=>{if(confirm("¿Borrar todo?"))setHistory([]);}} style={{fontSize:12,color:"#f87171",background:"none",border:"none",cursor:"pointer"}}>🗑 Borrar todo</button>}
             </div>
             {!history.length?(
-              <div style={{textAlign:"center",padding:"80px 0",color:"#64748b"}}>
+              <div style={{textAlign:"center",padding:"80px 0",color:"var(--text-dim)"}}>
                 <div style={{fontSize:48,marginBottom:14}}>📜</div>
                 <p>Los archivos generados aparecerán acá</p>
               </div>
@@ -1521,14 +2018,14 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                   <tbody>
                     {history.map(h=>(
                       <tr key={h.id}>
-                        <td style={{fontSize:11,color:"#94a3b8"}}>{h.date}</td>
-                        <td style={{color:"#fff",fontWeight:500}}>{h.client}</td>
-                        <td><span style={{fontSize:10,fontWeight:700,padding:"2px 6px",borderRadius:4,background:"#334155",color:"#94a3b8"}}>{h.system?.toUpperCase()}</span></td>
-                        <td style={{fontSize:11,color:"#94a3b8"}}>{SOURCE_ERPS[h.sourceErp]?.label||"—"}</td>
+                        <td style={{fontSize:11,color:"var(--text-muted)"}}>{h.date}</td>
+                        <td style={{color:"var(--text-bright)",fontWeight:500}}>{h.client}</td>
+                        <td><span style={{fontSize:10,fontWeight:700,padding:"2px 6px",borderRadius:4,background:"var(--border)",color:"var(--text-muted)"}}>{h.system?.toUpperCase()}</span></td>
+                        <td style={{fontSize:11,color:"var(--text-muted)"}}>{SOURCE_ERPS[h.sourceErp]?.label||"—"}</td>
                         <td>{h.period}</td><td>{h.rows}</td>
-                        <td style={{color:h.errors>0?"#f87171":"#4ade80"}}>{h.errors}</td>
-                        <td style={{color:h.warnings>0?"#fbbf24":"#94a3b8"}}>{h.warnings}</td>
-                        <td style={{fontSize:11,color:"#22d3ee",fontFamily:"monospace"}}>{h.file}</td>
+                        <td style={{color:h.errors>0?"#f87171":"var(--brand-primary)"}}>{h.errors}</td>
+                        <td style={{color:h.warnings>0?"#fbbf24":"var(--text-muted)"}}>{h.warnings}</td>
+                        <td style={{fontSize:11,color:"var(--brand-primary)",fontFamily:"monospace"}}>{h.file}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -1543,10 +2040,10 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
       {modal&&editCli&&(
         <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.75)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:50,padding:16}}
           onClick={e=>{if(e.target===e.currentTarget){setModal(false);setEditCli(null);}}}>
-          <div style={{background:"#1e293b",borderRadius:16,border:"1px solid #475569",width:"100%",maxWidth:560,maxHeight:"90vh",overflow:"auto"}}>
-            <div style={{padding:20,borderBottom:"1px solid #334155",display:"flex",justifyContent:"space-between",alignItems:"center",position:"sticky",top:0,background:"#1e293b",zIndex:10}}>
-              <h3 style={{fontSize:17,fontWeight:700,color:"#fff",margin:0}}>{editCli.id&&clients.find(x=>x.id===editCli.id)?"Editar cliente":"Nuevo cliente"}</h3>
-              <button onClick={()=>{setModal(false);setEditCli(null);}} style={{color:"#94a3b8",background:"none",border:"none",fontSize:20,cursor:"pointer",lineHeight:1}}>✕</button>
+          <div style={{background:"var(--bg-card)",borderRadius:16,border:"1px solid #475569",width:"100%",maxWidth:560,maxHeight:"90vh",overflow:"auto"}}>
+            <div style={{padding:20,borderBottom:"1px solid #334155",display:"flex",justifyContent:"space-between",alignItems:"center",position:"sticky",top:0,background:"var(--bg-card)",zIndex:10}}>
+              <h3 style={{fontSize:17,fontWeight:700,color:"var(--text-bright)",margin:0}}>{editCli.id&&clients.find(x=>x.id===editCli.id)?"Editar cliente":"Nuevo cliente"}</h3>
+              <button onClick={()=>{setModal(false);setEditCli(null);}} style={{color:"var(--text-muted)",background:"none",border:"none",fontSize:20,cursor:"pointer",lineHeight:1}}>✕</button>
             </div>
             <div style={{padding:20}}>
               <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14,marginBottom:14}}>
@@ -1554,14 +2051,14 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                 <Field label="Nombre corto (archivos)" value={editCli.shortName} onChange={v=>setEditCli(p=>({...p,shortName:v}))} placeholder="ej: COELSA"/>
               </div>
               <div style={{marginBottom:14}}>
-                <label style={{display:"block",fontSize:11,color:"#94a3b8",marginBottom:8,textTransform:"uppercase",letterSpacing:1,fontWeight:700}}>Sistema de liquidación *</label>
+                <label style={{display:"block",fontSize:11,color:"var(--text-muted)",marginBottom:8,textTransform:"uppercase",letterSpacing:1,fontWeight:700}}>Sistema de liquidación *</label>
                 <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8}}>
                   {Object.entries(SYSTEMS).map(([k,s])=>(
                     <button key={k} onClick={()=>setEditCli(p=>({...p,system:k}))}
-                      style={{padding:"12px",borderRadius:8,border:`2px solid ${editCli.system===k?s.border:"#475569"}`,
-                        background:editCli.system===k?s.bg:"#334155",cursor:"pointer",textAlign:"center",transition:"all .2s"}}>
-                      <span style={{display:"block",fontSize:13,fontWeight:700,color:editCli.system===k?s.text:"#94a3b8"}}>{s.badge}</span>
-                      <span style={{fontSize:12,color:editCli.system===k?s.text:"#94a3b8"}}>{s.label}</span>
+                      style={{padding:"12px",borderRadius:8,border:`2px solid ${editCli.system===k?s.border:"var(--border-strong)"}`,
+                        background:editCli.system===k?s.bg:"var(--border)",cursor:"pointer",textAlign:"center",transition:"all .2s"}}>
+                      <span style={{display:"block",fontSize:13,fontWeight:700,color:editCli.system===k?s.text:"var(--text-muted)"}}>{s.badge}</span>
+                      <span style={{fontSize:12,color:editCli.system===k?s.text:"var(--text-muted)"}}>{s.label}</span>
                     </button>
                   ))}
                 </div>
@@ -1572,7 +2069,7 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                   <Field label="Convenio / U.O." value={editCli.convenio||""} onChange={v=>setEditCli(p=>({...p,convenio:v}))} placeholder="ej: FUERA DE CONVENIO"/>
                 </div>
               )}
-              <p style={{fontSize:11,color:"#475569",fontStyle:"italic",marginTop:8}}>Los conceptos se cargan desde el mapa de conceptos al procesar.</p>
+              <p style={{fontSize:11,color:"var(--border-strong)",fontStyle:"italic",marginTop:8}}>Los conceptos se cargan desde el mapa de conceptos al procesar.</p>
             </div>
             <div style={{padding:20,borderTop:"1px solid #334155",display:"flex",gap:10,justifyContent:"flex-end"}}>
               <button onClick={()=>{setModal(false);setEditCli(null);}} style={{...S.btn,...S.btnSecondary}}>Cancelar</button>
@@ -1586,13 +2083,13 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
       {/* ═══ NÓMINA MAP MODAL ═══ */}
       {nominaMapModal&&(
         <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.7)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:50,padding:16}}>
-          <div style={{background:"#1e293b",borderRadius:16,border:"1px solid #475569",width:"100%",maxWidth:520,overflow:"hidden"}}>
+          <div style={{background:"var(--bg-card)",borderRadius:16,border:"1px solid #475569",width:"100%",maxWidth:520,overflow:"hidden"}}>
             <div style={{padding:"18px 20px",borderBottom:"1px solid #334155",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
               <div>
-                <h3 style={{margin:0,fontSize:15,fontWeight:700,color:"#fff"}}>Confirmar mapeo de columnas</h3>
-                <p style={{margin:"3px 0 0",fontSize:12,color:"#64748b"}}>Verificá que cada campo apunte a la columna correcta</p>
+                <h3 style={{margin:0,fontSize:15,fontWeight:700,color:"var(--text-bright)"}}>Confirmar mapeo de columnas</h3>
+                <p style={{margin:"3px 0 0",fontSize:12,color:"var(--text-dim)"}}>Verificá que cada campo apunte a la columna correcta</p>
               </div>
-              <button onClick={()=>setNominaMapModal(null)} style={{background:"none",border:"none",color:"#64748b",fontSize:20,cursor:"pointer",lineHeight:1}}>✕</button>
+              <button onClick={()=>setNominaMapModal(null)} style={{background:"none",border:"none",color:"var(--text-dim)",fontSize:20,cursor:"pointer",lineHeight:1}}>✕</button>
             </div>
             <div style={{padding:20,display:"flex",flexDirection:"column",gap:14}}>
               {[
@@ -1602,11 +2099,11 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                 {key:"fechaIngreso",label:"Fecha de ingreso"},
               ].map(({key,label,required})=>(
                 <div key={key}>
-                  <label style={{display:"block",fontSize:11,color:"#94a3b8",marginBottom:5,textTransform:"uppercase",letterSpacing:"0.06em",fontWeight:600}}>{label}</label>
+                  <label style={{display:"block",fontSize:11,color:"var(--text-muted)",marginBottom:5,textTransform:"uppercase",letterSpacing:"0.06em",fontWeight:600}}>{label}</label>
                   <select
                     value={nominaMapModal[key]}
                     onChange={e=>setNominaMapModal(p=>({...p,[key]:parseInt(e.target.value)}))}
-                    style={{width:"100%",background:"#0f172a",border:`1px solid ${required&&nominaMapModal[key]<0?"#ef4444":"#334155"}`,color:"#fff",borderRadius:8,padding:"8px 10px",fontSize:13,outline:"none"}}>
+                    style={{width:"100%",background:"var(--bg-base)",border:`1px solid ${required&&nominaMapModal[key]<0?"#ef4444":"var(--border)"}`,color:"var(--text)",borderRadius:8,padding:"8px 10px",fontSize:13,outline:"none"}}>
                     <option value={-1}>— sin mapear —</option>
                     {nominaMapModal.hdrs.map((h,i)=>(
                       <option key={i} value={h.idx}>{h.label}</option>
@@ -1617,24 +2114,24 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                   )}
                 </div>
               ))}
-              <div style={{background:"#0f172a",borderRadius:8,padding:"10px 12px",marginTop:4}}>
-                <p style={{fontSize:11,color:"#64748b",margin:"0 0 6px",fontWeight:600,textTransform:"uppercase",letterSpacing:"0.05em"}}>Vista previa (3 filas)</p>
+              <div style={{background:"var(--bg-base)",borderRadius:8,padding:"10px 12px",marginTop:4}}>
+                <p style={{fontSize:11,color:"var(--text-dim)",margin:"0 0 6px",fontWeight:600,textTransform:"uppercase",letterSpacing:"0.05em"}}>Vista previa (3 filas)</p>
                 <div style={{overflowX:"auto"}}>
                   <table style={{width:"100%",fontSize:11,borderCollapse:"collapse"}}>
                     <thead>
                       <tr style={{borderBottom:"1px solid #1e293b"}}>
                         {["Legajo","Nombre","U.O.","Fecha Ingreso"].map(h=>(
-                          <th key={h} style={{padding:"3px 8px",textAlign:"left",color:"#475569",fontWeight:600}}>{h}</th>
+                          <th key={h} style={{padding:"3px 8px",textAlign:"left",color:"var(--border-strong)",fontWeight:600}}>{h}</th>
                         ))}
                       </tr>
                     </thead>
                     <tbody>
                       {nominaMapModal.data.slice(nominaMapModal.hr+1).filter(r=>r.some(c=>c&&String(c).trim())).slice(0,3).map((row,i)=>(
                         <tr key={i}>
-                          <td style={{padding:"3px 8px",color:"#22d3ee",fontFamily:"monospace"}}>{nominaMapModal.legajo>=0?String(row[nominaMapModal.legajo]||""):"—"}</td>
-                          <td style={{padding:"3px 8px",color:"#e2e8f0"}}>{nominaMapModal.nombre>=0?String(row[nominaMapModal.nombre]||""):"—"}</td>
-                          <td style={{padding:"3px 8px",color:"#94a3b8"}}>{nominaMapModal.uo>=0?String(row[nominaMapModal.uo]||""):"—"}</td>
-                          <td style={{padding:"3px 8px",color:"#94a3b8"}}>{nominaMapModal.fechaIngreso>=0?String(row[nominaMapModal.fechaIngreso]||""):"—"}</td>
+                          <td style={{padding:"3px 8px",color:"var(--brand-primary)",fontFamily:"monospace"}}>{nominaMapModal.legajo>=0?String(row[nominaMapModal.legajo]||""):"—"}</td>
+                          <td style={{padding:"3px 8px",color:"var(--text)"}}>{nominaMapModal.nombre>=0?String(row[nominaMapModal.nombre]||""):"—"}</td>
+                          <td style={{padding:"3px 8px",color:"var(--text-muted)"}}>{nominaMapModal.uo>=0?String(row[nominaMapModal.uo]||""):"—"}</td>
+                          <td style={{padding:"3px 8px",color:"var(--text-muted)"}}>{nominaMapModal.fechaIngreso>=0?String(row[nominaMapModal.fechaIngreso]||""):"—"}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -1643,11 +2140,11 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
               </div>
             </div>
             <div style={{padding:"14px 20px",borderTop:"1px solid #334155",display:"flex",gap:10,justifyContent:"flex-end"}}>
-              <button onClick={()=>setNominaMapModal(null)} style={{padding:"8px 18px",background:"#334155",border:"none",color:"#cbd5e1",borderRadius:8,fontSize:13,cursor:"pointer"}}>Cancelar</button>
+              <button onClick={()=>setNominaMapModal(null)} style={{padding:"8px 18px",background:"var(--border)",border:"none",color:"var(--text)",borderRadius:8,fontSize:13,cursor:"pointer"}}>Cancelar</button>
               <button
                 onClick={()=>confirmNominaMap(nominaMapModal)}
                 disabled={nominaMapModal.legajo<0}
-                style={{padding:"8px 18px",background:nominaMapModal.legajo>=0?"#0e7490":"#334155",border:"none",color:nominaMapModal.legajo>=0?"#fff":"#64748b",borderRadius:8,fontSize:13,fontWeight:700,cursor:nominaMapModal.legajo>=0?"pointer":"not-allowed"}}>
+                style={{padding:"8px 18px",background:nominaMapModal.legajo>=0?"var(--brand-primary)":"var(--border)",border:"none",color:nominaMapModal.legajo>=0?"#fff":"var(--text-dim)",borderRadius:8,fontSize:13,fontWeight:700,cursor:nominaMapModal.legajo>=0?"pointer":"not-allowed"}}>
                 Importar nómina →
               </button>
             </div>
@@ -1658,13 +2155,13 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
       {/* ═══ CONCEPT MAP MODAL ═══ */}
       {conceptMapModal&&(
         <div style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.75)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:50,padding:16}}>
-          <div style={{background:"#1e293b",borderRadius:16,border:"1px solid #475569",width:"100%",maxWidth:520,overflow:"hidden"}}>
+          <div style={{background:"var(--bg-card)",borderRadius:16,border:"1px solid #475569",width:"100%",maxWidth:520,overflow:"hidden"}}>
             <div style={{padding:"18px 20px",borderBottom:"1px solid #334155",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
               <div>
-                <h3 style={{margin:0,fontSize:15,fontWeight:700,color:"#fff"}}>Mapeo de columnas — Conceptos</h3>
-                <p style={{margin:"3px 0 0",fontSize:12,color:"#64748b"}}>Hoja: <span style={{color:"#c4b5fd"}}>{conceptMapModal.sheetName}</span></p>
+                <h3 style={{margin:0,fontSize:15,fontWeight:700,color:"var(--text-bright)"}}>Mapeo de columnas — Conceptos</h3>
+                <p style={{margin:"3px 0 0",fontSize:12,color:"var(--text-dim)"}}>Hoja: <span style={{color:"#c4b5fd"}}>{conceptMapModal.sheetName}</span></p>
               </div>
-              <button onClick={()=>setConceptMapModal(null)} style={{background:"none",border:"none",color:"#64748b",fontSize:20,cursor:"pointer",lineHeight:1}}>✕</button>
+              <button onClick={()=>setConceptMapModal(null)} style={{background:"none",border:"none",color:"var(--text-dim)",fontSize:20,cursor:"pointer",lineHeight:1}}>✕</button>
             </div>
             <div style={{padding:20,display:"flex",flexDirection:"column",gap:14}}>
               {[
@@ -1674,11 +2171,11 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                 {key:"tipo",   label:"Tipo / Grupo (Remunerativo, etc.)"},
               ].map(({key,label,required})=>(
                 <div key={key}>
-                  <label style={{display:"block",fontSize:11,color:"#94a3b8",marginBottom:5,textTransform:"uppercase",letterSpacing:"0.06em",fontWeight:600}}>{label}</label>
+                  <label style={{display:"block",fontSize:11,color:"var(--text-muted)",marginBottom:5,textTransform:"uppercase",letterSpacing:"0.06em",fontWeight:600}}>{label}</label>
                   <select
                     value={conceptMapModal[key]}
                     onChange={e=>setConceptMapModal(p=>({...p,[key]:parseInt(e.target.value)}))}
-                    style={{width:"100%",background:"#0f172a",border:`1px solid ${required&&conceptMapModal[key]<0?"#ef4444":"#334155"}`,color:"#fff",borderRadius:8,padding:"8px 10px",fontSize:13,outline:"none"}}>
+                    style={{width:"100%",background:"var(--bg-base)",border:`1px solid ${required&&conceptMapModal[key]<0?"#ef4444":"var(--border)"}`,color:"var(--text)",borderRadius:8,padding:"8px 10px",fontSize:13,outline:"none"}}>
                     <option value={-1}>— sin mapear —</option>
                     {conceptMapModal.hdrs.map((h,i)=>(
                       <option key={i} value={h.idx}>{h.label}</option>
@@ -1689,14 +2186,14 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                   )}
                 </div>
               ))}
-              <div style={{background:"#0f172a",borderRadius:8,padding:"10px 12px",marginTop:4}}>
-                <p style={{fontSize:11,color:"#64748b",margin:"0 0 6px",fontWeight:600,textTransform:"uppercase",letterSpacing:"0.05em"}}>Vista previa (3 filas)</p>
+              <div style={{background:"var(--bg-base)",borderRadius:8,padding:"10px 12px",marginTop:4}}>
+                <p style={{fontSize:11,color:"var(--text-dim)",margin:"0 0 6px",fontWeight:600,textTransform:"uppercase",letterSpacing:"0.05em"}}>Vista previa (3 filas)</p>
                 <div style={{overflowX:"auto"}}>
                   <table style={{width:"100%",fontSize:11,borderCollapse:"collapse"}}>
                     <thead>
                       <tr style={{borderBottom:"1px solid #1e293b"}}>
                         {["ID","Nombre","Unidad","Tipo"].map(h=>(
-                          <th key={h} style={{padding:"3px 8px",textAlign:"left",color:"#475569",fontWeight:600}}>{h}</th>
+                          <th key={h} style={{padding:"3px 8px",textAlign:"left",color:"var(--border-strong)",fontWeight:600}}>{h}</th>
                         ))}
                       </tr>
                     </thead>
@@ -1704,9 +2201,9 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                       {conceptMapModal.data.slice(conceptMapModal.hr+1).filter(r=>r.some(c=>c&&String(c).trim())).slice(0,3).map((row,i)=>(
                         <tr key={i}>
                           <td style={{padding:"3px 8px",color:"#c4b5fd",fontFamily:"monospace"}}>{conceptMapModal.id>=0?String(row[conceptMapModal.id]||""):"—"}</td>
-                          <td style={{padding:"3px 8px",color:"#e2e8f0"}}>{conceptMapModal.nombre>=0?String(row[conceptMapModal.nombre]||""):"—"}</td>
-                          <td style={{padding:"3px 8px",color:"#94a3b8"}}>{conceptMapModal.unidad>=0?String(row[conceptMapModal.unidad]||""):"—"}</td>
-                          <td style={{padding:"3px 8px",color:"#94a3b8"}}>{conceptMapModal.tipo>=0?String(row[conceptMapModal.tipo]||""):"—"}</td>
+                          <td style={{padding:"3px 8px",color:"var(--text)"}}>{conceptMapModal.nombre>=0?String(row[conceptMapModal.nombre]||""):"—"}</td>
+                          <td style={{padding:"3px 8px",color:"var(--text-muted)"}}>{conceptMapModal.unidad>=0?String(row[conceptMapModal.unidad]||""):"—"}</td>
+                          <td style={{padding:"3px 8px",color:"var(--text-muted)"}}>{conceptMapModal.tipo>=0?String(row[conceptMapModal.tipo]||""):"—"}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -1715,12 +2212,12 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
               </div>
             </div>
             <div style={{padding:"14px 20px",borderTop:"1px solid #334155",display:"flex",gap:10,justifyContent:"flex-end"}}>
-              <button onClick={()=>setConceptMapModal(null)} style={{padding:"8px 18px",background:"#334155",border:"none",color:"#cbd5e1",borderRadius:8,fontSize:13,cursor:"pointer"}}>Cancelar</button>
+              <button onClick={()=>setConceptMapModal(null)} style={{padding:"8px 18px",background:"var(--border)",border:"none",color:"var(--text)",borderRadius:8,fontSize:13,cursor:"pointer"}}>Cancelar</button>
               <button
                 onClick={()=>confirmConceptMap(conceptMapModal)}
                 disabled={conceptMapModal.id<0||conceptMapModal.nombre<0}
-                style={{padding:"8px 18px",background:conceptMapModal.id>=0&&conceptMapModal.nombre>=0?"#5b21b6":"#334155",border:"none",
-                  color:conceptMapModal.id>=0&&conceptMapModal.nombre>=0?"#fff":"#64748b",borderRadius:8,fontSize:13,fontWeight:700,
+                style={{padding:"8px 18px",background:conceptMapModal.id>=0&&conceptMapModal.nombre>=0?"#5b21b6":"var(--border)",border:"none",
+                  color:conceptMapModal.id>=0&&conceptMapModal.nombre>=0?"#fff":"var(--text-dim)",borderRadius:8,fontSize:13,fontWeight:700,
                   cursor:conceptMapModal.id>=0&&conceptMapModal.nombre>=0?"pointer":"not-allowed"}}>
                 Importar conceptos →
               </button>
