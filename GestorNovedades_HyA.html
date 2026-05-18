@@ -274,9 +274,9 @@ function parseDateAR(s){
   /* ISO YYYY-MM-DD o YYYY/MM/DD */
   let m=str.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/);
   if(m)return new Date(Date.UTC(+m[1],+m[2]-1,+m[3]));
-  /* DD/MM/YYYY o DD-MM-YYYY (formato AR — día primero) */
+  /* DD/MM/YYYY o DD-MM-YYYY (formato AR — día primero); detecta M/D/Y (US) si mes>12 */
   m=str.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
-  if(m){const y=m[3].length===2?2000+(+m[3]):+m[3];return new Date(Date.UTC(y,+m[2]-1,+m[1]));}
+  if(m){const y=m[3].length===2?2000+(+m[3]):+m[3];let d=+m[1],mo=+m[2];if(mo>12&&d<=12){[d,mo]=[mo,d];}return new Date(Date.UTC(y,mo-1,d));}
   return null;
 }
 /* Parsea número en formato argentino ("1.003,00") o estándar ("1003.00") → number | null */
@@ -707,7 +707,7 @@ function App(){
             ||(n==="concepto"&&hdrs.some(x=>/valor|monto|importe|cant/i.test(x.label)))
             ||(n==="codigo"&&hdrs.some(x=>normTxt(x.label)==="concepto"));
         });
-        const vaIdx=hdrs.findIndex(h=>/^(valor|monto|importe)$/i.test(normTxt(h.label)));
+        const vaIdx=hdrs.findIndex(h=>/\b(valor|monto|importe)\b/i.test(normTxt(h.label)));
         const feIdx=hdrs.findIndex(h=>{
           const n=normTxt(h.label);
           return/fecha.*imputac/.test(n)||/^fec.*imputac/.test(n)||/^fec_/.test(n)||n==="fecha";
@@ -970,7 +970,7 @@ function App(){
         const rows=f.rawData.slice(f.hRow+1)
           .filter(r=>r.some(c=>c!==null&&c!==undefined&&String(c).trim()!==""));
         return rows.map(r=>{
-          const row=[...r];
+          const row=r.slice(0,rawHeaders.length);
           /* Alinear al ancho del master */
           while(row.length<rawHeaders.length)row.push("");
           /* Convertir numéricos */
