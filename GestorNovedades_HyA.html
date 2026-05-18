@@ -26,7 +26,7 @@
     --text-bright:#ffffff;
     --text-muted:#94a3b8;
     --text-dim:#64748b;
-    --brand-primary:#00ACD4;
+    --brand-primary:#18B7E8;
     --brand-secondary:#1E3A5F;
     --brand-on-primary:#ffffff;
     --accent-warning:#fbbf24;
@@ -34,7 +34,7 @@
     --accent-info:#60a5fa;
     --accent-mutual:#8C837B;
     --row-alt:rgba(30,41,59,.5);
-    --row-hover:rgba(0,172,212,.10);
+    --row-hover:rgba(24,183,232,.10);
     --shadow:0 1px 3px rgba(0,0,0,.3);
   }
   /* H&A Brand · Tema claro (editorial: base blanca, navy texto, celeste acento) */
@@ -50,7 +50,7 @@
     --text-bright:#0f172a;
     --text-muted:#475569;
     --text-dim:#64748b;
-    --brand-primary:#00ACD4;
+    --brand-primary:#18B7E8;
     --brand-secondary:#1E3A5F;
     --brand-on-primary:#ffffff;
     --accent-warning:#b45309;
@@ -58,40 +58,60 @@
     --accent-info:#1d4ed8;
     --accent-mutual:#5C544E;
     --row-alt:rgba(241,245,249,.7);
-    --row-hover:rgba(0,172,212,.14);
+    --row-hover:rgba(24,183,232,.14);
     --shadow:0 1px 3px rgba(30,58,95,.08);
   }
   body{margin:0;background:var(--bg-base);color:var(--text);font-family:'Source Sans Pro',Arial,Helvetica,sans-serif;transition:background .2s ease,color .2s ease}
   .ha-wordmark{font-family:'Source Sans Pro',Arial,sans-serif;font-weight:300;color:#8C837B;letter-spacing:.2px}
-  .ha-iso{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:#00ACD4;color:#fff;font-family:'Source Sans Pro',Arial,sans-serif;font-weight:700;letter-spacing:-.5px;flex-shrink:0}
+  .ha-iso{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;background:#18B7E8;color:#fff;font-family:'Source Sans Pro',Arial,sans-serif;font-weight:700;letter-spacing:-.5px;flex-shrink:0}
   .vendor-chip{display:inline-flex;align-items:center;justify-content:center;background:#fff;padding:4px 8px;border-radius:6px;border:1px solid rgba(0,0,0,.06);box-shadow:0 1px 2px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s}
   .vendor-chip:hover{transform:scale(1.05);box-shadow:0 2px 6px rgba(0,0,0,.12)}
   .vendor-logo{height:18px;object-fit:contain;display:block}
   .erp-icon{height:32px;width:auto;max-width:90px;object-fit:contain;display:block;margin:0 auto}
   .erp-icon-wrap{background:#fff;padding:6px 12px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;min-height:44px}
   /* Barra de progreso archivo en proceso */
-  .file-progress{height:3px;background:rgba(0,172,212,.15);border-radius:2px;overflow:hidden;margin-top:6px}
+  .file-progress{height:3px;background:rgba(24,183,232,.15);border-radius:2px;overflow:hidden;margin-top:6px}
   .file-progress-bar{height:100%;background:var(--brand-primary);border-radius:2px;transition:width .25s ease}
   .file-progress-bar.indeterminate{width:35%;animation:slideProgress 1.1s ease-in-out infinite}
   @keyframes slideProgress{0%{margin-left:-35%}50%{margin-left:50%}100%{margin-left:100%}}
-  .privacy-notice{background:rgba(0,172,212,.08);border-left:4px solid #00ACD4;padding:12px 16px;margin:0 0 16px 0;font-size:13px;color:var(--text);border-radius:0 8px 8px 0}
-  .privacy-notice strong{color:#00ACD4}
+  .privacy-notice{background:rgba(24,183,232,.08);border-left:4px solid #18B7E8;padding:12px 16px;margin:0 0 16px 0;font-size:13px;color:var(--text);border-radius:0 8px 8px 0}
+  .privacy-notice strong{color:#18B7E8}
   ::-webkit-scrollbar{width:6px}
   ::-webkit-scrollbar-track{background:var(--bg-card)}
   ::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:3px}
-  .erp-badge-axton{background:rgba(0,172,212,.14);color:var(--brand-primary);border:1px solid var(--brand-primary)}
+  .erp-badge-axton{background:rgba(24,183,232,.14);color:var(--brand-primary);border:1px solid var(--brand-primary)}
   .erp-badge-meta4{background:rgba(30,58,95,.18);color:var(--brand-secondary);border:1px solid var(--brand-secondary)}
   select option{background:var(--bg-card);color:var(--text)}
   .fade-in{animation:fadeIn .3s ease}@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .badge-loading{animation:badgePulse 1.2s ease-in-out infinite}@keyframes badgePulse{0%,100%{opacity:.35}50%{opacity:1}}
   .preview-table{font-size:11px;border-collapse:collapse;width:100%}
   .preview-table th{background:var(--bg-select);color:var(--text-muted);padding:4px 8px;text-align:left;font-weight:600;position:sticky;top:0}
   .preview-table td{padding:3px 8px;color:var(--text);border-bottom:1px solid var(--border)}
   .preview-table tr:nth-child(even) td{background:var(--row-alt)}
   .preview-table tr:hover td{background:var(--row-hover)}
-  .detected-tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:4px;background:rgba(0,172,212,.18);color:var(--brand-primary);margin-left:6px}
-  .ha-brand-line{height:3px;background:var(--brand-primary);width:100%}
+  .detected-tag{display:inline-block;font-size:10px;padding:1px 6px;border-radius:4px;background:rgba(24,183,232,.18);color:var(--brand-primary);margin-left:6px}
+  .ha-brand-line{height:4px;background:linear-gradient(90deg,var(--brand-primary) 0%,#1E3A5F 100%);width:100%}
+  /* Cards activas — borde izquierdo celeste */
+  .card-step{border-left:3px solid var(--brand-primary)!important}
+  /* Scrollbar mejorado */
+  ::-webkit-scrollbar{width:5px;height:5px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:10px}
   .theme-toggle{background:transparent;border:1px solid var(--border-strong);color:var(--text);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:12px;font-weight:600;font-family:inherit;transition:all .2s}
   .theme-toggle:hover{background:var(--bg-input);color:var(--brand-primary);border-color:var(--brand-primary)}
+  /* Tab hover */
+  .tab-btn:hover{color:var(--brand-primary)!important;background:rgba(24,183,232,.07)!important}
+  /* File list item hover */
+  .file-item{transition:border-color .15s,background .15s}
+  .file-item:hover{border-color:var(--border-strong)!important}
+  .file-item-sel{border-color:var(--brand-primary)!important;background:rgba(24,183,232,.08)!important}
+  /* Export buttons */
+  .export-btn{transition:all .18s;font-family:inherit}
+  .export-btn:not(:disabled):hover{filter:brightness(1.12);transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.28)}
+  .export-btn:disabled{opacity:.4;cursor:not-allowed!important}
+  /* Step indicator */
+  .step-circle{transition:background .2s,box-shadow .2s}
+  .step-circle-active{box-shadow:0 0 0 4px rgba(24,183,232,.22)}
 </style>
 </head>
 <body>
@@ -101,22 +121,23 @@
    SECCIÓN: CONSTANTS
    Variables globales, sistemas, clientes default
    ═══════════════════════════════════════════ */
-const {useState,useEffect,useRef} = React;
+const {useState,useEffect,useRef,useMemo,useCallback} = React;
 
 /* ─── Constants ─── */
 const MONTHS_ES=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 const YEARS=[2024,2025,2026,2027,2028];
+const HISTORY_MAX=100;
 
 /* Sistema del cliente — 2 opciones únicamente */
 const SYSTEMS={
-  axton:{label:"Axton IT",   badge:"AX",  bg:"#1e3a5f",text:"#60a5fa",border:"#2563eb"},
-  meta4:{label:"Meta 4",     badge:"M4",  bg:"#4c1d95",text:"#c4b5fd",border:"#7c3aed"},
+  axton:{label:"Axton IT",   badge:"AX",  bg:"#0f2a40",text:"#60a5fa",border:"#2563eb"},
+  meta4:{label:"Meta 4",     badge:"M4",  bg:"#083344",text:"#18B7E8",border:"#0e7490"},
 };
 
 /* Formato de salida Meta 4 — se elige al procesar */
 const META4_FORMATS={
-  incidencias:{label:"Incidencias",   badge:"M4I",  bg:"#4c1d95",text:"#c4b5fd",border:"#7c3aed"},
-  fase_alta:  {label:"Fase de Alta",  badge:"M4FA", bg:"#5b21b6",text:"#ddd6fe",border:"#8b5cf6"},
+  incidencias:{label:"Incidencias",   badge:"M4I",  bg:"#083344",text:"#18B7E8",border:"#0e7490"},
+  fase_alta:  {label:"Fase de Alta",  badge:"M4FA", bg:"#1e3a5f",text:"#93c5fd",border:"#2563eb"},
 };
 
 /* Clientes pre-cargados */
@@ -146,12 +167,15 @@ function renderErpIcon(key){
 
 /* Tipos de archivo de novedades — fuente única de verdad para claves, labels y colores.
    Paleta 100% alineada a brand H&A (skill v2.0): sin verde, sin naranja, sin lavanda.
-   Celeste oficial #00ACD4, gris cálido #8C837B, negro y rojo semántico únicamente. */
+   Celeste oficial #18B7E8, gris cálido #8C837B, negro y rojo semántico únicamente. */
+/* Nota: "auto" = Fase de Alta (columnas); "mutual" = Incidencia por filas (Meta4/Mutual).
+   No confundir "auto" con el antiguo "fase_alta" que existía en versiones anteriores del Gestor. */
 const FILE_TYPES={
-  auto:  {key:"auto",   label:"Fase de Alta (Auto)", badge:"AUTO",   groupLabel:"FASE DE ALTA", color:"#00ACD4",bg:"rgba(0,172,212,.14)"},
+  auto:  {key:"auto",   label:"Fase de Alta (Auto)", badge:"AUTO",   groupLabel:"FASE DE ALTA", color:"#18B7E8",bg:"rgba(24,183,232,.14)"},
   mutual:{key:"mutual", label:"Incidencia (Mutual)", badge:"MUTUAL", groupLabel:"INCIDENCIA",   color:"#8C837B",bg:"rgba(140,131,123,.14)"},
   axton: {key:"axton",  label:"Axton",               badge:"AXTON",  groupLabel:"AXTON",        color:"#1E3A5F",bg:"rgba(30,58,95,.14)"},
-  error: {key:"error",  label:"Error",               badge:"ERROR",  groupLabel:"ERRORES",      color:"#dc2626",bg:"rgba(220,38,38,.14)"},
+  error:  {key:"error",  label:"Error",               badge:"ERROR",  groupLabel:"ERRORES",      color:"#dc2626",bg:"rgba(220,38,38,.14)"},
+  loading:{key:"loading",label:"Cargando…",           badge:"···",    groupLabel:"CARGANDO",     color:"#8C837B",bg:"rgba(140,131,123,.14)"},
 };
 
 const ls=k=>{try{return JSON.parse(localStorage.getItem(k))}catch{return null}};
@@ -219,6 +243,7 @@ function guessConceptCol(hdrLabels,hints){
 }
 
 /* ─── Helpers ─── */
+function getActiveMap(cli,axtonMap,clientMap){return cli?.system==="axton"?axtonMap:clientMap;}
 function parseExcel(file){
   return new Promise((res,rej)=>{
     const r=new FileReader();
@@ -471,15 +496,128 @@ function StatPill({label,value,color="#fff"}){
   );
 }
 
+/* ═══════════════════════════════════════════
+   SECCIÓN: VALIDATION PANEL (item #3)
+   IssueBlock, FlatList, GroupedList, ValidationPanel
+   ═══════════════════════════════════════════ */
+function IssueBlock({label,color,bg,isErr,children,count}){
+  const[open,setOpen]=React.useState(true);
+  if(!count)return null;
+  return(
+    <div style={{marginBottom:10}}>
+      <button onClick={()=>setOpen(o=>!o)}
+        style={{display:"flex",alignItems:"center",gap:6,background:"none",border:"none",cursor:"pointer",padding:0,marginBottom:open?6:0,width:"100%",textAlign:"left"}}>
+        <span style={{fontSize:10,color,minWidth:10}}>{open?"▾":"▸"}</span>
+        <span style={{fontSize:11,color,fontWeight:700,textTransform:"uppercase",letterSpacing:1}}>{isErr?"⛔":"⚠"} {label}</span>
+        <span style={{fontSize:11,color:"var(--text-dim)",marginLeft:4}}>({count})</span>
+      </button>
+      {open&&<div>{children}</div>}
+    </div>
+  );
+}
+function FlatList({items,bg,isErr}){
+  return(
+    <div style={{maxHeight:110,overflowY:"auto"}}>
+      {items.map((e,i)=>(
+        <div key={i} style={{fontSize:12,background:bg,borderRadius:4,padding:"4px 10px",marginBottom:2,display:"flex",gap:10,color:isErr?"#fca5a5":"#fde68a"}}>
+          <span style={{color:"var(--text-dim)",minWidth:44,flexShrink:0}}>Fila {e.row}</span>
+          <span style={{color:"var(--text-muted)",minWidth:55,fontFamily:"monospace",flexShrink:0}}>{e.leg}</span>
+          {e.nombre&&<span style={{color:"var(--text)",minWidth:110,flexShrink:0}}>{e.nombre}</span>}
+          <span style={{flex:1}}>{e.msg}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+function GroupedList({groups,bg,isErr,groupLabel}){
+  const[openGroups,setOpenGroups]=React.useState({});
+  const toggle=k=>setOpenGroups(o=>({...o,[k]:!o[k]}));
+  return(
+    <div>
+      {groups.map(([key,items])=>(
+        <div key={key} style={{marginBottom:4}}>
+          <button onClick={()=>toggle(key)}
+            style={{display:"flex",alignItems:"center",gap:6,width:"100%",background:bg,border:"none",borderRadius:4,padding:"5px 10px",cursor:"pointer",textAlign:"left"}}>
+            <span style={{fontSize:10,color:"var(--text-muted)",minWidth:10}}>{openGroups[key]?"▾":"▸"}</span>
+            <span style={{fontSize:12,fontFamily:"monospace",color:isErr?"#fca5a5":"#fde68a",fontWeight:600}}>{groupLabel} {key}</span>
+            <span style={{fontSize:11,color:"var(--text-dim)",marginLeft:"auto"}}>{items.length} {items.length===1?"fila":"filas"}</span>
+          </button>
+          {openGroups[key]&&(
+            <div style={{paddingLeft:12,marginTop:2}}>
+              {items.map((e,i)=>(
+                <div key={i} style={{fontSize:11,background:"rgba(0,0,0,.15)",borderRadius:3,padding:"3px 8px",marginBottom:2,display:"flex",gap:8,color:isErr?"#fca5a5":"#fde68a"}}>
+                  <span style={{color:"var(--text-dim)",minWidth:44,flexShrink:0}}>Fila {e.row}</span>
+                  <span style={{color:"var(--text-muted)",minWidth:55,fontFamily:"monospace",flexShrink:0}}>{e.leg}</span>
+                  {e.nombre&&<span style={{color:"var(--text)",flexShrink:0}}>{e.nombre}</span>}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+function ValidationPanel({validation,fileName,onDownload,period}){
+  const valid=validation;
+  const issues=valid.issues;
+  const errBg="rgba(127,29,29,.12)";
+  const warnBg="rgba(146,64,14,.12)";
+  const conMapaGroups=(()=>{const m=new Map();(issues.conceptoNoEnMapa||[]).forEach(e=>{const match=e.msg.match(/Concepto\s+(\S+)/);const key=match?match[1]:"?";if(!m.has(key))m.set(key,[]);m.get(key).push(e);});return[...m.entries()];})();
+  const fechasGroups=(()=>{const m=new Map();(issues.fechasFuera||[]).forEach(e=>{const match=e.msg.match(/"([^"]+)"/);const key=match?match[1]:"?";if(!m.has(key))m.set(key,[]);m.get(key).push(e);});return[...m.entries()].sort((a,b)=>a[0].localeCompare(b[0]));})();
+  const duplicadosGroups=(()=>{const m=new Map();(issues.duplicados||[]).forEach(e=>{const match=e.msg.match(/Concepto\s+(\S+)/);const key=match?match[1]:"?";if(!m.has(key))m.set(key,[]);m.get(key).push(e);});return[...m.entries()];})();
+  return(
+    <div style={{...S.card,marginBottom:12}} className="fade-in">
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}}>
+        <h2 style={{...S.h2,margin:0}}>⑥ Validación — {fileName}</h2>
+        <button onClick={onDownload} style={{...S.btn,background:"#1e3a5f",color:"#60a5fa",border:"1px solid #2563eb",padding:"6px 14px",fontSize:12}}>📥 Descargar reporte .xlsx</button>
+      </div>
+      <div style={{display:"flex",gap:10,marginBottom:14,flexWrap:"wrap"}}>
+        <StatPill label="Total filas" value={valid.total}/>
+        <StatPill label="Errores" value={valid.errors.length} color={valid.errors.length>0?"#f87171":"var(--brand-primary)"}/>
+        <StatPill label="Advertencias" value={valid.warnings.length} color={valid.warnings.length>0?"#fbbf24":"var(--brand-primary)"}/>
+        <div style={{display:"flex",alignItems:"center",gap:8,padding:"0 14px",borderRadius:12,
+          background:valid.ok?"rgba(24,183,232,.18)":"rgba(220,38,38,.18)",
+          color:valid.ok?"var(--brand-primary)":"#dc2626",border:`1px solid ${valid.ok?"var(--brand-primary)":"#dc2626"}`}}>
+          <span>{valid.ok?"✓":"✕"}</span>
+          <span style={{fontSize:12,fontWeight:600}}>{valid.ok?"Listo para exportar":"Errores críticos"}</span>
+        </div>
+      </div>
+      <IssueBlock label="Legajo no figura en nómina" color="#f87171" bg={errBg} isErr={true} count={(issues.noEnNomina||[]).length}>
+        <FlatList items={issues.noEnNomina||[]} bg={errBg} isErr={true}/>
+      </IssueBlock>
+      <IssueBlock label="Legajo + Concepto duplicado" color="#f87171" bg={errBg} isErr={true} count={(issues.duplicados||[]).length}>
+        <GroupedList groups={duplicadosGroups} bg={errBg} isErr={true} groupLabel="Concepto"/>
+      </IssueBlock>
+      <IssueBlock label="Legajos vacíos" color="#f87171" bg={errBg} isErr={true} count={(issues.vacios||[]).length}>
+        <FlatList items={issues.vacios||[]} bg={errBg} isErr={true}/>
+      </IssueBlock>
+      <IssueBlock label="Concepto no está en el mapa del cliente" color="#fbbf24" bg={warnBg} isErr={false} count={(issues.conceptoNoEnMapa||[]).length}>
+        <GroupedList groups={conMapaGroups} bg={warnBg} isErr={false} groupLabel="Concepto"/>
+      </IssueBlock>
+      <IssueBlock label="Tipo de valor inconsistente (cantidad/monto)" color="#fbbf24" bg={warnBg} isErr={false} count={(issues.tipoValorInvalido||[]).length}>
+        <FlatList items={issues.tipoValorInvalido||[]} bg={warnBg} isErr={false}/>
+      </IssueBlock>
+      <IssueBlock label="Valores > $1.000.000" color="#fbbf24" bg={warnBg} isErr={false} count={(issues.valoresAltos||[]).length}>
+        <FlatList items={issues.valoresAltos||[]} bg={warnBg} isErr={false}/>
+      </IssueBlock>
+      <IssueBlock label={`Fechas fuera de ${MONTHS_ES[period.month-1]} ${period.year}`} color="#fbbf24" bg={warnBg} isErr={false} count={(issues.fechasFuera||[]).length}>
+        <GroupedList groups={fechasGroups} bg={warnBg} isErr={false} groupLabel="Fecha"/>
+      </IssueBlock>
+    </div>
+  );
+}
+
 function ErpSelector({value,onChange}){
   return(
-    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8}}>
+    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10}}>
       {Object.entries(SOURCE_ERPS).map(([k,erp])=>(
         <button key={k} onClick={()=>onChange(k)}
-          style={{padding:"12px",borderRadius:8,border:`2px solid ${value===k?"var(--brand-primary)":"var(--border-strong)"}`,
-            background:value===k?"rgba(0,172,212,.10)":"var(--bg-card)",cursor:"pointer",textAlign:"center",transition:"all .2s"}}>
+          style={{padding:"16px 12px",borderRadius:10,border:`2px solid ${value===k?"var(--brand-primary)":"var(--border)"}`,
+            background:value===k?"rgba(24,183,232,.12)":"var(--bg-base)",cursor:"pointer",textAlign:"center",
+            transition:"all .2s",boxShadow:value===k?"0 0 0 3px rgba(24,183,232,.18)":"none"}}>
           <div style={{minHeight:44,display:"flex",alignItems:"center",justifyContent:"center"}}>{renderErpIcon(k)}</div>
-          <div style={{color:value===k?"var(--brand-primary)":"var(--text)",fontWeight:600,fontSize:13,marginTop:6}}>{erp.label}</div>
+          <div style={{color:value===k?"var(--brand-primary)":"var(--text)",fontWeight:700,fontSize:13,marginTop:8}}>{erp.label}</div>
           <div style={{color:"var(--text-dim)",fontSize:11,marginTop:2}}>{erp.desc}</div>
         </button>
       ))}
@@ -498,7 +636,7 @@ function DataPreview({data,headerRow,maxRows=8,detected={}}){
       <table className="preview-table">
         <thead>
           <tr>{headers.map((h,i)=>(
-            <th key={i} style={detectedIdxs.has(i)?{background:"rgba(0,172,212,.18)",color:"var(--brand-primary)"}:{}}>
+            <th key={i} style={detectedIdxs.has(i)?{background:"rgba(24,183,232,.18)",color:"var(--brand-primary)"}:{}}>
               {String(h||`Col ${i+1}`).trim()}
               {detectedIdxs.has(i)&&<span className="detected-tag">✓</span>}
             </th>
@@ -540,7 +678,7 @@ function AnalysisPanel({analysis,detected}){
           <div style={{fontSize:11,color:"var(--text-dim)",textTransform:"uppercase",letterSpacing:1,fontWeight:600,marginBottom:8}}>Columnas detectadas</div>
           <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
             {Object.entries(detected).map(([field,d])=>(
-              <span key={field} style={{fontSize:11,padding:"4px 10px",borderRadius:6,background:"rgba(0,172,212,.18)",color:"var(--brand-primary)",fontWeight:500}}>
+              <span key={field} style={{fontSize:11,padding:"4px 10px",borderRadius:6,background:"rgba(24,183,232,.18)",color:"var(--brand-primary)",fontWeight:500}}>
                 {field}: "{d.label}"
               </span>
             ))}
@@ -556,6 +694,20 @@ function AnalysisPanel({analysis,detected}){
    SECCIÓN: APP STATE
    useState, useEffect, estado de procesamiento
    ═══════════════════════════════════════════ */
+/* ─── Styles — nivel de módulo (item #9) ─── */
+const S={
+  card:{background:"var(--bg-card)",borderRadius:14,border:"1px solid var(--border)",padding:22,boxShadow:"0 2px 8px rgba(0,0,0,.18)"},
+  h2:{fontSize:10,fontWeight:700,color:"var(--text-muted)",textTransform:"uppercase",letterSpacing:2.5,marginBottom:18,display:"flex",alignItems:"center",gap:8},
+  select:{width:"100%",background:"var(--bg-select)",border:"1px solid var(--border-strong)",color:"var(--text)",borderRadius:8,padding:"9px 12px",fontSize:13,outline:"none",fontFamily:"inherit"},
+  btn:{padding:"10px 20px",borderRadius:8,border:"none",cursor:"pointer",fontWeight:600,fontSize:13,transition:"all .18s",fontFamily:"inherit"},
+  btnPrimary:{background:"var(--brand-primary)",color:"var(--brand-on-primary)"},
+  btnSuccess:{background:"var(--brand-secondary)",color:"#fff"},
+  btnSecondary:{background:"var(--bg-select)",color:"var(--text)"},
+  tabActive:{padding:"13px 22px",fontSize:13,fontWeight:700,color:"var(--brand-primary)",background:"rgba(24,183,232,.07)",border:"none",borderBottom:"3px solid var(--brand-primary)",cursor:"pointer",fontFamily:"inherit",letterSpacing:.2},
+  tabInactive:{padding:"13px 22px",fontSize:13,fontWeight:500,color:"var(--text-muted)",background:"none",border:"none",borderBottom:"3px solid transparent",cursor:"pointer",fontFamily:"inherit"},
+  pill:(color,bg,border)=>({display:"inline-flex",alignItems:"center",gap:4,fontSize:11,padding:"3px 9px",borderRadius:5,background:bg,color,border:`1px solid ${border}`,fontWeight:700}),
+};
+
 function App(){
   /* ── Persistent state ── */
   const [tab,setTab]=useState("procesar");
@@ -675,9 +827,18 @@ function App(){
     if(!list.length)return;
     const cli=clients.find(c=>c.id===selId);
     const effectiveSystem=cli?.system;
-    const mapSource=effectiveSystem==="axton"?axtonMap:clientMap;
+    const mapSource=getActiveMap(cli,axtonMap,clientMap);
     const sourceConcepts=mapSource?.concepts||cli?.concepts||[];
-    const newFiles=[];
+    /* Crear placeholders y añadirlos a la lista de inmediato (ítem #7) */
+    const placeholders=list.map(file=>({
+      id:Date.now()+"_"+Math.random().toString(36).slice(2,8),
+      name:file.name,rawData:null,headers:[],hRow:0,analysis:null,detected:{},
+      type:FILE_TYPES.loading.key,typeAuto:FILE_TYPES.loading.key,typeOverridden:false,isRowFormat:false,
+      colLeg:"",colNom:"",colConcepto:"",colValor:"",colFecha:"",
+      cMaps:[],hadFilter:false,errorMsg:null,validation:null,
+    }));
+    setFiles(fs=>[...fs,...placeholders]);
+    if(step<3)setStep(3);
     /* Inicializar panel de progreso */
     setProcStatus({
       active:true,current:0,total:list.length,
@@ -687,6 +848,7 @@ function App(){
     const tick=()=>new Promise(r=>setTimeout(r,0));
     for(let i=0;i<list.length;i++){
       const file=list[i];
+      const pid=placeholders[i].id;
       const setItem=(patch)=>setProcStatus(s=>({...s,current:i,items:s.items.map((it,idx)=>idx===i?{...it,...patch}:it)}));
       try{
         setItem({phase:"reading",progress:20});await tick();
@@ -749,12 +911,11 @@ function App(){
         };
         setItem({phase:"validating",progress:80});await tick();
         if(validateOnLoad)newFile.validation=runValidationFor(newFile);
-        newFiles.push(newFile);
+        patchFile(pid,newFile);
         setItem({phase:errorMsg?"error":"done",progress:100});
       }catch(err){
-        newFiles.push({
-          id:Date.now()+"_"+Math.random().toString(36).slice(2,8),
-          name:file.name,rawData:null,headers:[],hRow:0,analysis:null,detected:{},
+        patchFile(pid,{
+          rawData:null,headers:[],hRow:0,analysis:null,detected:{},
           type:FILE_TYPES.error.key,typeAuto:FILE_TYPES.error.key,typeOverridden:false,isRowFormat:false,
           colLeg:"",colNom:"",colConcepto:"",colValor:"",colFecha:"",
           cMaps:[],hadFilter:false,errorMsg:"Error leyendo: "+err.message,validation:null,
@@ -762,9 +923,7 @@ function App(){
         setItem({phase:"error",progress:100});
       }
     }
-    setFiles(fs=>[...fs,...newFiles]);
-    if(!selFileId&&newFiles.length)setSelFileId(newFiles[0].id);
-    if(step<3)setStep(3);
+    if(!selFileId&&placeholders.length)setSelFileId(placeholders[0].id);
     /* Mantener el panel un momento para que el usuario vea el ✓ y luego ocultar */
     setTimeout(()=>setProcStatus({active:false,current:0,total:0,items:[]}),700);
   }
@@ -782,7 +941,7 @@ function App(){
     const nMap=new Map(nomina.map(e=>[String(e.legajo).trim(),e]));
     const cli=clients.find(c=>c.id===selId);
     const effectiveSystem=cli?.system;
-    const mapSource=effectiveSystem==="axton"?axtonMap:clientMap;
+    const mapSource=getActiveMap(cli,axtonMap,clientMap);
     const conceptLookup=new Map((mapSource?.concepts||[]).map(c=>[String(c.id),c]));
     const issues={noEnNomina:[],duplicados:[],conceptoNoEnMapa:[],tipoValorInvalido:[],valoresAltos:[],fechasFuera:[],vacios:[],valorNoNumerico:[],legajoDadoDeBaja:[]};
     const seenLegCon=new Map();
@@ -1039,8 +1198,8 @@ function App(){
       const aggErr=group.reduce((s,f)=>s+(f.validation?.errors?.length||0),0);
       const aggWarn=group.reduce((s,f)=>s+(f.validation?.warnings?.length||0),0);
       setHistory(h=>[{id:Date.now(),client:cli?.name||"—",system:type,period:monthStr,
-        rows:totalRows,file:fname,date:new Date().toLocaleString("es-AR"),
-        sourceErp,errors:aggErr,warnings:aggWarn},...h].slice(0,100));
+        rows:totalRows,file:fname,date:new Date().toLocaleString("es-AR"),isoDate:new Date().toISOString(),
+        sourceErp,errors:aggErr,warnings:aggWarn},...h].slice(0,HISTORY_MAX));
       setStep(5);
       return;
     }
@@ -1080,8 +1239,8 @@ function App(){
       const fname=`AXTON_${getMMAAAA()}_${(cli.shortName||cli.name).replace(/\s/g,"").slice(0,8)}.xlsx`;
       XLSX.writeFile(wb,fname);
       setHistory(h=>[{id:Date.now(),client:cli.name,system:"axton",period:monthStr,
-        rows:out.length-2,file:fname,date:new Date().toLocaleString("es-AR"),
-        sourceErp,errors:0,warnings:0},...h].slice(0,100));
+        rows:out.length-2,file:fname,date:new Date().toLocaleString("es-AR"),isoDate:new Date().toISOString(),
+        sourceErp,errors:0,warnings:0},...h].slice(0,HISTORY_MAX));
       setStep(5);
       return;
     }
@@ -1187,33 +1346,20 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
      UI HISTORIAL / MODAL CLIENTE
      ═══════════════════════════════════════════ */
   const selCli=clients.find(c=>c.id===selId);
-  const activeMap=selCli?.system==="axton"?axtonMap:clientMap;
-  /* Agregados multi-archivo */
-  const fileGroups={
+  const activeMap=getActiveMap(selCli,axtonMap,clientMap);
+  /* Agregados multi-archivo — memoizados para no recalcular en cada render (ítem #6) */
+  const fileGroups=useMemo(()=>({
     auto:  files.filter(f=>f.type===FILE_TYPES.auto.key),
     mutual:files.filter(f=>f.type===FILE_TYPES.mutual.key),
     axton: files.filter(f=>f.type===FILE_TYPES.axton.key),
     error: files.filter(f=>f.type===FILE_TYPES.error.key),
-  };
-  const totalRows=(grp)=>grp.reduce((s,f)=>s+(f.rawData?f.rawData.slice(f.hRow+1).filter(r=>r.some(c=>c&&String(c).trim())).length:0),0);
-  const aggValidation=files.reduce((acc,f)=>{
+    loading:files.filter(f=>f.type===FILE_TYPES.loading.key),
+  }),[files]);
+  const totalRows=useCallback((grp)=>grp.reduce((s,f)=>s+(f.rawData?f.rawData.slice(f.hRow+1).filter(r=>r.some(c=>c&&String(c).trim())).length:0),0),[]);
+  const aggValidation=useMemo(()=>files.reduce((acc,f)=>{
     if(!f.validation)return acc;
     return{errors:acc.errors+f.validation.errors.length,warnings:acc.warnings+f.validation.warnings.length,validated:acc.validated+1};
-  },{errors:0,warnings:0,validated:0});
-
-  /* ─── Styles ─── */
-  const S={
-    card:{background:"var(--bg-card)",borderRadius:12,border:"1px solid var(--border)",padding:20,boxShadow:"var(--shadow)"},
-    h2:{fontSize:11,fontWeight:700,color:"var(--text-muted)",textTransform:"uppercase",letterSpacing:2,marginBottom:16},
-    select:{width:"100%",background:"var(--bg-select)",border:"1px solid var(--border-strong)",color:"var(--text)",borderRadius:8,padding:"8px 12px",fontSize:13,outline:"none",fontFamily:"inherit"},
-    btn:{padding:"10px 20px",borderRadius:8,border:"none",cursor:"pointer",fontWeight:600,fontSize:13,transition:"all .2s",fontFamily:"inherit"},
-    btnPrimary:{background:"var(--brand-primary)",color:"var(--brand-on-primary)"},
-    btnSuccess:{background:"var(--brand-secondary)",color:"#fff"},
-    btnSecondary:{background:"var(--bg-select)",color:"var(--text)"},
-    tabActive:{padding:"12px 20px",fontSize:13,fontWeight:600,color:"var(--brand-primary)",background:"none",border:"none",borderBottom:"2px solid var(--brand-primary)",cursor:"pointer",fontFamily:"inherit"},
-    tabInactive:{padding:"12px 20px",fontSize:13,fontWeight:500,color:"var(--text-muted)",background:"none",border:"none",borderBottom:"2px solid transparent",cursor:"pointer",fontFamily:"inherit"},
-    pill:(color,bg,border)=>({display:"inline-flex",alignItems:"center",gap:4,fontSize:11,padding:"2px 8px",borderRadius:4,background:bg,color,border:`1px solid ${border}`,fontWeight:600}),
-  };
+  },{errors:0,warnings:0,validated:0}),[files]);
 
   return(
     <div style={{minHeight:"100vh",color:"var(--text)"}}>
@@ -1243,7 +1389,7 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
             <span className="vendor-chip" title="Meta 4"><img src="meta4_logo_orh.png" alt="Meta 4" className="vendor-logo" style={{height:16}}/></span>
           </div>
           <div style={{fontSize:12,padding:"6px 12px",borderRadius:8,border:`1px solid ${nomina.length>0?"var(--brand-primary)":"var(--accent-warning)"}`,
-            background:nomina.length>0?"rgba(0,172,212,.14)":"rgba(251,191,36,.14)",color:nomina.length>0?"var(--brand-primary)":"var(--accent-warning)"}}>
+            background:nomina.length>0?"rgba(24,183,232,.14)":"rgba(251,191,36,.14)",color:nomina.length>0?"var(--brand-primary)":"var(--accent-warning)"}}>
             {nomina.length>0?`✓ Nómina: ${nomina.length} emp.`:"⚠ Sin nómina activa"}
           </div>
           <div style={{fontSize:12,padding:"6px 12px",borderRadius:8,border:`1px solid ${axtonMap?"var(--brand-secondary)":"var(--border)"}`,
@@ -1258,9 +1404,9 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
       </div>
 
       {/* Tab Bar */}
-      <div style={{display:"flex",background:"var(--bg-card)",borderBottom:"1px solid #334155",paddingLeft:24}}>
+      <div style={{display:"flex",background:"var(--bg-card)",borderBottom:"1px solid var(--border)",paddingLeft:24}}>
         {[["procesar","📋 Procesar"],["clientes","🏢 Clientes"],["nomina","👥 Nómina"],["historial","📜 Historial"]].map(([id,label])=>(
-          <button key={id} onClick={()=>setTab(id)} style={tab===id?S.tabActive:S.tabInactive}>{label}</button>
+          <button key={id} className="tab-btn" onClick={()=>setTab(id)} style={tab===id?S.tabActive:S.tabInactive}>{label}</button>
         ))}
       </div>
 
@@ -1276,23 +1422,31 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
             </div>
 
             {/* Step indicators */}
-            <div style={{display:"flex",alignItems:"center",gap:6,fontSize:11,color:"var(--text-dim)",marginBottom:16,flexWrap:"wrap"}}>
-              {["Cliente·Período","ERP origen","Archivo","Mapeo","Validar","Exportar"].map((s,i)=>(
-                <span key={i} style={{display:"flex",alignItems:"center",gap:4}}>
-                  <span style={{width:20,height:20,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",
-                    fontWeight:700,fontSize:10,flexShrink:0,
-                    background:step>i+1?"var(--brand-secondary)":step===i+1?"var(--brand-primary)":"var(--border)",
-                    color:step>i+1?"#fff":step===i+1?"#fff":"var(--text-dim)"}}>
-                    {step>i+1?"✓":i+1}
+            <div style={{display:"flex",alignItems:"center",gap:0,marginBottom:20,flexWrap:"wrap",rowGap:8}}>
+              {["Cliente·Período","ERP origen","Archivo","Mapeo","Validar","Exportar"].map((s,i)=>{
+                const done=step>i+1,active=step===i+1;
+                return(
+                  <span key={i} style={{display:"flex",alignItems:"center"}}>
+                    <span style={{display:"flex",alignItems:"center",gap:7,flexShrink:0}}>
+                      <span className={"step-circle"+(active?" step-circle-active":"")}
+                        style={{width:28,height:28,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",
+                          fontWeight:700,fontSize:11,flexShrink:0,
+                          background:done?"var(--brand-secondary)":active?"var(--brand-primary)":"var(--border)",
+                          color:done||active?"#fff":"var(--text-dim)"}}>
+                        {done?"✓":i+1}
+                      </span>
+                      <span style={{fontSize:12,fontWeight:active?700:500,whiteSpace:"nowrap",
+                        color:active?"var(--brand-primary)":done?"var(--text)":"var(--text-dim)"}}>{s}</span>
+                    </span>
+                    {i<5&&<span style={{width:22,height:2,background:done?"var(--brand-secondary)":"var(--border)",
+                      margin:"0 8px",flexShrink:0,borderRadius:1,transition:"background .3s"}}></span>}
                   </span>
-                  <span style={{color:step===i+1?"var(--brand-primary)":step>i+1?"var(--brand-primary)":""}}>{s}</span>
-                  {i<5&&<span style={{color:"var(--border)"}}>›</span>}
-                </span>
-              ))}
+                );
+              })}
             </div>
 
             {/* Step 1: Client + Period */}
-            <div style={{...S.card,marginBottom:12}}>
+            <div className="card-step" style={{...S.card,marginBottom:12}}>
               <h2 style={S.h2}>① Cliente · Sistema · Período a procesar</h2>
               <div style={{display:"flex",gap:12,flexWrap:"wrap",alignItems:"flex-end"}}>
                 <div style={{flex:1,minWidth:180}}>
@@ -1342,7 +1496,7 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
 
             {/* Step 2: ERP source */}
             {selId&&(
-              <div style={{...S.card,marginBottom:12}} className="fade-in">
+              <div className="card-step fade-in" style={{...S.card,marginBottom:12}}>
                 <h2 style={S.h2}>② ERP de origen del archivo</h2>
                 <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8}}>
                   {Object.entries(SOURCE_ERPS).map(([k,erp])=>(
@@ -1360,11 +1514,11 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
 
             {/* Step 2b: Concept map + upload */}
             {selId&&(
-              <div style={{...S.card,marginBottom:12}}>
+              <div className="card-step" style={{...S.card,marginBottom:12}}>
                 <h2 style={S.h2}>③ Mapa de conceptos del cliente</h2>
                 {selCli?.system==="axton"?(
                   axtonMap?(
-                    <div style={{display:"flex",alignItems:"center",gap:12,background:"rgba(0,172,212,.10)",border:"1px solid var(--brand-primary)",borderRadius:8,padding:"10px 14px"}}>
+                    <div style={{display:"flex",alignItems:"center",gap:12,background:"rgba(24,183,232,.10)",border:"1px solid var(--brand-primary)",borderRadius:8,padding:"10px 14px"}}>
                       <span style={{fontSize:18}}>✅</span>
                       <div style={{flex:1}}>
                         <p style={{margin:0,fontSize:12,color:"var(--brand-primary)",fontWeight:500}}>{axtonMap.name}</p>
@@ -1379,7 +1533,7 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                   )
                 ):(
                   clientMap?(
-                    <div style={{display:"flex",alignItems:"center",gap:12,background:"rgba(0,172,212,.10)",border:"1px solid var(--brand-primary)",borderRadius:8,padding:"10px 14px"}}>
+                    <div style={{display:"flex",alignItems:"center",gap:12,background:"rgba(24,183,232,.10)",border:"1px solid var(--brand-primary)",borderRadius:8,padding:"10px 14px"}}>
                       <span style={{fontSize:18}}>✅</span>
                       <div style={{flex:1}}>
                         <p style={{margin:0,fontSize:12,color:"var(--brand-primary)",fontWeight:500}}>{clientMap.name}</p>
@@ -1388,12 +1542,12 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                       <button onClick={()=>setClientMap(null)} style={{color:"var(--text-dim)",background:"none",border:"none",cursor:"pointer",fontSize:12}}>✕</button>
                     </div>
                   ):(
-                    <label style={{display:"flex",alignItems:"center",gap:10,border:"1px dashed #7c3aed",borderRadius:8,padding:"12px 14px",cursor:"pointer",background:"rgba(124,58,237,.05)"}}>
+                    <label style={{display:"flex",alignItems:"center",gap:10,border:"1px dashed #0e7490",borderRadius:8,padding:"12px 14px",cursor:"pointer",background:"rgba(14,116,144,.06)"}}>
                       <input type="file" accept=".xlsx,.xls,.csv" style={{display:"none"}}
                         onChange={e=>{const f=e.target.files?.[0];if(f)handleMeta4MapFile(f);e.target.value="";}}/>
                       <span style={{fontSize:24}}>📁</span>
                       <div>
-                        <p style={{margin:0,fontSize:12,color:"#c4b5fd",fontWeight:500}}>Subir mapa de conceptos Meta 4</p>
+                        <p style={{margin:0,fontSize:12,color:"var(--brand-primary)",fontWeight:500}}>Subir mapa de conceptos Meta 4</p>
                         <p style={{margin:0,fontSize:11,color:"var(--text-dim)"}}>Excel con hoja CONCEPTO_UNIDAD — auto-parseo + inferencia de tipo</p>
                       </div>
                     </label>
@@ -1416,8 +1570,8 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                             <td>
                               <button onClick={()=>toggleTipoManual(activeMap,selCli?.system==="axton"?setAxtonMap:setClientMap,i)}
                                 style={{fontSize:10,padding:"2px 8px",borderRadius:4,cursor:"pointer",border:"none",fontWeight:600,
-                                  background:c.tipoValor==="cantidad"?"rgba(34,211,238,.15)":"rgba(167,139,250,.15)",
-                                  color:c.tipoValor==="cantidad"?"var(--brand-primary)":"#c4b5fd"}}>
+                                  background:c.tipoValor==="cantidad"?"rgba(34,211,238,.15)":"rgba(30,58,95,.22)",
+                                  color:c.tipoValor==="cantidad"?"var(--brand-primary)":"#93c5fd"}}>
                                 {c.tipoValor==="cantidad"?"# Cantidad":"$ Monto"}{c.tipoManual?"*":""}
                               </button>
                             </td>
@@ -1434,7 +1588,7 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
 
             {/* Step 3: Multi-file upload + viewer */}
             {selId&&(
-              <div style={{...S.card,marginBottom:12}}>
+              <div className="card-step" style={{...S.card,marginBottom:12}}>
                 <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12,flexWrap:"wrap",gap:8}}>
                   <h2 style={{...S.h2,margin:0}}>④ Archivos de novedades (múltiples)</h2>
                   <label style={{display:"flex",alignItems:"center",gap:6,fontSize:11,color:"var(--text-muted)",cursor:"pointer"}}>
@@ -1446,7 +1600,7 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                   label={`Arrastrá uno o más archivos de novedades${selCli?` de ${selCli.name}`:""}`}/>
                 {/* Panel de progreso durante carga */}
                 {procStatus.active&&(
-                  <div style={{marginTop:14,padding:14,borderRadius:10,background:"rgba(0,172,212,.06)",border:"1px solid var(--brand-primary)"}}>
+                  <div style={{marginTop:14,padding:14,borderRadius:10,background:"rgba(24,183,232,.06)",border:"1px solid var(--brand-primary)"}}>
                     <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
                       <span style={{fontSize:12,fontWeight:700,color:"var(--brand-primary)",textTransform:"uppercase",letterSpacing:1}}>
                         ⚙ Procesando {procStatus.current+1} de {procStatus.total}
@@ -1503,11 +1657,13 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                         const v=f.validation;
                         return(
                           <div key={f.id} onClick={()=>setSelFileId(f.id)}
-                            style={{display:"flex",alignItems:"center",gap:10,padding:"8px 12px",
+                            className={"file-item"+(isSel?" file-item-sel":"")}
+                            style={{display:"flex",alignItems:"center",gap:10,padding:"10px 14px",
                               borderRadius:8,cursor:"pointer",
-                              background:isSel?"rgba(34,211,238,.08)":"var(--bg-base)",
+                              background:isSel?"rgba(24,183,232,.08)":"var(--bg-base)",
                               border:`1px solid ${isSel?"var(--brand-primary)":"var(--border)"}`}}>
-                            <span style={{fontSize:10,fontWeight:700,padding:"3px 8px",borderRadius:4,
+                            <span className={f.type===FILE_TYPES.loading.key?"badge-loading":""}
+                              style={{fontSize:10,fontWeight:700,padding:"3px 8px",borderRadius:4,
                               background:c+"22",color:c,border:`1px solid ${c}`,minWidth:60,textAlign:"center"}}>
                               {ft?.badge||"?"}{f.typeOverridden?"*":""}
                             </span>
@@ -1526,7 +1682,9 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                             </div>
                             <select value={f.type} onClick={e=>e.stopPropagation()}
                               onChange={e=>patchFile(f.id,{type:e.target.value,typeOverridden:e.target.value!==f.typeAuto})}
-                              style={{...S.select,width:120,fontSize:11,padding:"4px 6px"}}>
+                              disabled={f.type===FILE_TYPES.loading.key}
+                              style={{...S.select,width:120,fontSize:11,padding:"4px 6px",opacity:f.type===FILE_TYPES.loading.key?.5:1}}>
+                              {f.type===FILE_TYPES.loading.key&&<option value={FILE_TYPES.loading.key}>Cargando…</option>}
                               <option value={FILE_TYPES.auto.key}>Auto (Fase Alta)</option>
                               <option value={FILE_TYPES.mutual.key}>Mutual (Incidencia)</option>
                               <option value={FILE_TYPES.axton.key}>Axton</option>
@@ -1553,7 +1711,7 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
 
             {/* Step 4: Column mapping (selected file) */}
             {selFile&&selFile.rawData&&(
-              <div style={{...S.card,marginBottom:12}} className="fade-in">
+              <div className="card-step fade-in" style={{...S.card,marginBottom:12}}>
                 <h2 style={S.h2}>⑤ Mapeo de columnas — {selFile.name}</h2>
                 <AnalysisPanel analysis={selFile.analysis} detected={selFile.detected}/>
                 <div style={{marginTop:10,marginBottom:14}}>
@@ -1626,8 +1784,8 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                               </select>
                               <button onClick={()=>patchFile(selFile.id,f=>({cMaps:f.cMaps.map((x,j)=>j===i?{...x,tipoValor:x.tipoValor==="monto"?"cantidad":"monto"}:x)}))}
                                 style={{fontSize:10,padding:"4px 8px",borderRadius:4,cursor:"pointer",border:"none",fontWeight:600,flexShrink:0,
-                                  background:m.tipoValor==="cantidad"?"rgba(34,211,238,.15)":"rgba(167,139,250,.15)",
-                                  color:m.tipoValor==="cantidad"?"var(--brand-primary)":"#c4b5fd"}}>
+                                  background:m.tipoValor==="cantidad"?"rgba(34,211,238,.15)":"rgba(30,58,95,.22)",
+                                  color:m.tipoValor==="cantidad"?"var(--brand-primary)":"#93c5fd"}}>
                                 {m.tipoValor==="cantidad"?"#":"$"}
                               </button>
                               <button onClick={()=>patchFile(selFile.id,f=>({cMaps:f.cMaps.filter((_,j)=>j!==i)}))}
@@ -1648,174 +1806,11 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
             )}
 
            {/* Step 5: Validation results (selected file) */}
-{selFile&&selFile.validation&&(()=>{const valid=selFile.validation;return(
-  <div style={{...S.card,marginBottom:12}} className="fade-in">
-    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}}>
-      <h2 style={{...S.h2,margin:0}}>⑥ Validación — {selFile.name}</h2>
-      <button onClick={downloadValidationXls}
-        style={{...S.btn,background:"#1e3a5f",color:"#60a5fa",border:"1px solid #2563eb",padding:"6px 14px",fontSize:12}}>
-        📥 Descargar reporte .xlsx
-      </button>
-    </div>
-    <div style={{display:"flex",gap:10,marginBottom:14,flexWrap:"wrap"}}>
-      <StatPill label="Total filas" value={valid.total}/>
-      <StatPill label="Errores" value={valid.errors.length} color={valid.errors.length>0?"#f87171":"var(--brand-primary)"}/>
-      <StatPill label="Advertencias" value={valid.warnings.length} color={valid.warnings.length>0?"#fbbf24":"var(--brand-primary)"}/>
-      <div style={{display:"flex",alignItems:"center",gap:8,padding:"0 14px",borderRadius:12,
-        background:valid.ok?"rgba(0,172,212,.18)":"rgba(220,38,38,.18)",
-        color:valid.ok?"var(--brand-primary)":"#dc2626",border:`1px solid ${valid.ok?"var(--brand-primary)":"#dc2626"}`}}>
-        <span>{valid.ok?"✓":"✕"}</span>
-        <span style={{fontSize:12,fontWeight:600}}>{valid.ok?"Listo para exportar":"Errores críticos"}</span>
-      </div>
-    </div>
-
-    {/* ── Secciones de issues ── */}
-    {(()=>{
-      const IssueBlock=({label,color,bg,isErr,children,count})=>{
-        const [open,setOpen]=React.useState(true);
-        if(!count)return null;
-        return(
-          <div style={{marginBottom:10}}>
-            <button onClick={()=>setOpen(o=>!o)}
-              style={{display:"flex",alignItems:"center",gap:6,background:"none",border:"none",cursor:"pointer",padding:0,marginBottom:open?6:0,width:"100%",textAlign:"left"}}>
-              <span style={{fontSize:10,color,minWidth:10}}>{open?"▾":"▸"}</span>
-              <span style={{fontSize:11,color,fontWeight:700,textTransform:"uppercase",letterSpacing:1}}>
-                {isErr?"⛔":"⚠"} {label}
-              </span>
-              <span style={{fontSize:11,color:"var(--text-dim)",marginLeft:4}}>({count})</span>
-            </button>
-            {open&&<div>{children}</div>}
-          </div>
-        );
-      };
-
-      /* Render genérico — lista plana */
-      const FlatList=({items,bg,isErr})=>(
-        <div style={{maxHeight:110,overflowY:"auto"}}>
-          {items.map((e,i)=>(
-            <div key={i} style={{fontSize:12,background:bg,borderRadius:4,padding:"4px 10px",marginBottom:2,display:"flex",gap:10,color:isErr?"#fca5a5":"#fde68a"}}>
-              <span style={{color:"var(--text-dim)",minWidth:44,flexShrink:0}}>Fila {e.row}</span>
-              <span style={{color:"var(--text-muted)",minWidth:55,fontFamily:"monospace",flexShrink:0}}>{e.leg}</span>
-              {e.nombre&&<span style={{color:"var(--text)",minWidth:110,flexShrink:0}}>{e.nombre}</span>}
-              <span style={{flex:1}}>{e.msg}</span>
-            </div>
-          ))}
-        </div>
-      );
-
-      /* Render agrupado con sub-colapsables */
-      const GroupedList=({groups,bg,isErr,groupLabel})=>{
-        const [openGroups,setOpenGroups]=React.useState({});
-        const toggle=k=>setOpenGroups(o=>({...o,[k]:!o[k]}));
-        return(
-          <div>
-            {groups.map(([key,items])=>(
-              <div key={key} style={{marginBottom:4}}>
-                <button onClick={()=>toggle(key)}
-                  style={{display:"flex",alignItems:"center",gap:6,width:"100%",background:bg,border:"none",borderRadius:4,
-                    padding:"5px 10px",cursor:"pointer",textAlign:"left"}}>
-                  <span style={{fontSize:10,color:"var(--text-muted)",minWidth:10}}>{openGroups[key]?"▾":"▸"}</span>
-                  <span style={{fontSize:12,fontFamily:"monospace",color:isErr?"#fca5a5":"#fde68a",fontWeight:600}}>{groupLabel} {key}</span>
-                  <span style={{fontSize:11,color:"var(--text-dim)",marginLeft:"auto"}}>{items.length} {items.length===1?"fila":"filas"}</span>
-                </button>
-                {openGroups[key]&&(
-                  <div style={{paddingLeft:12,marginTop:2}}>
-                    {items.map((e,i)=>(
-                      <div key={i} style={{fontSize:11,background:"rgba(0,0,0,.15)",borderRadius:3,padding:"3px 8px",marginBottom:2,
-                        display:"flex",gap:8,color:isErr?"#fca5a5":"#fde68a"}}>
-                        <span style={{color:"var(--text-dim)",minWidth:44,flexShrink:0}}>Fila {e.row}</span>
-                        <span style={{color:"var(--text-muted)",minWidth:55,fontFamily:"monospace",flexShrink:0}}>{e.leg}</span>
-                        {e.nombre&&<span style={{color:"var(--text)",flexShrink:0}}>{e.nombre}</span>}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        );
-      };
-
-      const issues=valid.issues;
-      const errBg="rgba(127,29,29,.12)";
-      const warnBg="rgba(146,64,14,.12)";
-
-      /* ── Agrupamiento: conceptoNoEnMapa por código ── */
-      const conMapaGroups=(()=>{
-        const m=new Map();
-        (issues.conceptoNoEnMapa||[]).forEach(e=>{
-          const match=e.msg.match(/Concepto\s+(\S+)/);
-          const key=match?match[1]:"?";
-          if(!m.has(key))m.set(key,[]);
-          m.get(key).push(e);
-        });
-        return [...m.entries()];
-      })();
-
-      /* ── Agrupamiento: fechasFuera por fecha ── */
-      const fechasGroups=(()=>{
-        const m=new Map();
-        (issues.fechasFuera||[]).forEach(e=>{
-          const match=e.msg.match(/"([^"]+)"/);
-          const key=match?match[1]:"?";
-          if(!m.has(key))m.set(key,[]);
-          m.get(key).push(e);
-        });
-        return [...m.entries()].sort((a,b)=>a[0].localeCompare(b[0]));
-      })();
-
-      /* ── Agrupamiento: duplicados por código de concepto ── */
-      const duplicadosGroups=(()=>{
-        const m=new Map();
-        (issues.duplicados||[]).forEach(e=>{
-          // Extraer código entre "Concepto " y " " o ")"
-          const match=e.msg.match(/Concepto\s+(\S+)/);
-          const key=match?match[1]:"?";
-          if(!m.has(key))m.set(key,[]);
-          m.get(key).push(e);
-        });
-        return [...m.entries()];
-      })();
-
-      return(
-        <>
-          <IssueBlock label="Legajo no figura en nómina" color="#f87171" bg={errBg} isErr={true} count={(issues.noEnNomina||[]).length}>
-            <FlatList items={issues.noEnNomina||[]} bg={errBg} isErr={true}/>
-          </IssueBlock>
-
-          <IssueBlock label="Legajo + Concepto duplicado" color="#f87171" bg={errBg} isErr={true} count={(issues.duplicados||[]).length}>
-            <GroupedList groups={duplicadosGroups} bg={errBg} isErr={true} groupLabel="Concepto"/>
-          </IssueBlock>
-
-          <IssueBlock label="Legajos vacíos" color="#f87171" bg={errBg} isErr={true} count={(issues.vacios||[]).length}>
-            <FlatList items={issues.vacios||[]} bg={errBg} isErr={true}/>
-          </IssueBlock>
-
-          <IssueBlock label="Concepto no está en el mapa del cliente" color="#fbbf24" bg={warnBg} isErr={false} count={(issues.conceptoNoEnMapa||[]).length}>
-            <GroupedList groups={conMapaGroups} bg={warnBg} isErr={false} groupLabel="Concepto"/>
-          </IssueBlock>
-
-          <IssueBlock label="Tipo de valor inconsistente (cantidad/monto)" color="#fbbf24" bg={warnBg} isErr={false} count={(issues.tipoValorInvalido||[]).length}>
-            <FlatList items={issues.tipoValorInvalido||[]} bg={warnBg} isErr={false}/>
-          </IssueBlock>
-
-          <IssueBlock label="Valores > $1.000.000" color="#fbbf24" bg={warnBg} isErr={false} count={(issues.valoresAltos||[]).length}>
-            <FlatList items={issues.valoresAltos||[]} bg={warnBg} isErr={false}/>
-          </IssueBlock>
-
-          <IssueBlock label={`Fechas fuera de ${MONTHS_ES[period.month-1]} ${period.year}`} color="#fbbf24" bg={warnBg} isErr={false} count={(issues.fechasFuera||[]).length}>
-            <GroupedList groups={fechasGroups} bg={warnBg} isErr={false} groupLabel="Fecha"/>
-          </IssueBlock>
-        </>
-      );
-    })()}
-
-  </div>
-);})()}
+{selFile&&selFile.validation&&<ValidationPanel validation={selFile.validation} fileName={selFile.name} onDownload={downloadValidationXls} period={period}/>}
 
             {/* Step 6: Export agrupado */}
             {files.length>0&&(
-              <div style={{...S.card,marginBottom:12}}>
+              <div className="card-step" style={{...S.card,marginBottom:12}}>
                 <h2 style={S.h2}>⑦ Exportar agrupado por tipo</h2>
                 {aggValidation.validated>0&&(
                   <div style={{display:"flex",gap:8,marginBottom:12,flexWrap:"wrap",fontSize:11,color:"var(--text-muted)"}}>
@@ -1824,25 +1819,36 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                     <span style={{color:aggValidation.warnings>0?"#fbbf24":"var(--brand-primary)"}}>Advertencias: <strong>{aggValidation.warnings}</strong></span>
                   </div>
                 )}
-                <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-                  <button onClick={()=>doExportGrouped(FILE_TYPES.auto.key)} disabled={!fileGroups.auto.length}
-                    style={{...S.btn,background:FILE_TYPES.auto.color,color:"#fff",opacity:fileGroups.auto.length?1:.4,cursor:fileGroups.auto.length?"pointer":"not-allowed"}}>
-                    ⬇ Descargar {FILE_TYPES.auto.label} — {fileGroups.auto.length}
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:10}}>
+                  <button className="export-btn" onClick={()=>doExportGrouped(FILE_TYPES.auto.key)} disabled={!fileGroups.auto.length}
+                    style={{padding:"14px 18px",borderRadius:10,border:"none",fontWeight:700,fontSize:14,color:"#fff",
+                      background:FILE_TYPES.auto.color,cursor:fileGroups.auto.length?"pointer":"not-allowed",
+                      display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
+                    ⬇ {FILE_TYPES.auto.label}
+                    <span style={{fontSize:12,fontWeight:400,opacity:.85}}>({fileGroups.auto.length} {fileGroups.auto.length===1?"archivo":"archivos"})</span>
                   </button>
-                  <button onClick={()=>doExportGrouped(FILE_TYPES.mutual.key)} disabled={!fileGroups.mutual.length}
-                    style={{...S.btn,background:FILE_TYPES.mutual.color,color:"#fff",opacity:fileGroups.mutual.length?1:.4,cursor:fileGroups.mutual.length?"pointer":"not-allowed"}}>
-                    ⬇ Descargar {FILE_TYPES.mutual.label} — {fileGroups.mutual.length}
+                  <button className="export-btn" onClick={()=>doExportGrouped(FILE_TYPES.mutual.key)} disabled={!fileGroups.mutual.length}
+                    style={{padding:"14px 18px",borderRadius:10,border:"none",fontWeight:700,fontSize:14,color:"#fff",
+                      background:FILE_TYPES.mutual.color,cursor:fileGroups.mutual.length?"pointer":"not-allowed",
+                      display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
+                    ⬇ {FILE_TYPES.mutual.label}
+                    <span style={{fontSize:12,fontWeight:400,opacity:.85}}>({fileGroups.mutual.length} {fileGroups.mutual.length===1?"archivo":"archivos"})</span>
                   </button>
-                  <button onClick={()=>doExportGrouped(FILE_TYPES.axton.key)} disabled={!fileGroups.axton.length}
-                    style={{...S.btn,background:FILE_TYPES.axton.color,color:"#fff",opacity:fileGroups.axton.length?1:.4,cursor:fileGroups.axton.length?"pointer":"not-allowed"}}>
-                    ⬇ Descargar {FILE_TYPES.axton.label} — {fileGroups.axton.length}
+                  <button className="export-btn" onClick={()=>doExportGrouped(FILE_TYPES.axton.key)} disabled={!fileGroups.axton.length}
+                    style={{padding:"14px 18px",borderRadius:10,border:"none",fontWeight:700,fontSize:14,color:"#fff",
+                      background:FILE_TYPES.axton.color,cursor:fileGroups.axton.length?"pointer":"not-allowed",
+                      display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
+                    ⬇ {FILE_TYPES.axton.label}
+                    <span style={{fontSize:12,fontWeight:400,opacity:.85}}>({fileGroups.axton.length} {fileGroups.axton.length===1?"archivo":"archivos"})</span>
                   </button>
-                  <button onClick={doDownloadReport}
-                    style={{...S.btn,background:"#a855f7",color:"#fff"}}>
-                    📊 Descargar Reporte
+                  <button className="export-btn" onClick={doDownloadReport}
+                    style={{padding:"14px 18px",borderRadius:10,border:"none",fontWeight:700,fontSize:14,color:"#fff",
+                      background:"var(--brand-secondary)",cursor:"pointer",
+                      display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
+                    📊 Reporte de validación
                   </button>
                 </div>
-                <p style={{fontSize:11,color:"var(--text-dim)",marginTop:10}}>
+                <p style={{fontSize:11,color:"var(--text-dim)",marginTop:6}}>
                   Cada grupo se exporta a un único xlsx unificando los archivos del mismo tipo. Nombres: AUTO_{getMMAAAA()}_OTROS.xlsx, MUTUAL_{getMMAAAA()}_OTROS.xlsx.
                 </p>
               </div>
@@ -1850,7 +1856,7 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
 
             {/* Done */}
             {step===5&&(
-              <div className="fade-in" style={{background:"rgba(0,172,212,.14)",border:"1px solid var(--brand-primary)",borderRadius:12,padding:24,textAlign:"center"}}>
+              <div className="fade-in" style={{background:"rgba(24,183,232,.14)",border:"1px solid var(--brand-primary)",borderRadius:12,padding:24,textAlign:"center"}}>
                 <div style={{fontSize:44,marginBottom:10}}>🎉</div>
                 <p style={{color:"var(--brand-primary)",fontWeight:700,fontSize:18}}>¡Archivo(s) generado(s)!</p>
                 <p style={{color:"var(--text-muted)",fontSize:13,marginTop:4}}>La descarga debería iniciarse automáticamente.</p>
@@ -1972,8 +1978,8 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                           <td>
                             <button onClick={()=>toggleTipoManual(axtonMap,setAxtonMap,i)}
                               style={{fontSize:10,padding:"1px 6px",borderRadius:4,cursor:"pointer",border:"none",fontWeight:600,
-                                background:c.tipoValor==="cantidad"?"rgba(34,211,238,.15)":"rgba(167,139,250,.15)",
-                                color:c.tipoValor==="cantidad"?"var(--brand-primary)":"#c4b5fd"}}>
+                                background:c.tipoValor==="cantidad"?"rgba(34,211,238,.15)":"rgba(30,58,95,.22)",
+                                color:c.tipoValor==="cantidad"?"var(--brand-primary)":"#93c5fd"}}>
                               {c.tipoValor==="cantidad"?"# Cantidad":"$ Monto"}{c.tipoManual?"*":""}
                             </button>
                           </td>
@@ -2159,7 +2165,7 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
             <div style={{padding:"18px 20px",borderBottom:"1px solid #334155",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
               <div>
                 <h3 style={{margin:0,fontSize:15,fontWeight:700,color:"var(--text-bright)"}}>Mapeo de columnas — Conceptos</h3>
-                <p style={{margin:"3px 0 0",fontSize:12,color:"var(--text-dim)"}}>Hoja: <span style={{color:"#c4b5fd"}}>{conceptMapModal.sheetName}</span></p>
+                <p style={{margin:"3px 0 0",fontSize:12,color:"var(--text-dim)"}}>Hoja: <span style={{color:"var(--brand-primary)"}}>{conceptMapModal.sheetName}</span></p>
               </div>
               <button onClick={()=>setConceptMapModal(null)} style={{background:"none",border:"none",color:"var(--text-dim)",fontSize:20,cursor:"pointer",lineHeight:1}}>✕</button>
             </div>
@@ -2200,7 +2206,7 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                     <tbody>
                       {conceptMapModal.data.slice(conceptMapModal.hr+1).filter(r=>r.some(c=>c&&String(c).trim())).slice(0,3).map((row,i)=>(
                         <tr key={i}>
-                          <td style={{padding:"3px 8px",color:"#c4b5fd",fontFamily:"monospace"}}>{conceptMapModal.id>=0?String(row[conceptMapModal.id]||""):"—"}</td>
+                          <td style={{padding:"3px 8px",color:"var(--brand-primary)",fontFamily:"monospace"}}>{conceptMapModal.id>=0?String(row[conceptMapModal.id]||""):"—"}</td>
                           <td style={{padding:"3px 8px",color:"var(--text)"}}>{conceptMapModal.nombre>=0?String(row[conceptMapModal.nombre]||""):"—"}</td>
                           <td style={{padding:"3px 8px",color:"var(--text-muted)"}}>{conceptMapModal.unidad>=0?String(row[conceptMapModal.unidad]||""):"—"}</td>
                           <td style={{padding:"3px 8px",color:"var(--text-muted)"}}>{conceptMapModal.tipo>=0?String(row[conceptMapModal.tipo]||""):"—"}</td>
@@ -2216,7 +2222,7 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
               <button
                 onClick={()=>confirmConceptMap(conceptMapModal)}
                 disabled={conceptMapModal.id<0||conceptMapModal.nombre<0}
-                style={{padding:"8px 18px",background:conceptMapModal.id>=0&&conceptMapModal.nombre>=0?"#5b21b6":"var(--border)",border:"none",
+                style={{padding:"8px 18px",background:conceptMapModal.id>=0&&conceptMapModal.nombre>=0?"var(--brand-primary)":"var(--border)",border:"none",
                   color:conceptMapModal.id>=0&&conceptMapModal.nombre>=0?"#fff":"var(--text-dim)",borderRadius:8,fontSize:13,fontWeight:700,
                   cursor:conceptMapModal.id>=0&&conceptMapModal.nombre>=0?"pointer":"not-allowed"}}>
                 Importar conceptos →
