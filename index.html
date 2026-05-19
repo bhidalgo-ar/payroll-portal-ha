@@ -1,790 +1,340 @@
 <!DOCTYPE html>
+<!-- H&A Portal Payroll v2 — deploy: subi este archivo + image2.jpg al repo payroll-portal-ha -->
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Payroll · Hidalgo & Asociados</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
-
-  <style>
-    /* ═══════════════════════════════════════
-       TOKENS
-    ═══════════════════════════════════════ */
-    :root {
-      --blue:        #18B7E8;
-      --blue-dark:   #0E9BBE;
-      --blue-dim:    rgba(24,183,232,0.12);
-      --blue-glow:   rgba(24,183,232,0.22);
-      --navy:        #1E3A5F;
-      --navy-deep:   #0F2133;
-      --white:       #ffffff;
-      --off:         #F4F7FA;
-      --surface:     #ffffff;
-      --border:      #DDE5EF;
-      --border-soft: #EEF3F8;
-      --text-1:      #1E3A5F;
-      --text-2:      #4A6080;
-      --text-3:      #8FA3BA;
-      --urgent:      #E85518;
-      --urgent-dim:  rgba(232,85,24,0.1);
-      --green:       #22C55E;
-      --green-dim:   rgba(34,197,94,0.1);
-      --amber:       #F59E0B;
-      --amber-dim:   rgba(245,158,11,0.12);
-      --purple:      #8B5CF6;
-      --r-sm:  8px;
-      --r:     14px;
-      --r-lg:  20px;
-      --sh-sm: 0 1px 4px rgba(30,58,95,0.07);
-      --sh:    0 4px 16px rgba(30,58,95,0.10);
-      --sh-lg: 0 12px 40px rgba(30,58,95,0.15);
-      --font:  'Plus Jakarta Sans', system-ui, sans-serif;
-      --font-d:'DM Serif Display', Georgia, serif;
-      --ease:  cubic-bezier(.4,0,.2,1);
-      --t:     0.22s;
-    }
-
-    /* ═══════════════════════════════════════
-       RESET
-    ═══════════════════════════════════════ */
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body {
-      font-family: var(--font);
-      background: var(--off);
-      color: var(--text-1);
-      min-height: auto;
-      -webkit-font-smoothing: antialiased;
-      line-height: 1.6;
-      overflow-x: hidden;
-      width: 100%;
-    }
-    a { text-decoration: none; color: inherit; }
-    button { font-family: var(--font); cursor: pointer; border: none; background: none; }
-
-    /* ═══════════════════════════════════════
-       SCROLLBAR
-    ═══════════════════════════════════════ */
-    ::-webkit-scrollbar { width:5px; height:5px; }
-    ::-webkit-scrollbar-track { background:transparent; }
-    ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
-
-    /* ═══════════════════════════════════════
-       TOP NAV (simula SharePoint nav moderna)
-    ═══════════════════════════════════════ */
-    .sp-nav {
-      background: var(--navy);
-      height: 50px;
-      display: none;
-      align-items: center;
-      padding: 0 28px;
-      gap: 0;
-      position: relative;
-      top: 0;
-      z-index: 50;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
-    }
-
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      padding-right: 24px;
-      margin-right: 8px;
-      border-right: 1px solid rgba(255,255,255,0.12);
-    }
-
-    .nav-logo {
-      width: 32px; height: 32px;
-      background: var(--blue);
-      border-radius: 50%;
-      display: grid; place-items: center;
-      font-size: 10px; font-weight: 800;
-      color: white;
-      letter-spacing: -0.02em;
-      flex-shrink: 0;
-      box-shadow: 0 0 0 2px rgba(24,183,232,0.35);
-    }
-
-    .nav-brand-text { line-height: 1.2; }
-    .nav-brand-text .site  { font-size: 0.82rem; font-weight: 700; color: white; }
-    .nav-brand-text .sub   { font-size: 0.62rem; color: rgba(255,255,255,0.45); font-weight: 400; }
-
-    .nav-links { display:flex; }
-    .nav-link {
-      font-size: 0.78rem; font-weight: 500;
-      color: rgba(255,255,255,0.6);
-      padding: 0 16px;
-      height: 50px;
-      display: flex; align-items: center;
-      border-bottom: 2px solid transparent;
-      transition: color var(--t) var(--ease), border-color var(--t) var(--ease);
-      white-space: nowrap;
-    }
-    .nav-link:hover  { color: white; }
-    .nav-link.active { color: white; border-bottom-color: var(--blue); font-weight: 600; }
-
-    .nav-right {
-      margin-left: auto;
-      display: flex; align-items: center; gap: 10px;
-    }
-
-    .nav-search {
-      display: flex; align-items: center; gap: 7px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 6px;
-      padding: 5px 12px;
-      font-size: 0.75rem; color: rgba(255,255,255,0.45);
-      transition: var(--t);
-    }
-    .nav-search:hover { background: rgba(255,255,255,0.12); }
-
-    .nav-avatar {
-      width: 30px; height: 30px;
-      background: var(--blue);
-      border-radius: 50%;
-      display: grid; place-items: center;
-      font-size: 0.65rem; font-weight: 700; color: white;
-    }
-
-    /* ═══════════════════════════════════════
-       HERO BANNER
-    ═══════════════════════════════════════ */
-    .hero {
-      background: linear-gradient(118deg, var(--navy-deep) 0%, var(--navy) 55%, #0D3D6B 100%);
-      padding: 28px 20px 24px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* decorative circles */
-    .hero::before {
-      content:'';
-      position:absolute; top:-80px; right:-80px;
-      width:400px; height:400px;
-      background: radial-gradient(circle, rgba(24,183,232,0.14) 0%, transparent 65%);
-      pointer-events:none;
-    }
-    .hero::after {
-      content:'';
-      position:absolute; bottom:-60px; left:38%;
-      width:300px; height:300px;
-      background: radial-gradient(circle, rgba(24,183,232,0.07) 0%, transparent 65%);
-      pointer-events:none;
-    }
-
-    /* animated grid lines */
-    .hero-grid {
-      position:absolute; inset:0;
-      background-image:
-        linear-gradient(rgba(24,183,232,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(24,183,232,0.04) 1px, transparent 1px);
-      background-size: 48px 48px;
-      pointer-events:none;
-    }
-
-    .hero-inner {
-      position:relative; z-index:1;
-      display:flex; align-items:flex-start; justify-content:space-between; gap:24px;
-    }
-
-    .hero-left { flex:1; }
-
-    .hero-eyebrow {
-      display:inline-flex; align-items:center; gap:7px;
-      background: rgba(24,183,232,0.15);
-      border: 1px solid rgba(24,183,232,0.28);
-      border-radius:20px;
-      padding: 4px 14px;
-      font-size: 0.7rem; font-weight: 700;
-      color: var(--blue); letter-spacing:0.05em;
-      text-transform:uppercase;
-      margin-bottom:14px;
-      animation: fadeUp 0.5s var(--ease) both;
-    }
-
-    .hero-title {
-      font-family: var(--font-d);
-      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-      color: white; line-height:1.1;
-      letter-spacing:-0.02em;
-      margin-bottom: 8px;
-      animation: fadeUp 0.5s 0.08s var(--ease) both;
-    }
-    .hero-title .accent { color: var(--blue); }
-
-    .hero-subtitle {
-      font-size: 0.88rem; font-weight:300;
-      color: rgba(255,255,255,0.5);
-      margin-bottom:22px;
-      animation: fadeUp 0.5s 0.15s var(--ease) both;
-    }
-
-    .hero-badges {
-      display:flex; gap:8px; flex-wrap:wrap;
-      animation: fadeUp 0.5s 0.22s var(--ease) both;
-    }
-
-    .hbadge {
-      display:inline-flex; align-items:center; gap:6px;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.74rem; font-weight:600;
-      border: 1px solid;
-    }
-    .hbadge-urgent { background:var(--urgent-dim); border-color:rgba(232,85,24,0.35); color:#FF7A4A; }
-    .hbadge-info   { background:var(--blue-dim);   border-color:rgba(24,183,232,0.3); color:#7CD8F5; }
-    .hbadge-ok     { background:var(--green-dim);  border-color:rgba(34,197,94,0.3);  color:#4ADE80; }
-
-    .hero-right {
-      display:flex; flex-direction:column; align-items:flex-end; gap:12px;
-      animation: fadeUp 0.5s 0.1s var(--ease) both;
-      flex-shrink:0;
-    }
-
-    .hero-date {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      backdrop-filter: blur(10px);
-      border-radius: var(--r);
-      padding:16px 22px;
-      text-align:right;
-    }
-    .hero-date .month { font-size:0.65rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--blue); font-weight:700; }
-    .hero-date .day   { font-size:3rem; font-family:var(--font-d); color:white; line-height:1; }
-    .hero-date .wday  { font-size:0.65rem; color:rgba(255,255,255,0.4); margin-top:2px; }
-
-    .hero-kpis { display:flex; gap:10px; }
-    .kpi-chip {
-      background: rgba(255,255,255,0.07);
-      border:1px solid rgba(255,255,255,0.12);
-      border-radius:var(--r-sm);
-      padding:10px 16px; text-align:center;
-    }
-    .kpi-chip .n { font-size:1.5rem; font-weight:800; color:white; line-height:1; }
-    .kpi-chip .l { font-size:0.6rem; text-transform:uppercase; letter-spacing:0.07em; color:rgba(255,255,255,0.45); margin-top:3px; }
-    .kpi-chip.urgent .n { color:#FF7A4A; }
-
-    @keyframes fadeUp {
-      from { opacity:0; transform:translateY(14px); }
-      to   { opacity:1; transform:translateY(0); }
-    }
-
-    /* ═══════════════════════════════════════
-       PAGE SHELL
-    ═══════════════════════════════════════ */
-    .page {
-      max-width: 100%;
-      margin: 0 auto;
-      padding: 28px 20px 60px;
-    }
-
-    /* ═══════════════════════════════════════
-       SECTION LABEL
-    ═══════════════════════════════════════ */
-    .sec-label {
-      font-size:0.68rem; font-weight:700;
-      text-transform:uppercase; letter-spacing:0.09em;
-      color: var(--blue);
-      margin-bottom:14px;
-      display:flex; align-items:center; gap:8px;
-    }
-    .sec-label::after {
-      content:''; flex:1; height:1px; background:var(--border-soft);
-    }
-
-    /* ═══════════════════════════════════════
-       TWO-COL LAYOUT
-    ═══════════════════════════════════════ */
-    .layout-main {
-      display: grid;
-      grid-template-columns: 1fr 290px;
-      gap: 24px;
-    }
-
-    .main-col { min-width:0; }
-
-    /* ═══════════════════════════════════════
-       APP GRID (Quick Links – Tiles)
-    ═══════════════════════════════════════ */
-    .app-grid {
-      display:grid;
-      grid-template-columns: repeat(4,1fr);
-      gap: 12px;
-      margin-bottom:28px;
-    }
-
-    .app-tile {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 18px 14px 14px;
-      text-align:center;
-      cursor:pointer;
-      display:flex; flex-direction:column; align-items:center; gap:8px;
-      box-shadow: var(--sh-sm);
-      transition: transform var(--t) var(--ease),
-                  border-color var(--t) var(--ease),
-                  box-shadow var(--t) var(--ease);
-      animation: fadeUp 0.4s var(--ease) both;
-      position:relative; overflow:hidden;
-      text-decoration:none; color:inherit;
-    }
-
-    .app-tile::before {
-      content:''; position:absolute; top:0; left:0; right:0; height:3px;
-      background: linear-gradient(90deg, var(--blue), var(--blue-dark));
-      transform: scaleX(0); transform-origin:left;
-      transition: transform var(--t) var(--ease);
-      border-radius:var(--r) var(--r) 0 0;
-    }
-
-    .app-tile:hover { transform:translateY(-4px); border-color:var(--blue); box-shadow:0 8px 28px rgba(24,183,232,0.15); }
-    .app-tile:hover::before { transform:scaleX(1); }
-
-    .app-tile .t-icon { font-size:2rem; line-height:1; filter:saturate(0.9); }
-    .app-tile .t-name { font-size:0.74rem; font-weight:700; color:var(--text-1); line-height:1.3; }
-    .app-tile .t-desc { font-size:0.68rem; color:var(--text-2); line-height:1.45; margin-top:2px; }
-    .app-tile .t-ver  { font-size:0.6rem; color:var(--text-3); font-weight:500; }
-    .app-tile .t-cat  {
-      font-size:0.58rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em;
-      background:var(--blue-dim); color:var(--blue);
-      padding:2px 8px; border-radius:10px;
-    }
-    .app-tile.ext .t-cat { background:rgba(30,58,95,0.08); color:var(--navy); }
-    .app-tile.beta .t-cat { background:var(--amber-dim); color:var(--amber); }
-
-    /* ═══════════════════════════════════════
-       FAQ
-    ═══════════════════════════════════════ */
-    .faq-wrap {
-      background:var(--surface);
-      border:1px solid var(--border);
-      border-radius:var(--r);
-      box-shadow:var(--sh-sm);
-      overflow:hidden;
-      margin-bottom:28px;
-    }
-
-    .faq-item { border-bottom:1px solid var(--border-soft); }
-    .faq-item:last-child { border-bottom:none; }
-
-    .faq-q {
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      padding:14px 20px;
-      cursor:pointer;
-      transition: background var(--t);
-    }
-    .faq-q:hover { background:var(--off); }
-    .faq-q:focus { outline:2px solid var(--blue); outline-offset:-2px; }
-
-    .faq-q-ico { font-size:1rem; flex-shrink:0; }
-    .faq-q-text { font-size:0.82rem; font-weight:600; color:var(--text-1); flex:1; }
-    .faq-chevron {
-      width:22px; height:22px;
-      background:var(--blue-dim); color:var(--blue);
-      border-radius:50%; display:grid; place-items:center;
-      font-size:0.65rem; flex-shrink:0;
-      transition:transform var(--t) var(--ease), background var(--t);
-    }
-    .faq-item.open .faq-chevron { transform:rotate(180deg); background:var(--blue); color:white; }
-
-    .faq-a {
-      max-height:0; overflow:hidden;
-      transition: max-height 0.3s var(--ease), padding 0.3s var(--ease);
-      padding:0 20px 0 48px;
-    }
-    .faq-item.open .faq-a { max-height:400px; padding:0 20px 14px 48px; }
-    .faq-a p { font-size:0.78rem; color:var(--text-2); line-height:1.65; }
-
-    /* ═══════════════════════════════════════
-       OCIO ROW (3 cols)
-    ═══════════════════════════════════════ */
-    .ocio-row {
-      display:grid;
-      grid-template-columns: repeat(3,1fr);
-      gap:16px;
-    }
-
-    .card {
-      background:var(--surface);
-      border:1px solid var(--border);
-      border-radius:var(--r);
-      box-shadow:var(--sh-sm);
-      overflow:hidden;
-    }
-
-    .card-header {
-      background: var(--navy);
-      padding:12px 16px;
-      display:flex; align-items:center; gap:8px;
-    }
-    .card-header .ch-ico { font-size:1rem; }
-    .card-header h3 { font-size:0.75rem; font-weight:700; color:white; }
-    .card-header .ch-pill {
-      margin-left:auto;
-      background:var(--blue); color:white;
-      font-size:0.58rem; font-weight:700;
-      padding:2px 9px; border-radius:10px;
-      text-transform:uppercase; letter-spacing:0.05em;
-    }
-
-    .card-body { padding:16px; }
-
-    /* Quote */
-    .quote-wrap {
-      background: linear-gradient(135deg, var(--off) 0%, #EAF4FB 100%);
-      border-radius:var(--r-sm);
-      padding:16px;
-      text-align:center;
-    }
-    .quote-marks { font-size:2rem; color:var(--blue); opacity:0.3; line-height:0.6; margin-bottom:10px; font-family:var(--font-d); }
-    .quote-text  { font-family:var(--font-d); font-style:italic; font-size:0.9rem; color:var(--text-1); line-height:1.55; margin-bottom:10px; }
-    .quote-author { font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:var(--blue); }
-    .quote-refresh {
-      margin-top:12px;
-      font-size:0.68rem; color:var(--text-3);
-      display:flex; align-items:center; justify-content:flex-end; gap:4px;
-      cursor:pointer; transition:color var(--t);
-    }
-    .quote-refresh:hover { color:var(--blue); }
-
-    /* Music player */
-    .music-player {
-      background:#0D1117;
-      border-radius:var(--r-sm);
-      padding:14px 16px;
-    }
-    .music-top { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
-    .music-cover {
-      width:46px; height:46px; border-radius:8px; flex-shrink:0;
-      background: linear-gradient(135deg, var(--blue) 0%, var(--navy) 100%);
-      display:grid; place-items:center; font-size:1.3rem;
-      box-shadow: 0 4px 12px rgba(24,183,232,0.3);
-    }
-    .music-info { flex:1; min-width:0; }
-    .music-track  { font-size:0.78rem; font-weight:700; color:white; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .music-artist { font-size:0.65rem; color:rgba(255,255,255,0.45); margin-top:2px; }
-    .music-ctrl { display:flex; align-items:center; gap:10px; }
-    .music-ctrl button {
-      color:rgba(255,255,255,0.5); font-size:0.85rem;
-      transition:color var(--t);
-      padding:4px;
-    }
-    .music-ctrl button:hover  { color:white; }
-    .music-ctrl .play-btn {
-      width:28px; height:28px; border-radius:50%;
-      background:var(--blue); color:white;
-      display:grid; place-items:center; font-size:0.75rem;
-      transition:transform var(--t), background var(--t);
-    }
-    .music-ctrl .play-btn:hover { transform:scale(1.1); background:var(--blue-dark); }
-    .music-prog { height:3px; background:rgba(255,255,255,0.12); border-radius:2px; margin-top:10px; cursor:pointer; position:relative; }
-    .music-fill { height:100%; width:35%; background:var(--blue); border-radius:2px; position:relative; transition:width 0.1s; }
-    .music-fill::after {
-      content:''; position:absolute; right:-5px; top:50%;
-      transform:translateY(-50%);
-      width:10px; height:10px; border-radius:50%;
-      background:var(--blue); opacity:0;
-      transition:opacity var(--t);
-    }
-    .music-prog:hover .music-fill::after { opacity:1; }
-    .music-time { display:flex; justify-content:space-between; font-size:0.6rem; color:rgba(255,255,255,0.3); margin-top:5px; }
-
-    .music-type-toggle {
-      display:flex; gap:6px; margin-top:12px; flex-wrap:wrap;
-    }
-    .toggle-btn {
-      font-size:0.65rem; font-weight:600;
-      padding:4px 12px; border-radius:20px;
-      border:1px solid rgba(255,255,255,0.12);
-      color:rgba(255,255,255,0.45);
-      transition:all var(--t);
-    }
-    .toggle-btn:hover { color:white; border-color:rgba(255,255,255,0.3); }
-    .toggle-btn.active { background:var(--blue); color:white; border-color:var(--blue); }
-
-    /* News */
-    .news-item {
-      padding:9px 0;
-      border-bottom:1px solid var(--border-soft);
-      cursor:pointer;
-      transition:background var(--t);
-    }
-    .news-item:last-child { border-bottom:none; }
-    .news-item:hover { }
-
-    .news-source {
-      font-size:0.6rem; font-weight:700; text-transform:uppercase;
-      letter-spacing:0.07em; color:var(--blue); margin-bottom:2px;
-    }
-    .news-hl { font-size:0.74rem; color:var(--text-1); line-height:1.4; font-weight:500; margin-bottom:3px; }
-    .news-meta { font-size:0.62rem; color:var(--text-3); display:flex; align-items:center; gap:6px; }
-    .news-dot { width:3px; height:3px; border-radius:50%; background:var(--border); }
-
-    /* ═══════════════════════════════════════
-       SIDEBAR
-    ═══════════════════════════════════════ */
-    .sidebar { display:flex; flex-direction:column; gap:20px; }
-
-    /* Birthday widget */
-    .bday-card {
-      background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
-      border:1px solid #FDE68A;
-      border-radius:var(--r);
-      overflow:hidden;
-    }
-
-    .bday-header {
-      background: linear-gradient(90deg, #F59E0B, #FBBF24);
-      padding:11px 16px;
-      display:flex; align-items:center; gap:8px;
-    }
-    .bday-header h3 { font-size:0.75rem; font-weight:700; color:white; }
-    .bday-header .bday-ico { font-size:1rem; }
-    .bday-count {
-      margin-left:auto; background:rgba(255,255,255,0.3);
-      color:white; font-size:0.6rem; font-weight:700;
-      padding:2px 9px; border-radius:10px;
-    }
-
-    .bday-list { padding:10px 14px; display:flex; flex-direction:column; gap:2px; }
-
-    .bday-item {
-      display:flex; align-items:center; gap:10px;
-      padding:8px 10px;
-      border-radius:var(--r-sm);
-      transition:background var(--t);
-    }
-    .bday-item:hover { background:rgba(245,158,11,0.07); }
-    .bday-item.today { background:rgba(245,158,11,0.12); }
-
-    .bday-av {
-      width:34px; height:34px; border-radius:50%;
-      display:grid; place-items:center;
-      font-size:0.7rem; font-weight:700; color:white;
-      flex-shrink:0; text-transform:uppercase;
-    }
-
-    .bday-info { flex:1; min-width:0; }
-    .bday-name { font-size:0.76rem; font-weight:600; color:#78350F; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .bday-date { font-size:0.63rem; color:#B45309; margin-top:1px; }
-
-    .bday-badge {
-      flex-shrink:0;
-      background:var(--amber); color:white;
-      font-size:0.58rem; font-weight:700;
-      padding:3px 9px; border-radius:10px;
-      text-transform:uppercase; letter-spacing:0.04em;
-      animation: pulse 1.5s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%,100% { box-shadow:0 0 0 0 rgba(245,158,11,0.4); }
-      50%      { box-shadow:0 0 0 6px rgba(245,158,11,0); }
-    }
-
-    /* Eventos / Vencimientos */
-    .eventos-card {
-      background:var(--surface);
-      border:1px solid var(--border);
-      border-radius:var(--r);
-      box-shadow:var(--sh-sm);
-      overflow:hidden;
-    }
-
-    .eventos-header {
-      background:var(--navy);
-      padding:11px 16px;
-      display:flex; align-items:center; gap:8px;
-    }
-    .eventos-header h3 { font-size:0.75rem; font-weight:700; color:white; }
-    .eventos-header .ev-ico { font-size:1rem; }
-
-    .eventos-list { padding:10px 14px; display:flex; flex-direction:column; gap:2px; }
-
-    .ev-item {
-      display:flex; align-items:center; gap:10px;
-      padding:8px 10px;
-      border-radius:var(--r-sm);
-      transition:background var(--t);
-      cursor:default;
-    }
-    .ev-item:hover { background:var(--off); }
-
-    .ev-pill {
-      min-width:38px;
-      background:var(--blue); color:white;
-      border-radius:var(--r-sm);
-      padding:5px 8px; text-align:center;
-      flex-shrink:0;
-    }
-    .ev-pill .d { font-size:0.9rem; font-weight:800; line-height:1; }
-    .ev-pill .m { font-size:0.55rem; text-transform:uppercase; opacity:0.8; letter-spacing:0.05em; }
-    .ev-pill.urgent { background:var(--urgent); }
-
-    .ev-info { flex:1; min-width:0; }
-    .ev-title { font-size:0.76rem; font-weight:600; color:var(--text-1); }
-    .ev-sub   { font-size:0.63rem; color:var(--text-3); margin-top:1px; }
-
-    .ev-tag {
-      font-size:0.58rem; font-weight:700; text-transform:uppercase;
-      padding:2px 8px; border-radius:10px; flex-shrink:0;
-    }
-    .ev-tag-fiscal  { background:var(--blue-dim);   color:var(--blue); }
-    .ev-tag-nomina  { background:var(--green-dim);  color:#16A34A; }
-    .ev-tag-interno { background:rgba(139,92,246,0.1); color:var(--purple); }
-
-    /* Quick links externos pequeños */
-    .ext-links {
-      background:var(--surface);
-      border:1px solid var(--border);
-      border-radius:var(--r);
-      box-shadow:var(--sh-sm);
-      padding:14px 16px;
-    }
-    .ext-links h3 { font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:var(--blue); margin-bottom:12px; }
-    .ext-link-btn {
-      display:flex; align-items:center; gap:10px;
-      padding:8px 10px; border-radius:var(--r-sm);
-      transition:background var(--t);
-      cursor:pointer; margin-bottom:4px;
-      text-decoration:none; color:inherit;
-    }
-    .ext-link-btn:hover { background:var(--off); }
-    .ext-link-ico { width:28px; height:28px; border-radius:6px; display:grid; place-items:center; font-size:1rem; flex-shrink:0; }
-    .ext-link-name { font-size:0.76rem; font-weight:600; color:var(--text-1); }
-    .ext-link-url  { font-size:0.62rem; color:var(--text-3); }
-    .ext-link-arr  { margin-left:auto; font-size:0.7rem; color:var(--text-3); transition:color var(--t), transform var(--t); }
-    .ext-link-btn:hover .ext-link-arr { color:var(--blue); transform:translateX(3px); }
-
-    /* ═══════════════════════════════════════
-       CONFETTI OVERLAY
-    ═══════════════════════════════════════ */
-    #confetti-canvas {
-      position:absolute; inset:0;
-      pointer-events:none;
-      z-index:9999;
-      display:none;
-    }
-
-    /* ═══════════════════════════════════════
-       BIRTHDAY TOAST
-    ═══════════════════════════════════════ */
-    .bday-toast {
-      position:absolute; bottom:28px; left:50%; transform:translateX(-50%) translateY(20px);
-      background:linear-gradient(135deg, #F59E0B, #FBBF24);
-      color:white;
-      padding:14px 24px;
-      border-radius:var(--r);
-      box-shadow:0 8px 32px rgba(245,158,11,0.4);
-      display:flex; align-items:center; gap:12px;
-      font-size:0.85rem; font-weight:600;
-      z-index:200;
-      opacity:0;
-      transition:all 0.4s var(--ease);
-      pointer-events:none;
-      max-width:90vw;
-    }
-    .bday-toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
-    .bday-toast .t-close { margin-left:8px; opacity:0.7; cursor:pointer; pointer-events:all; font-size:1rem; }
-
-    /* ═══════════════════════════════════════
-       SHAREPOINT IFRAME — auto altura + nav oculta
-    ═══════════════════════════════════════ */
-    /* Cuando el portal corre dentro del iframe de SharePoint
-       ocultamos la nav interna (ya existe la de SP arriba)
-       y ajustamos para funcionar bien en iframe */
-    html { height: auto; overflow-x: hidden; }
-    body { height: auto; overflow-x: hidden; overflow-y: auto; }
-
-    /* Ocultar nav interna siempre que esté en un iframe */
-    .sp-nav { display: none !important; }
-
-    /* Confetti: usar absolute en vez de fixed para iframes */
-    #confetti-canvas {
-      position: absolute !important;
-    }
-
-    /* Toast: usar absolute en vez de fixed para iframes */
-    .bday-toast {
-      position: absolute !important;
-      bottom: 28px;
-    }
-
-    /* ═══════════════════════════════════════
-       RESPONSIVE
-    ═══════════════════════════════════════ */
-    @media (max-width: 1100px) {
-      .layout-main { grid-template-columns:1fr; }
-      .sidebar { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-      .ocio-row { grid-template-columns:1fr 1fr; }
-    }
-    @media (max-width: 768px) {
-      .app-grid { grid-template-columns:repeat(2,1fr); }
-      .sidebar { grid-template-columns:1fr; }
-      .ocio-row { grid-template-columns:1fr; }
-      .nav-links { display:none; }
-      .hero-kpis { flex-wrap:wrap; }
-    }
-    @media (max-width: 480px) {
-      .page { padding:16px 12px 48px; }
-      .hero { padding:20px 12px; }
-      .hero-right { display:none; }
-      .app-grid { grid-template-columns:1fr; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal Payroll · Hidalgo &amp; Asociados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* ═══ TOKENS ════════════════════════════════════════════ */
+:root {
+  /* ── Color oficial H&A ── */
+  --blue:        #00ACD4;
+  --blue-dark:   #0090B4;
+  --blue-dim:    rgba(0,172,212,0.12);
+  --blue-border: rgba(0,172,212,0.28);
+  --navy:        #1E3A5F;
+  --navy-deep:   #0F2133;
+  --white:       #ffffff;
+  --off:         #F4F7FA;
+  --surface:     #ffffff;
+  --border:      #DDE5EF;
+  --border-soft: #EEF3F8;
+  --text-1:      #1E3A5F;
+  --text-2:      #4A6080;
+  --text-3:      #8FA3BA;
+  --urgent:      #E85518;
+  --urgent-dim:  rgba(232,85,24,0.10);
+  --green:       #22C55E;
+  --green-dim:   rgba(34,197,94,0.10);
+  --amber:       #F59E0B;
+  --amber-dim:   rgba(245,158,11,0.12);
+  /* ── Radii & shadows ── */
+  --r-sm: 8px; --r: 14px; --r-lg: 20px;
+  --sh-sm: 0 1px 4px rgba(30,58,95,0.07);
+  --sh:    0 4px 16px rgba(30,58,95,0.10);
+  --sh-lg: 0 12px 40px rgba(30,58,95,0.15);
+  /* ── Fonts ── */
+  --font:   'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-d: 'DM Serif Display', Georgia, serif;
+  --ease:   cubic-bezier(.4,0,.2,1);
+  --t:      0.22s;
+}
+
+/* ═══ RESET ════════════════════════════════════════════ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:var(--font); background:var(--off); color:var(--text-1); -webkit-font-smoothing:antialiased; line-height:1.6; overflow-x:hidden; }
+a { text-decoration:none; color:inherit; }
+button { font-family:var(--font); cursor:pointer; border:none; background:none; }
+::-webkit-scrollbar { width:5px; } ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+
+/* ═══ HERO ════════════════════════════════════════════ */
+.hero {
+  background: var(--navy-deep);
+  padding: 28px 28px 24px;
+  position: relative;
+  overflow: hidden;
+}
+/* foto submarina */
+.hero-photo {
+  position: absolute; inset: 0;
+  background: url('image2.jpg') center 30%/cover no-repeat;
+  opacity: 0.30;
+  z-index: 0;
+}
+/* vignette lateral */
+.hero-photo::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to right, rgba(15,33,51,0.7) 0%, transparent 60%);
+}
+/* grid sutil */
+.hero-grid {
+  position: absolute; inset: 0; z-index: 1;
+  background-image:
+    linear-gradient(rgba(0,172,212,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,172,212,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+/* glow top-right */
+.hero::before {
+  content: ''; position: absolute; top: -80px; right: -60px; z-index: 0;
+  width: 380px; height: 380px;
+  background: radial-gradient(circle, rgba(0,172,212,0.18) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero-inner { position:relative; z-index:2; display:flex; align-items:flex-start; justify-content:space-between; gap:24px; }
+.hero-left { flex:1; }
+
+/* brand row */
+.hero-brand { display:flex; align-items:center; gap:14px; margin-bottom:16px; }
+.hero-logo  { width:52px; height:52px; object-fit:contain; border-radius:50%; box-shadow:0 0 0 3px rgba(0,172,212,0.35); flex-shrink:0; }
+.hero-brand-text .sp-name { font-size:0.62rem; text-transform:uppercase; letter-spacing:0.1em; color:rgba(255,255,255,0.45); font-weight:600; }
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:7px;
+  background:rgba(0,172,212,0.15); border:1px solid var(--blue-border);
+  border-radius:20px; padding:4px 14px;
+  font-size:0.7rem; font-weight:700; color:var(--blue);
+  letter-spacing:0.05em; text-transform:uppercase; margin-top:4px;
+}
+.hero-title {
+  font-family:var(--font-d); font-size:clamp(1.8rem,3vw,2.5rem);
+  color:white; line-height:1.1; letter-spacing:-0.02em; margin-bottom:8px;
+}
+.hero-title .accent { color:var(--blue); }
+.hero-subtitle { font-size:0.88rem; font-weight:300; color:rgba(255,255,255,0.5); margin-bottom:20px; }
+.hero-badges  { display:flex; gap:8px; flex-wrap:wrap; }
+.hbadge { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:20px; font-size:0.74rem; font-weight:600; border:1px solid; }
+.hbadge-urgent { background:var(--urgent-dim); border-color:rgba(232,85,24,0.35); color:#FF7A4A; }
+.hbadge-info   { background:var(--blue-dim);   border-color:rgba(0,172,212,0.3);  color:#5DD4EE; }
+.hbadge-ok     { background:var(--green-dim);  border-color:rgba(34,197,94,0.3);  color:#4ADE80; }
+
+.hero-right { display:flex; flex-direction:column; align-items:flex-end; gap:12px; flex-shrink:0; }
+.hero-date {
+  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.10);
+  backdrop-filter:blur(10px); border-radius:var(--r); padding:16px 22px; text-align:right;
+}
+.hero-date .month { font-size:0.65rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--blue); font-weight:700; }
+.hero-date .day   { font-size:3rem; font-family:var(--font-d); color:white; line-height:1; }
+.hero-date .wday  { font-size:0.65rem; color:rgba(255,255,255,0.4); margin-top:2px; }
+.hero-kpis { display:flex; gap:10px; }
+.kpi-chip { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.12); border-radius:var(--r-sm); padding:10px 16px; text-align:center; }
+.kpi-chip .n { font-size:1.5rem; font-weight:800; color:white; line-height:1; }
+.kpi-chip .l { font-size:0.6rem; text-transform:uppercase; letter-spacing:0.07em; color:rgba(255,255,255,0.45); margin-top:3px; }
+.kpi-chip.urgent .n { color:#FF7A4A; }
+
+/* ═══ NOVEDADES STRIP ═════════════════════════════════ */
+.novedades-strip {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+}
+.novedades-inner {
+  display: flex;
+  align-items: stretch;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  gap: 0;
+}
+.novedades-inner::-webkit-scrollbar { display:none; }
+.novedades-label {
+  font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.09em; color: var(--blue);
+  display: flex; align-items: center; gap: 6px;
+  padding: 12px 16px 12px 0;
+  border-right: 1px solid var(--border-soft);
+  white-space: nowrap; flex-shrink: 0;
+}
+.novedad-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 20px; border-right: 1px solid var(--border-soft);
+  cursor: default; transition: background var(--t);
+  flex-shrink: 0; max-width: 280px;
+}
+.novedad-item:hover { background: var(--off); }
+.novedad-ico {
+  width: 30px; height: 30px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0;
+}
+.novedad-ico.app    { background: var(--blue-dim); }
+.novedad-ico.aviso  { background: var(--urgent-dim); }
+.novedad-ico.update { background: var(--green-dim); }
+.novedad-ico.info   { background: rgba(30,58,95,0.08); }
+.novedad-text .t { font-size: 0.76rem; font-weight: 600; color: var(--text-1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
+.novedad-text .d { font-size: 0.63rem; color: var(--text-3); margin-top: 1px; }
+
+/* ═══ PAGE SHELL ══════════════════════════════════════ */
+.page { max-width:100%; padding:24px 20px 60px; }
+.sec-label { font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.09em; color:var(--blue); margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.sec-label::after { content:''; flex:1; height:1px; background:var(--border-soft); }
+.layout-main { display:grid; grid-template-columns:1fr 280px; gap:20px; }
+.main-col { min-width:0; }
+
+/* ═══ APP GRID ════════════════════════════════════════ */
+.app-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:24px; }
+.app-tile {
+  background:var(--surface); border:1px solid var(--border); border-radius:var(--r);
+  padding:16px 12px 13px; text-align:center; cursor:pointer;
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  box-shadow:var(--sh-sm); position:relative; overflow:hidden;
+  transition:transform var(--t) var(--ease), border-color var(--t) var(--ease), box-shadow var(--t) var(--ease);
+  text-decoration:none; color:inherit;
+}
+.app-tile::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--blue), var(--blue-dark));
+  transform:scaleX(0); transform-origin:left;
+  transition:transform var(--t) var(--ease);
+}
+.app-tile:hover { transform:translateY(-3px); border-color:var(--blue); box-shadow:0 8px 24px rgba(0,172,212,0.15); }
+.app-tile:hover::before { transform:scaleX(1); }
+.app-tile .t-icon { font-size:2rem; line-height:1; }
+.app-tile .t-name { font-size:0.74rem; font-weight:700; color:var(--text-1); line-height:1.3; }
+.app-tile .t-desc { font-size:0.65rem; color:var(--text-2); line-height:1.4; }
+.app-tile .t-cat  { font-size:0.57rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; background:var(--blue-dim); color:var(--blue); padding:2px 8px; border-radius:10px; }
+.app-tile.beta .t-cat { background:var(--amber-dim); color:var(--amber); }
+.app-tile .t-ver  { font-size:0.58rem; color:var(--text-3); }
+
+/* ═══ FAQ ═════════════════════════════════════════════ */
+.faq-wrap { background:var(--surface); border:1px solid var(--border); border-radius:var(--r); box-shadow:var(--sh-sm); overflow:hidden; margin-bottom:24px; }
+.faq-item { border-bottom:1px solid var(--border-soft); }
+.faq-item:last-child { border-bottom:none; }
+.faq-q { display:flex; align-items:center; gap:12px; padding:14px 18px; cursor:pointer; transition:background var(--t); }
+.faq-q:hover { background:var(--off); }
+.faq-q-ico  { font-size:1rem; flex-shrink:0; }
+.faq-q-text { font-size:0.82rem; font-weight:600; color:var(--text-1); flex:1; }
+.faq-chevron { width:22px; height:22px; background:var(--blue-dim); color:var(--blue); border-radius:50%; display:grid; place-items:center; font-size:0.65rem; flex-shrink:0; transition:transform var(--t) var(--ease), background var(--t); }
+.faq-item.open .faq-chevron { transform:rotate(180deg); background:var(--blue); color:white; }
+.faq-a { max-height:0; overflow:hidden; transition:max-height 0.3s var(--ease), padding 0.3s var(--ease); padding:0 18px 0 46px; }
+.faq-item.open .faq-a { max-height:300px; padding:0 18px 14px 46px; }
+.faq-a p { font-size:0.78rem; color:var(--text-2); line-height:1.65; }
+
+/* ═══ OCIO ROW ═══════════════════════════════════════ */
+.ocio-row { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.card { background:var(--surface); border:1px solid var(--border); border-radius:var(--r); box-shadow:var(--sh-sm); overflow:hidden; }
+.card-header { background:var(--navy); padding:11px 16px; display:flex; align-items:center; gap:8px; }
+.card-header .ch-ico { font-size:1rem; }
+.card-header h3 { font-size:0.75rem; font-weight:700; color:white; }
+.card-header .ch-pill { margin-left:auto; background:var(--blue); color:white; font-size:0.57rem; font-weight:700; padding:2px 9px; border-radius:10px; text-transform:uppercase; letter-spacing:0.05em; }
+.card-body { padding:14px 16px; }
+.quote-wrap { background:linear-gradient(135deg, var(--off) 0%, #EAF4FB 100%); border-radius:var(--r-sm); padding:14px; text-align:center; }
+.quote-marks { font-size:1.8rem; color:var(--blue); opacity:0.3; line-height:0.6; margin-bottom:8px; font-family:var(--font-d); }
+.quote-text { font-family:var(--font-d); font-style:italic; font-size:0.88rem; color:var(--text-1); line-height:1.55; margin-bottom:8px; }
+.quote-author { font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:var(--blue); }
+.quote-refresh { margin-top:10px; font-size:0.68rem; color:var(--text-3); display:flex; align-items:center; justify-content:flex-end; gap:4px; cursor:pointer; transition:color var(--t); }
+.quote-refresh:hover { color:var(--blue); }
+.news-item { padding:9px 0; border-bottom:1px solid var(--border-soft); cursor:pointer; }
+.news-item:last-child { border-bottom:none; }
+.news-source { font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:var(--blue); margin-bottom:2px; }
+.news-hl { font-size:0.74rem; color:var(--text-1); line-height:1.4; font-weight:500; margin-bottom:3px; }
+.news-meta { font-size:0.62rem; color:var(--text-3); }
+
+/* ═══ RECORDATORIOS CARD ══════════════════════════════ */
+.reminder-item { display:flex; align-items:flex-start; gap:10px; padding:9px 12px; border-radius:var(--r-sm); margin-bottom:7px; }
+.reminder-item:last-child { margin-bottom:0; }
+.reminder-item.urgent  { background:var(--urgent-dim); }
+.reminder-item.info    { background:var(--blue-dim); }
+.reminder-item.success { background:var(--green-dim); }
+.reminder-dot { width:8px; height:8px; border-radius:50%; margin-top:5px; flex-shrink:0; }
+.reminder-item.urgent  .reminder-dot { background:var(--urgent); }
+.reminder-item.info    .reminder-dot { background:var(--blue); }
+.reminder-item.success .reminder-dot { background:var(--green); }
+.reminder-title { font-size:0.76rem; font-weight:600; color:var(--text-1); }
+.reminder-sub   { font-size:0.63rem; color:var(--text-2); margin-top:2px; }
+
+/* ═══ SIDEBAR ═════════════════════════════════════════ */
+.sidebar { display:flex; flex-direction:column; gap:16px; }
+.bday-card { background:linear-gradient(135deg,#FFFBEB,#FEF3C7); border:1px solid #FDE68A; border-radius:var(--r); overflow:hidden; }
+.bday-header { background:linear-gradient(90deg,#F59E0B,#FBBF24); padding:10px 16px; display:flex; align-items:center; gap:8px; }
+.bday-header h3 { font-size:0.75rem; font-weight:700; color:white; }
+.bday-count { margin-left:auto; background:rgba(255,255,255,0.3); color:white; font-size:0.6rem; font-weight:700; padding:2px 9px; border-radius:10px; }
+.bday-list { padding:10px 14px; display:flex; flex-direction:column; gap:2px; }
+.bday-item { display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:var(--r-sm); transition:background var(--t); }
+.bday-item.today { background:rgba(245,158,11,0.12); }
+.bday-av { width:34px; height:34px; border-radius:50%; display:grid; place-items:center; font-size:0.7rem; font-weight:700; color:white; flex-shrink:0; }
+.bday-info { flex:1; min-width:0; }
+.bday-name { font-size:0.76rem; font-weight:600; color:#78350F; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.bday-date { font-size:0.63rem; color:#B45309; margin-top:1px; }
+.bday-badge { flex-shrink:0; background:var(--amber); color:white; font-size:0.57rem; font-weight:700; padding:3px 9px; border-radius:10px; text-transform:uppercase; }
+@keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,0.4)} 50%{box-shadow:0 0 0 6px rgba(245,158,11,0)} }
+.bday-badge { animation:pulse 1.5s ease-in-out infinite; }
+
+.eventos-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--r); box-shadow:var(--sh-sm); overflow:hidden; }
+.eventos-header { background:var(--navy); padding:10px 16px; display:flex; align-items:center; gap:8px; }
+.eventos-header h3 { font-size:0.75rem; font-weight:700; color:white; }
+.eventos-list { padding:10px 14px; display:flex; flex-direction:column; gap:2px; }
+.ev-item { display:flex; align-items:center; gap:10px; padding:7px 10px; border-radius:var(--r-sm); transition:background var(--t); }
+.ev-item:hover { background:var(--off); }
+.ev-pill { min-width:38px; background:var(--blue); color:white; border-radius:var(--r-sm); padding:5px 8px; text-align:center; flex-shrink:0; }
+.ev-pill .d { font-size:0.9rem; font-weight:800; line-height:1; }
+.ev-pill .m { font-size:0.55rem; text-transform:uppercase; opacity:0.8; letter-spacing:0.05em; }
+.ev-pill.urgent { background:var(--urgent); }
+.ev-info { flex:1; min-width:0; }
+.ev-title { font-size:0.76rem; font-weight:600; color:var(--text-1); }
+.ev-sub   { font-size:0.63rem; color:var(--text-3); margin-top:1px; }
+.ev-tag { font-size:0.57rem; font-weight:700; text-transform:uppercase; padding:2px 8px; border-radius:10px; flex-shrink:0; }
+.ev-tag-fiscal  { background:var(--blue-dim); color:var(--blue); }
+.ev-tag-nomina  { background:var(--green-dim); color:#16A34A; }
+.ev-tag-interno { background:rgba(30,58,95,0.08); color:var(--navy); }
+
+.ext-links { background:var(--surface); border:1px solid var(--border); border-radius:var(--r); box-shadow:var(--sh-sm); padding:14px 16px; }
+.ext-links h3 { font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--blue); margin-bottom:10px; }
+.ext-link-btn { display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:var(--r-sm); transition:background var(--t); cursor:pointer; margin-bottom:3px; text-decoration:none; color:inherit; }
+.ext-link-btn:hover { background:var(--off); }
+.ext-link-ico { width:28px; height:28px; border-radius:6px; display:grid; place-items:center; flex-shrink:0; }
+.ext-link-name { font-size:0.76rem; font-weight:600; color:var(--text-1); }
+.ext-link-url  { font-size:0.62rem; color:var(--text-3); }
+.ext-link-arr  { margin-left:auto; font-size:0.7rem; color:var(--text-3); transition:color var(--t), transform var(--t); }
+.ext-link-btn:hover .ext-link-arr { color:var(--blue); transform:translateX(3px); }
+
+/* ═══ TOAST & CONFETTI ════════════════════════════════ */
+#confetti-canvas { position:absolute; inset:0; pointer-events:none; z-index:9999; display:none; }
+.bday-toast { position:absolute; bottom:28px; left:50%; transform:translateX(-50%) translateY(20px); background:linear-gradient(135deg,#F59E0B,#FBBF24); color:white; padding:14px 24px; border-radius:var(--r); box-shadow:0 8px 32px rgba(245,158,11,0.4); display:flex; align-items:center; gap:12px; font-size:0.85rem; font-weight:600; z-index:200; opacity:0; transition:all 0.4s var(--ease); pointer-events:none; max-width:90vw; }
+.bday-toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+.bday-toast .t-close { margin-left:8px; opacity:0.7; cursor:pointer; pointer-events:all; font-size:1rem; }
+
+/* ═══ MUSIC TOGGLE ════════════════════════════════════ */
+.music-type-toggle { display:flex; gap:6px; margin-top:12px; flex-wrap:wrap; }
+.toggle-btn { font-size:0.65rem; font-weight:600; padding:4px 12px; border-radius:20px; border:1px solid rgba(30,58,95,0.15); color:var(--text-2); transition:all var(--t); }
+.toggle-btn:hover { color:var(--text-1); border-color:var(--border); }
+.toggle-btn.active { background:var(--blue); color:white; border-color:var(--blue); }
+
+/* ═══ RESPONSIVE ══════════════════════════════════════ */
+html { height:auto; overflow-x:hidden; }
+body { height:auto; overflow-x:hidden; overflow-y:auto; }
+.sp-nav { display:none !important; }
+#confetti-canvas, .bday-toast { position:absolute !important; }
+@media (max-width:1100px) { .layout-main { grid-template-columns:1fr; } .sidebar { display:grid; grid-template-columns:1fr 1fr; } .ocio-row { grid-template-columns:1fr 1fr; } }
+@media (max-width:768px)  { .app-grid { grid-template-columns:repeat(2,1fr); } .sidebar { grid-template-columns:1fr; } .ocio-row { grid-template-columns:1fr; } .hero-right { display:none; } }
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+</style>
 </head>
 <body>
 
-<!-- ╔═══════════════════════════════════════╗ -->
-<!-- ║  TOP NAV                              ║ -->
-<!-- ╚═══════════════════════════════════════╝ -->
-<nav class="sp-nav">
-  <div class="nav-brand">
-    <div class="nav-logo">H&A</div>
-    <div class="nav-brand-text">
-      <div class="site">Payroll · H&A</div>
-      <div class="sub">Hidalgo & Asociados</div>
-    </div>
-  </div>
-  <div class="nav-links">
-    <a class="nav-link active" href="#">Inicio</a>
-    <a class="nav-link" href="#">Documentos</a>
-    <a class="nav-link" href="#">Nómina</a>
-    <a class="nav-link" href="#">Novedades</a>
-    <a class="nav-link" href="#">ARCA / AFIP</a>
-    <a class="nav-link" href="#">Implementaciones</a>
-  </div>
-  <div class="nav-right">
-    <div class="nav-search">🔎&nbsp; Buscar...</div>
-    <div class="nav-avatar" id="userAvatar">GE</div>
-  </div>
-</nav>
-
-<!-- ╔═══════════════════════════════════════╗ -->
-<!-- ║  HERO BANNER                          ║ -->
-<!-- ╚═══════════════════════════════════════╝ -->
+<!-- ── HERO ─────────────────────────────────────────── -->
 <section class="hero">
+  <div class="hero-photo"></div>
   <div class="hero-grid"></div>
   <div class="hero-inner">
     <div class="hero-left">
-      <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
-        <img src="data:image/png;base64,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" style="width:52px;height:52px;border-radius:50%;object-fit:cover;flex-shrink:0;box-shadow:0 0 0 3px rgba(24,183,232,0.4)" alt="H&A Logo">
-        <div>
-          <div style="font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.45);font-weight:600;font-family:var(--font)">Hidalgo & Asociados</div>
-          <div class="hero-eyebrow" style="margin-bottom:0;margin-top:4px">
-            <span>👋</span> <span id="heroGreeting">Buen día, equipo Payroll</span>
-          </div>
+      <div class="hero-brand">
+        <img src="https://hidalgoyasociados.com.ar/wp-content/uploads/2023/10/ha-iso.png" alt="H&A" class="hero-logo" onerror="this.outerHTML='<div style=&quot;width:52px;height:52px;border-radius:50%;background:#00ACD4;display:inline-flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:18px;letter-spacing:-0.5px;&quot;>H&amp;A</div>'">
+        <div class="hero-brand-text">
+          <div class="sp-name">Hidalgo &amp; Asociados</div>
+          <div class="hero-eyebrow">👋 <span id="heroGreeting">Buen día, equipo Payroll</span></div>
         </div>
       </div>
-      <h1 class="hero-title">Portal <span class="accent">Hidalgo</span><br>& Asociados</h1>
+      <h1 class="hero-title">Portal <span class="accent">Hidalgo</span><br>&amp; Asociados</h1>
       <p class="hero-subtitle">Herramientas internas · Nómina · Automatizaciones · Implementaciones</p>
       <div class="hero-badges" id="heroBadges">
-        <span class="hbadge hbadge-urgent">⚠️ F931 SUSS – vence 10 abr</span>
-        <span class="hbadge hbadge-info">📅 Cierre nómina – 25 abr</span>
-        <span class="hbadge hbadge-ok">🟦 Meta 4: 20 clientes</span>
+        <span class="hbadge hbadge-urgent">⚠ F931 SUSS – vence 10 jun</span>
+        <span class="hbadge hbadge-info">📅 Cierre nómina – 25 may</span>
+        <span class="hbadge hbadge-ok">🟦 Meta4: 20 clientes</span>
         <span class="hbadge hbadge-ok">🟧 Axton: 10 clientes</span>
       </div>
     </div>
@@ -795,297 +345,168 @@
         <div class="wday"  id="heroWday"></div>
       </div>
       <div class="hero-kpis">
-        <div class="kpi-chip">
-          <div class="n" id="daysToClose">—</div>
-          <div class="l">días cierre</div>
-        </div>
-        <div class="kpi-chip urgent">
-          <div class="n" id="daysToVcto">—</div>
-          <div class="l" id="daysToVctoLabel">días pago emp.</div>
-        </div>
-        <div class="kpi-chip" title="🙃">
-          <div class="n">0</div>
-          <div class="l">días sin problemas 🙃</div>
-        </div>
+        <div class="kpi-chip"><div class="n" id="daysToClose">—</div><div class="l">días cierre</div></div>
+        <div class="kpi-chip urgent"><div class="n" id="daysToVcto">—</div><div class="l" id="daysToVctoLabel">días pago emp.</div></div>
+        <div class="kpi-chip"><div class="n">0</div><div class="l">sin problemas 🙃</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ╔═══════════════════════════════════════╗ -->
-<!-- ║  PAGE CONTENT                         ║ -->
-<!-- ╚═══════════════════════════════════════╝ -->
+<!-- ── NOVEDADES STRIP ──────────────────────────────── -->
+<div class="novedades-strip">
+  <div class="novedades-inner" id="novedadesStrip">
+    <span class="novedades-label">📢 Novedades</span>
+    <!-- rendered by JS -->
+  </div>
+</div>
+
+<!-- ── PAGE ─────────────────────────────────────────── -->
 <main class="page">
   <div class="layout-main">
-
-    <!-- ─── COLUMNA PRINCIPAL ─── -->
     <div class="main-col">
 
-      <!-- APPS INTERNAS -->
+      <!-- APPS -->
       <div class="sec-label">🚀 Apps internas · Accesos directos</div>
-      <div class="app-grid" id="appGrid">
-        <!-- rendered by JS from CONFIG.apps -->
-      </div>
+      <div class="app-grid" id="appGrid"></div>
 
       <!-- FAQ -->
-      <div class="sec-label">❓ FAQ · Preguntas frecuentes del equipo</div>
-      <div class="faq-wrap" id="faqWrap">
-        <!-- rendered by JS from CONFIG.faqs -->
-      </div>
+      <div class="sec-label">❓ FAQ · Privacidad y uso de IA</div>
+      <div class="faq-wrap" id="faqWrap"></div>
 
       <!-- OCIO ROW -->
-      <div class="sec-label" style="margin-top:28px">🎯 Espacio del equipo</div>
+      <div class="sec-label" style="margin-top:20px;">🎯 Espacio del equipo</div>
       <div class="ocio-row">
-
-        <!-- FRASE DEL DÍA -->
+        <!-- FRASE -->
         <div class="card">
-          <div class="card-header">
-            <span class="ch-ico">💬</span>
-            <h3>Frase del día</h3>
-          </div>
+          <div class="card-header"><span class="ch-ico">💬</span><h3>Frase del día</h3></div>
           <div class="card-body">
             <div class="quote-wrap">
               <div class="quote-marks">"</div>
-              <p class="quote-text" id="quoteText">Cargando frase…</p>
+              <p class="quote-text" id="quoteText">Cargando…</p>
               <div class="quote-author" id="quoteAuthor">—</div>
             </div>
-            <div class="quote-refresh" onclick="nextQuote()" title="Nueva frase">
-              🔄&nbsp;Otra frase
-            </div>
+            <div class="quote-refresh" onclick="nextQuote()">🔄 Otra frase</div>
           </div>
         </div>
-
         <!-- MÚSICA -->
         <div class="card">
-          <div class="card-header">
-            <span class="ch-ico">🎵</span>
-            <h3>Música del equipo</h3>
-            <span class="ch-pill" id="musicSource">YouTube</span>
-          </div>
+          <div class="card-header"><span class="ch-ico">🎵</span><h3>Música del equipo</h3><span class="ch-pill" id="musicSource">YouTube</span></div>
           <div class="card-body">
-            <div id="musicEmbed" style="border-radius:var(--r-sm);overflow:hidden;"></div>
+            <div id="musicEmbed"></div>
             <div class="music-type-toggle">
               <button class="toggle-btn active" onclick="setMusicType('youtube',this)">📺 YouTube</button>
               <button class="toggle-btn" onclick="setMusicType('spotify',this)">🟢 Spotify</button>
             </div>
           </div>
         </div>
-
-        <!-- NOTICIAS LABORALES -->
+        <!-- NOTICIAS -->
         <div class="card">
-          <div class="card-header">
-            <span class="ch-ico">📰</span>
-            <h3>Noticias laborales AR</h3>
-            <span class="ch-pill">RSS</span>
-          </div>
-          <div class="card-body" id="newsBody">
-            <!-- rendered by JS -->
-          </div>
+          <div class="card-header"><span class="ch-ico">📰</span><h3>Noticias laborales AR</h3><span class="ch-pill">RSS</span></div>
+          <div class="card-body" id="newsBody"></div>
         </div>
+      </div>
 
-      </div><!-- /ocio-row -->
     </div><!-- /main-col -->
 
-    <!-- ─── SIDEBAR ─── -->
+    <!-- ── SIDEBAR ────────────────────────────────────── -->
     <aside class="sidebar">
-
-      <!-- CUMPLEAÑOS -->
+      <!-- Cumpleaños -->
       <div class="bday-card">
-        <div class="bday-header">
-          <span class="bday-ico">🎂</span>
-          <h3>Cumpleaños del mes</h3>
-          <span class="bday-count" id="bdayCount">0</span>
-        </div>
-        <div class="bday-list" id="bdayList">
-          <!-- rendered by JS -->
-        </div>
+        <div class="bday-header"><span>🎂</span><h3>Cumpleaños del mes</h3><span class="bday-count" id="bdayCount">0</span></div>
+        <div class="bday-list" id="bdayList"></div>
       </div>
-
-      <!-- EVENTOS / VENCIMIENTOS -->
+      <!-- Vencimientos -->
       <div class="eventos-card">
-        <div class="eventos-header">
-          <span class="ev-ico">📆</span>
-          <h3>Próximos vencimientos</h3>
-        </div>
-        <div class="eventos-list" id="eventosList">
-          <!-- rendered by JS -->
-        </div>
+        <div class="eventos-header"><span>📆</span><h3>Próximos vencimientos</h3></div>
+        <div class="eventos-list" id="eventosList"></div>
       </div>
-
-     <!-- LINKS EXTERNOS -->
-<div class="ext-links">
-  <h3>Apps externas</h3>
-
-  <!-- monday.com -->
-  <a class="ext-link-btn" href="https://bhidalgo.monday.com/" target="_blank" rel="noopener">
-    <div class="ext-link-ico" style="background:#6161FF; display:flex; align-items:center; justify-content:center;">
-      <svg width="22" height="22" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="8" cy="28" r="7" fill="#FF3D57"/>
-        <circle cx="20" cy="28" r="7" fill="#FFCA00"/>
-        <circle cx="32" cy="28" r="7" fill="#00D748"/>
-      </svg>
-    </div>
-    <div>
-      <div class="ext-link-name">monday.com</div>
-      <div class="ext-link-url">acceso monday.com</div>
-    </div>
-    <span class="ext-link-arr">→</span>
-  </a>
-
-  <!-- Axton -->
-  <a class="ext-link-btn" href="https://axtonit.com/" target="_blank" rel="noopener">
-    <div class="ext-link-ico" style="background:#1A3A6B; display:flex; align-items:center; justify-content:center;">
-      <svg width="22" height="22" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="6" width="32" height="24" rx="3" stroke="white" stroke-width="3" fill="none"/>
-        <rect x="10" y="30" width="20" height="3" rx="1.5" fill="white"/>
-        <rect x="16" y="33" width="8" height="2" rx="1" fill="white"/>
-        <rect x="8" y="12" width="24" height="12" rx="1" fill="white" opacity="0.2"/>
-      </svg>
-    </div>
-    <div>
-      <div class="ext-link-name">Axton</div>
-      <div class="ext-link-url">Liquidación de sueldos</div>
-    </div>
-    <span class="ext-link-arr">→</span>
-  </a>
-
-  <!-- ARCA (ex-AFIP) -->
-  <a class="ext-link-btn" href="https://www.afip.gob.ar/landing/default.asp" target="_blank" rel="noopener">
-    <div class="ext-link-ico" style="background:#003A8C; display:flex; align-items:center; justify-content:center;">
-      <svg width="22" height="22" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- columnas del edificio -->
-        <rect x="4" y="34" width="32" height="3" rx="1" fill="white"/>
-        <rect x="4" y="10" width="32" height="3" rx="1" fill="white"/>
-        <!-- frontón triangular -->
-        <polygon points="20,3 36,10 4,10" fill="white"/>
-        <!-- columnas -->
-        <rect x="8"  y="13" width="3" height="21" rx="1" fill="white"/>
-        <rect x="14" y="13" width="3" height="21" rx="1" fill="white"/>
-        <rect x="20" y="13" width="3" height="21" rx="1" fill="white"/>
-        <rect x="26" y="13" width="3" height="21" rx="1" fill="white"/>
-        <rect x="32" y="13" width="3" height="21" rx="1" fill="white" opacity="0"/>
-      </svg>
-    </div>
-    <div>
-      <div class="ext-link-name">ARCA (ex-AFIP)</div>
-      <div class="ext-link-url">afip.gob.ar</div>
-    </div>
-    <span class="ext-link-arr">→</span>
-  </a>
-
-  <!-- ANSES -->
-  <a class="ext-link-btn" href="https://www.anses.gob.ar" target="_blank" rel="noopener">
-    <div class="ext-link-ico" style="background:#00843D; display:flex; align-items:center; justify-content:center;">
-      <svg width="22" height="22" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- figura humana estilizada -->
-        <circle cx="20" cy="10" r="5" fill="white"/>
-        <path d="M10 38 Q10 24 20 24 Q30 24 30 38" fill="white"/>
-        <!-- escudo base -->
-        <path d="M6 18 L20 14 L34 18 L34 28 Q34 36 20 40 Q6 36 6 28 Z" fill="white" opacity="0.2"/>
-      </svg>
-    </div>
-    <div>
-      <div class="ext-link-name">ANSES</div>
-      <div class="ext-link-url">anses.gob.ar</div>
-    </div>
-    <span class="ext-link-arr">→</span>
-  </a>
-
-</div>
-</aside>
-</div>
+      <!-- Links externos -->
+      <div class="ext-links">
+        <h3>Apps externas</h3>
+        <a class="ext-link-btn" href="https://bhidalgo.monday.com/" target="_blank" rel="noopener">
+          <div class="ext-link-ico" style="background:#6161FF;">
+            <svg width="20" height="20" viewBox="0 0 40 40" fill="none"><circle cx="8" cy="28" r="7" fill="#FF3D57"/><circle cx="20" cy="28" r="7" fill="#FFCA00"/><circle cx="32" cy="28" r="7" fill="#00D748"/></svg>
+          </div>
+          <div><div class="ext-link-name">monday.com</div><div class="ext-link-url">bhidalgo.monday.com</div></div>
+          <span class="ext-link-arr">→</span>
+        </a>
+        <a class="ext-link-btn" href="https://www.afip.gob.ar" target="_blank" rel="noopener">
+          <div class="ext-link-ico" style="background:#003A8C;">
+            <svg width="18" height="18" viewBox="0 0 40 40" fill="none"><rect x="4" y="34" width="32" height="3" rx="1" fill="white"/><rect x="4" y="10" width="32" height="3" rx="1" fill="white"/><polygon points="20,3 36,10 4,10" fill="white"/><rect x="8" y="13" width="3" height="21" rx="1" fill="white"/><rect x="14" y="13" width="3" height="21" rx="1" fill="white"/><rect x="20" y="13" width="3" height="21" rx="1" fill="white"/><rect x="26" y="13" width="3" height="21" rx="1" fill="white"/></svg>
+          </div>
+          <div><div class="ext-link-name">ARCA (ex-AFIP)</div><div class="ext-link-url">afip.gob.ar</div></div>
+          <span class="ext-link-arr">→</span>
+        </a>
+        <a class="ext-link-btn" href="https://www.anses.gob.ar" target="_blank" rel="noopener">
+          <div class="ext-link-ico" style="background:#00843D;">
+            <svg width="18" height="18" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="10" r="5" fill="white"/><path d="M10 38 Q10 24 20 24 Q30 24 30 38" fill="white"/></svg>
+          </div>
+          <div><div class="ext-link-name">ANSES</div><div class="ext-link-url">anses.gob.ar</div></div>
+          <span class="ext-link-arr">→</span>
+        </a>
+        <a class="ext-link-btn" href="https://serviciosweb.afip.gob.ar/consultapadrondgisi/" target="_blank" rel="noopener">
+          <div class="ext-link-ico" style="background:#1a6b3c;">
+            <svg width="18" height="18" viewBox="0 0 40 40" fill="none"><rect x="6" y="8" width="28" height="24" rx="3" fill="none" stroke="white" stroke-width="3"/><rect x="12" y="16" width="16" height="2" rx="1" fill="white"/><rect x="12" y="21" width="10" height="2" rx="1" fill="white"/></svg>
+          </div>
+          <div><div class="ext-link-name">Padrón DGISI</div><div class="ext-link-url">Consulta de contribuyentes</div></div>
+          <span class="ext-link-arr">→</span>
+        </a>
+      </div>
+    </aside>
+  </div>
 </main>
 
-<!-- CONFETTI CANVAS -->
 <canvas id="confetti-canvas"></canvas>
-
-<!-- BIRTHDAY TOAST -->
 <div class="bday-toast" id="bdayToast">
   <span>🎉</span>
   <span id="bdayToastMsg">¡Feliz cumpleaños!</span>
   <span class="t-close" onclick="closeBdayToast()">✕</span>
 </div>
 
-<!-- ════════════════════════════════════════════════════════════ -->
 <script>
-/* ═══════════════════════════════════════════════════════════
-   ⚙️  CONFIGURACIÓN ESTÁTICA — Solo lo que nunca cambia.
-       Los datos dinámicos (cumpleaños, eventos, frases)
-       se cargan desde archivos JSON en /data/.
-       Para actualizar datos: editá el JSON en GitHub,
-       el portal lo refleja en el siguiente reload.
-   ═══════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   CONFIGURACIÓN
+══════════════════════════════════════════════════════ */
 const CONFIG = {
+  user: { displayName:'Guillermo Esposito', initials:'GE' },
+  apps: [], cumpleanios: [], eventos: [], frases: [],
 
-  /* ── Usuario (hardcodeado; se puede reemplazar con
-        SharePoint /_api/web/currentUser si el portal
-        se mueve al mismo tenant en el futuro)
-  ─────────────────────────────────────────────────────────── */
-  user: {
-    displayName: 'Guillermo Esposito',
-    initials:    'GE',
-  },
-
-  /* ── Apps internas — se cargan desde apps.json ──────────── */
-  apps: [],
-
-  /* ── Datos dinámicos — se cargan desde /data/*.json ─────── */
-  cumpleanios: [],
-  eventos:     [],
-  frases:      [],
-
-  /* ── FAQ — cambia poco, queda inline ────────────────────── */
-  faqs: [
-    {
-      icono:'🔒',
-      pregunta:'¿Qué información NO puedo cargar en una IA (ChatGPT, Claude, Gemini, etc.)?',
-      respuesta:'Nunca ingresés en herramientas de IA datos personales de empleados ni de clientes: CUIL, DNI, nombre y apellido, remuneraciones, domicilio, datos de salud, legajos ni cualquier información que permita identificar a una persona. La Ley 25.326 de Protección de Datos Personales (Argentina) clasifica estos datos como sensibles y su tratamiento sin consentimiento explícito es una infracción grave que puede generar sanciones para el estudio. Lo mismo aplica bajo el RGPD europeo si trabajás con clientes con filiales en la Unión Europea. Las IAs públicas pueden almacenar y usar los datos ingresados para mejorar sus modelos: una vez enviada, la información sale del control del estudio.',
-    },
-    {
-      icono:'⚠️',
-      pregunta:'¿Qué pasa si subo datos de un empleado a una IA por error?',
-      respuesta:'Informalo de inmediato a tu responsable o al área de IT. Según la Ley 25.326 y la Disposición AAIP 4/2019, el estudio tiene obligación de notificar incidentes de seguridad que afecten datos personales. No intentes "corregirlo solo": la notificación temprana reduce el riesgo legal. Si la plataforma lo permite, eliminá el historial de la conversación de inmediato.',
-    },
-    {
-      icono:'🛡️',
-      pregunta:'¿Qué sí puedo hacer con las IAs del trabajo?',
-      respuesta:'Podés usar las IAs para: redactar textos genéricos, resumir normativa, generar plantillas, buscar errores en código propio, consultas conceptuales sobre liquidación o ARCA, y tareas que no involucren datos identificatorios de personas reales. La guía "Cómo usar Claude" del portal detalla los casos de uso aprobados por el estudio.',
-    },
+  /* Novedades del equipo — changelog interno */
+  novedades: [
+    { tipo:'app',    icono:'🚀', titulo:'Validador Novedades v1.0',       desc:'Nueva app — valida importadores de novedades', fecha:'2026-05-15' },
+    { tipo:'update', icono:'📊', titulo:'Visor F.1359 actualizado a v2.0', desc:'Mejoras en exportación a Excel',                 fecha:'2026-05-01' },
+    { tipo:'aviso',  icono:'⚠', titulo:'Nuevo formato ARCA: F.1359',      desc:'Cambio en estructura desde mayo 2026',           fecha:'2026-04-28' },
+    { tipo:'info',   icono:'🤖', titulo:'Guía "Cómo usar Claude" lista',   desc:'Qué modelo usar según la tarea',                 fecha:'2026-04-10' },
   ],
 
-  noticias: [],
+  faqs: [
+    { icono:'🔒', pregunta:'¿Qué información NO puedo cargar en una IA?',
+      respuesta:'Nunca ingresés en herramientas de IA datos personales de empleados ni de clientes: CUIL, DNI, nombre y apellido, remuneraciones, domicilio, datos de salud o legajos. La Ley 25.326 clasifica estos datos como sensibles y su tratamiento sin consentimiento puede generar sanciones. Las IAs públicas pueden almacenar los datos ingresados para mejorar sus modelos.' },
+    { icono:'⚠️', pregunta:'¿Qué pasa si subo datos de un empleado a una IA por error?',
+      respuesta:'Informalo inmediatamente a tu responsable o al área de IT. Según la Ley 25.326 y la Disposición AAIP 4/2019, el estudio tiene obligación de notificar incidentes que afecten datos personales. Si la plataforma lo permite, eliminá el historial de la conversación de inmediato.' },
+    { icono:'🛡️', pregunta:'¿Qué sí puedo hacer con las IAs del trabajo?',
+      respuesta:'Podés usarlas para: redactar textos genéricos, resumir normativa, generar plantillas, buscar errores en código propio, consultas conceptuales sobre liquidación o ARCA, y tareas que no involucren datos identificatorios de personas reales. La guía "Cómo usar Claude" del portal detalla los casos de uso aprobados.' },
+  ],
 
-  /* ── Música ──────────────────────────────────────────────── */
-  musicaYoutube: {
-    embedUrl: 'https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=0&list=PLofht4PTcKYnaH8w5olJCI-wUBGMO3Zqg',
-    track:    'Lo-fi Beats to Work',
-    artist:   'Playlist Payroll · H&A',
-    total:    '3 h 42 min',
-  },
-  musicaSpotify: {
-    embedUrl: 'https://open.spotify.com/embed/playlist/37i9dQZF1DX8NTLI2TtZa6',
-    track:    'Productive Morning',
-    artist:   'Spotify · Work Playlist',
-    total:    '4 h 10 min',
-  },
+  /* Eventos fallback — se usan si el fetch falla o no hay próximos */
+  eventosFallback: [
+    { titulo:'F931 SUSS', fecha:'2026-06-10', tipo:'fiscal', urgente:true,  sub:'Presentación mensual ARCA' },
+    { titulo:'Cierre nómina', fecha:'2026-05-25', tipo:'nomina', urgente:false, sub:'Todos los clientes' },
+    { titulo:'Acreditación sueldos', fecha:'2026-05-27', tipo:'nomina', urgente:false, sub:'Liquidación sueldos mayo' },
+    { titulo:'F1359 Ganancias', fecha:'2026-06-01', tipo:'fiscal', urgente:false, sub:'Envío formularios 4° categoría' },
+    { titulo:'DDJJ mensual', fecha:'2026-06-05', tipo:'fiscal', urgente:false, sub:'Formulario 931' },
+    { titulo:'Reunión equipo Payroll', fecha:'2026-05-28', tipo:'interno', urgente:false, sub:'Revisión cierre mensual' },
+  ],
+  musicaYoutube: { embedUrl:'https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=0&list=PLofht4PTcKYnaH8w5olJCI-wUBGMO3Zqg' },
+  musicaSpotify: { embedUrl:'https://open.spotify.com/embed/playlist/37i9dQZF1DX8NTLI2TtZa6' },
 };
 
-/* ═══════════════════════════════════════════════════════════
-   📦  CARGA DE DATOS DINÁMICOS DESDE JSON
-   
-   Todos los fetch() corren en paralelo con Promise.all() para
-   no bloquear la UI. Si un archivo falla, el portal sigue
-   funcionando con datos vacíos (degradación elegante).
-   
-   Para actualizar datos: editá el JSON correspondiente en
-   GitHub → /data/cumpleanios.json, eventos.json, frases.json
-   GitHub Pages lo publica en ~30 segundos sin tocar el HTML.
-   ═══════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   CARGA DE DATOS
+══════════════════════════════════════════════════════ */
 async function cargarDatos() {
-  // Cache-busting: evitamos que el navegador muestre datos viejos
-  const ts = Date.now();
-
-  // Fetch paralelo de los tres archivos + apps.json
+  const ts   = Date.now();
   const BASE = 'https://willyesposito.github.io/payroll-portal-ha/';
   const [resCump, resEv, resFr, resApps] = await Promise.allSettled([
     fetch(`${BASE}cumpleanios.json?_t=${ts}`).then(r => r.json()),
@@ -1093,136 +514,89 @@ async function cargarDatos() {
     fetch(`${BASE}frases.json?_t=${ts}`).then(r => r.json()),
     fetch(`${BASE}apps.json?_t=${ts}`).then(r => r.json()),
   ]);
+  if (resCump.status === 'fulfilled') CONFIG.cumpleanios = resCump.value;
+  if (resEv.status   === 'fulfilled') CONFIG.eventos     = resEv.value;
+  if (resFr.status   === 'fulfilled') { CONFIG.frases = resFr.value; quoteIdx = Math.floor(Math.random() * CONFIG.frases.length); }
+  if (resApps.status === 'fulfilled' && resApps.value.apps) CONFIG.apps = resApps.value.apps.filter(a => a.estado !== 'inactivo');
 
-  // Asignamos al CONFIG solo si el fetch fue exitoso.
-  // Si falla (archivo no existe, JSON malformado), el array
-  // queda vacío y el portal muestra un estado vacío limpio.
-  if (resCump.status  === 'fulfilled') CONFIG.cumpleanios = resCump.value;
-  if (resEv.status    === 'fulfilled') CONFIG.eventos     = resEv.value;
-  if (resFr.status    === 'fulfilled') {
-    CONFIG.frases = resFr.value;
-    quoteIdx = Math.floor(Math.random() * CONFIG.frases.length);
-  }
-  if (resApps.status  === 'fulfilled' && resApps.value.apps) {
-    CONFIG.apps = resApps.value.apps.filter(a => a.estado !== 'inactivo');
-  }
-
-  // Con los datos cargados, renderizamos todo
-  initDate();
-  renderApps();
-  renderFaq();
-  renderBirthdays();
-  renderEventos();
-  renderQuote();
-  fetchNoticias();
-
-  // Notificamos la altura al iframe de SharePoint
-  // (lo hacemos después del render para que el DOM esté completo)
+  initDate(); renderNovedades(); renderApps(); renderFaq();
+  renderBirthdays(); renderEventos(); renderQuote(); fetchNoticias();
   reportHeight();
 }
-
-// Iniciamos la carga al cargar la página
 cargarDatos();
 
-/* ═══════════════════════════════════════════════════════════
-   FECHA & HORA
-═══════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   FECHA & CONTADORES
+══════════════════════════════════════════════════════ */
 function initDate() {
   const now   = new Date();
   const meses = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
   const dias  = ['DOMINGO','LUNES','MARTES','MIÉRCOLES','JUEVES','VIERNES','SÁBADO'];
-
   document.getElementById('heroMonth').textContent = meses[now.getMonth()] + ' ' + now.getFullYear();
   document.getElementById('heroDay').textContent   = String(now.getDate()).padStart(2,'0');
   document.getElementById('heroWday').textContent  = dias[now.getDay()];
-
-  // Saludo según hora
   const h = now.getHours();
-  const greet = h < 12 ? 'Buenos días' : h < 19 ? 'Buenas tardes' : 'Buenas noches';
-  document.getElementById('heroGreeting').textContent = `${greet}, equipo Payroll`;
-
-  // Días hasta cierre y vcto más próximo
-  // Comparamos solo fechas (sin hora) para evitar problemas de timezone en SharePoint
-  const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const thisMonth = now.getMonth();
-  const thisYear  = now.getFullYear();
-  const cierre    = new Date(thisYear, thisMonth, 25);
-  if (cierre <= todayMidnight) cierre.setMonth(cierre.getMonth() + 1);
-  const daysClose = Math.ceil((cierre - todayMidnight) / 86400000);
-  document.getElementById('daysToClose').textContent = daysClose > 0 ? daysClose : '0';
-
-  // Countdown a fecha de pago de empleados de clientes:
-  // - Hasta el 30/04/2026 inclusive: fecha fija (vencimiento F.1359)
-  // - Desde mayo en adelante: 4° día hábil del mes corriente;
-  //   si ya pasó, muestra el del mes siguiente.
-  function getFourthBizDay(year, month) {
-    let count = 0, day = 1;
-    while (true) {
-      const d = new Date(year, month, day);
-      const dow = d.getDay();
-      if (dow !== 0 && dow !== 6) { count++; if (count === 4) return d; }
-      day++;
-    }
+  document.getElementById('heroGreeting').textContent = `${h<12?'Buenos días':h<19?'Buenas tardes':'Buenas noches'}, equipo Payroll`;
+  const todayMid = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const cierre   = new Date(now.getFullYear(), now.getMonth(), 25);
+  if (cierre <= todayMid) cierre.setMonth(cierre.getMonth() + 1);
+  document.getElementById('daysToClose').textContent = Math.max(0, Math.ceil((cierre - todayMid) / 86400000));
+  function getFourthBizDay(y, m) {
+    let c = 0, d = 1;
+    while(true) { const dt = new Date(y,m,d); const dow = dt.getDay(); if(dow!==0&&dow!==6){c++;if(c===4)return dt;} d++; }
   }
-  function getTargetPagoDate(today) {
-    const april30 = new Date(2026, 3, 30);
-    if (today <= april30) return april30;
-    const y = today.getFullYear(), m = today.getMonth();
-    const fourth = getFourthBizDay(y, m);
-    if (today <= fourth) return fourth;
-    const nm = m === 11 ? 0 : m + 1, ny = m === 11 ? y + 1 : y;
-    return getFourthBizDay(ny, nm);
-  }
-  const targetPago = getTargetPagoDate(todayMidnight);
-  const diffPago   = Math.ceil((targetPago - todayMidnight) / 86400000);
+  const y = now.getFullYear(), mo = now.getMonth();
+  let pago = getFourthBizDay(y, mo);
+  if (todayMid > pago) pago = getFourthBizDay(mo===11?y+1:y, mo===11?0:mo+1);
+  const diffPago = Math.ceil((pago - todayMid) / 86400000);
   document.getElementById('daysToVcto').textContent = diffPago > 0 ? diffPago : '¡Hoy!';
-  // Actualizar label con la fecha destino
-  const labelMeses = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
-  document.getElementById('daysToVctoLabel').textContent =
-    `pago emp. · ${targetPago.getDate()} ${labelMeses[targetPago.getMonth()]}`;
-
-  // Avatar
-  document.getElementById('userAvatar').textContent = CONFIG.user.initials;
+  const lm = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  document.getElementById('daysToVctoLabel').textContent = `pago emp. · ${pago.getDate()} ${lm[pago.getMonth()]}`;
+  document.getElementById('userAvatar') && (document.getElementById('userAvatar').textContent = CONFIG.user.initials);
 }
 
-/* ═══════════════════════════════════════════════════════════
-   APPS GRID
-═══════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   NOVEDADES
+══════════════════════════════════════════════════════ */
+function renderNovedades() {
+  const strip = document.getElementById('novedadesStrip');
+  const items = CONFIG.novedades.map(n => {
+    const d = new Date(n.fecha + 'T00:00:00');
+    const lm = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+    const fechaStr = `${d.getDate()} ${lm[d.getMonth()]}`;
+    return `<div class="novedad-item" title="${n.desc}">
+      <div class="novedad-ico ${n.tipo}">${n.icono}</div>
+      <div class="novedad-text">
+        <div class="t">${n.titulo}</div>
+        <div class="d">${fechaStr} · ${n.desc}</div>
+      </div>
+    </div>`;
+  }).join('');
+  strip.innerHTML = `<span class="novedades-label">📢 Novedades</span>${items}`;
+}
+
+/* ══════════════════════════════════════════════════════
+   APPS
+══════════════════════════════════════════════════════ */
 function renderApps() {
   const grid = document.getElementById('appGrid');
-  grid.innerHTML = CONFIG.apps.map((a, i) => {
-    const catClass = a.estado === 'beta' ? 'beta' : '';
-    const catLabel = a.estado === 'beta' ? 'Beta' : a.categoria;
-    return `
-      <a class="app-tile ${catClass}" href="${a.url}" target="_blank" rel="noopener"
-         style="animation-delay:${i * 0.07}s" title="Abrir ${a.nombre}">
-        <span class="t-icon">${a.icono}</span>
-        <span class="t-name">${a.nombre}</span>
-        ${a.descripcion ? `<span class="t-desc">${a.descripcion}</span>` : ''}
-        <span class="t-cat">${catLabel}</span>
-        <span class="t-ver">v${a.version}</span>
-      </a>`;
-  }).join('');
-
-  // Staggered animations: observamos los tiles recién creados
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.style.animationPlayState = 'running'; });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.app-tile').forEach(t => {
-    t.style.animationPlayState = 'paused';
-    observer.observe(t);
-  });
+  grid.innerHTML = CONFIG.apps.map((a, i) => `
+    <a class="app-tile ${a.estado==='beta'?'beta':''}" href="${a.url}" target="_blank" rel="noopener">
+      <span class="t-icon">${a.icono}</span>
+      <span class="t-name">${a.nombre}</span>
+      ${a.descripcion?`<span class="t-desc">${a.descripcion}</span>`:''}
+      <span class="t-cat">${a.estado==='beta'?'Beta':a.categoria}</span>
+      <span class="t-ver">v${a.version}</span>
+    </a>`).join('');
 }
 
-/* ═══════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════
    FAQ
-═══════════════════════════════════════════════════════════ */
+══════════════════════════════════════════════════════ */
 function renderFaq() {
-  const wrap = document.getElementById('faqWrap');
-  wrap.innerHTML = CONFIG.faqs.map((f, i) => `
+  document.getElementById('faqWrap').innerHTML = CONFIG.faqs.map((f,i) => `
     <div class="faq-item" id="faq-${i}">
-      <div class="faq-q" onclick="toggleFaq(${i})" role="button" tabindex="0"
-           onkeydown="if(event.key==='Enter'||event.key===' ')toggleFaq(${i})">
+      <div class="faq-q" onclick="toggleFaq(${i})" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleFaq(${i})">
         <span class="faq-q-ico">${f.icono}</span>
         <span class="faq-q-text">${f.pregunta}</span>
         <span class="faq-chevron">▼</span>
@@ -1230,294 +604,188 @@ function renderFaq() {
       <div class="faq-a"><p>${f.respuesta}</p></div>
     </div>`).join('');
 }
+function toggleFaq(i) { document.getElementById('faq-'+i).classList.toggle('open'); }
 
-function toggleFaq(i) {
-  const item = document.getElementById('faq-' + i);
-  item.classList.toggle('open');
+/* ══════════════════════════════════════════════════════
+   CUMPLEAÑOS — colores de avatares alineados a marca H&A
+══════════════════════════════════════════════════════ */
+/* Paleta brand para avatares: celeste, navy, verde, violeta, amber */
+const AVATAR_COLORS = ['#00ACD4','#1E3A5F','#5CB85C','#7B2FBE','#F59E0B','#0090B4','#2A4F7A','#3A8A3A'];
+function getBrandColor(str) {
+  let h = 0; for(let i=0;i<str.length;i++) h = ((h<<5)-h)+str.charCodeAt(i);
+  return AVATAR_COLORS[Math.abs(h) % AVATAR_COLORS.length];
 }
 
-/* ═══════════════════════════════════════════════════════════
-   CUMPLEAÑOS
-═══════════════════════════════════════════════════════════ */
 function renderBirthdays() {
-  const now   = new Date();
-  const month = String(now.getMonth() + 1).padStart(2,'0');
-  const today = String(now.getDate()).padStart(2,'0');
+  const now    = new Date();
+  const month  = String(now.getMonth()+1).padStart(2,'0');
+  const today  = String(now.getDate()).padStart(2,'0');
   const todayStr = `${month}-${today}`;
-
   const thisMonth = CONFIG.cumpleanios
     .filter(b => b.fecha.startsWith(month))
-    .sort((a, b) => a.fecha.localeCompare(b.fecha));
-
+    .sort((a,b) => a.fecha.localeCompare(b.fecha));
   document.getElementById('bdayCount').textContent = thisMonth.length + ' este mes';
-
   const list = document.getElementById('bdayList');
-
-  if (!thisMonth.length) {
-    list.innerHTML = '<p style="font-size:0.74rem;color:#B45309;padding:10px 10px 14px;text-align:center">Sin cumpleaños este mes 🎈</p>';
-    return;
-  }
-
+  if (!thisMonth.length) { list.innerHTML='<p style="font-size:0.74rem;color:#B45309;padding:10px;text-align:center">Sin cumpleaños este mes 🎈</p>'; return; }
   list.innerHTML = thisMonth.map(b => {
     const isToday = b.fecha === todayStr;
-    return `
-      <div class="bday-item ${isToday ? 'today' : ''}">
-        <div class="bday-av" style="background:${b.color}">${b.iniciales}</div>
-        <div class="bday-info">
-          <div class="bday-name">${b.nombre}</div>
-          <div class="bday-date">${b.area} · ${isToday ? '🎉 ¡Hoy!' : formatBdayDate(b.fecha)}</div>
-        </div>
-        ${isToday ? '<span class="bday-badge">HOY 🎂</span>' : ''}
-      </div>`;
+    const color   = getBrandColor(b.nombre); /* color brand determinístico */
+    return `<div class="bday-item ${isToday?'today':''}">
+      <div class="bday-av" style="background:${color}">${b.iniciales}</div>
+      <div class="bday-info">
+        <div class="bday-name">${b.nombre}</div>
+        <div class="bday-date">${b.area} · ${isToday?'🎉 ¡Hoy!':formatBdayDate(b.fecha)}</div>
+      </div>
+      ${isToday?'<span class="bday-badge">HOY 🎂</span>':''}
+    </div>`;
   }).join('');
-
-  // Si hay cumpleaños hoy → toast + confeti
-  const todayBdays = thisMonth.filter(b => b.fecha === todayStr);
-  if (todayBdays.length) {
-    setTimeout(() => {
-      const names = todayBdays.map(b => b.nombre.split(' ')[0]).join(' y ');
-      document.getElementById('bdayToastMsg').textContent = `¡Feliz cumpleaños, ${names}! 🎂🎉`;
-      document.getElementById('bdayToast').classList.add('show');
-      launchConfetti();
-    }, 800);
-  }
+  const todayBdays = thisMonth.filter(b => b.fecha===todayStr);
+  if (todayBdays.length) setTimeout(()=>{
+    const names = todayBdays.map(b=>b.nombre.split(' ')[0]).join(' y ');
+    document.getElementById('bdayToastMsg').textContent = `¡Feliz cumpleaños, ${names}! 🎂🎉`;
+    document.getElementById('bdayToast').classList.add('show');
+    launchConfetti();
+  }, 800);
 }
-
 function formatBdayDate(str) {
-  const [m, d] = str.split('-');
-  const meses = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
-  return `📅 ${parseInt(d)} ${meses[parseInt(m)-1]}`;
+  const [m,d] = str.split('-');
+  return ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'][parseInt(m)-1] + ' ' + parseInt(d);
 }
+function closeBdayToast() { document.getElementById('bdayToast').classList.remove('show'); }
 
-function closeBdayToast() {
-  document.getElementById('bdayToast').classList.remove('show');
-}
-
-/* ═══════════════════════════════════════════════════════════
-   EVENTOS / VENCIMIENTOS
-═══════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   EVENTOS
+══════════════════════════════════════════════════════ */
 function renderEventos() {
-  const now = new Date();
-  now.setHours(0,0,0,0);
-
-  const upcoming = CONFIG.eventos
-    .map(e => {
-      const [y,m,d] = e.fecha.split('-').map(Number);
-      return { ...e, dateObj: new Date(y, m-1, d) };   // local date, no UTC shift
-    })
+  const now = new Date(); now.setHours(0,0,0,0);
+  // Usar fallback si el fetch falló o no hay eventos futuros cargados
+  const source = (CONFIG.eventos && CONFIG.eventos.length) ? CONFIG.eventos : CONFIG.eventosFallback;
+  const upcoming = source
+    .map(e => { const [y,m,d]=e.fecha.split('-').map(Number); return {...e,dateObj:new Date(y,m-1,d)}; })
     .filter(e => e.dateObj >= now)
-    .sort((a,b) => a.dateObj - b.dateObj)
-    .slice(0, 6);
-
-  const meses = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
-  const tags  = { fiscal:'ev-tag-fiscal', nomina:'ev-tag-nomina', interno:'ev-tag-interno' };
-  const labels = { fiscal:'Fiscal', nomina:'Nómina', interno:'Interno' };
-
-  document.getElementById('eventosList').innerHTML = upcoming.map(e => `
+    .sort((a,b) => a.dateObj-b.dateObj)
+    .slice(0,6);
+  // Si aún no hay futuros (fechas vencidas en fallback), mostrar los próximos 6 sin filtro
+  const display = upcoming.length ? upcoming :
+    source.map(e => { const [y,m,d]=e.fecha.split('-').map(Number); return {...e,dateObj:new Date(y,m-1,d)}; })
+          .sort((a,b) => a.dateObj-b.dateObj).slice(0,6);
+  const lm   = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  const tags = { fiscal:'ev-tag-fiscal', nomina:'ev-tag-nomina', interno:'ev-tag-interno' };
+  const labs = { fiscal:'Fiscal', nomina:'Nómina', interno:'Interno' };
+  document.getElementById('eventosList').innerHTML = display.map(e => `
     <div class="ev-item">
-      <div class="ev-pill ${e.urgente ? 'urgent' : ''}">
+      <div class="ev-pill ${e.urgente?'urgent':''}">
         <div class="d">${e.dateObj.getDate()}</div>
-        <div class="m">${meses[e.dateObj.getMonth()]}</div>
+        <div class="m">${lm[e.dateObj.getMonth()]}</div>
       </div>
-      <div class="ev-info">
-        <div class="ev-title">${e.titulo}</div>
-        <div class="ev-sub">${e.sub}</div>
-      </div>
-      <span class="ev-tag ${tags[e.tipo]}">${labels[e.tipo]}</span>
+      <div class="ev-info"><div class="ev-title">${e.titulo}</div><div class="ev-sub">${e.sub}</div></div>
+      <span class="ev-tag ${tags[e.tipo]||'ev-tag-interno'}">${labs[e.tipo]||'Otro'}</span>
     </div>`).join('');
 }
 
-/* ═══════════════════════════════════════════════════════════
-   FRASES DEL DÍA
-═══════════════════════════════════════════════════════════ */
-let quoteIdx = 0; // Se inicializa al azar en cargarDatos() cuando las frases están disponibles
-
+/* ══════════════════════════════════════════════════════
+   FRASES
+══════════════════════════════════════════════════════ */
+let quoteIdx = 0;
 function renderQuote() {
   if (!CONFIG.frases.length) return;
   const q = CONFIG.frases[quoteIdx];
   document.getElementById('quoteText').textContent   = q.texto;
   document.getElementById('quoteAuthor').textContent = '— ' + q.autor;
 }
+function nextQuote() { if(!CONFIG.frases.length)return; quoteIdx=(quoteIdx+1)%CONFIG.frases.length; renderQuote(); }
 
-function nextQuote() {
-  if (!CONFIG.frases.length) return;
-  quoteIdx = (quoteIdx + 1) % CONFIG.frases.length;
-  renderQuote();
+/* ══════════════════════════════════════════════════════
+   NOTICIAS RSS
+══════════════════════════════════════════════════════ */
+function timeAgo(ds) {
+  const d = Math.floor((Date.now()-new Date(ds))/60000);
+  if(d<60)return`Hace ${d} min`; if(d<1440)return`Hace ${Math.floor(d/60)} h`; if(d<2880)return'Ayer';
+  return`Hace ${Math.floor(d/1440)} días`;
 }
-
-/* ═══════════════════════════════════════════════════════════
-   NOTICIAS — RSS via rss2json.com (proxy CORS gratuito)
-═══════════════════════════════════════════════════════════ */
-function timeAgo(dateStr) {
-  const diff = Math.floor((Date.now() - new Date(dateStr)) / 60000);
-  if (diff < 60)   return `Hace ${diff} min`;
-  if (diff < 1440) return `Hace ${Math.floor(diff/60)} h`;
-  if (diff < 2880) return 'Ayer';
-  return `Hace ${Math.floor(diff/1440)} días`;
-}
-
 async function fetchNoticias() {
   const body = document.getElementById('newsBody');
-  body.innerHTML = '<div class="news-item" style="color:var(--text-3);font-size:0.75rem">Cargando noticias…</div>';
+  body.innerHTML = '<div style="font-size:0.75rem;color:var(--text-3);padding:8px 0">Cargando noticias…</div>';
   const feeds = [
-    { url:'https://www.iprofesional.com/rss/impuestos.xml',  fuente:'iProfesional' },
-    { url:'https://www.ambito.com/rss/economia.xml',         fuente:'Ámbito'       },
+    { url:'https://www.iprofesional.com/rss/impuestos.xml', fuente:'iProfesional' },
+    { url:'https://www.ambito.com/rss/economia.xml',        fuente:'Ámbito'       },
   ];
   try {
     const proxy = 'https://api.rss2json.com/v1/api.json?count=3&rss_url=';
-    const results = await Promise.allSettled(
-      feeds.map(f => fetch(proxy + encodeURIComponent(f.url)).then(r => r.json()).then(d => ({ d, fuente: f.fuente })))
-    );
-    const items = results
-      .filter(r => r.status === 'fulfilled' && r.value.d.status === 'ok')
-      .flatMap(r => r.value.d.items.slice(0,3).map(i => ({
-        fuente: r.value.fuente,
-        titulo: i.title,
-        hace:   timeAgo(i.pubDate),
-        url:    i.link,
-      })))
-      .sort((a,b) => 0); // mantener orden intercalado
+    const results = await Promise.allSettled(feeds.map(f => fetch(proxy+encodeURIComponent(f.url)).then(r=>r.json()).then(d=>({d,fuente:f.fuente}))));
+    const items = results.filter(r=>r.status==='fulfilled'&&r.value.d.status==='ok')
+      .flatMap(r=>r.value.d.items.slice(0,3).map(i=>({fuente:r.value.fuente,titulo:i.title,hace:timeAgo(i.pubDate),url:i.link})));
     if (!items.length) throw new Error('sin items');
-    body.innerHTML = items.map(n => `
+    body.innerHTML = items.map(n=>`
       <div class="news-item" onclick="window.open('${n.url}','_blank')">
         <div class="news-source">${n.fuente}</div>
         <div class="news-hl">${n.titulo}</div>
-        <div class="news-meta"><span>${n.hace}</span></div>
+        <div class="news-meta">${n.hace}</div>
       </div>`).join('');
   } catch {
-    body.innerHTML = '<div class="news-item" style="color:var(--text-3);font-size:0.75rem">No se pudieron cargar las noticias.</div>';
+    body.innerHTML = '<div style="font-size:0.75rem;color:var(--text-3);padding:8px 0">No se pudieron cargar las noticias.</div>';
   }
 }
 
-/* ═══════════════════════════════════════════════════════════
-   MÚSICA — iframes embed reales (Spotify / YouTube)
-═══════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   MÚSICA
+══════════════════════════════════════════════════════ */
 function setMusicType(type, btn) {
-  document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.toggle-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('musicSource').textContent = type === 'spotify' ? 'Spotify' : 'YouTube';
-  const embed = document.getElementById('musicEmbed');
-  if (type === 'spotify') {
-    embed.innerHTML = `<iframe
-      src="${CONFIG.musicaSpotify.embedUrl}"
-      width="100%" height="152"
-      frameborder="0"
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      loading="lazy"
-      style="border-radius:10px;display:block;">
-    </iframe>`;
+  document.getElementById('musicSource').textContent = type==='spotify'?'Spotify':'YouTube';
+  const emb = document.getElementById('musicEmbed');
+  if (type==='spotify') {
+    emb.innerHTML=`<iframe src="${CONFIG.musicaSpotify.embedUrl}" width="100%" height="152" frameborder="0" allow="autoplay;clipboard-write;encrypted-media;fullscreen;picture-in-picture" loading="lazy" style="border-radius:10px;display:block;"></iframe>`;
   } else {
-    embed.innerHTML = `<iframe
-      src="${CONFIG.musicaYoutube.embedUrl}"
-      width="100%" height="200"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-      loading="lazy"
-      style="border-radius:10px;display:block;">
-    </iframe>`;
+    emb.innerHTML=`<iframe src="${CONFIG.musicaYoutube.embedUrl}" width="100%" height="200" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy" style="border-radius:10px;display:block;"></iframe>`;
   }
 }
-
-// inicializar con YouTube al cargar
 setMusicType('youtube', document.querySelector('.toggle-btn.active'));
 
-/* ═══════════════════════════════════════════════════════════
-   CONFETTI — canvas puro, sin dependencias externas
-   (En SharePoint via SPFx se usa la librería react-confetti)
-═══════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   CONFETTI
+══════════════════════════════════════════════════════ */
 function launchConfetti() {
   const canvas = document.getElementById('confetti-canvas');
-  canvas.style.display = 'block';
-  canvas.width  = window.innerWidth;
-  canvas.height = window.innerHeight;
-  const ctx = canvas.getContext('2d');
-
-  const colors = ['#18B7E8','#1E3A5F','#F59E0B','#22C55E','#8B5CF6','#E85518','#ffffff'];
-  const pieces = Array.from({ length: 160 }, () => ({
-    x:     Math.random() * canvas.width,
-    y:     Math.random() * -canvas.height,
-    w:     Math.random() * 10 + 4,
-    h:     Math.random() * 5  + 3,
-    color: colors[Math.floor(Math.random() * colors.length)],
-    rot:   Math.random() * Math.PI * 2,
-    vx:    (Math.random() - 0.5) * 2,
-    vy:    Math.random() * 3 + 2,
-    vr:    (Math.random() - 0.5) * 0.15,
-    alpha: 1,
+  canvas.style.display='block'; canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+  const ctx=canvas.getContext('2d');
+  const colors=['#00ACD4','#1E3A5F','#F59E0B','#22C55E','#7B2FBE','#E85518','#ffffff'];
+  const pieces=Array.from({length:160},()=>({
+    x:Math.random()*canvas.width, y:Math.random()*-canvas.height,
+    w:Math.random()*10+4, h:Math.random()*5+3,
+    color:colors[Math.floor(Math.random()*colors.length)],
+    rot:Math.random()*Math.PI*2, vx:(Math.random()-.5)*2, vy:Math.random()*3+2,
+    vr:(Math.random()-.5)*0.15, alpha:1,
   }));
-
-  let frame = 0;
-  const totalFrames = 220;
-
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    frame++;
-    pieces.forEach(p => {
-      p.x   += p.vx;
-      p.y   += p.vy;
-      p.rot += p.vr;
-      if (frame > totalFrames * 0.6) p.alpha = Math.max(0, p.alpha - 0.015);
-      ctx.save();
-      ctx.globalAlpha = p.alpha;
-      ctx.translate(p.x, p.y);
-      ctx.rotate(p.rot);
-      ctx.fillStyle = p.color;
-      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
-      ctx.restore();
+  let frame=0;
+  const total=220;
+  (function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height); frame++;
+    pieces.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr;
+      if(frame>total*.6) p.alpha=Math.max(0,p.alpha-.015);
+      ctx.save(); ctx.globalAlpha=p.alpha; ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+      ctx.fillStyle=p.color; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore();
     });
-    if (frame < totalFrames) requestAnimationFrame(draw);
-    else { ctx.clearRect(0,0,canvas.width,canvas.height); canvas.style.display = 'none'; }
-  }
-
-  draw();
+    if(frame<total) requestAnimationFrame(draw);
+    else { ctx.clearRect(0,0,canvas.width,canvas.height); canvas.style.display='none'; }
+  })();
 }
 
-/* ═══════════════════════════════════════════════════════════
-   IFRAME AUTO-RESIZE via postMessage
-   Mide el alto real del contenido y se lo comunica a SharePoint
-   para que el iframe se ajuste y desaparezca el scroll interno.
-═══════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════
+   IFRAME RESIZE
+══════════════════════════════════════════════════════ */
 function reportHeight() {
-  const height = Math.max(
-    document.documentElement.scrollHeight,
-    document.body.scrollHeight,
-    document.documentElement.offsetHeight,
-    document.body.offsetHeight
-  ) + 60;
-  
-  // Método 1: postMessage genérico
-  window.parent.postMessage({ type: 'iframeResize', height: height }, '*');
-  
-  // Método 2: postMessage estilo SharePoint Embed
-  window.parent.postMessage(JSON.stringify({ 
-    method: 'resize', 
-    height: height 
-  }), '*');
-  
-  // Método 3: Intentar redimensionar directamente si es mismo origen
-  try {
-    if (window.frameElement) {
-      window.frameElement.style.height = height + 'px';
-      window.frameElement.style.minHeight = height + 'px';
-      window.frameElement.style.overflow = 'visible';
-    }
-  } catch(e) { /* cross-origin, ignorar */ }
+  const h = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight) + 60;
+  window.parent.postMessage({ type:'iframeResize', height:h }, '*');
+  window.parent.postMessage(JSON.stringify({ method:'resize', height:h }), '*');
+  try { if(window.frameElement){ window.frameElement.style.height=h+'px'; window.frameElement.style.minHeight=h+'px'; } } catch(e){}
 }
-
 window.addEventListener('load', reportHeight);
 window.addEventListener('resize', reportHeight);
-
-// MutationObserver para detectar cambios dinámicos de contenido
-const resizeObserver = new MutationObserver(reportHeight);
-resizeObserver.observe(document.body, { childList: true, subtree: true, attributes: true });
-
-// Verificaciones periódicas durante los primeros 5s
-let checks = 0;
-const poll = setInterval(function() {
-  reportHeight();
-  if (++checks >= 10) clearInterval(poll);
-}, 500);
+new MutationObserver(reportHeight).observe(document.body, {childList:true, subtree:true, attributes:true});
+let checks=0; const poll=setInterval(()=>{ reportHeight(); if(++checks>=10)clearInterval(poll); },500);
 </script>
 </body>
 </html>
