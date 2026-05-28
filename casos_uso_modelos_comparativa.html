@@ -161,7 +161,7 @@
   <span class="topbar-name">Claude</span>
   <span class="topbar-sep">·</span>
   <span class="topbar-sub">Cómo usar Claude — Payroll &amp; HR</span>
-  <span class="topbar-badge">Guía interna · v2</span>
+  <span class="topbar-badge">Guía interna · v3</span>
 </div>
 
 <div class="page">
@@ -235,8 +235,8 @@
           <div class="mvi-pill-text">Balance ideal — diseño profesional, código limpio y tiempos razonables. La opción default para casi todo.</div>
         </div>
         <div class="mvi-pill">
-          <div class="mvi-pill-name opus">Opus 4.7</div>
-          <div class="mvi-pill-text">Mejor calidad visual, anticipa problemas de UX y maneja artifacts complejos con muchos componentes. Para entregables finales.</div>
+          <div class="mvi-pill-name opus">Opus 4.8</div>
+          <div class="mvi-pill-text">Artifacts más complejos, mejor coherencia en documentos largos y detecta proactivamente problemas antes de entregar. Para entregables formales y auditoría. Fast mode ($10/$50 por MTok) ahora 3x más barato que en 4.7.</div>
         </div>
       </div>
     </div>
@@ -249,7 +249,7 @@
       <div class="footer-dot"></div>
       <span class="footer-name">Claude · Anthropic</span>
     </div>
-    <span class="footer-note">Datos verificados · Lanzamiento Opus 4.7 · 16 abril 2026 · anthropic.com/news/claude-opus-4-7</span>
+    <span class="footer-note">Datos verificados · Lanzamiento Opus 4.8 · 28 mayo 2026 · anthropic.com/news/claude-opus-4-8</span>
   </div>
 </div>
 
@@ -269,74 +269,74 @@ const cases={
   debug:{
     title:'Resolver errores de liquidación',
     desc:'Un concepto muestra valor incorrecto o cero para ciertos empleados. Necesitás rastrear la lógica de cálculo, identificar dónde falla y proponer la corrección.',
-    chips:['Auto-verifica la solución antes de entregártela','+13% coding vs Opus 4.6','Nivel xhigh para errores multi-concepto'],
-    verdict:'Usá Sonnet 4.6 como primera opción — resuelve el 90% de los errores en una sola iteración. Escalá a Opus 4.7 si el error involucra 3 o más conceptos encadenados, o si Sonnet no llega en 2 intentos.',
+    chips:['4x menos probable que deje errores sin marcar vs 4.7','Pregunta antes de asumir — mejor judgment en cada paso','Nivel xhigh para errores multi-concepto'],
+    verdict:'Usá Sonnet 4.6 como primera opción — resuelve el 90% de los errores en una sola iteración. Escalá a Opus 4.8 si el error involucra 3 o más conceptos encadenados, o si Sonnet no llega en 2 intentos.',
     haiku: {tokens:'~2.5K',time:'3–4s',iter:3,conf:62,quality:'Detecta errores obvios (valores nulos, campos vacíos) pero no logra trazar lógica de cálculo encadenada. Requiere guía manual en cada paso.'},
     sonnet:{tokens:'~4K',  time:'5–8s',iter:1,conf:91,quality:'Traza el flujo de cálculo de punta a punta, identifica la causa raíz y propone corrección en el primer intento. Cubre el 90% de los errores típicos.'},
-    opus:  {tokens:'~5K',  time:'7–11s',iter:1,conf:97,quality:'Auto-verifica su análisis antes de darte la respuesta (mejora clave de 4.7). Ideal cuando el error cruza múltiples conceptos encadenados o reglas de negocio complejas.'}
+    opus:  {tokens:'~5K',  time:'7–11s',iter:1,conf:97,quality:'4x menos probable que deje errores sin marcar vs 4.7 — advierte cuando su diagnóstico tiene incertidumbre en vez de afirmar con confianza injustificada. Ideal cuando el error cruza múltiples conceptos encadenados o reglas de negocio complejas.'}
   },
   formulas:{
     title:'Entender fórmulas de cálculo',
     desc:'Una fórmula de proporcionalidad, SAC, retención o haberes variables no da el resultado esperado. Necesitás entender cada paso, identificar casos borde y detectar errores en la lógica.',
-    chips:['Detecta errores estructurales en la lógica','Seguimiento preciso de instrucciones','Razonamiento deductivo mejorado en 4.7'],
-    verdict:'Sonnet para entender fórmulas del día a día. Opus 4.7 si necesitás auditar una fórmula heredada, detectar errores estructurales o documentar la lógica para un proceso formal.',
+    chips:['Detecta errores estructurales sin afirmar avances sin evidencia','Más honesto: marca incertidumbres antes de concluir','Seguimiento de instrucciones mejorado vs 4.7'],
+    verdict:'Sonnet para entender fórmulas del día a día. Opus 4.8 si necesitás auditar una fórmula heredada, detectar errores estructurales o documentar la lógica para un proceso formal.',
     haiku: {tokens:'~1.5K',time:'2–3s',iter:2,conf:68,quality:'Explica fórmulas simples correctamente, pero pierde el hilo en cálculos con múltiples condiciones o tablas de referencia.'},
     sonnet:{tokens:'~2.5K',time:'4–6s',iter:1,conf:89,quality:'Explica paso a paso, identifica casos borde (empleado nuevo, ausencia parcial, prorrateo) y traduce la lógica a lenguaje comprensible.'},
-    opus:  {tokens:'~3K',  time:'6–9s',iter:1,conf:95,quality:'Explica la lógica completa, detecta posibles errores en la propia fórmula y sugiere mejoras. Útil para auditar rutinas heredadas.'}
+    opus:  {tokens:'~3K',  time:'6–9s',iter:1,conf:95,quality:'Explica la lógica completa y advierte cuando la fórmula tiene ambigüedades antes de concluir — no confirma lógicas incorrectas con confianza injustificada. Detecta posibles errores estructurales. Útil para auditar rutinas heredadas.'}
   },
   cruces:{
     title:'Cruces de información entre sistemas',
     desc:'Necesitás comparar totales de liquidación contra sistema contable, RRHH u otro origen para detectar diferencias, conciliar o validar antes del cierre.',
-    chips:['Auto-verifica la lógica del cruce','No inventa datos cuando faltan','Mejor rendimiento con 3+ sistemas'],
-    verdict:'Sonnet para cruces entre dos sistemas. Opus 4.7 si tenés tres o más fuentes con reglas de negocio distintas, o si el cruce necesita distinguir diferencias de timing de errores reales.',
+    chips:['Auto-verifica la lógica del cruce antes de reportar','Tool calling más eficiente: mismo resultado en menos pasos','Mejor rendimiento con 3+ sistemas vs 4.7'],
+    verdict:'Sonnet para cruces entre dos sistemas. Opus 4.8 si tenés tres o más fuentes con reglas de negocio distintas, o si el cruce necesita distinguir diferencias de timing de errores reales.',
     haiku: {tokens:'~2K',  time:'3–4s',iter:3,conf:65,quality:'Compara tablas simples correctamente, pero pierde el hilo con 3+ fuentes o condiciones complejas. Genera falsos positivos en cruces con excepciones.'},
     sonnet:{tokens:'~3.5K',time:'5–7s',iter:1,conf:90,quality:'Detecta inconsistencias, agrupa por tipo de diferencia, sugiere causas probables y propone plan de acción por prioridad.'},
-    opus:  {tokens:'~4.5K',time:'7–11s',iter:1,conf:96,quality:'Para cruces multi-sistema con reglas de negocio específicas. Auto-verifica la lógica de comparación y distingue diferencias de timing de errores reales.'}
+    opus:  {tokens:'~4.5K',time:'7–11s',iter:1,conf:96,quality:'Para cruces multi-sistema con reglas de negocio específicas. Tool calling más eficiente vs 4.7 — llega al mismo resultado en menos pasos. Distingue diferencias de timing de errores reales sin inventar causas.'}
   },
   stats:{
     title:'Análisis de estadísticas salariales',
     desc:'Datos de variaciones salariales, ausentismo, rotación o costos de nómina. Detectar anomalías, calcular tendencias e identificar patrones para tomar decisiones o reportar.',
-    chips:['No inventa datos faltantes (benchmark GDPval-AA)','Insights listos para dirección','Detecta correlaciones de largo plazo'],
-    verdict:'Sonnet para análisis operativos y reportes al jefe. Opus 4.7 para análisis que van a dirección o cuando los datos tienen muchos vacíos — fue mejorado específicamente para no inventar valores cuando faltan datos.',
+    chips:['Detecta proactivamente problemas en los datos fuente','Outputs más densos e informativos vs 4.7','No afirma avances sin evidencia — marca brechas de datos'],
+    verdict:'Sonnet para análisis operativos y reportes al jefe. Opus 4.8 para análisis que van a dirección o cuando los datos tienen muchos vacíos — detecta y reporta proactivamente problemas en los datos antes de concluir.',
     haiku: {tokens:'~1.8K',time:'3–5s',iter:2,conf:70,quality:'Calcula estadísticas básicas correctamente, pero pierde outliers y no genera insights cualitativos. Pivot incompleto.'},
     sonnet:{tokens:'~2.8K',time:'5–7s',iter:1,conf:90,quality:'Análisis completo con anomalías, tendencias, segmentación por concepto y visualización lista para presentar al jefe.'},
-    opus:  {tokens:'~3.5K',time:'7–10s',iter:0,conf:97,quality:'Reporta explícitamente cuando faltan datos en vez de inventar valores (benchmark GDPval-AA). Detecta correlaciones no obvias. Ideal para presentar a dirección.'}
+    opus:  {tokens:'~3.5K',time:'7–10s',iter:0,conf:97,quality:'Detecta proactivamente problemas en los datos de entrada y los reporta antes de concluir — mejora clave vs 4.7. Outputs más densos y ricos en información. Ideal para presentar a dirección cuando los datos son ambiguos o incompletos.'}
   },
   comunicacion:{
     title:'Redacción de comunicaciones',
     desc:'Emails a clientes, vendors o equipos de IT explicando problemas, solicitando acciones o respondiendo escalaciones. Tono profesional, claro y con propuesta de resolución.',
-    chips:['Mayor calidad y creatividad en 4.7','Memoria entre sesiones','Anticipa objeciones del destinatario'],
-    verdict:'Sonnet para comunicaciones de rutina. Opus 4.7 para escalaciones críticas, propuestas de alto valor o situaciones donde el tono y la precisión son determinantes.',
+    chips:['Mejor contexto y estilo a lo largo de sesiones largas','Mayor ratio señal/información — menos ruido vs 4.7','Anticipa objeciones y preguntas del destinatario'],
+    verdict:'Sonnet para comunicaciones de rutina. Opus 4.8 para escalaciones críticas, propuestas de alto valor o situaciones donde el tono y la precisión son determinantes.',
     haiku: {tokens:'~1.2K',time:'2–3s',iter:4,conf:45,quality:'Draft plano con estructura desorganizada y tono inconsistente. Requiere reescritura completa. Solo útil para avisos internos muy simples.'},
     sonnet:{tokens:'~2K',  time:'4–6s',iter:1,conf:88,quality:'Draft profesional listo para enviar en el primer intento. Tono adecuado, estructura clara y detalles técnicos bien presentados.'},
-    opus:  {tokens:'~2.5K',time:'6–9s',iter:0,conf:95,quality:'Mayor calidad y creatividad documentada en 4.7. Anticipa preguntas del destinatario, gestiona el tono con más precisión y propone timeline concreto.'}
+    opus:  {tokens:'~2.5K',time:'6–9s',iter:0,conf:95,quality:'Mejor coherencia de estilo y contexto en sesiones largas vs 4.7. Mayor densidad informativa con menos relleno. Anticipa preguntas del destinatario y gestiona el tono con más precisión.'}
   },
   reportes:{
     title:'Armado de reportes e informes',
     desc:'Informe de cierre de mes, reporte de variaciones, informe ejecutivo o presentación para dirección. Necesitás narrativa, análisis de datos y recomendaciones accionables.',
-    chips:['Mejor calidad para slides y docs en 4.7','Anticipa preguntas de directorio','Razonamiento financiero mejorado'],
-    verdict:'Sonnet para reportes al jefe y cierres mensuales. Opus 4.7 para informes de directorio, presentaciones a stakeholders externos o cuando los datos son ambiguos.',
+    chips:['Outputs más densos e informativos vs 4.7','Detecta proactivamente problemas en los datos fuente','Anticipa preguntas de directorio con mayor precisión'],
+    verdict:'Sonnet para reportes al jefe y cierres mensuales. Opus 4.8 para informes de directorio, presentaciones a stakeholders externos o cuando los datos son ambiguos.',
     haiku: {tokens:'~1.5K',time:'2–4s',iter:3,conf:55,quality:'Estructura básica sin análisis real. Presenta datos sin contexto ni recomendaciones. No apto para reportes de dirección.'},
     sonnet:{tokens:'~2.5K',time:'4–7s',iter:1,conf:88,quality:'Informe completo con narrativa, datos clave y recomendaciones concretas. Listo para entregar al jefe o management.'},
-    opus:  {tokens:'~3K',  time:'7–10s',iter:0,conf:96,quality:'Informe ejecutivo de alta calidad. Anticipa preguntas de directorio, propone acciones con impacto estimado y mayor calidad de presentación.'}
+    opus:  {tokens:'~3K',  time:'7–10s',iter:0,conf:96,quality:'Outputs más densos y ricos en información vs 4.7. Detecta proactivamente problemas en los datos fuente que otros modelos dejan al usuario. Anticipa preguntas de directorio y propone acciones con impacto estimado.'}
   },
   decisiones:{
     title:'Toma de decisiones estratégicas',
     desc:'Evaluar opciones para cambiar un proceso, implementar un sistema, gestionar un escalamiento o definir una estrategia. Necesitás análisis de impacto, riesgos y recomendaciones.',
-    chips:['Razonamiento estratégico profundo','Identifica supuestos ocultos','Anticipa consecuencias de segundo orden'],
-    verdict:'Sonnet para decisiones operativas con impacto acotado. Opus 4.7 para decisiones estratégicas — cambio de sistema, definición de procesos críticos o evaluaciones con alto impacto organizacional o financiero.',
+    chips:['Marca incertidumbres — no afirma avances sin evidencia','Identifica supuestos ocultos y consecuencias de segundo orden','Mejor judgment en decisiones multi-variable vs 4.7'],
+    verdict:'Sonnet para decisiones operativas con impacto acotado. Opus 4.8 para decisiones estratégicas — cambio de sistema, definición de procesos críticos o evaluaciones con alto impacto organizacional o financiero.',
     haiku: {tokens:'~1.5K',time:'3–5s',iter:3,conf:48,quality:'Lista genérica de pros y contras sin ponderación ni contexto. No útil para decisiones con variables múltiples.'},
     sonnet:{tokens:'~2.5K',time:'5–7s',iter:1,conf:85,quality:'Marco de decisión estructurado con criterios ponderados, escenarios y análisis de riesgos. Sólido para decisiones operativas.'},
-    opus:  {tokens:'~3.5K',time:'8–12s',iter:0,conf:95,quality:'Anticipa consecuencias de segundo orden, identifica supuestos ocultos y propone métricas de éxito. Ideal para decisiones de alto impacto.'}
+    opus:  {tokens:'~3.5K',time:'8–12s',iter:0,conf:95,quality:'Anticipa consecuencias de segundo orden e identifica supuestos ocultos. Más honesto respecto a incertidumbres: no afirma progreso sin evidencia. Ideal para decisiones de alto impacto organizacional o financiero.'}
   },
   documentacion:{
     title:'Documentación de procesos',
     desc:'Documentar flujos de liquidación, guías de operación, manuales para auditoría o wikis internas. Necesitás claridad, completitud y un formato que se pueda mantener en el tiempo.',
-    chips:['Mayor calidad visual en docs en 4.7','Coherencia en documentos largos','Apta para auditoría y partners externos'],
-    verdict:'Sonnet para documentación interna del equipo. Opus 4.7 si el destino es externo — auditor, partner o cliente — o si necesitás que la documentación resista una revisión formal.',
+    chips:['Coherencia mejorada en documentos largos vs 4.7','Detecta inconsistencias en la propia documentación','Menor tasa de afirmaciones sin respaldo — apta para auditoría'],
+    verdict:'Sonnet para documentación interna del equipo. Opus 4.8 si el destino es externo — auditor, partner o cliente — o si necesitás que la documentación resista una revisión formal.',
     haiku: {tokens:'~1.4K',time:'2–4s',iter:3,conf:52,quality:'Estructura base superficial. Omite casos de error, excepciones y detalles de proceso. No apto para documentación formal.'},
     sonnet:{tokens:'~2.5K',time:'4–7s',iter:1,conf:87,quality:'Documentación completa con flujos, excepciones, casos de error y guía de troubleshooting. Lista para wiki interna del equipo.'},
-    opus:  {tokens:'~3K',  time:'6–9s',iter:0,conf:96,quality:'Documentación enterprise-grade. Incluye SLA esperado, guía de troubleshooting y disaster recovery. Apta para auditoría y onboarding.'}
+    opus:  {tokens:'~3K',  time:'6–9s',iter:0,conf:96,quality:'Documentación enterprise-grade con mejor coherencia en documentos largos vs 4.7. Detecta inconsistencias en la propia documentación antes de entregar. Apta para auditoría externa y onboarding formal.'}
   }
 };
 
@@ -518,12 +518,12 @@ function renderCase(){
   const pLabel=profiles[currentProfile].label;
   const card=(model,cls)=>{
     const m=c[model];
-    const names={haiku:'Haiku 4.5',sonnet:'Sonnet 4.6',opus:'Opus 4.7'};
+    const names={haiku:'Haiku 4.5',sonnet:'Sonnet 4.6',opus:'Opus 4.8'};
     const isOpus=model==='opus';
     return `<div class="model-card${isOpus?' is-opus':''}">
       <div class="model-header ${cls}">
         <span class="model-label ${cls}">${names[model]}</span>
-        ${isOpus?'<span class="v47-tag">4.7 HOY</span>':''}
+        ${isOpus?'<span class="v47-tag">4.8 HOY</span>':''}
       </div>
       <div class="metric"><span class="m-label">Tokens</span><span class="m-val c-green">${m.tokens}</span></div>
       <div class="metric"><span class="m-label">Tiempo</span><span class="m-val c-amber">${m.time}</span></div>
@@ -544,7 +544,7 @@ function renderCase(){
     </div>
     <div class="models-grid">${card('haiku','haiku')}${card('sonnet','sonnet')}${card('opus','opus')}</div>
     <div class="opus-strip">
-      <span class="os-label">Opus 4.7 vs 4.6</span>
+      <span class="os-label">Opus 4.8 vs 4.7</span>
       ${c.chips.map(ch=>`<span class="os-chip">${ch}</span>`).join('')}
     </div>
     <div class="verdict">
