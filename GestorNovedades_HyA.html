@@ -558,52 +558,564 @@ function GroupedList({groups,bg,isErr,groupLabel}){
     </div>
   );
 }
-function ValidationPanel({validation,fileName,onDownload,period}){
+/* ─── Vista de validación global (todos los archivos) ─── */
+function GlobalValidationCard({files,period,onSelectFile}){
+  const[activeTab,setActiveTab]=React.useState("archivos");
+  const validFiles=files.filter(f=>f.validation&&f.type!==FILE_TYPES.error.key&&f.type!==FILE_TYPES.loading.key);
+  if(!validFiles.length)return null;
+  const totalErrors=validFiles.reduce((s,f)=>s+f.validation.errors.length,0);
+  const totalWarnings=validFiles.reduce((s,f)=>s+f.validation.warnings.length,0);
+  const totalRetros=validFiles.reduce((s,f)=>s+(f.validation.issues.fechasFuera?.length||0),0);
+  const totalRows=validFiles.reduce((s,f)=>s+f.validation.total,0);
+  const mergedErrors=validFiles.flatMap(f=>[
+    ...(f.validation.issues.vacios||[]),
+    ...(f.validation.issues.legajoAlfanumerico||[]),
+    ...(f.validation.issues.noEnNomina||[]),
+    ...(f.validation.issues.duplicados||[]),
+    ...(f.validation.issues.valorNoNumerico||[]),
+    ...(f.validation.issues.legajoDadoDeBaja||[]),
+  ].map(i=>({...i,file:f.name})));
+  const mergedWarnings=validFiles.flatMap(f=>[
+    ...(f.validation.issues.conceptoNoEnMapa||[]),
+    ...(f.validation.issues.tipoValorInvalido||[]),
+    ...(f.validation.issues.valoresAltos||[]),
+  ].map(i=>({...i,file:f.name})));
+  const mergedRetros=validFiles.flatMap(f=>(f.validation.issues.fechasFuera||[]).map(i=>({...i,file:f.name})));
+  const tabs=[
+    {id:"archivos",label:"Por archivo",badge:null},
+    {id:"errores",label:"Errores",badge:totalErrors,color:"#f87171"},
+    {id:"advertencias",label:"Advertencias",badge:totalWarnings,color:"#fbbf24"},
+    {id:"retroactivos",label:"Retroactivos",badge:totalRetros,color:totalRetros>0?"#fb923c":"var(--text-muted)"},
+  ];
+  function IssueTable({items,isErr}){
+    if(!items.length)return(<p style={{color:"var(--brand-primary)",textAlign:"center",padding:"14px 0",fontWeight:500,fontSize:12}}>✓ Sin {isErr?"errores":"advertencias"} en ningún archivo</p>);
+    return(
+      <div style={{maxHeight:360,overflowY:"auto",borderRadius:8,border:"1px solid var(--border)"}}>
+        <table className="preview-table" style={{fontSize:11}}>
+          <thead><tr><th style={{maxWidth:130}}>Archivo</th><th>Fila</th><th>Legajo</th><th>Nombre</th><th>Detalle</th></tr></thead>
+          <tbody>{items.map((e,i)=>(
+            <tr key={i}>
+              <td style={{color:"var(--text-dim)",maxWidth:130,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:"monospace",fontSize:10}} title={e.file}>{e.file}</td>
+              <td style={{color:"var(--text-dim)",fontFamily:"monospace",flexShrink:0}}>{e.row}</td>
+              <td style={{fontFamily:"monospace",color:"var(--brand-primary)",fontWeight:600}}>{e.leg}</td>
+              <td style={{maxWidth:100,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{e.nombre||"—"}</td>
+              <td style={{color:isErr?"#fca5a5":"#fde68a"}}>{e.msg}</td>
+            </tr>
+          ))}</tbody>
+        </table>
+      </div>
+    );
+  }
+  return(
+    <div className="card-step fade-in" style={{...S.card,marginBottom:12}}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12,flexWrap:"wrap",gap:8}}>
+        <h2 style={{...S.h2,margin:0}}>⑥ Validación global — {validFiles.length} arch. · {totalRows.toLocaleString("es-AR")} filas</h2>
+        <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
+          <span style={{fontSize:12,padding:"4px 10px",borderRadius:6,fontWeight:700,
+            background:"rgba(248,113,113,.12)",color:totalErrors>0?"#f87171":"var(--brand-primary)",
+            border:`1px solid ${totalErrors>0?"#f87171":"var(--border)"}`}}>{totalErrors} errores</span>
+          <span style={{fontSize:12,padding:"4px 10px",borderRadius:6,fontWeight:700,
+            background:"rgba(251,191,36,.12)",color:totalWarnings>0?"#fbbf24":"var(--brand-primary)",
+            border:`1px solid ${totalWarnings>0?"#fbbf24":"var(--border)"}`}}>{totalWarnings} advert.</span>
+          {totalRetros>0&&<span style={{fontSize:12,padding:"4px 10px",borderRadius:6,fontWeight:700,
+            background:"rgba(251,146,60,.12)",color:"#fb923c",border:"1px solid #fb923c"}}>{totalRetros} retros</span>}
+        </div>
+      </div>
+      {/* Tab bar */}
+      <div style={{display:"flex",borderBottom:"1px solid var(--border)",marginBottom:12,overflowX:"auto"}}>
+        {tabs.map(t=>{
+          const active=activeTab===t.id;const col=t.color||"var(--brand-primary)";
+          return(
+            <button key={t.id} onClick={()=>setActiveTab(t.id)}
+              style={{padding:"7px 14px",background:"none",border:"none",cursor:"pointer",fontFamily:"inherit",
+                fontSize:12,fontWeight:active?700:500,whiteSpace:"nowrap",
+                color:active?col:"var(--text-muted)",borderBottom:`2px solid ${active?col:"transparent"}`,
+                display:"flex",alignItems:"center",gap:5,transition:"all .15s"}}>
+              {t.label}
+              {t.badge!=null&&t.badge>0&&(
+                <span style={{fontSize:10,padding:"1px 5px",borderRadius:10,fontWeight:700,
+                  background:active?col+"22":"var(--border)",color:t.color||"var(--text-muted)"}}>{t.badge}</span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+      {/* Por archivo */}
+      {activeTab==="archivos"&&(
+        <div style={{maxHeight:380,overflowY:"auto",borderRadius:8,border:"1px solid var(--border)"}}>
+          <table className="preview-table" style={{fontSize:12}}>
+            <thead><tr>
+              <th>Archivo</th><th>Tipo</th>
+              <th style={{textAlign:"right"}}>Filas</th>
+              <th style={{textAlign:"right",color:"#f87171"}}>Err.</th>
+              <th style={{textAlign:"right",color:"#fbbf24"}}>Adv.</th>
+              <th style={{textAlign:"right",color:"#fb923c"}}>Retros</th>
+              <th>Estado</th>
+            </tr></thead>
+            <tbody>
+              {files.filter(f=>f.type!==FILE_TYPES.loading.key).map(f=>{
+                const v=f.validation;
+                const ft=FILE_TYPES[f.type];
+                const filas=f.rawData?f.rawData.slice(f.hRow+1).filter(r=>r.some(c=>c&&String(c).trim())).length:0;
+                const retros=v?.issues?.fechasFuera?.length||0;
+                return(
+                  <tr key={f.id} onClick={()=>onSelectFile(f.id)}
+                    style={{cursor:"pointer"}}>
+                    <td style={{maxWidth:220,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",color:"var(--text-bright)",fontWeight:500}} title={f.name}>{f.name}</td>
+                    <td><span style={{fontSize:10,padding:"1px 7px",borderRadius:4,background:ft?.bg,color:ft?.color,fontWeight:700,border:`1px solid ${ft?.color}`,whiteSpace:"nowrap"}}>{ft?.badge}</span></td>
+                    <td style={{textAlign:"right",color:"var(--text-muted)"}}>{filas}</td>
+                    <td style={{textAlign:"right",fontWeight:700,color:v&&v.errors.length>0?"#f87171":v?"var(--brand-primary)":"var(--text-dim)"}}>{v?v.errors.length:"—"}</td>
+                    <td style={{textAlign:"right",fontWeight:600,color:v&&v.warnings.length>0?"#fbbf24":v?"var(--brand-primary)":"var(--text-dim)"}}>{v?v.warnings.length:"—"}</td>
+                    <td style={{textAlign:"right",fontWeight:600,color:retros>0?"#fb923c":"var(--text-dim)"}}>{v?retros:"—"}</td>
+                    <td>{f.type===FILE_TYPES.error.key?(
+                      <span style={{fontSize:11,color:"#f87171"}}>Error lectura</span>
+                    ):!v?(
+                      <span style={{fontSize:11,color:"var(--text-dim)"}}>Sin validar</span>
+                    ):v.errors.length>0?(
+                      <span style={{fontSize:11,color:"#f87171",fontWeight:600}}>✕ Crítico</span>
+                    ):(
+                      <span style={{fontSize:11,color:"var(--brand-primary)",fontWeight:600}}>✓ OK</span>
+                    )}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {activeTab==="errores"&&<IssueTable items={mergedErrors} isErr={true}/>}
+      {activeTab==="advertencias"&&<IssueTable items={mergedWarnings} isErr={false}/>}
+      {activeTab==="retroactivos"&&(
+        !mergedRetros.length?(
+          <p style={{color:"var(--brand-primary)",textAlign:"center",padding:"14px 0",fontWeight:500,fontSize:12}}>✓ Sin retroactivos</p>
+        ):(
+          <div>
+            <div style={{background:"rgba(251,146,60,.10)",border:"1px solid #fb923c",borderRadius:8,padding:"9px 14px",marginBottom:10}}>
+              <p style={{margin:0,fontSize:12,color:"#fb923c",fontWeight:700}}>⚠ {mergedRetros.length} {mergedRetros.length===1?"novedad":"novedades"} de períodos anteriores en todos los archivos</p>
+            </div>
+            <div style={{maxHeight:320,overflowY:"auto",borderRadius:8,border:"1px solid var(--border)"}}>
+              <table className="preview-table" style={{fontSize:11}}>
+                <thead><tr><th>Archivo</th><th>Fila</th><th>Legajo</th><th>Nombre</th><th>Fecha detectada</th></tr></thead>
+                <tbody>{mergedRetros.map((e,i)=>{
+                  const m=e.msg.match(/"([^"]+)"/);
+                  return(
+                    <tr key={i}>
+                      <td style={{color:"var(--text-dim)",maxWidth:130,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:"monospace",fontSize:10}} title={e.file}>{e.file}</td>
+                      <td style={{color:"var(--text-dim)",fontFamily:"monospace"}}>{e.row}</td>
+                      <td style={{fontFamily:"monospace",color:"var(--brand-primary)",fontWeight:600}}>{e.leg}</td>
+                      <td>{e.nombre||"—"}</td>
+                      <td style={{color:"#fb923c",fontFamily:"monospace",fontWeight:600}}>{m?m[1]:"—"}</td>
+                    </tr>
+                  );
+                })}</tbody>
+              </table>
+            </div>
+          </div>
+        )
+      )}
+    </div>
+  );
+}
+
+function ValidationPanel({validation,onDownload,period}){
+  const[activeTab,setActiveTab]=React.useState("resumen");
+  const[conceptSearch,setConceptSearch]=React.useState("");
+  const[conceptSort,setConceptSort]=React.useState({col:"count",dir:"desc"});
+  const[dateView,setDateView]=React.useState("concepto");
+  const[expandedMonth,setExpandedMonth]=React.useState(null);
+  const[expandedDay,setExpandedDay]=React.useState(null);
   const valid=validation;
   const issues=valid.issues;
   const errBg="rgba(127,29,29,.12)";
   const warnBg="rgba(146,64,14,.12)";
   const conMapaGroups=(()=>{const m=new Map();(issues.conceptoNoEnMapa||[]).forEach(e=>{const match=e.msg.match(/Concepto\s+(\S+)/);const key=match?match[1]:"?";if(!m.has(key))m.set(key,[]);m.get(key).push(e);});return[...m.entries()];})();
-  const fechasGroups=(()=>{const m=new Map();(issues.fechasFuera||[]).forEach(e=>{const match=e.msg.match(/"([^"]+)"/);const key=match?match[1]:"?";if(!m.has(key))m.set(key,[]);m.get(key).push(e);});return[...m.entries()].sort((a,b)=>a[0].localeCompare(b[0]));})();
   const duplicadosGroups=(()=>{const m=new Map();(issues.duplicados||[]).forEach(e=>{const match=e.msg.match(/Concepto\s+(\S+)/);const key=match?match[1]:"?";if(!m.has(key))m.set(key,[]);m.get(key).push(e);});return[...m.entries()];})();
+  const errorCount=valid.errors.length;
+  const warnCount=valid.warnings.length;
+  const retroCount=(issues.fechasFuera||[]).length;
+  const vaciosCount=(issues.vacios||[]).length;
+  function sortToggle(col){setConceptSort(s=>s.col===col?{col,dir:s.dir==="asc"?"desc":"asc"}:{col,dir:"desc"});}
+  const filteredConcepts=React.useMemo(()=>{
+    const q=conceptSearch.toLowerCase();
+    const filtered=!q?valid.conceptStats:valid.conceptStats.filter(c=>c.code.toLowerCase().includes(q)||c.nombre.toLowerCase().includes(q));
+    return[...filtered].sort((a,b)=>{const{col,dir}=conceptSort;const av=a[col],bv=b[col];const cmp=typeof av==="string"?av.localeCompare(bv,"es",{numeric:true}):av-bv;return dir==="asc"?cmp:-cmp;});
+  },[valid.conceptStats,conceptSearch,conceptSort]);
+  const tabs=[
+    {id:"resumen",label:"Resumen",badge:null},
+    {id:"errores",label:"Errores",badge:errorCount,color:"#f87171"},
+    {id:"advertencias",label:"Advertencias",badge:warnCount,color:"#fbbf24"},
+    {id:"conceptos",label:"Por concepto",badge:valid.conceptStats.length,color:"var(--brand-primary)"},
+    {id:"retroactivos",label:"Retroactivos",badge:retroCount,color:retroCount>0?"#fb923c":"var(--text-muted)"},
+  ];
   return(
-    <div style={{...S.card,marginBottom:12}} className="fade-in">
-      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}}>
-        <h2 style={{...S.h2,margin:0}}>⑥ Validación — {fileName}</h2>
-        <button onClick={onDownload} style={{...S.btn,background:"#1e3a5f",color:"#60a5fa",border:"1px solid #2563eb",padding:"6px 14px",fontSize:12}}>📥 Descargar reporte .xlsx</button>
+    <div className="card-step fade-in" style={{...S.card,marginBottom:12}}>
+      {/* Header */}
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+        <h2 style={{...S.h2,margin:0}}>⑥ Validación</h2>
+        <button onClick={onDownload} style={{...S.btn,background:"#0f2a40",color:"#60a5fa",border:"1px solid #2563eb",padding:"6px 14px",fontSize:12}}>📥 Descargar .xlsx</button>
       </div>
-      <div style={{display:"flex",gap:10,marginBottom:14,flexWrap:"wrap"}}>
-        <StatPill label="Total filas" value={valid.total}/>
-        <StatPill label="Errores" value={valid.errors.length} color={valid.errors.length>0?"#f87171":"var(--brand-primary)"}/>
-        <StatPill label="Advertencias" value={valid.warnings.length} color={valid.warnings.length>0?"#fbbf24":"var(--brand-primary)"}/>
+      {/* Stat pills */}
+      <div style={{display:"flex",gap:8,marginBottom:12,flexWrap:"wrap"}}>
+        <StatPill label="Filas" value={valid.total}/>
+        <StatPill label="Legajos únicos" value={valid.legajosUnicos}/>
+        <StatPill label="Conceptos" value={valid.conceptStats.length}/>
+        {valid.importeTotal>0&&<StatPill label="Importe total" value={"$"+valid.importeTotal.toLocaleString("es-AR",{maximumFractionDigits:0})}/>}
         <div style={{display:"flex",alignItems:"center",gap:8,padding:"0 14px",borderRadius:12,
           background:valid.ok?"rgba(24,183,232,.18)":"rgba(220,38,38,.18)",
           color:valid.ok?"var(--brand-primary)":"#dc2626",border:`1px solid ${valid.ok?"var(--brand-primary)":"#dc2626"}`}}>
-          <span>{valid.ok?"✓":"✕"}</span>
+          <span style={{fontWeight:700}}>{valid.ok?"✓":"✕"}</span>
           <span style={{fontSize:12,fontWeight:600}}>{valid.ok?"Listo para exportar":"Errores críticos"}</span>
         </div>
       </div>
-      <IssueBlock label="Legajo no figura en nómina" color="#f87171" bg={errBg} isErr={true} count={(issues.noEnNomina||[]).length}>
-        <FlatList items={issues.noEnNomina||[]} bg={errBg} isErr={true}/>
-      </IssueBlock>
-      <IssueBlock label="Legajo + Concepto duplicado" color="#f87171" bg={errBg} isErr={true} count={(issues.duplicados||[]).length}>
-        <GroupedList groups={duplicadosGroups} bg={errBg} isErr={true} groupLabel="Concepto"/>
-      </IssueBlock>
-      <IssueBlock label="Legajos vacíos" color="#f87171" bg={errBg} isErr={true} count={(issues.vacios||[]).length}>
-        <FlatList items={issues.vacios||[]} bg={errBg} isErr={true}/>
-      </IssueBlock>
-      <IssueBlock label="Concepto no está en el mapa del cliente" color="#fbbf24" bg={warnBg} isErr={false} count={(issues.conceptoNoEnMapa||[]).length}>
-        <GroupedList groups={conMapaGroups} bg={warnBg} isErr={false} groupLabel="Concepto"/>
-      </IssueBlock>
-      <IssueBlock label="Tipo de valor inconsistente (cantidad/monto)" color="#fbbf24" bg={warnBg} isErr={false} count={(issues.tipoValorInvalido||[]).length}>
-        <FlatList items={issues.tipoValorInvalido||[]} bg={warnBg} isErr={false}/>
-      </IssueBlock>
-      <IssueBlock label="Valores > $1.000.000" color="#fbbf24" bg={warnBg} isErr={false} count={(issues.valoresAltos||[]).length}>
-        <FlatList items={issues.valoresAltos||[]} bg={warnBg} isErr={false}/>
-      </IssueBlock>
-      <IssueBlock label={`Fechas fuera de ${MONTHS_ES[period.month-1]} ${period.year}`} color="#fbbf24" bg={warnBg} isErr={false} count={(issues.fechasFuera||[]).length}>
-        <GroupedList groups={fechasGroups} bg={warnBg} isErr={false} groupLabel="Fecha"/>
-      </IssueBlock>
+      {/* Tab bar */}
+      <div style={{display:"flex",borderBottom:"1px solid var(--border)",marginBottom:14,overflowX:"auto",gap:0}}>
+        {tabs.map(t=>{
+          const active=activeTab===t.id;
+          const col=t.color||"var(--brand-primary)";
+          return(
+            <button key={t.id} onClick={()=>setActiveTab(t.id)}
+              style={{padding:"8px 14px",background:"none",border:"none",cursor:"pointer",fontFamily:"inherit",
+                fontSize:12,fontWeight:active?700:500,whiteSpace:"nowrap",
+                color:active?col:"var(--text-muted)",
+                borderBottom:`2px solid ${active?col:"transparent"}`,
+                display:"flex",alignItems:"center",gap:5,transition:"all .15s"}}>
+              {t.label}
+              {t.badge!=null&&t.badge>0&&(
+                <span style={{fontSize:10,padding:"1px 5px",borderRadius:10,fontWeight:700,
+                  background:active?col+"22":"var(--border)",color:t.color||"var(--text-muted)"}}>
+                  {t.badge}
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+      {/* RESUMEN */}
+      {activeTab==="resumen"&&(
+        <div>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:14}}>
+            <div style={{background:"var(--bg-base)",borderRadius:8,padding:"12px 16px",border:`1px solid ${errorCount>0?"#dc2626":"var(--border)"}`}}>
+              <p style={{fontSize:10,color:"var(--text-dim)",textTransform:"uppercase",letterSpacing:1,margin:"0 0 4px"}}>Errores críticos</p>
+              <p style={{fontSize:26,fontWeight:700,margin:0,color:errorCount>0?"#f87171":"var(--brand-primary)"}}>{errorCount}</p>
+              {vaciosCount>0&&<p style={{fontSize:11,color:"var(--text-muted)",margin:"3px 0 0"}}>Incluye {vaciosCount} legajos vacíos</p>}
+            </div>
+            <div style={{background:"var(--bg-base)",borderRadius:8,padding:"12px 16px",border:`1px solid ${warnCount>0?"#ca8a04":"var(--border)"}`}}>
+              <p style={{fontSize:10,color:"var(--text-dim)",textTransform:"uppercase",letterSpacing:1,margin:"0 0 4px"}}>Advertencias</p>
+              <p style={{fontSize:26,fontWeight:700,margin:0,color:warnCount>0?"#fbbf24":"var(--brand-primary)"}}>{warnCount}</p>
+              {retroCount>0&&<p style={{fontSize:11,color:"#fb923c",margin:"3px 0 0"}}>Incluye {retroCount} retroactivo{retroCount!==1?"s":""}</p>}
+            </div>
+          </div>
+          {valid.ok&&!warnCount?(
+            <div style={{textAlign:"center",padding:"16px 0",color:"var(--brand-primary)"}}>
+              <div style={{fontSize:28,marginBottom:4}}>✓</div>
+              <p style={{fontWeight:600,margin:0}}>Sin errores ni advertencias. Archivo listo para exportar.</p>
+            </div>
+          ):(
+            <div>
+              <IssueBlock label="Legajo no figura en nómina" color="#f87171" bg={errBg} isErr={true} count={(issues.noEnNomina||[]).length}>
+                <FlatList items={issues.noEnNomina||[]} bg={errBg} isErr={true}/>
+              </IssueBlock>
+              <IssueBlock label="Legajo + Concepto duplicado" color="#f87171" bg={errBg} isErr={true} count={(issues.duplicados||[]).length}>
+                <GroupedList groups={duplicadosGroups} bg={errBg} isErr={true} groupLabel="Concepto"/>
+              </IssueBlock>
+              <IssueBlock label="Legajos vacíos" color="#f87171" bg={errBg} isErr={true} count={vaciosCount}>
+                <FlatList items={issues.vacios||[]} bg={errBg} isErr={true}/>
+              </IssueBlock>
+              {retroCount>0&&(
+                <div style={{background:"rgba(251,146,60,.10)",border:"1px solid #fb923c",borderRadius:8,padding:"10px 14px",marginTop:8}}>
+                  <p style={{margin:0,fontSize:12,color:"#fb923c",fontWeight:600,cursor:"pointer"}}
+                    onClick={()=>setActiveTab("retroactivos")}>
+                    ⚠ {retroCount} retroactivo{retroCount!==1?"s":""} detectados — ver pestaña Retroactivos →
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+      {/* ERRORES */}
+      {activeTab==="errores"&&(
+        <div>
+          {!errorCount&&<p style={{color:"var(--brand-primary)",textAlign:"center",padding:"20px 0",fontWeight:500}}>✓ Sin errores críticos</p>}
+          <IssueBlock label="Legajo no figura en nómina" color="#f87171" bg={errBg} isErr={true} count={(issues.noEnNomina||[]).length}>
+            <FlatList items={issues.noEnNomina||[]} bg={errBg} isErr={true}/>
+          </IssueBlock>
+          <IssueBlock label="Legajo + Concepto duplicado" color="#f87171" bg={errBg} isErr={true} count={(issues.duplicados||[]).length}>
+            <GroupedList groups={duplicadosGroups} bg={errBg} isErr={true} groupLabel="Concepto"/>
+          </IssueBlock>
+          <IssueBlock label="Legajo alfanumérico (no numérico puro)" color="#f87171" bg={errBg} isErr={true} count={(issues.legajoAlfanumerico||[]).length}>
+            <FlatList items={issues.legajoAlfanumerico||[]} bg={errBg} isErr={true}/>
+          </IssueBlock>
+          <IssueBlock label="Valor no numérico" color="#f87171" bg={errBg} isErr={true} count={(issues.valorNoNumerico||[]).length}>
+            <FlatList items={issues.valorNoNumerico||[]} bg={errBg} isErr={true}/>
+          </IssueBlock>
+          <IssueBlock label="Legajos vacíos" color="#f87171" bg={errBg} isErr={true} count={vaciosCount}>
+            <FlatList items={issues.vacios||[]} bg={errBg} isErr={true}/>
+          </IssueBlock>
+          <IssueBlock label="Legajo dado de baja" color="#f87171" bg={errBg} isErr={true} count={(issues.legajoDadoDeBaja||[]).length}>
+            <FlatList items={issues.legajoDadoDeBaja||[]} bg={errBg} isErr={true}/>
+          </IssueBlock>
+        </div>
+      )}
+      {/* ADVERTENCIAS */}
+      {activeTab==="advertencias"&&(
+        <div>
+          {!warnCount&&<p style={{color:"var(--brand-primary)",textAlign:"center",padding:"20px 0",fontWeight:500}}>✓ Sin advertencias</p>}
+          <IssueBlock label="Concepto no está en el mapa del cliente" color="#fbbf24" bg={warnBg} isErr={false} count={(issues.conceptoNoEnMapa||[]).length}>
+            <GroupedList groups={conMapaGroups} bg={warnBg} isErr={false} groupLabel="Concepto"/>
+          </IssueBlock>
+          <IssueBlock label="Tipo de valor inconsistente (cantidad/monto)" color="#fbbf24" bg={warnBg} isErr={false} count={(issues.tipoValorInvalido||[]).length}>
+            <FlatList items={issues.tipoValorInvalido||[]} bg={warnBg} isErr={false}/>
+          </IssueBlock>
+          <IssueBlock label="Valores > $1.000.000" color="#fbbf24" bg={warnBg} isErr={false} count={(issues.valoresAltos||[]).length}>
+            <FlatList items={issues.valoresAltos||[]} bg={warnBg} isErr={false}/>
+          </IssueBlock>
+        </div>
+      )}
+      {/* POR CONCEPTO / MES / DÍA */}
+      {activeTab==="conceptos"&&(
+        <div>
+          {/* Sub-toggle de agrupación */}
+          <div style={{display:"flex",gap:4,marginBottom:12,background:"var(--bg-base)",borderRadius:8,padding:3,width:"fit-content"}}>
+            {[["concepto","Por concepto"],["mes","Por mes"],["dia","Por día"]].map(([id,lbl])=>(
+              <button key={id} onClick={()=>{setDateView(id);setExpandedMonth(null);setExpandedDay(null);}}
+                style={{padding:"5px 14px",borderRadius:6,border:"none",cursor:"pointer",fontFamily:"inherit",
+                  fontSize:12,fontWeight:dateView===id?700:400,transition:"all .15s",
+                  background:dateView===id?"var(--bg-card)":"transparent",
+                  color:dateView===id?"var(--brand-primary)":"var(--text-muted)",
+                  boxShadow:dateView===id?"0 1px 4px rgba(0,0,0,.18)":"none"}}>
+                {lbl}
+              </button>
+            ))}
+          </div>
+
+          {/* ── Por concepto ── */}
+          {dateView==="concepto"&&(
+            !valid.conceptStats.length?(
+              <p style={{color:"var(--text-dim)",textAlign:"center",padding:"20px 0",fontSize:12}}>
+                No hay datos de conceptos. Mapeá la columna Concepto y la columna Valor antes de validar.
+              </p>
+            ):(
+              <div>
+                <div style={{display:"flex",gap:8,marginBottom:10,alignItems:"center"}}>
+                  <input type="text" placeholder="Buscar código o nombre de concepto..."
+                    value={conceptSearch} onChange={e=>setConceptSearch(e.target.value)}
+                    style={{flex:1,background:"var(--bg-select)",border:"1px solid var(--border-strong)",
+                      color:"var(--text)",borderRadius:8,padding:"7px 12px",fontSize:12,outline:"none",fontFamily:"inherit"}}/>
+                  <span style={{fontSize:11,color:"var(--text-dim)",flexShrink:0,whiteSpace:"nowrap"}}>
+                    {filteredConcepts.length} de {valid.conceptStats.length}
+                  </span>
+                </div>
+                <div style={{maxHeight:320,overflowY:"auto",borderRadius:8,border:"1px solid var(--border)"}}>
+                  <table className="preview-table" style={{fontSize:12}}>
+                    <thead>
+                      <tr>
+                        {[["code","Código"],["nombre","Nombre"],["count","Novedades"],["legajosCount","Legajos"],["sum","Importe total"],["avg","Promedio"]].map(([col,lbl])=>(
+                          <th key={col} onClick={()=>sortToggle(col)}
+                            style={{cursor:"pointer",userSelect:"none",whiteSpace:"nowrap",paddingRight:12}}>
+                            {lbl}{conceptSort.col===col?(" "+(conceptSort.dir==="asc"?"↑":"↓")):""}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredConcepts.map((c,i)=>(
+                        <tr key={i}>
+                          <td style={{fontFamily:"monospace",color:"var(--brand-primary)",fontWeight:700}}>{c.code}</td>
+                          <td style={{maxWidth:200,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.nombre}</td>
+                          <td style={{textAlign:"right",fontWeight:700,color:"var(--text-bright)"}}>{c.count}</td>
+                          <td style={{textAlign:"right",color:"var(--text-muted)"}}>{c.legajosCount}</td>
+                          <td style={{textAlign:"right",fontFamily:"monospace"}}>{c.sum>0?"$"+c.sum.toLocaleString("es-AR",{maximumFractionDigits:0}):"—"}</td>
+                          <td style={{textAlign:"right",fontFamily:"monospace",color:"var(--text-muted)"}}>{c.avg>0?"$"+c.avg.toLocaleString("es-AR",{maximumFractionDigits:0}):"—"}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <p style={{fontSize:10,color:"var(--text-dim)",marginTop:5}}>Hacé click en los encabezados para ordenar</p>
+              </div>
+            )
+          )}
+
+          {/* ── Por mes ── */}
+          {dateView==="mes"&&(
+            !(valid.monthStats&&valid.monthStats.length)?(
+              <p style={{color:"var(--text-dim)",textAlign:"center",padding:"20px 0",fontSize:12}}>
+                No hay fechas procesadas. Mapeá la columna Fecha Imputación para ver el desglose mensual.
+              </p>
+            ):(
+              <div>
+                <div style={{maxHeight:400,overflowY:"auto",borderRadius:8,border:"1px solid var(--border)"}}>
+                  <table className="preview-table" style={{fontSize:12}}>
+                    <thead><tr>
+                      <th style={{width:22}}></th>
+                      <th>Mes</th>
+                      <th style={{textAlign:"right"}}>Novedades</th>
+                      <th style={{textAlign:"right"}}>Días con datos</th>
+                      <th style={{textAlign:"right"}}>Importe total</th>
+                    </tr></thead>
+                    <tbody>
+                      {valid.monthStats.map((ms,i)=>{
+                        const isOpen=expandedMonth===ms.key;
+                        const isCurrent=ms.m===period.month&&ms.y===period.year;
+                        return(
+                          <React.Fragment key={ms.key}>
+                            <tr onClick={()=>setExpandedMonth(isOpen?null:ms.key)}
+                              style={{cursor:"pointer",background:isOpen?"rgba(24,183,232,.06)":"undefined"}}>
+                              <td style={{color:"var(--text-dim)",fontSize:10,textAlign:"center"}}>{isOpen?"▾":"▸"}</td>
+                              <td style={{fontWeight:600,color:isCurrent?"var(--brand-primary)":"var(--text-bright)"}}>
+                                {ms.label}
+                                {isCurrent&&<span style={{fontSize:10,marginLeft:6,color:"var(--brand-primary)",opacity:.7}}>← período</span>}
+                              </td>
+                              <td style={{textAlign:"right",fontWeight:700,color:"var(--text-bright)"}}>{ms.count}</td>
+                              <td style={{textAlign:"right",color:"var(--text-muted)"}}>{ms.days.length}</td>
+                              <td style={{textAlign:"right",fontFamily:"monospace",color:"var(--text-bright)"}}>{ms.sum>0?"$"+ms.sum.toLocaleString("es-AR",{maximumFractionDigits:0}):"—"}</td>
+                            </tr>
+                            {isOpen&&ms.days.map(day=>(
+                              <tr key={day.key} style={{background:"rgba(0,0,0,.12)"}}>
+                                <td></td>
+                                <td style={{paddingLeft:22,fontSize:11,color:"var(--text-muted)",fontFamily:"monospace"}}>
+                                  {String(day.d).padStart(2,"0")}/{String(day.m).padStart(2,"0")}/{day.y}
+                                </td>
+                                <td style={{textAlign:"right",fontSize:11,color:"var(--text-muted)"}}>{day.count}</td>
+                                <td style={{textAlign:"right",fontSize:11,color:"var(--text-dim)"}}>{day.concepts.length} conc.</td>
+                                <td style={{textAlign:"right",fontSize:11,fontFamily:"monospace",color:"var(--text-muted)"}}>{day.sum>0?"$"+day.sum.toLocaleString("es-AR",{maximumFractionDigits:0}):"—"}</td>
+                              </tr>
+                            ))}
+                          </React.Fragment>
+                        );
+                      })}
+                      <tr style={{background:"var(--bg-select)",borderTop:"2px solid var(--border-strong)"}}>
+                        <td></td>
+                        <td style={{fontWeight:700,color:"var(--text-bright)",textTransform:"uppercase",fontSize:11,letterSpacing:1}}>Total</td>
+                        <td style={{textAlign:"right",fontWeight:700,color:"var(--brand-primary)"}}>{valid.monthStats.reduce((s,m)=>s+m.count,0)}</td>
+                        <td></td>
+                        <td style={{textAlign:"right",fontFamily:"monospace",fontWeight:700,color:"var(--brand-primary)"}}>{"$"+valid.monthStats.reduce((s,m)=>s+m.sum,0).toLocaleString("es-AR",{maximumFractionDigits:0})}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p style={{fontSize:10,color:"var(--text-dim)",marginTop:5}}>Hacé click en una fila de mes para ver el desglose por día</p>
+              </div>
+            )
+          )}
+
+          {/* ── Por día ── */}
+          {dateView==="dia"&&(
+            !(valid.monthStats&&valid.monthStats.length)?(
+              <p style={{color:"var(--text-dim)",textAlign:"center",padding:"20px 0",fontSize:12}}>
+                No hay fechas procesadas. Mapeá la columna Fecha Imputación para ver el desglose diario.
+              </p>
+            ):(
+              <div>
+                {/* Selector de mes si hay más de uno */}
+                {valid.monthStats.length>1&&(
+                  <div style={{display:"flex",gap:6,marginBottom:10,flexWrap:"wrap"}}>
+                    <button onClick={()=>setExpandedMonth(null)}
+                      style={{padding:"4px 12px",borderRadius:6,border:`1px solid ${!expandedMonth?"var(--brand-primary)":"var(--border)"}`,
+                        background:!expandedMonth?"rgba(24,183,232,.10)":"transparent",cursor:"pointer",fontFamily:"inherit",
+                        fontSize:11,color:!expandedMonth?"var(--brand-primary)":"var(--text-muted)"}}>
+                      Todos
+                    </button>
+                    {valid.monthStats.map(ms=>(
+                      <button key={ms.key} onClick={()=>setExpandedMonth(ms.key===expandedMonth?null:ms.key)}
+                        style={{padding:"4px 12px",borderRadius:6,border:`1px solid ${expandedMonth===ms.key?"var(--brand-primary)":"var(--border)"}`,
+                          background:expandedMonth===ms.key?"rgba(24,183,232,.10)":"transparent",cursor:"pointer",fontFamily:"inherit",
+                          fontSize:11,color:expandedMonth===ms.key?"var(--brand-primary)":"var(--text-muted)"}}>
+                        {ms.label} <span style={{opacity:.7}}>({ms.count})</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+                <div style={{maxHeight:420,overflowY:"auto",borderRadius:8,border:"1px solid var(--border)"}}>
+                  <table className="preview-table" style={{fontSize:12}}>
+                    <thead><tr>
+                      <th style={{width:22}}></th>
+                      <th>Fecha</th>
+                      <th style={{textAlign:"right"}}>Novedades</th>
+                      <th style={{textAlign:"right"}}>Conceptos</th>
+                      <th style={{textAlign:"right"}}>Importe total</th>
+                    </tr></thead>
+                    <tbody>
+                      {(expandedMonth
+                        ? (valid.monthStats.find(m=>m.key===expandedMonth)?.days||[])
+                        : valid.monthStats.flatMap(m=>m.days)
+                      ).map(day=>{
+                        const isOpen=expandedDay===day.key;
+                        return(
+                          <React.Fragment key={day.key}>
+                            <tr onClick={()=>setExpandedDay(isOpen?null:day.key)}
+                              style={{cursor:"pointer",background:isOpen?"rgba(24,183,232,.06)":undefined}}>
+                              <td style={{color:"var(--text-dim)",fontSize:10,textAlign:"center"}}>{isOpen?"▾":"▸"}</td>
+                              <td style={{fontFamily:"monospace",fontWeight:600,color:"var(--text-bright)"}}>
+                                {String(day.d).padStart(2,"0")}/{String(day.m).padStart(2,"0")}/{day.y}
+                              </td>
+                              <td style={{textAlign:"right",fontWeight:700,color:"var(--text-bright)"}}>{day.count}</td>
+                              <td style={{textAlign:"right",color:"var(--text-muted)"}}>{day.concepts.length}</td>
+                              <td style={{textAlign:"right",fontFamily:"monospace",color:"var(--text-bright)"}}>{day.sum>0?"$"+day.sum.toLocaleString("es-AR",{maximumFractionDigits:0}):"—"}</td>
+                            </tr>
+                            {isOpen&&day.concepts.map((c,ci)=>(
+                              <tr key={ci} style={{background:"rgba(0,0,0,.12)"}}>
+                                <td></td>
+                                <td style={{paddingLeft:22}}>
+                                  <span style={{fontFamily:"monospace",fontSize:11,color:"var(--brand-primary)",fontWeight:700,marginRight:6}}>{c.code}</span>
+                                  <span style={{fontSize:11,color:"var(--text-muted)"}}>{c.nombre}</span>
+                                </td>
+                                <td style={{textAlign:"right",fontSize:11,color:"var(--text-muted)"}}>{c.count}</td>
+                                <td></td>
+                                <td style={{textAlign:"right",fontSize:11,fontFamily:"monospace",color:"var(--text-muted)"}}>{c.sum>0?"$"+c.sum.toLocaleString("es-AR",{maximumFractionDigits:0}):"—"}</td>
+                              </tr>
+                            ))}
+                          </React.Fragment>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+                <p style={{fontSize:10,color:"var(--text-dim)",marginTop:5}}>Hacé click en una fecha para ver los conceptos de ese día</p>
+              </div>
+            )
+          )}
+        </div>
+      )}
+      {/* RETROACTIVOS */}
+      {activeTab==="retroactivos"&&(
+        <div>
+          {!retroCount?(
+            <div style={{textAlign:"center",padding:"20px 0",color:"var(--brand-primary)"}}>
+              <div style={{fontSize:24,marginBottom:4}}>✓</div>
+              <p style={{fontWeight:500,margin:0}}>Todas las fechas corresponden a {MONTHS_ES[period.month-1]} {period.year}</p>
+            </div>
+          ):(
+            <div>
+              <div style={{background:"rgba(251,146,60,.10)",border:"1px solid #fb923c",borderRadius:8,padding:"12px 16px",marginBottom:12}}>
+                <p style={{margin:0,fontSize:13,color:"#fb923c",fontWeight:700}}>
+                  ⚠ {retroCount} {retroCount===1?"novedad corresponde":"novedades corresponden"} a un período distinto de {MONTHS_ES[period.month-1]} {period.year}
+                </p>
+                <p style={{margin:"4px 0 0",fontSize:11,color:"var(--text-muted)"}}>Estas novedades requieren tratamiento especial como retroactivos antes de importar.</p>
+              </div>
+              <div style={{maxHeight:320,overflowY:"auto",borderRadius:8,border:"1px solid var(--border)"}}>
+                <table className="preview-table" style={{fontSize:12}}>
+                  <thead><tr><th>Fila</th><th>Legajo</th><th>Nombre</th><th>Fecha detectada</th></tr></thead>
+                  <tbody>
+                    {(issues.fechasFuera||[]).map((e,i)=>{
+                      const m=e.msg.match(/"([^"]+)"/);
+                      return(
+                        <tr key={i}>
+                          <td style={{color:"var(--text-dim)",fontFamily:"monospace"}}>{e.row}</td>
+                          <td style={{fontFamily:"monospace",color:"var(--brand-primary)",fontWeight:600}}>{e.leg}</td>
+                          <td>{e.nombre||"—"}</td>
+                          <td style={{color:"#fb923c",fontFamily:"monospace",fontWeight:600}}>{m?m[1]:"—"}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -744,6 +1256,7 @@ function App(){
   /* Meta4 concept map — per-session */
   const [clientMap,setClientMap]=useState(null);
   const [step,setStep]=useState(1);
+  const [subView,setSubView]=useState("configurar");
   const [modal,setModal]=useState(false);
   const [editCli,setEditCli]=useState(null);
   /* Convenience: archivo actualmente seleccionado */
@@ -763,7 +1276,7 @@ function App(){
      ═══════════════════════════════════════════ */
   /* ── Reset helpers ── */
   function resetProcessing(){
-    setFiles([]);setSelFileId(null);setClientMap(null);
+    setFiles([]);setSelFileId(null);setClientMap(null);setSubView("configurar");
   }
   /* Patch helper: actualiza un archivo por id */
   function patchFile(id,patch){
@@ -943,29 +1456,26 @@ function App(){
     const effectiveSystem=cli?.system;
     const mapSource=getActiveMap(cli,axtonMap,clientMap);
     const conceptLookup=new Map((mapSource?.concepts||[]).map(c=>[String(c.id),c]));
-    const issues={noEnNomina:[],duplicados:[],conceptoNoEnMapa:[],tipoValorInvalido:[],valoresAltos:[],fechasFuera:[],vacios:[],valorNoNumerico:[],legajoDadoDeBaja:[]};
+    const issues={noEnNomina:[],duplicados:[],conceptoNoEnMapa:[],tipoValorInvalido:[],valoresAltos:[],fechasFuera:[],vacios:[],legajoAlfanumerico:[],valorNoNumerico:[],legajoDadoDeBaja:[]};
     const seenLegCon=new Map();
     const coIdx=colConcepto!==""?parseInt(colConcepto):-1;
     const vaIdx=colValor!==""?parseInt(colValor):-1;
     const feIdx=colFecha!==""?parseInt(colFecha):-1;
     const conceptStatsMap=new Map();
+    const rowRecords=[];
     const legajosUnicos=new Set();
 
     function parseFecha(s){
-      const parts=s.split(/[\/\-\.]/);
-      let m=-1,y=-1;
-      if(parts.length>=3){
-        if(parts[0].length===4){m=parseInt(parts[1]);y=parseInt(parts[0]);}
-        else if(parts[2].length===4){m=parseInt(parts[0])<=12?parseInt(parts[0]):parseInt(parts[1]);y=parseInt(parts[2]);}
-        else if(parts[2].length===2){m=parseInt(parts[0])<=12?parseInt(parts[0]):parseInt(parts[1]);y=2000+parseInt(parts[2]);}
-      }
-      return{m,y};
+      const dt=parseDateAR(s);
+      if(!dt)return{d:-1,m:-1,y:-1};
+      return{d:dt.getUTCDate(),m:dt.getUTCMonth()+1,y:dt.getUTCFullYear()};
     }
 
     rows.forEach((row,i)=>{
       const leg=String(row[li]||"").trim();
       const rn=hRow+2+i;
       if(!leg){issues.vacios.push({row:rn,leg:"—",nombre:"—",msg:"Legajo vacío"});return;}
+      if(!/^\d+$/.test(leg))issues.legajoAlfanumerico.push({row:rn,leg,nombre:"—",msg:`Legajo "${leg}" contiene caracteres no numéricos`});
       legajosUnicos.add(leg);
       const emp=nMap.get(leg);
       const nombre=emp?.nombre||"";
@@ -1012,6 +1522,9 @@ function App(){
                 const s=conceptStatsMap.get(codeCon);
                 s.count++;s.sum+=num;s.min=Math.min(s.min,num);s.max=Math.max(s.max,num);s.legajos.add(leg);
               }
+              /* Registrar para agrupar por fecha */
+              const fechaStrR=feIdx>=0?String(row[feIdx]||"").trim():"";
+              if(fechaStrR&&codeCon)rowRecords.push({fechaStr:fechaStrR,codeCon,num,leg,nombre,cnombre:(conceptLookup.get(codeCon)?.nombre)||codeCon});
             }
           }
         }
@@ -1057,8 +1570,33 @@ function App(){
       code,nombre:s.nombre,count:s.count,sum:s.sum,avg:s.count>0?s.sum/s.count:0,
       min:s.min===Infinity?0:s.min,max:s.max===-Infinity?0:s.max,legajosCount:s.legajos.size
     })).sort((a,b)=>b.sum-a.sum);
-    const allErrors=[...issues.vacios,...issues.noEnNomina,...issues.duplicados,...issues.valorNoNumerico,...issues.legajoDadoDeBaja];
-    return{issues,errors:allErrors,warnings:[...issues.conceptoNoEnMapa,...issues.tipoValorInvalido,...issues.valoresAltos,...issues.fechasFuera],total:rows.length,ok:allErrors.length===0,legajosUnicos:legajosUnicos.size,conceptStats,importeTotal:conceptStats.reduce((a,b)=>a+b.sum,0)};
+    /* Agrupar rowRecords por mes y día para la vista de exploración */
+    const dayStatsMap=new Map();
+    rowRecords.forEach(({fechaStr,codeCon,num,cnombre})=>{
+      const{d,m,y}=parseFecha(fechaStr);
+      if(d<1||m<1||y<2000)return;
+      const dayKey=`${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+      if(!dayStatsMap.has(dayKey))dayStatsMap.set(dayKey,{d,m,y,count:0,sum:0,concepts:new Map()});
+      const ds=dayStatsMap.get(dayKey);
+      ds.count++;ds.sum+=num;
+      if(!ds.concepts.has(codeCon))ds.concepts.set(codeCon,{nombre:cnombre,count:0,sum:0});
+      const cs=ds.concepts.get(codeCon);cs.count++;cs.sum+=num;
+    });
+    const monthStatsMap=new Map();
+    [...dayStatsMap.entries()].forEach(([dayKey,ds])=>{
+      const monthKey=`${ds.y}-${String(ds.m).padStart(2,"0")}`;
+      if(!monthStatsMap.has(monthKey))monthStatsMap.set(monthKey,{y:ds.y,m:ds.m,count:0,sum:0,days:[]});
+      const ms=monthStatsMap.get(monthKey);
+      ms.count+=ds.count;ms.sum+=ds.sum;
+      ms.days.push({key:dayKey,d:ds.d,m:ds.m,y:ds.y,count:ds.count,sum:ds.sum,
+        concepts:[...ds.concepts.entries()].map(([code,cs])=>({code,nombre:cs.nombre,count:cs.count,sum:cs.sum})).sort((a,b)=>b.sum-a.sum)});
+    });
+    const monthStats=[...monthStatsMap.entries()].map(([key,ms])=>({
+      key,y:ms.y,m:ms.m,label:`${MONTHS_ES[ms.m-1]} ${ms.y}`,count:ms.count,sum:ms.sum,
+      days:ms.days.sort((a,b)=>a.d-b.d)
+    })).sort((a,b)=>a.y!==b.y?a.y-b.y:a.m-b.m);
+    const allErrors=[...issues.vacios,...issues.legajoAlfanumerico,...issues.noEnNomina,...issues.duplicados,...issues.valorNoNumerico,...issues.legajoDadoDeBaja];
+    return{issues,errors:allErrors,warnings:[...issues.conceptoNoEnMapa,...issues.tipoValorInvalido,...issues.valoresAltos,...issues.fechasFuera],total:rows.length,ok:allErrors.length===0,legajosUnicos:legajosUnicos.size,conceptStats,monthStats,importeTotal:conceptStats.reduce((a,b)=>a+b.sum,0)};
   }
   /* Valida todos los archivos cargados (no errores) */
   function runValidationAll(){
@@ -1249,12 +1787,12 @@ function App(){
   function doDownloadReport(){
     if(!files.length)return;
     const wb=XLSX.utils.book_new();
-    const h1=["Archivo","Tipo","Filas procesadas","Filtro activo","Errores","Advertencias","Estado"];
+    const h1=["Tipo","Filas procesadas","Filtro activo","Errores","Advertencias","Estado"];
     const rows1=files.map(f=>{
       const lblTipo=FILE_TYPES[f.type]?.label||"—";
       const filas=f.rawData?f.rawData.slice(f.hRow+1).filter(r=>r.some(c=>c&&String(c).trim())).length:0;
       return[
-        f.name,lblTipo,filas,
+        lblTipo,filas,
         f.hadFilter?"Sí (desactivado)":"No",
         f.validation?.errors?.length||0,
         f.validation?.warnings?.length||0,
@@ -1262,7 +1800,7 @@ function App(){
       ];
     });
     const ws1=XLSX.utils.aoa_to_sheet([h1,...rows1]);
-    ws1["!cols"]=[{wch:42},{wch:22},{wch:18},{wch:18},{wch:12},{wch:14},{wch:36}];
+    ws1["!cols"]=[{wch:22},{wch:18},{wch:18},{wch:12},{wch:14},{wch:36}];
     XLSX.utils.book_append_sheet(wb,ws1,"Detalle Archivos");
     /* Hoja 2: Por código de concepto */
     const counts={},nombres={};
@@ -1416,6 +1954,32 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
         {tab==="procesar"&&(
           <div style={{maxWidth:920,margin:"0 auto"}}>
 
+            {/* Sub-nav: Cargar vs Revisar */}
+            <div style={{display:"flex",gap:0,marginBottom:20,borderBottom:"1px solid var(--border)"}}>
+              {[["configurar","① Cargar y configurar"],["revisar","② Revisar y exportar"]].map(([id,lbl])=>{
+                const active=subView===id;
+                const enabled=id==="configurar"||(files.length>0&&!fileGroups.loading.length);
+                return(
+                  <button key={id} onClick={()=>enabled&&setSubView(id)}
+                    style={{padding:"9px 22px",background:"none",border:"none",fontFamily:"inherit",
+                      fontSize:13,fontWeight:active?700:500,
+                      color:active?"var(--brand-primary)":enabled?"var(--text-muted)":"var(--text-dim)",
+                      borderBottom:`2px solid ${active?"var(--brand-primary)":"transparent"}`,
+                      cursor:enabled?"pointer":"not-allowed",transition:"all .15s",
+                      display:"flex",alignItems:"center",gap:6}}>
+                    {lbl}
+                    {id==="revisar"&&files.length>0&&(
+                      <span style={{fontSize:10,background:"rgba(24,183,232,.15)",color:"var(--brand-primary)",borderRadius:10,padding:"1px 7px"}}>{files.length}</span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* ══ VISTA: CARGAR Y CONFIGURAR ══ */}
+            {subView==="configurar"&&(
+            <div>
+
             {/* Aviso de privacidad obligatorio (H&A brand skill v2.0 — §5.7) */}
             <div className="privacy-notice">
               <strong>⚠ Aviso de privacidad:</strong> Por seguridad, no subas información personal real de empleados o clientes a esta herramienta. Usá datos de prueba o anonimizados.
@@ -1498,14 +2062,15 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
             {selId&&(
               <div className="card-step fade-in" style={{...S.card,marginBottom:12}}>
                 <h2 style={S.h2}>② ERP de origen del archivo</h2>
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8}}>
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:10}}>
                   {Object.entries(SOURCE_ERPS).map(([k,erp])=>(
                     <button key={k} onClick={()=>{setSourceErp(k);if(step<3)setStep(2);}}
-                      style={{padding:"10px",borderRadius:8,border:`2px solid ${sourceErp===k?"var(--brand-primary)":"var(--border-strong)"}`,
-                        background:sourceErp===k?"rgba(34,211,238,.1)":"var(--bg-card)",cursor:"pointer",textAlign:"center",transition:"all .2s"}}>
-                      <div style={{fontSize:22}}>{erp.icon}</div>
-                      <div style={{color:sourceErp===k?"var(--brand-primary)":"var(--text)",fontWeight:600,fontSize:12,marginTop:4}}>{erp.label}</div>
-                      <div style={{color:"var(--text-dim)",fontSize:11,marginTop:2}}>{erp.desc}</div>
+                      style={{padding:"16px 12px",borderRadius:10,border:`2px solid ${sourceErp===k?"var(--brand-primary)":"var(--border)"}`,
+                        background:sourceErp===k?"rgba(24,183,232,.12)":"var(--bg-base)",cursor:"pointer",textAlign:"center",
+                        transition:"all .2s",boxShadow:sourceErp===k?"0 0 0 3px rgba(24,183,232,.18)":"none"}}>
+                      <div style={{minHeight:44,display:"flex",alignItems:"center",justifyContent:"center"}}>{renderErpIcon(k)}</div>
+                      <div style={{color:sourceErp===k?"var(--brand-primary)":"var(--text)",fontWeight:700,fontSize:13,marginTop:8}}>{erp.label}</div>
+                      <div style={{color:"var(--text-dim)",fontSize:11,marginTop:3}}>{erp.desc}</div>
                     </button>
                   ))}
                 </div>
@@ -1709,6 +2274,52 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
               </div>
             )}
 
+            {/* Botón Continuar */}
+            {files.length>0&&!fileGroups.loading.length&&(
+              <div style={{display:"flex",justifyContent:"flex-end",marginBottom:4}}>
+                <button onClick={()=>setSubView("revisar")}
+                  style={{...S.btn,...S.btnPrimary,fontSize:14,display:"flex",alignItems:"center",gap:8}}>
+                  ② Revisar y exportar →
+                </button>
+              </div>
+            )}
+
+            </div>
+            )}
+
+            {/* ══ VISTA: REVISAR Y EXPORTAR ══ */}
+            {subView==="revisar"&&(
+            <div>
+
+            {/* Volver + selector compacto de archivo */}
+            <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:16,padding:"10px 14px",background:"var(--bg-card)",borderRadius:10,border:"1px solid var(--border)",flexWrap:"wrap"}}>
+              <button onClick={()=>setSubView("configurar")}
+                style={{background:"none",border:"1px solid var(--border-strong)",color:"var(--text-muted)",borderRadius:7,padding:"5px 12px",cursor:"pointer",fontSize:12,fontFamily:"inherit",flexShrink:0}}>
+                ← Volver
+              </button>
+              <div style={{flex:1,display:"flex",gap:6,alignItems:"center",flexWrap:"wrap",minWidth:0}}>
+                {files.filter(f=>f.type!==FILE_TYPES.loading.key).map(f=>{
+                  const isSel=f.id===selFileId;
+                  const ft=FILE_TYPES[f.type];
+                  const n=f.name.length>30?f.name.slice(0,30)+"…":f.name;
+                  return(
+                    <button key={f.id} onClick={()=>setSelFileId(f.id)}
+                      style={{padding:"4px 10px",borderRadius:6,border:`1px solid ${isSel?"var(--brand-primary)":"var(--border)"}`,
+                        background:isSel?"rgba(24,183,232,.10)":"transparent",cursor:"pointer",fontSize:11,fontFamily:"inherit",
+                        color:isSel?"var(--brand-primary)":"var(--text-muted)",flexShrink:0,transition:"all .15s",
+                        display:"flex",alignItems:"center",gap:4}}>
+                      <span style={{color:ft?.color,fontWeight:700}}>{ft?.badge}</span>
+                      {n}
+                      {f.validation&&<span style={{fontSize:10,color:f.validation.errors.length>0?"#f87171":"var(--brand-primary)",marginLeft:2}}>
+                        {f.validation.errors.length>0?"✕":"✓"}
+                      </span>}
+                    </button>
+                  );
+                })}
+              </div>
+              <span style={{fontSize:11,color:"var(--text-muted)",flexShrink:0}}>{files.filter(f=>f.type!==FILE_TYPES.loading.key).length} arch.</span>
+            </div>
+
             {/* Step 4: Column mapping (selected file) */}
             {selFile&&selFile.rawData&&(
               <div className="card-step fade-in" style={{...S.card,marginBottom:12}}>
@@ -1805,8 +2416,19 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
               </div>
             )}
 
-           {/* Step 5: Validation results (selected file) */}
-{selFile&&selFile.validation&&<ValidationPanel validation={selFile.validation} fileName={selFile.name} onDownload={downloadValidationXls} period={period}/>}
+            {/* ⑥ Validación global — todos los archivos */}
+            <GlobalValidationCard files={files} period={period} onSelectFile={id=>setSelFileId(id)}/>
+
+            {/* Detalle del archivo seleccionado */}
+            {selFile&&selFile.validation&&(
+              <div>
+                <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:6,marginTop:4,paddingLeft:2}}>
+                  <span style={{fontSize:10,color:"var(--text-dim)",textTransform:"uppercase",letterSpacing:1.5,fontWeight:600}}>Detalle</span>
+                  <span style={{fontSize:12,color:"var(--text-muted)"}}>{selFile.name}</span>
+                </div>
+                <ValidationPanel validation={selFile.validation} fileName={selFile.name} onDownload={downloadValidationXls} period={period}/>
+              </div>
+            )}
 
             {/* Step 6: Export agrupado */}
             {files.length>0&&(
@@ -1864,6 +2486,10 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                   style={{...S.btn,...S.btnSecondary,marginTop:14}}>Procesar otro cliente →</button>
               </div>
             )}
+
+            </div>
+            )}
+
           </div>
         )}
 
@@ -2026,7 +2652,7 @@ function confirmNominaMap({data,hr,legajo,nombre,uo,fechaIngreso}){
                       <tr key={h.id}>
                         <td style={{fontSize:11,color:"var(--text-muted)"}}>{h.date}</td>
                         <td style={{color:"var(--text-bright)",fontWeight:500}}>{h.client}</td>
-                        <td><span style={{fontSize:10,fontWeight:700,padding:"2px 6px",borderRadius:4,background:"var(--border)",color:"var(--text-muted)"}}>{h.system?.toUpperCase()}</span></td>
+                        <td><span style={{...S.pill(SYSTEMS[h.system]?.text||"var(--text-muted)",SYSTEMS[h.system]?.bg||"var(--border)",SYSTEMS[h.system]?.border||"var(--border)")}}>{SYSTEMS[h.system]?.badge||h.system?.toUpperCase()||"—"}</span></td>
                         <td style={{fontSize:11,color:"var(--text-muted)"}}>{SOURCE_ERPS[h.sourceErp]?.label||"—"}</td>
                         <td>{h.period}</td><td>{h.rows}</td>
                         <td style={{color:h.errors>0?"#f87171":"var(--brand-primary)"}}>{h.errors}</td>
