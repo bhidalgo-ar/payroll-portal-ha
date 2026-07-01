@@ -26,21 +26,11 @@
     .topbar-badge{margin-left:auto;background:rgba(217,119,87,.18);border:1px solid rgba(217,119,87,.35);color:#f0a479;font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;letter-spacing:.2px;font-family:'Poppins',Arial,sans-serif;}
 
     .page{max-width:1200px;margin:0 auto;padding:36px 24px 48px;}
-    .page-header{margin-bottom:32px;}
+    .page-header{margin-bottom:28px;}
     h1{font-family:'Poppins',Arial,sans-serif;font-size:28px;font-weight:600;color:var(--dark);letter-spacing:-.3px;margin-bottom:6px;}
     .page-subtitle{font-size:14px;color:var(--muted);}
 
     .section-eyebrow{font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.9px;color:var(--faint);margin-bottom:10px;}
-    .profile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:30px;}
-    .profile-card{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:16px;cursor:pointer;transition:all .18s;display:flex;gap:13px;align-items:flex-start;}
-    .profile-card:hover{border-color:var(--orange);}
-    .profile-card.active{border-color:var(--orange);background:var(--orange-pale);}
-    .p-icon{width:38px;height:38px;background:var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .18s;}
-    .p-icon svg{color:var(--orange-dark);}
-    .profile-card.active .p-icon{background:var(--orange);}
-    .profile-card.active .p-icon svg{color:#fff;}
-    .p-name{font-family:'Poppins',Arial,sans-serif;font-size:14px;font-weight:600;color:var(--dark);margin-bottom:3px;}
-    .p-desc{font-size:12px;color:var(--muted);line-height:1.5;}
 
     .case-nav{display:flex;gap:2px;flex-wrap:wrap;border-bottom:1.5px solid var(--border);margin-bottom:22px;}
     .case-tab{padding:8px 14px;border:none;background:transparent;font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1.5px;border-radius:5px 5px 0 0;transition:all .15s;}
@@ -48,7 +38,6 @@
     .case-tab.active{color:var(--orange-dark);border-bottom-color:var(--orange);font-weight:600;}
 
     .case-header{margin-bottom:16px;}
-    .case-tag{display:inline-block;background:var(--orange-pale);border:1px solid rgba(217,119,87,.25);color:var(--orange-dark);font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px;margin-bottom:8px;font-family:'Poppins',Arial,sans-serif;}
     .case-title{font-family:'Poppins',Arial,sans-serif;font-size:19px;font-weight:600;color:var(--dark);margin-bottom:5px;}
     .case-desc{font-size:13px;color:var(--muted);line-height:1.75;max-width:780px;}
 
@@ -74,9 +63,17 @@
     .model-label.fable{color:var(--muted);}
     .tier-badge{font-family:'Poppins',Arial,sans-serif;background:var(--border);color:var(--muted);font-size:8.5px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:.3px;}
 
-    /* El texto de "por qué este modelo" es el contenido principal de la card */
-    .q-text{font-size:12.5px;color:var(--text);line-height:1.65;}
-    .m-detail{font-size:11px;color:var(--faint);margin-top:10px;padding-top:10px;border-top:1px solid var(--border);}
+    .metric{display:flex;justify-content:space-between;padding:6px 0;font-size:12px;border-bottom:1px solid var(--border);}
+    .metric:last-of-type{border-bottom:none;}
+    .m-label{color:var(--muted);}
+    .m-val{font-weight:600;color:var(--text);}
+
+    .conf-track{background:var(--border);height:5px;border-radius:3px;margin-top:6px;overflow:hidden;}
+    .conf-fill{height:100%;border-radius:3px;transition:width .5s ease;}
+
+    .quality-block{margin-top:11px;padding-top:11px;border-top:1px solid var(--border);}
+    .q-label{font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin-bottom:4px;}
+    .q-text{font-size:12px;color:var(--text);line-height:1.65;}
 
     .page-footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
     .footer-brand{display:flex;align-items:center;gap:8px;}
@@ -85,7 +82,6 @@
     .footer-note{font-size:11px;color:var(--faint);}
 
     @media(max-width:768px){
-      .profile-grid{grid-template-columns:1fr;}
       .models-grid{grid-template-columns:1fr;}
       .topbar-sub,.topbar-badge{display:none;}
       .artifacts-grid{grid-template-columns:1fr;}
@@ -93,7 +89,7 @@
     }
 
     /* ============ TABS PRINCIPALES ============ */
-    .main-tabs{display:flex;gap:6px;background:var(--border);padding:5px;border-radius:10px;margin-bottom:20px;width:fit-content;}
+    .main-tabs{display:flex;gap:6px;background:var(--border);padding:5px;border-radius:10px;margin-bottom:24px;width:fit-content;}
     .main-tab{padding:9px 18px;border:none;background:transparent;font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;border-radius:7px;transition:all .18s;display:flex;align-items:center;gap:7px;}
     .main-tab:hover{color:var(--orange-dark);}
     .main-tab.active{background:var(--card);color:var(--dark);box-shadow:0 1px 3px rgba(0,0,0,.06);}
@@ -104,7 +100,6 @@
 
     .model-variation-info{background:var(--border);border-radius:10px;padding:13px 18px;margin-bottom:20px;}
     .mvi-text{font-size:12.5px;color:var(--text);line-height:1.7;}
-    .mvi-text+.mvi-text{margin-top:6px;color:var(--muted);font-size:11.5px;}
 
     .category-header{font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--orange-dark);margin:24px 0 12px;display:flex;align-items:center;gap:8px;}
     .category-header:first-of-type{margin-top:8px;}
@@ -114,18 +109,13 @@
 
     .artifact-card{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:16px;transition:all .18s;position:relative;}
     .artifact-card:hover{box-shadow:0 3px 14px rgba(0,0,0,.07);border-color:var(--border-strong);}
-    .artifact-card.recommended{border-color:rgba(217,119,87,.4);background:var(--orange-pale);}
-    .artifact-card.recommended::before{content:'★ Recomendado';position:absolute;top:-9px;right:14px;background:var(--orange);color:#fff;font-family:'Poppins',Arial,sans-serif;font-size:9px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.4px;}
 
     .artifact-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding-bottom:11px;margin-bottom:11px;border-bottom:1.5px solid var(--border);}
     .artifact-head-left{flex:1;min-width:0;}
     .artifact-num{font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;color:var(--faint);letter-spacing:.6px;margin-bottom:3px;}
     .artifact-name{font-family:'Poppins',Arial,sans-serif;font-size:14px;font-weight:600;color:var(--dark);margin-bottom:3px;}
     .artifact-type{font-size:11px;color:var(--muted);}
-    .artifact-weight{font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;letter-spacing:.2px;flex-shrink:0;}
-    .artifact-weight.rapido{background:rgba(120,140,93,.14);border:1px solid rgba(120,140,93,.32);color:#5a6b45;}
-    .artifact-weight.moderado{background:rgba(106,155,204,.14);border:1px solid rgba(106,155,204,.32);color:#3d6690;}
-    .artifact-weight.pesado{background:rgba(20,20,19,.07);border:1px solid rgba(20,20,19,.2);color:var(--dark);}
+    .artifact-tokens{background:rgba(120,140,93,.14);border:1px solid rgba(120,140,93,.32);color:#5a6b45;font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;letter-spacing:.2px;flex-shrink:0;}
 
     .artifact-prompt{background:var(--bg);border:1px dashed var(--border-strong);border-radius:7px;padding:9px 11px;margin-bottom:11px;}
     .artifact-prompt-label{font-family:'Poppins',Arial,sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--faint);margin-bottom:3px;}
@@ -195,13 +185,13 @@
   <span class="topbar-name">Claude</span>
   <span class="topbar-sep">·</span>
   <span class="topbar-sub">Cómo usar Claude — Payroll &amp; HR</span>
-  <span class="topbar-badge">Guía interna · v5</span>
+  <span class="topbar-badge">Guía interna · v6</span>
 </div>
 
 <div class="page">
   <div class="page-header">
     <h1>Cómo usar Claude en Payroll</h1>
-    <p class="page-subtitle">Encontrá qué modelo elegir según la tarea y qué tipo de visualización pedirle a Claude — adaptado a tu rol. La pestaña "Claude Code" es aparte: es para quien mantiene este portal, no para el uso diario de Payroll.</p>
+    <p class="page-subtitle">Encontrá qué modelo elegir según la tarea y qué formato pedirle a Claude. La pestaña "Claude Code" es aparte: es para quien mantiene este portal, no para el uso diario de Payroll.</p>
   </div>
 
   <div class="main-tabs">
@@ -216,45 +206,6 @@
     </button>
   </div>
 
-  <div id="profile-section">
-    <div class="section-eyebrow">Tu perfil</div>
-    <div class="profile-grid">
-      <div class="profile-card active" id="p-liquidador" onclick="selectProfile('liquidador')">
-        <div class="p-icon">
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M5 4h10M5 8l3 8 2-5 2 5 3-8"/>
-          </svg>
-        </div>
-        <div>
-          <div class="p-name">Liquidador/a</div>
-          <div class="p-desc">Operativa diaria, cálculos, cruces y debugging</div>
-        </div>
-      </div>
-      <div class="profile-card" id="p-jefe" onclick="selectProfile('jefe')">
-        <div class="p-icon">
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="3" y="10" width="3" height="7"/><rect x="8.5" y="6" width="3" height="11"/><rect x="14" y="3" width="3" height="14"/>
-          </svg>
-        </div>
-        <div>
-          <div class="p-name">Jefe de Payroll</div>
-          <div class="p-desc">Reportes, comunicaciones y supervisión de procesos</div>
-        </div>
-      </div>
-      <div class="profile-card" id="p-gerente" onclick="selectProfile('gerente')">
-        <div class="p-icon">
-          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="10" cy="7" r="3.5"/><path d="M3 18c0-4 3-6 7-6s7 2 7 6"/>
-          </svg>
-        </div>
-        <div>
-          <div class="p-name">Gerente / Dirección</div>
-          <div class="p-desc">Decisiones estratégicas e informes ejecutivos</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div id="view-tasks">
     <div id="case-nav" class="case-nav"></div>
     <div id="case-content"></div>
@@ -263,14 +214,13 @@
   <div id="view-artifacts" class="view-hidden">
     <div class="model-variation-info">
       <div class="mvi-text">💡 El modelo elegido (Haiku, Sonnet, Opus o Fable) afecta sobre todo el pulido y la profundidad del resultado — no cambia qué tipo de artifact pedís. Para elegir modelo, ver la pestaña "Por tarea".</div>
-      <div class="mvi-text">Las tarjetas marcadas con ★ son sugerencias según tu perfil — el resto también está disponible para vos, no son un filtro.</div>
     </div>
 
     <div id="artifacts-content"></div>
   </div>
 
   <div id="view-code" class="view-hidden">
-    <div class="cc-audience-note"><strong>Esta sección es para quien mantiene o edita el código de este portal</strong> (IT / desarrollo). Si sos Liquidador, Jefe o Gerente y solo necesitás usar Claude para tu trabajo diario, quedate en "Por tarea" o "Por visualización" — acá no hay nada distinto para tu perfil.</div>
+    <div class="cc-audience-note"><strong>Esta sección es para quien mantiene o edita el código de este portal</strong> (IT / desarrollo). Si solo necesitás usar Claude para tu trabajo diario, quedate en "Por tarea" o "Por visualización".</div>
 
     <div class="cc-intro">
       <p><strong>Claude Code</strong> es la versión de Claude para trabajar directamente sobre este repositorio de GitHub: lee y edita los archivos HTML del portal (como esta misma guía, el Gestor de Novedades o el análisis de IG anual), ejecuta comandos, prueba los cambios y prepara los commits. No es un chat aparte — trabaja sobre el código real que después queda publicado.</p>
@@ -374,98 +324,92 @@
 </div>
 
 <script>
-const profiles={
-  liquidador:{label:'Liquidador/a',        cases:['debug','formulas','cruces','stats']},
-  jefe:      {label:'Jefe de Payroll',      cases:['comunicacion','reportes','stats','documentacion','debug']},
-  gerente:   {label:'Gerente / Dirección',  cases:['reportes','decisiones','comunicacion','documentacion']}
-};
+/* Los 8 casos de uso, en orden operativo → estratégico */
+const caseOrder=['debug','formulas','cruces','stats','comunicacion','reportes','documentacion','decisiones'];
 const caseLabels={
   debug:'🐛 Errores de liquidación', formulas:'🧮 Fórmulas de cálculo',
   cruces:'🔀 Cruces de datos', stats:'📊 Estadísticas',
   comunicacion:'✉️ Comunicaciones', reportes:'📋 Reportes',
-  decisiones:'🎯 Decisiones', documentacion:'📖 Documentación'
+  documentacion:'📖 Documentación', decisiones:'🎯 Decisiones'
 };
 const cases={
   debug:{
     title:'Resolver errores de liquidación',
     desc:'Un concepto muestra valor incorrecto o cero para ciertos empleados. Necesitás rastrear la lógica de cálculo, identificar dónde falla y proponer la corrección.',
     verdict:'Arrancá con Sonnet 5. Si el error cruza 3 o más conceptos encadenados, o Sonnet no lo resuelve en dos intentos, escalá a Opus 4.8. Fable 5 solo si hay implicancia legal o auditoría multi-año.',
-    haiku: {tokens:'~2.5K',time:'3–4s',iter:3,conf:'Media',quality:'Detecta errores obvios (valores nulos, campos vacíos) pero no logra trazar lógica de cálculo encadenada. Requiere guía manual en cada paso.'},
-    sonnet:{tokens:'~4K',  time:'5–8s',iter:1,conf:'Alta',quality:'Traza el flujo de cálculo de punta a punta, identifica la causa raíz y propone corrección en el primer intento. Cubre el 90% de los errores típicos.'},
-    opus:  {tokens:'~5K',  time:'7–11s',iter:1,conf:'Muy alta',quality:'Rara vez deja errores sin marcar y avisa cuando su propio diagnóstico tiene incertidumbre, en vez de afirmar con confianza injustificada. Ideal cuando el error cruza varios conceptos encadenados o reglas de negocio complejas.'},
-    fable: {tokens:'~7K',  time:'12–20s',iter:0,conf:'Muy alta',quality:'Para errores que requieren auditoría multi-año o remediación con implicancia legal: razona de punta a punta y verifica cruzado antes de reportar.'}
+    haiku: {tokens:'~2.5K',time:'3–4s',iter:3,conf:62,quality:'Detecta errores obvios (valores nulos, campos vacíos) pero no logra trazar lógica de cálculo encadenada. Requiere guía manual en cada paso.'},
+    sonnet:{tokens:'~4K',  time:'5–8s',iter:1,conf:91,quality:'Traza el flujo de cálculo de punta a punta, identifica la causa raíz y propone corrección en el primer intento. Cubre el 90% de los errores típicos.'},
+    opus:  {tokens:'~5K',  time:'7–11s',iter:1,conf:97,quality:'Rara vez deja errores sin marcar y avisa cuando su propio diagnóstico tiene incertidumbre, en vez de afirmar con confianza injustificada. Ideal cuando el error cruza varios conceptos encadenados o reglas de negocio complejas.'},
+    fable: {tokens:'~7K',  time:'12–20s',iter:0,conf:99,quality:'Para errores que requieren auditoría multi-año o remediación con implicancia legal: razona de punta a punta y verifica cruzado antes de reportar.'}
   },
   formulas:{
     title:'Entender fórmulas de cálculo',
     desc:'Una fórmula de proporcionalidad, SAC, retención o haberes variables no da el resultado esperado. Necesitás entender cada paso, identificar casos borde y detectar errores en la lógica.',
     verdict:'Sonnet 5 para entender una fórmula del día a día. Opus 4.8 si es una fórmula heredada que hay que auditar o documentar formalmente.',
-    haiku: {tokens:'~1.5K',time:'2–3s',iter:2,conf:'Media',quality:'Explica fórmulas simples correctamente, pero pierde el hilo en cálculos con múltiples condiciones o tablas de referencia.'},
-    sonnet:{tokens:'~2.5K',time:'4–6s',iter:1,conf:'Alta',quality:'Explica paso a paso, identifica casos borde (empleado nuevo, ausencia parcial, prorrateo) y traduce la lógica a lenguaje comprensible.'},
-    opus:  {tokens:'~3K',  time:'6–9s',iter:1,conf:'Muy alta',quality:'Explica la lógica completa y avisa cuando la fórmula tiene ambigüedades, sin confirmar por error una lógica incorrecta. Detecta posibles errores estructurales — útil para auditar rutinas heredadas.'},
-    fable: {tokens:'~5K',  time:'10–16s',iter:0,conf:'Muy alta',quality:'Para fórmulas heredadas con múltiples capas de excepciones legales o convenios colectivos muy complejos.'}
+    haiku: {tokens:'~1.5K',time:'2–3s',iter:2,conf:68,quality:'Explica fórmulas simples correctamente, pero pierde el hilo en cálculos con múltiples condiciones o tablas de referencia.'},
+    sonnet:{tokens:'~2.5K',time:'4–6s',iter:1,conf:89,quality:'Explica paso a paso, identifica casos borde (empleado nuevo, ausencia parcial, prorrateo) y traduce la lógica a lenguaje comprensible.'},
+    opus:  {tokens:'~3K',  time:'6–9s',iter:1,conf:95,quality:'Explica la lógica completa y avisa cuando la fórmula tiene ambigüedades, sin confirmar por error una lógica incorrecta. Detecta posibles errores estructurales — útil para auditar rutinas heredadas.'},
+    fable: {tokens:'~5K',  time:'10–16s',iter:0,conf:99,quality:'Para fórmulas heredadas con múltiples capas de excepciones legales o convenios colectivos muy complejos.'}
   },
   cruces:{
     title:'Cruces de información entre sistemas',
     desc:'Necesitás comparar totales de liquidación contra sistema contable, RRHH u otro origen para detectar diferencias, conciliar o validar antes del cierre.',
     verdict:'Sonnet 5 para cruces entre dos sistemas. Opus 4.8 con tres o más fuentes, o cuando hay que distinguir diferencias de timing de errores reales.',
-    haiku: {tokens:'~2K',  time:'3–4s',iter:3,conf:'Media',quality:'Compara tablas simples correctamente, pero pierde el hilo con 3+ fuentes o condiciones complejas. Genera falsos positivos en cruces con excepciones.'},
-    sonnet:{tokens:'~3.5K',time:'5–7s',iter:1,conf:'Alta',quality:'Detecta inconsistencias, agrupa por tipo de diferencia, sugiere causas probables y propone plan de acción por prioridad.'},
-    opus:  {tokens:'~4.5K',time:'7–11s',iter:1,conf:'Muy alta',quality:'Para cruces multi-sistema con reglas de negocio específicas — llega al resultado en menos pasos y distingue diferencias de timing de errores reales sin inventar causas.'},
-    fable: {tokens:'~8K',  time:'14–22s',iter:0,conf:'Muy alta',quality:'Para cruces con cinco o más sistemas y reglas de negocio en conflicto, típicos de fusiones de nómina o migraciones de proveedor.'}
+    haiku: {tokens:'~2K',  time:'3–4s',iter:3,conf:65,quality:'Compara tablas simples correctamente, pero pierde el hilo con 3+ fuentes o condiciones complejas. Genera falsos positivos en cruces con excepciones.'},
+    sonnet:{tokens:'~3.5K',time:'5–7s',iter:1,conf:90,quality:'Detecta inconsistencias, agrupa por tipo de diferencia, sugiere causas probables y propone plan de acción por prioridad.'},
+    opus:  {tokens:'~4.5K',time:'7–11s',iter:1,conf:96,quality:'Para cruces multi-sistema con reglas de negocio específicas — llega al resultado en menos pasos y distingue diferencias de timing de errores reales sin inventar causas.'},
+    fable: {tokens:'~8K',  time:'14–22s',iter:0,conf:99,quality:'Para cruces con cinco o más sistemas y reglas de negocio en conflicto, típicos de fusiones de nómina o migraciones de proveedor.'}
   },
   stats:{
     title:'Análisis de estadísticas salariales',
     desc:'Datos de variaciones salariales, ausentismo, rotación o costos de nómina. Detectar anomalías, calcular tendencias e identificar patrones para tomar decisiones o reportar.',
     verdict:'Sonnet 5 para análisis operativos y reportes al jefe. Opus 4.8 cuando el análisis va a dirección o los datos tienen muchos vacíos.',
-    haiku: {tokens:'~1.8K',time:'3–5s',iter:2,conf:'Media',quality:'Calcula estadísticas básicas correctamente, pero pierde outliers y no genera insights cualitativos. Pivot incompleto.'},
-    sonnet:{tokens:'~2.8K',time:'5–7s',iter:1,conf:'Alta',quality:'Análisis completo con anomalías, tendencias, segmentación por concepto y visualización lista para presentar al jefe.'},
-    opus:  {tokens:'~3.5K',time:'7–10s',iter:0,conf:'Muy alta',quality:'Detecta problemas en los datos de entrada y los reporta antes de concluir, en vez de ignorarlos. Ideal para presentar a dirección cuando los datos son ambiguos o incompletos.'},
-    fable: {tokens:'~6K',  time:'12–18s',iter:0,conf:'Muy alta',quality:'Para análisis con datos muy incompletos o series históricas de varios años que requieren razonamiento de largo alcance.'}
+    haiku: {tokens:'~1.8K',time:'3–5s',iter:2,conf:70,quality:'Calcula estadísticas básicas correctamente, pero pierde outliers y no genera insights cualitativos. Pivot incompleto.'},
+    sonnet:{tokens:'~2.8K',time:'5–7s',iter:1,conf:90,quality:'Análisis completo con anomalías, tendencias, segmentación por concepto y visualización lista para presentar al jefe.'},
+    opus:  {tokens:'~3.5K',time:'7–10s',iter:0,conf:97,quality:'Detecta problemas en los datos de entrada y los reporta antes de concluir, en vez de ignorarlos. Ideal para presentar a dirección cuando los datos son ambiguos o incompletos.'},
+    fable: {tokens:'~6K',  time:'12–18s',iter:0,conf:99,quality:'Para análisis con datos muy incompletos o series históricas de varios años que requieren razonamiento de largo alcance.'}
   },
   comunicacion:{
     title:'Redacción de comunicaciones',
     desc:'Emails a clientes, vendors o equipos de IT explicando problemas, solicitando acciones o respondiendo escalaciones. Tono profesional, claro y con propuesta de resolución.',
     verdict:'Sonnet 5 para comunicaciones de rutina. Opus 4.8 para escalaciones críticas o propuestas donde el tono y la precisión son determinantes.',
-    haiku: {tokens:'~1.2K',time:'2–3s',iter:4,conf:'Baja',quality:'Draft plano con estructura desorganizada y tono inconsistente. Requiere reescritura completa. Solo útil para avisos internos muy simples.'},
-    sonnet:{tokens:'~2K',  time:'4–6s',iter:1,conf:'Alta',quality:'Draft profesional listo para enviar en el primer intento. Tono adecuado, estructura clara y detalles técnicos bien presentados.'},
-    opus:  {tokens:'~2.5K',time:'6–9s',iter:0,conf:'Muy alta',quality:'Mantiene coherencia de estilo y contexto en sesiones largas, con más densidad informativa y menos relleno. Anticipa preguntas del destinatario y gestiona el tono con precisión.'},
-    fable: {tokens:'~4K',  time:'10–14s',iter:0,conf:'Muy alta',quality:'Para comunicaciones de alto riesgo legal o reputacional — mediación, comité ejecutivo.'}
+    haiku: {tokens:'~1.2K',time:'2–3s',iter:4,conf:45,quality:'Draft plano con estructura desorganizada y tono inconsistente. Requiere reescritura completa. Solo útil para avisos internos muy simples.'},
+    sonnet:{tokens:'~2K',  time:'4–6s',iter:1,conf:88,quality:'Draft profesional listo para enviar en el primer intento. Tono adecuado, estructura clara y detalles técnicos bien presentados.'},
+    opus:  {tokens:'~2.5K',time:'6–9s',iter:0,conf:95,quality:'Mantiene coherencia de estilo y contexto en sesiones largas, con más densidad informativa y menos relleno. Anticipa preguntas del destinatario y gestiona el tono con precisión.'},
+    fable: {tokens:'~4K',  time:'10–14s',iter:0,conf:98,quality:'Para comunicaciones de alto riesgo legal o reputacional — mediación, comité ejecutivo.'}
   },
   reportes:{
     title:'Armado de reportes e informes',
     desc:'Informe de cierre de mes, reporte de variaciones, informe ejecutivo o presentación para dirección. Necesitás narrativa, análisis de datos y recomendaciones accionables.',
     verdict:'Sonnet 5 para reportes al jefe y cierres mensuales. Opus 4.8 para informes de directorio o presentaciones a stakeholders externos.',
-    haiku: {tokens:'~1.5K',time:'2–4s',iter:3,conf:'Baja',quality:'Estructura básica sin análisis real. Presenta datos sin contexto ni recomendaciones. No apto para reportes de dirección.'},
-    sonnet:{tokens:'~2.5K',time:'4–7s',iter:1,conf:'Alta',quality:'Informe completo con narrativa, datos clave y recomendaciones concretas. Listo para entregar al jefe o management.'},
-    opus:  {tokens:'~3K',  time:'7–10s',iter:0,conf:'Muy alta',quality:'Outputs densos y ricos en información. Detecta problemas en los datos fuente que otros modelos dejan pasar, y anticipa preguntas de directorio con acciones de impacto estimado.'},
-    fable: {tokens:'~5K',  time:'12–18s',iter:0,conf:'Muy alta',quality:'Para informes de directorio con implicancias estratégicas o financieras mayores.'}
-  },
-  decisiones:{
-    title:'Toma de decisiones estratégicas',
-    desc:'Evaluar opciones para cambiar un proceso, implementar un sistema, gestionar un escalamiento o definir una estrategia. Necesitás análisis de impacto, riesgos y recomendaciones.',
-    verdict:'Sonnet 5 para decisiones operativas con impacto acotado. Opus 4.8 para decisiones estratégicas de alto impacto organizacional o financiero.',
-    haiku: {tokens:'~1.5K',time:'3–5s',iter:3,conf:'Baja',quality:'Lista genérica de pros y contras sin ponderación ni contexto. No útil para decisiones con variables múltiples.'},
-    sonnet:{tokens:'~2.5K',time:'5–7s',iter:1,conf:'Alta',quality:'Marco de decisión estructurado con criterios ponderados, escenarios y análisis de riesgos. Sólido para decisiones operativas.'},
-    opus:  {tokens:'~3.5K',time:'8–12s',iter:0,conf:'Muy alta',quality:'Anticipa consecuencias de segundo orden e identifica supuestos ocultos, sin afirmar avances sin evidencia. Ideal para decisiones de alto impacto organizacional o financiero.'},
-    fable: {tokens:'~6K',  time:'14–20s',iter:0,conf:'Muy alta',quality:'Para decisiones sostenidas en el tiempo con alto impacto organizacional — cambio de proveedor de nómina, rediseño de convenio.'}
+    haiku: {tokens:'~1.5K',time:'2–4s',iter:3,conf:55,quality:'Estructura básica sin análisis real. Presenta datos sin contexto ni recomendaciones. No apto para reportes de dirección.'},
+    sonnet:{tokens:'~2.5K',time:'4–7s',iter:1,conf:88,quality:'Informe completo con narrativa, datos clave y recomendaciones concretas. Listo para entregar al jefe o management.'},
+    opus:  {tokens:'~3K',  time:'7–10s',iter:0,conf:96,quality:'Outputs densos y ricos en información. Detecta problemas en los datos fuente que otros modelos dejan pasar, y anticipa preguntas de directorio con acciones de impacto estimado.'},
+    fable: {tokens:'~5K',  time:'12–18s',iter:0,conf:99,quality:'Para informes de directorio con implicancias estratégicas o financieras mayores.'}
   },
   documentacion:{
     title:'Documentación de procesos',
     desc:'Documentar flujos de liquidación, guías de operación, manuales para auditoría o wikis internas. Necesitás claridad, completitud y un formato que se pueda mantener en el tiempo.',
     verdict:'Sonnet 5 para documentación interna del equipo. Opus 4.8 si el destino es externo — auditor, partner o cliente.',
-    haiku: {tokens:'~1.4K',time:'2–4s',iter:3,conf:'Baja',quality:'Estructura base superficial. Omite casos de error, excepciones y detalles de proceso. No apto para documentación formal.'},
-    sonnet:{tokens:'~2.5K',time:'4–7s',iter:1,conf:'Alta',quality:'Documentación completa con flujos, excepciones, casos de error y guía de troubleshooting. Lista para wiki interna del equipo.'},
-    opus:  {tokens:'~3K',  time:'6–9s',iter:0,conf:'Muy alta',quality:'Documentación enterprise-grade, coherente incluso en documentos largos, que detecta sus propias inconsistencias antes de entregar. Apta para auditoría externa y onboarding formal.'},
-    fable: {tokens:'~5.5K',time:'12–18s',iter:0,conf:'Muy alta',quality:'Para documentación que debe sostener auditorías externas exhaustivas o certificaciones regulatorias.'}
+    haiku: {tokens:'~1.4K',time:'2–4s',iter:3,conf:52,quality:'Estructura base superficial. Omite casos de error, excepciones y detalles de proceso. No apto para documentación formal.'},
+    sonnet:{tokens:'~2.5K',time:'4–7s',iter:1,conf:87,quality:'Documentación completa con flujos, excepciones, casos de error y guía de troubleshooting. Lista para wiki interna del equipo.'},
+    opus:  {tokens:'~3K',  time:'6–9s',iter:0,conf:96,quality:'Documentación enterprise-grade, coherente incluso en documentos largos, que detecta sus propias inconsistencias antes de entregar. Apta para auditoría externa y onboarding formal.'},
+    fable: {tokens:'~5.5K',time:'12–18s',iter:0,conf:99,quality:'Para documentación que debe sostener auditorías externas exhaustivas o certificaciones regulatorias.'}
+  },
+  decisiones:{
+    title:'Toma de decisiones estratégicas',
+    desc:'Evaluar opciones para cambiar un proceso, implementar un sistema, gestionar un escalamiento o definir una estrategia. Necesitás análisis de impacto, riesgos y recomendaciones.',
+    verdict:'Sonnet 5 para decisiones operativas con impacto acotado. Opus 4.8 para decisiones estratégicas de alto impacto organizacional o financiero.',
+    haiku: {tokens:'~1.5K',time:'3–5s',iter:3,conf:48,quality:'Lista genérica de pros y contras sin ponderación ni contexto. No útil para decisiones con variables múltiples.'},
+    sonnet:{tokens:'~2.5K',time:'5–7s',iter:1,conf:85,quality:'Marco de decisión estructurado con criterios ponderados, escenarios y análisis de riesgos. Sólido para decisiones operativas.'},
+    opus:  {tokens:'~3.5K',time:'8–12s',iter:0,conf:95,quality:'Anticipa consecuencias de segundo orden e identifica supuestos ocultos, sin afirmar avances sin evidencia. Ideal para decisiones de alto impacto organizacional o financiero.'},
+    fable: {tokens:'~6K',  time:'14–20s',iter:0,conf:99,quality:'Para decisiones sostenidas en el tiempo con alto impacto organizacional — cambio de proveedor de nómina, rediseño de convenio.'}
   }
 };
 
-let currentProfile='liquidador',currentCase='debug',currentView='tasks';
-
-function iterText(n){
-  if(n===0)return'sin reintentos';
-  return n===1?'1 reintento':`${n} reintentos`;
-}
+/* Color de la barra de confianza por modelo (paleta oficial) */
+const barColors={haiku:'#6a9bcc',sonnet:'#788c5d',opus:'#141413',fable:'#b0aea5'};
+let currentCase='debug',currentView='tasks';
 
 /* ============ DATOS DE ARTIFACTS VISUALES ============ */
 const categories=[
@@ -474,107 +418,95 @@ const categories=[
   {id:'documents', label:'Documentos editables',     items:['markdown','xlsx','office']},
   {id:'special',   label:'Conectores y búsqueda',    items:['monday','image_search']}
 ];
-const weightLabels={rapido:'Rápido',moderado:'Moderado',pesado:'Pesado'};
 
 const artifacts={
   mermaid:{
-    name:'Mermaid', type:'Artifact descargable (.mermaid)', weight:'rapido',
+    name:'Mermaid', type:'Artifact descargable (.mermaid)', tokens:'150–300',
     prompt:'"hacé un diagrama mermaid del flujo del recálculo SIRADIG"',
     pros:'Flujos secuenciales, árboles de decisión y organigramas simples',
     cons:'Ilustraciones custom o cuando necesitás interactividad',
     example:'Flujo de fases del recálculo SIRADIG por cliente',
-    limit:'Sintaxis declarativa, pocas variantes visuales',
-    recommendedFor:['liquidador','jefe']
+    limit:'Sintaxis declarativa, pocas variantes visuales'
   },
   viz_svg:{
-    name:'Visualizer SVG', type:'Inline en chat', weight:'moderado',
+    name:'Visualizer SVG', type:'Inline en chat', tokens:'800–1.500',
     prompt:'"mostrame un diagrama visual de la estructura del recibo"',
     pros:'Diagramas únicos en chat, ilustraciones rápidas para explicar',
     cons:'Cuando querés descargarlo como archivo independiente',
     example:'Estructura visual de un recibo de sueldo',
-    limit:'Solo aparece inline, no se descarga',
-    recommendedFor:['liquidador','jefe']
+    limit:'Solo aparece inline, no se descarga'
   },
   svg_file:{
-    name:'SVG (.svg)', type:'Artifact descargable', weight:'moderado',
+    name:'SVG (.svg)', type:'Artifact descargable', tokens:'500–3.000',
     prompt:'"creame un archivo SVG del organigrama del equipo"',
     pros:'Gráficos vectoriales para insertar en slides o documentos',
     cons:'Cuando no necesitás portabilidad o querés interactividad',
     example:'Organigrama del equipo de Payroll',
-    limit:'Estático, sin interactividad ni datos dinámicos',
-    recommendedFor:['jefe','gerente']
+    limit:'Estático, sin interactividad ni datos dinámicos'
   },
   viz_html:{
-    name:'Visualizer HTML interactivo', type:'Inline en chat', weight:'pesado',
+    name:'Visualizer HTML interactivo', type:'Inline en chat', tokens:'2.500–4.500',
     prompt:'"mostrame un widget interactivo para simular ganancias"',
     pros:'Simuladores de un solo uso, calculadoras, demos rápidas',
     cons:'Cuando necesitás guardar el archivo o compartirlo fuera del chat',
     example:'Simulador interactivo de retención de ganancias',
-    limit:'No persiste — se pierde al cerrar la conversación',
-    recommendedFor:['liquidador','jefe']
+    limit:'No persiste — se pierde al cerrar la conversación'
   },
   html_file:{
-    name:'HTML (.html)', type:'Artifact descargable', weight:'moderado',
+    name:'HTML (.html)', type:'Artifact descargable', tokens:'1.500–4.500',
     prompt:'"armame un archivo HTML con el dashboard de KPIs del cierre"',
     pros:'Dashboards estáticos, one-pagers, guías como esta misma',
     cons:'Cuando necesitás integrar datos en vivo desde un sistema',
     example:'Dashboard de KPIs del cierre mensual de payroll',
-    limit:'Sin backend, los datos quedan hardcoded en el archivo',
-    recommendedFor:['jefe','gerente']
+    limit:'Sin backend, los datos quedan hardcoded en el archivo'
   },
   react:{
-    name:'React (.jsx)', type:'Artifact descargable', weight:'pesado',
+    name:'React (.jsx)', type:'Artifact descargable', tokens:'2.500–7.000+',
     prompt:'"creame un artifact en React con filtros por cliente y fase"',
     pros:'Apps complejas con estado, filtros, gráficos y múltiples vistas',
     cons:'Para algo simple — es sobreingeniería y consume más cupo',
     example:'Tablero del recálculo SIRADIG con filtros y avance por fase',
-    limit:'Sin localStorage/sessionStorage, librerías acotadas',
-    recommendedFor:['gerente']
+    limit:'Sin localStorage/sessionStorage, librerías acotadas'
   },
   markdown:{
-    name:'Markdown (.md)', type:'Artifact descargable', weight:'rapido',
+    name:'Markdown (.md)', type:'Artifact descargable', tokens:'300–3.000',
     prompt:'"armame un documento markdown del manual del proceso SIRADIG"',
     pros:'Manuales técnicos, READMEs, documentación interna mantenible',
     cons:'Cuando necesitás formato corporativo (logo, márgenes, headers)',
     example:'Manual interno del proceso de recálculo anual',
-    limit:'Formato simple, sin estilos custom ni imágenes embebidas complejas',
-    recommendedFor:['liquidador','jefe']
+    limit:'Formato simple, sin estilos custom ni imágenes embebidas complejas'
   },
   xlsx:{
-    name:'XLSX', type:'Archivo descargable', weight:'moderado',
+    name:'XLSX', type:'Archivo descargable', tokens:'1.500–2.500',
     prompt:'"creame un Excel con la tabla de control de recálculo cliente x fase"',
     pros:'Datos tabulares con fórmulas para seguir trabajando en Excel',
     cons:'Cuando solo necesitás visualizar los datos sin editarlos',
     example:'Plantilla de control del recálculo SIRADIG por cliente y fase',
-    limit:'Se descarga, no se previsualiza inline en el chat',
-    recommendedFor:['liquidador','jefe','gerente']
+    limit:'Se descarga, no se previsualiza inline en el chat'
   },
   office:{
-    name:'DOCX / PPTX / PDF', type:'Archivo descargable', weight:'pesado',
+    name:'DOCX / PPTX / PDF', type:'Archivo descargable', tokens:'2.000–4.000',
     prompt:'"armame un PowerPoint del informe ejecutivo de cierre del cliente X"',
     pros:'Entregables formales para clientes, partners externos o auditoría',
     cons:'Para borradores rápidos o documentos internos que cambian seguido',
     example:'Informe ejecutivo de cierre de mes para cliente externo',
-    limit:'Generación más lenta, se descarga sin previsualización',
-    recommendedFor:['jefe','gerente']
+    limit:'Generación más lenta, se descarga sin previsualización'
   },
   image_search:{
-    name:'Búsqueda de imágenes', type:'Inline en chat', weight:'rapido',
+    name:'Búsqueda de imágenes', type:'Inline en chat', tokens:'~100',
     prompt:'"buscame imágenes de oficinas corporativas en Buenos Aires"',
     pros:'Necesitás imágenes reales de productos, lugares u objetos',
     cons:'Si querés gráficos generados, diagramas custom o ilustraciones',
     example:'Imágenes ilustrativas para una comunicación corporativa',
-    limit:'Solo busca en la web — no genera imágenes nuevas con IA',
-    recommendedFor:['jefe','gerente']
+    limit:'Solo busca en la web — no genera imágenes nuevas con IA'
   },
   monday:{
-    name:'Widgets Monday.com', type:'Inline en chat', weight:'rapido',
+    name:'Widgets Monday.com', type:'Inline en chat', tokens:'200–800',
     prompt:'"mostrame el board del Validador Novedades como tabla"',
     pros:'Cuando los datos ya están vivos en un board de Monday',
     cons:'Para datos que no están en Monday — usá XLSX o HTML en su lugar',
     example:'Visualizar el avance del board del Validador Novedades',
-    limit:'Requiere conector activo y permisos en el board correspondiente',
-    recommendedFor:['liquidador','jefe','gerente']
+    limit:'Requiere conector activo y permisos en el board correspondiente'
   }
 };
 
@@ -587,8 +519,6 @@ function switchView(v){
   document.getElementById('view-tasks').classList.toggle('view-hidden',v!=='tasks');
   document.getElementById('view-artifacts').classList.toggle('view-hidden',v!=='artifacts');
   document.getElementById('view-code').classList.toggle('view-hidden',v!=='code');
-  // El perfil de Payroll no aplica a la pestaña Claude Code (otra audiencia) — se oculta para no prometer una personalización que no existe ahí
-  document.getElementById('profile-section').classList.toggle('view-hidden',v==='code');
   if(v==='artifacts')renderArtifacts();
 }
 
@@ -599,15 +529,14 @@ function renderArtifacts(){
     html+='<div class="artifacts-grid">';
     cat.items.forEach((id,idx)=>{
       const a=artifacts[id];
-      const isRec=a.recommendedFor.includes(currentProfile);
-      html+=`<div class="artifact-card${isRec?' recommended':''}">
+      html+=`<div class="artifact-card">
         <div class="artifact-head">
           <div class="artifact-head-left">
             <div class="artifact-num">${cat.id.toUpperCase()} · ${idx+1}</div>
             <div class="artifact-name">${a.name}</div>
             <div class="artifact-type">${a.type}</div>
           </div>
-          <span class="artifact-weight ${a.weight}">${weightLabels[a.weight]}</span>
+          <span class="artifact-tokens">${a.tokens} tokens</span>
         </div>
         <div class="artifact-prompt">
           <div class="artifact-prompt-label">Cómo pedirlo</div>
@@ -626,25 +555,16 @@ function renderArtifacts(){
   document.getElementById('artifacts-content').innerHTML=html;
 }
 
-function selectProfile(p){
-  currentProfile=p;
-  document.querySelectorAll('.profile-card').forEach(c=>c.classList.remove('active'));
-  document.getElementById('p-'+p).classList.add('active');
-  currentCase=profiles[p].cases[0];
-  renderNav(); renderCase();
-  if(currentView==='artifacts')renderArtifacts();
-}
 function selectCase(k){currentCase=k;renderNav();renderCase();}
 
 function renderNav(){
-  document.getElementById('case-nav').innerHTML=profiles[currentProfile].cases
+  document.getElementById('case-nav').innerHTML=caseOrder
     .map(k=>`<button class="case-tab${k===currentCase?' active':''}" onclick="selectCase('${k}')">${caseLabels[k]}</button>`)
     .join('');
 }
 
 function renderCase(){
   const c=cases[currentCase];
-  const pLabel=profiles[currentProfile].label;
   const names={haiku:'Haiku 4.5',sonnet:'Sonnet 5',opus:'Opus 4.8',fable:'Fable 5'};
   const card=(model,cls)=>{
     const m=c[model];
@@ -654,13 +574,19 @@ function renderCase(){
         <span class="model-label ${cls}">${names[model]}</span>
         ${isFable?'<span class="tier-badge">ÚLTIMO RECURSO</span>':''}
       </div>
-      <div class="q-text">${m.quality}</div>
-      <div class="m-detail">${m.tokens} tokens · ${m.time} · ${iterText(m.iter)} · confianza ${m.conf.toLowerCase()}</div>
+      <div class="metric"><span class="m-label">Tokens</span><span class="m-val">${m.tokens}</span></div>
+      <div class="metric"><span class="m-label">Tiempo</span><span class="m-val">${m.time}</span></div>
+      <div class="metric"><span class="m-label">Iteraciones</span><span class="m-val">${m.iter}</span></div>
+      <div class="metric"><span class="m-label">Confianza</span><span class="m-val" style="color:${barColors[model]}">${m.conf}%</span></div>
+      <div class="conf-track"><div class="conf-fill" style="width:${m.conf}%;background:${barColors[model]}"></div></div>
+      <div class="quality-block">
+        <div class="q-label">Calidad de respuesta</div>
+        <div class="q-text">${m.quality}</div>
+      </div>
     </div>`;
   };
   document.getElementById('case-content').innerHTML=`
     <div class="case-header">
-      <div class="case-tag">${pLabel}</div>
       <div class="case-title">${c.title}</div>
       <div class="case-desc">${c.desc}</div>
     </div>
@@ -671,7 +597,9 @@ function renderCase(){
     <div class="models-detail-label">Detalle por modelo</div>
     <div class="models-grid">${card('haiku','haiku')}${card('sonnet','sonnet')}${card('opus','opus')}${card('fable','fable')}</div>`;
 }
-selectProfile('liquidador');
+
+renderNav();
+renderCase();
 </script>
 </body>
 </html>
