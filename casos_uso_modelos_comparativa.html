@@ -4,95 +4,84 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cómo usar Claude — Payroll & HR</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:#faf7f2; --card:#ffffff; --border:#e6e1d6; --border-strong:#cdc6b8;
-      --orange:#D97706; --orange-pale:#fff8ec; --orange-dark:#a85d04;
-      --dark:#19170f; --text:#2c2820; --muted:#726c62; --faint:#a09890;
-      --haiku:#c0511f; --sonnet:#1450a0; --opus:#483eac; --fable:#8a1c42;
+      /* Paleta oficial de marca Anthropic/Claude */
+      --bg:#faf9f5; --card:#ffffff; --border:#e8e6dc; --border-strong:#cfc9bd;
+      --dark:#141413; --text:#141413; --muted:#726c62; --faint:#b0aea5;
+      --orange:#d97757; --orange-pale:#fdf1ec; --orange-dark:#a8532f;
+      --blue:#6a9bcc; --green:#788c5d;
+      /* Un acento por nivel de modelo, todos dentro de la paleta oficial */
+      --haiku:var(--blue); --sonnet:var(--green); --opus:var(--dark); --fable:var(--faint);
     }
     *{margin:0;padding:0;box-sizing:border-box;}
-    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;}
+    body{font-family:'Lora',Georgia,serif;background:var(--bg);color:var(--text);line-height:1.6;}
 
     .topbar{background:var(--dark);padding:11px 28px;display:flex;align-items:center;gap:10px;}
     .topbar-logo{width:26px;height:26px;flex-shrink:0;}
-    .topbar-name{font-size:14px;font-weight:500;color:#f0ece4;letter-spacing:-.1px;}
+    .topbar-name{font-family:'Poppins',Arial,sans-serif;font-size:14px;font-weight:500;color:#f0ece4;letter-spacing:-.1px;}
     .topbar-sep{color:#4a4640;font-size:14px;margin:0 2px;}
     .topbar-sub{font-size:13px;color:#877f74;}
-    .topbar-badge{margin-left:auto;background:rgba(217,119,6,.18);border:1px solid rgba(217,119,6,.35);color:#f8b84a;font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;letter-spacing:.2px;}
+    .topbar-badge{margin-left:auto;background:rgba(217,119,87,.18);border:1px solid rgba(217,119,87,.35);color:#f0a479;font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;letter-spacing:.2px;font-family:'Poppins',Arial,sans-serif;}
 
     .page{max-width:1200px;margin:0 auto;padding:36px 24px 48px;}
     .page-header{margin-bottom:32px;}
-    h1{font-family:'DM Serif Display',serif;font-size:30px;font-weight:400;color:var(--dark);letter-spacing:-.3px;margin-bottom:6px;}
+    h1{font-family:'Poppins',Arial,sans-serif;font-size:28px;font-weight:600;color:var(--dark);letter-spacing:-.3px;margin-bottom:6px;}
     .page-subtitle{font-size:14px;color:var(--muted);}
 
-    .section-eyebrow{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.9px;color:var(--faint);margin-bottom:10px;}
+    .section-eyebrow{font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.9px;color:var(--faint);margin-bottom:10px;}
     .profile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:30px;}
     .profile-card{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:16px;cursor:pointer;transition:all .18s;display:flex;gap:13px;align-items:flex-start;}
     .profile-card:hover{border-color:var(--orange);}
     .profile-card.active{border-color:var(--orange);background:var(--orange-pale);}
-    .p-icon{width:38px;height:38px;background:#f0ece4;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .18s;}
+    .p-icon{width:38px;height:38px;background:var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .18s;}
     .p-icon svg{color:var(--orange-dark);}
     .profile-card.active .p-icon{background:var(--orange);}
     .profile-card.active .p-icon svg{color:#fff;}
-    .p-name{font-size:14px;font-weight:600;color:var(--dark);margin-bottom:3px;}
+    .p-name{font-family:'Poppins',Arial,sans-serif;font-size:14px;font-weight:600;color:var(--dark);margin-bottom:3px;}
     .p-desc{font-size:12px;color:var(--muted);line-height:1.5;}
 
     .case-nav{display:flex;gap:2px;flex-wrap:wrap;border-bottom:1.5px solid var(--border);margin-bottom:22px;}
-    .case-tab{padding:8px 14px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1.5px;border-radius:5px 5px 0 0;transition:all .15s;}
+    .case-tab{padding:8px 14px;border:none;background:transparent;font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1.5px;border-radius:5px 5px 0 0;transition:all .15s;}
     .case-tab:hover{color:var(--orange);}
     .case-tab.active{color:var(--orange-dark);border-bottom-color:var(--orange);font-weight:600;}
 
-    .case-header{margin-bottom:22px;}
-    .case-tag{display:inline-block;background:var(--orange-pale);border:1px solid rgba(217,119,6,.25);color:var(--orange-dark);font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px;margin-bottom:8px;}
-    .case-title{font-size:19px;font-weight:600;color:var(--dark);margin-bottom:5px;}
+    .case-header{margin-bottom:16px;}
+    .case-tag{display:inline-block;background:var(--orange-pale);border:1px solid rgba(217,119,87,.25);color:var(--orange-dark);font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px;margin-bottom:8px;font-family:'Poppins',Arial,sans-serif;}
+    .case-title{font-family:'Poppins',Arial,sans-serif;font-size:19px;font-weight:600;color:var(--dark);margin-bottom:5px;}
     .case-desc{font-size:13px;color:var(--muted);line-height:1.75;max-width:780px;}
 
+    /* La recomendación va PRIMERO — es lo único que la mayoría necesita leer */
+    .verdict{background:var(--orange-pale);border-left:3px solid var(--orange);border-radius:0 8px 8px 0;padding:13px 16px;margin-bottom:20px;}
+    .v-title{font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--orange-dark);margin-bottom:5px;}
+    .v-text{font-size:13.5px;color:var(--text);line-height:1.75;}
+
+    .models-detail-label{font-size:11px;color:var(--faint);margin-bottom:10px;font-family:'Poppins',Arial,sans-serif;text-transform:uppercase;letter-spacing:.6px;}
     .models-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px;}
     .model-card{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:16px;position:relative;transition:box-shadow .15s;}
     .model-card:hover{box-shadow:0 3px 14px rgba(0,0,0,.07);}
-    .model-card.is-opus{border-color:rgba(72,62,172,.3);background:linear-gradient(155deg,#fdfcff 0%,#f4f2ff 100%);}
-    .model-card.is-fable{border-color:rgba(138,28,66,.3);background:linear-gradient(155deg,#fffbfc 0%,#fdf0f4 100%);}
 
     .model-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;margin-bottom:12px;border-bottom:2px solid;}
     .model-header.haiku{border-color:var(--haiku);}
     .model-header.sonnet{border-color:var(--sonnet);}
     .model-header.opus{border-color:var(--opus);}
     .model-header.fable{border-color:var(--fable);}
-    .model-label{font-size:14px;font-weight:600;}
+    .model-label{font-family:'Poppins',Arial,sans-serif;font-size:14px;font-weight:600;}
     .model-label.haiku{color:var(--haiku);}
     .model-label.sonnet{color:var(--sonnet);}
     .model-label.opus{color:var(--opus);}
-    .model-label.fable{color:var(--fable);}
-    .v47-tag{background:var(--opus);color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:.3px;}
-    .v47-tag.is-fable{background:var(--fable);}
+    .model-label.fable{color:var(--muted);}
+    .tier-badge{font-family:'Poppins',Arial,sans-serif;background:var(--border);color:var(--muted);font-size:8.5px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:.3px;}
 
-    .metric{display:flex;justify-content:space-between;padding:7px 0;font-size:12px;border-bottom:1px solid #f2ede6;}
-    .metric:last-of-type{border-bottom:none;}
-    .m-label{color:var(--muted);}
-    .m-val{font-weight:600;}
-    .c-green{color:#1a7a4a;} .c-amber{color:#a85d04;} .c-blue{color:#1450a0;} .c-purple{color:#483eac;}
-
-    .conf-track{background:#ede8df;height:4px;border-radius:2px;margin-top:5px;overflow:hidden;}
-    .conf-fill{height:100%;border-radius:2px;transition:width .5s ease;}
-
-    .quality-block{margin-top:11px;padding-top:11px;border-top:1px solid #f2ede6;}
-    .q-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--faint);margin-bottom:4px;}
-    .q-text{font-size:12px;color:#514c46;line-height:1.65;}
-
-    .opus-strip{background:linear-gradient(90deg,#f0eeff,#f8f7ff);border:1px solid rgba(72,62,172,.2);border-radius:8px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-    .os-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--opus);}
-    .os-chip{background:rgba(72,62,172,.08);border:1px solid rgba(72,62,172,.18);border-radius:20px;padding:2px 10px;font-size:11px;color:var(--opus);font-weight:500;}
-
-    .verdict{background:var(--orange-pale);border-left:3px solid var(--orange);border-radius:0 8px 8px 0;padding:13px 16px;}
-    .v-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--orange-dark);margin-bottom:5px;}
-    .v-text{font-size:13px;color:#4a4438;line-height:1.75;}
+    /* El texto de "por qué este modelo" es el contenido principal de la card */
+    .q-text{font-size:12.5px;color:var(--text);line-height:1.65;}
+    .m-detail{font-size:11px;color:var(--faint);margin-top:10px;padding-top:10px;border-top:1px solid var(--border);}
 
     .page-footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
     .footer-brand{display:flex;align-items:center;gap:8px;}
     .footer-dot{width:8px;height:8px;background:var(--orange);border-radius:50%;}
-    .footer-name{font-size:12px;font-weight:600;color:var(--dark);}
+    .footer-name{font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:600;color:var(--dark);}
     .footer-note{font-size:11px;color:var(--faint);}
 
     @media(max-width:768px){
@@ -103,9 +92,9 @@
       .main-tabs{flex-wrap:wrap;}
     }
 
-    /* ============ TABS PRINCIPALES (Por tarea / Por visualización) ============ */
-    .main-tabs{display:flex;gap:6px;background:#f0ece4;padding:5px;border-radius:10px;margin-bottom:28px;width:fit-content;}
-    .main-tab{padding:9px 18px;border:none;background:transparent;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;border-radius:7px;transition:all .18s;display:flex;align-items:center;gap:7px;}
+    /* ============ TABS PRINCIPALES ============ */
+    .main-tabs{display:flex;gap:6px;background:var(--border);padding:5px;border-radius:10px;margin-bottom:20px;width:fit-content;}
+    .main-tab{padding:9px 18px;border:none;background:transparent;font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;border-radius:7px;transition:all .18s;display:flex;align-items:center;gap:7px;}
     .main-tab:hover{color:var(--orange-dark);}
     .main-tab.active{background:var(--card);color:var(--dark);box-shadow:0 1px 3px rgba(0,0,0,.06);}
     .main-tab-icon{font-size:14px;}
@@ -113,20 +102,11 @@
     /* ============ VISTA DE ARTIFACTS ============ */
     .view-hidden{display:none;}
 
-    .model-variation-info{background:linear-gradient(155deg,#fdfcff 0%,#f4f2ff 100%);border:1px solid rgba(72,62,172,.18);border-radius:10px;padding:16px 18px;margin-bottom:24px;}
-    .mvi-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--opus);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
-    .mvi-text{font-size:13px;color:#4a4438;line-height:1.7;margin-bottom:8px;}
-    .mvi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px;}
-    .mvi-pill{background:rgba(255,255,255,.7);border:1px solid rgba(72,62,172,.15);border-radius:7px;padding:8px 11px;}
-    .mvi-pill-name{font-size:11px;font-weight:700;margin-bottom:2px;}
-    .mvi-pill-name.haiku{color:var(--haiku);}
-    .mvi-pill-name.sonnet{color:var(--sonnet);}
-    .mvi-pill-name.opus{color:var(--opus);}
-    .mvi-pill-name.fable{color:var(--fable);}
-    .mvi-pill-text{font-size:11px;color:#5a564f;line-height:1.5;}
-    @media(max-width:768px){.mvi-grid{grid-template-columns:1fr;}}
+    .model-variation-info{background:var(--border);border-radius:10px;padding:13px 18px;margin-bottom:20px;}
+    .mvi-text{font-size:12.5px;color:var(--text);line-height:1.7;}
+    .mvi-text+.mvi-text{margin-top:6px;color:var(--muted);font-size:11.5px;}
 
-    .category-header{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--orange-dark);margin:24px 0 12px;display:flex;align-items:center;gap:8px;}
+    .category-header{font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--orange-dark);margin:24px 0 12px;display:flex;align-items:center;gap:8px;}
     .category-header:first-of-type{margin-top:8px;}
     .category-header::before{content:'';width:18px;height:1.5px;background:var(--orange);}
 
@@ -134,90 +114,94 @@
 
     .artifact-card{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:16px;transition:all .18s;position:relative;}
     .artifact-card:hover{box-shadow:0 3px 14px rgba(0,0,0,.07);border-color:var(--border-strong);}
-    .artifact-card.recommended{border-color:rgba(217,119,6,.4);background:linear-gradient(155deg,#fffdf8 0%,#fff8ec 100%);}
-    .artifact-card.recommended::before{content:'★ Recomendado';position:absolute;top:-9px;right:14px;background:var(--orange);color:#fff;font-size:9px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.4px;}
+    .artifact-card.recommended{border-color:rgba(217,119,87,.4);background:var(--orange-pale);}
+    .artifact-card.recommended::before{content:'★ Recomendado';position:absolute;top:-9px;right:14px;background:var(--orange);color:#fff;font-family:'Poppins',Arial,sans-serif;font-size:9px;font-weight:700;padding:3px 8px;border-radius:20px;letter-spacing:.4px;}
 
-    .artifact-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding-bottom:11px;margin-bottom:11px;border-bottom:1.5px solid #f2ede6;}
+    .artifact-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding-bottom:11px;margin-bottom:11px;border-bottom:1.5px solid var(--border);}
     .artifact-head-left{flex:1;min-width:0;}
-    .artifact-num{font-size:10px;font-weight:700;color:var(--faint);letter-spacing:.6px;margin-bottom:3px;}
-    .artifact-name{font-size:14px;font-weight:600;color:var(--dark);margin-bottom:3px;}
+    .artifact-num{font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;color:var(--faint);letter-spacing:.6px;margin-bottom:3px;}
+    .artifact-name{font-family:'Poppins',Arial,sans-serif;font-size:14px;font-weight:600;color:var(--dark);margin-bottom:3px;}
     .artifact-type{font-size:11px;color:var(--muted);}
-    .artifact-tokens{background:#e8f4ec;border:1px solid #c9e3d3;color:#1a7a4a;font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;letter-spacing:.2px;flex-shrink:0;}
+    .artifact-weight{font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;letter-spacing:.2px;flex-shrink:0;}
+    .artifact-weight.rapido{background:rgba(120,140,93,.14);border:1px solid rgba(120,140,93,.32);color:#5a6b45;}
+    .artifact-weight.moderado{background:rgba(106,155,204,.14);border:1px solid rgba(106,155,204,.32);color:#3d6690;}
+    .artifact-weight.pesado{background:rgba(20,20,19,.07);border:1px solid rgba(20,20,19,.2);color:var(--dark);}
 
-    .artifact-prompt{background:#faf7f2;border:1px dashed var(--border-strong);border-radius:7px;padding:9px 11px;margin-bottom:11px;}
-    .artifact-prompt-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--faint);margin-bottom:3px;}
-    .artifact-prompt-text{font-size:12px;color:var(--text);font-family:'DM Mono',ui-monospace,monospace;font-style:italic;line-height:1.5;}
+    .artifact-prompt{background:var(--bg);border:1px dashed var(--border-strong);border-radius:7px;padding:9px 11px;margin-bottom:11px;}
+    .artifact-prompt-label{font-family:'Poppins',Arial,sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--faint);margin-bottom:3px;}
+    .artifact-prompt-text{font-size:12px;color:var(--text);font-style:italic;line-height:1.5;}
 
     .artifact-points{display:flex;flex-direction:column;gap:6px;}
     .artifact-point{display:flex;gap:8px;font-size:12px;line-height:1.55;}
     .artifact-point-icon{flex-shrink:0;font-size:13px;width:18px;}
-    .artifact-point-text{color:#514c46;}
+    .artifact-point-text{color:var(--text);}
     .artifact-point-text strong{color:var(--dark);font-weight:600;}
 
     /* ============ VISTA CLAUDE CODE ============ */
+    .cc-audience-note{background:var(--border);border-radius:8px;padding:11px 15px;font-size:12.5px;color:var(--muted);margin-bottom:16px;line-height:1.6;}
+    .cc-audience-note strong{color:var(--dark);}
+
     .cc-intro{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:16px 18px;margin-bottom:22px;}
-    .cc-intro p{font-size:13px;color:#4a4438;line-height:1.75;}
+    .cc-intro p{font-size:13px;color:var(--text);line-height:1.75;}
     .cc-intro p+p{margin-top:8px;}
     .cc-intro strong{color:var(--dark);font-weight:600;}
 
     .cc-role-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px;}
     .cc-role-card{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:16px;}
-    .cc-role-card.is-opus{border-color:rgba(72,62,172,.3);background:linear-gradient(155deg,#fdfcff 0%,#f4f2ff 100%);}
-    .cc-role-card.is-fable{border-color:rgba(138,28,66,.3);background:linear-gradient(155deg,#fffbfc 0%,#fdf0f4 100%);}
     .cc-role-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:9px;margin-bottom:10px;border-bottom:2px solid;}
     .cc-role-head.haiku{border-color:var(--haiku);}
     .cc-role-head.sonnet{border-color:var(--sonnet);}
     .cc-role-head.opus{border-color:var(--opus);}
     .cc-role-head.fable{border-color:var(--fable);}
-    .cc-role-name{font-size:14px;font-weight:600;}
+    .cc-role-name{font-family:'Poppins',Arial,sans-serif;font-size:14px;font-weight:600;}
     .cc-role-name.haiku{color:var(--haiku);}
     .cc-role-name.sonnet{color:var(--sonnet);}
     .cc-role-name.opus{color:var(--opus);}
-    .cc-role-name.fable{color:var(--fable);}
+    .cc-role-name.fable{color:var(--muted);}
     .cc-role-price{font-size:10px;font-weight:600;color:var(--faint);}
-    .cc-role-tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--orange-dark);margin-bottom:6px;}
-    .cc-role-text{font-size:12px;color:#514c46;line-height:1.65;}
+    .cc-role-tag{font-family:'Poppins',Arial,sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--orange-dark);margin-bottom:6px;}
+    .cc-role-text{font-size:12px;color:var(--text);line-height:1.65;}
 
-    .ultracode-box{background:linear-gradient(155deg,#fffbfc 0%,#fdf0f4 100%);border:1.5px solid rgba(138,28,66,.25);border-radius:12px;padding:22px 24px;margin-bottom:26px;}
-    .ultracode-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--fable);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
-    .ultracode-lead{font-size:13px;color:#4a4438;line-height:1.75;margin-bottom:16px;max-width:820px;}
+    .ultracode-box{background:rgba(106,155,204,.08);border:1.5px solid rgba(106,155,204,.28);border-radius:12px;padding:20px 24px;margin-bottom:26px;}
+    .ultracode-title{font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#3d6690;margin-bottom:10px;display:flex;align-items:center;gap:7px;}
+    .ultracode-lead{font-size:13px;color:var(--text);line-height:1.75;margin-bottom:16px;max-width:820px;}
     .ultracode-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:14px;}
-    .uc-col-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
-    .uc-col-label.good{color:#1a7a4a;}
-    .uc-col-label.bad{color:#a13a3a;}
+    .uc-col-label{font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;}
+    .uc-col-label.good{color:#5a6b45;}
+    .uc-col-label.bad{color:#a8532f;}
     .uc-list{list-style:none;display:flex;flex-direction:column;gap:7px;}
-    .uc-list li{font-size:12.5px;color:#4a4438;line-height:1.55;padding-left:16px;position:relative;}
-    .uc-list li::before{content:'';position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--fable);}
-    .ultracode-howto{background:rgba(255,255,255,.65);border:1px dashed rgba(138,28,66,.3);border-radius:8px;padding:11px 14px;font-size:12.5px;color:#4a4438;line-height:1.65;}
-    .ultracode-howto strong{color:var(--fable);}
+    .uc-list li{font-size:12.5px;color:var(--text);line-height:1.55;padding-left:16px;position:relative;}
+    .uc-list li::before{content:'';position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:#6a9bcc;}
+    .ultracode-howto{background:rgba(255,255,255,.7);border:1px dashed rgba(106,155,204,.4);border-radius:8px;padding:11px 14px;font-size:12.5px;color:var(--text);line-height:1.65;}
+    .ultracode-howto strong{color:#3d6690;}
     @media(max-width:768px){.cc-role-grid{grid-template-columns:1fr;}.ultracode-cols{grid-template-columns:1fr;}}
 
     .cc-steps{display:flex;flex-direction:column;gap:10px;margin-bottom:26px;}
     .cc-step{display:flex;gap:12px;background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:13px 16px;align-items:flex-start;}
-    .cc-step-num{flex-shrink:0;width:24px;height:24px;border-radius:50%;background:var(--orange);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;}
-    .cc-step-text{font-size:12.5px;color:#4a4438;line-height:1.65;padding-top:2px;}
+    .cc-step-num{flex-shrink:0;width:24px;height:24px;border-radius:50%;background:var(--orange);color:#fff;font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+    .cc-step-text{font-size:12.5px;color:var(--text);line-height:1.65;padding-top:2px;}
     .cc-step-text strong{color:var(--dark);font-weight:600;}
-    .cc-step-text code{background:#f0ece4;padding:1px 5px;border-radius:4px;font-size:11.5px;}
+    .cc-step-text code{background:var(--border);padding:1px 5px;border-radius:4px;font-size:11.5px;}
   </style>
 </head>
 <body>
 
 <div class="topbar">
   <svg class="topbar-logo" viewBox="0 0 26 26" fill="none">
-    <circle cx="13" cy="13" r="12" fill="#D97706" opacity=".2"/>
-    <circle cx="13" cy="13" r="7"  fill="#D97706"/>
+    <circle cx="13" cy="13" r="12" fill="#d97757" opacity=".2"/>
+    <circle cx="13" cy="13" r="7"  fill="#d97757"/>
     <circle cx="13" cy="10" r="2.5" fill="#fff" opacity=".9"/>
   </svg>
   <span class="topbar-name">Claude</span>
   <span class="topbar-sep">·</span>
   <span class="topbar-sub">Cómo usar Claude — Payroll &amp; HR</span>
-  <span class="topbar-badge">Guía interna · v4</span>
+  <span class="topbar-badge">Guía interna · v5</span>
 </div>
 
 <div class="page">
   <div class="page-header">
     <h1>Cómo usar Claude en Payroll</h1>
-    <p class="page-subtitle">Encontrá qué modelo elegir según la tarea y qué tipo de visualización pedirle a Claude — adaptado a tu rol.</p>
+    <p class="page-subtitle">Encontrá qué modelo elegir según la tarea y qué tipo de visualización pedirle a Claude — adaptado a tu rol. La pestaña "Claude Code" es aparte: es para quien mantiene este portal, no para el uso diario de Payroll.</p>
   </div>
 
   <div class="main-tabs">
@@ -232,39 +216,41 @@
     </button>
   </div>
 
-  <div class="section-eyebrow">Tu perfil</div>
-  <div class="profile-grid">
-    <div class="profile-card active" id="p-liquidador" onclick="selectProfile('liquidador')">
-      <div class="p-icon">
-        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M5 4h10M5 8l3 8 2-5 2 5 3-8"/>
-        </svg>
+  <div id="profile-section">
+    <div class="section-eyebrow">Tu perfil</div>
+    <div class="profile-grid">
+      <div class="profile-card active" id="p-liquidador" onclick="selectProfile('liquidador')">
+        <div class="p-icon">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M5 4h10M5 8l3 8 2-5 2 5 3-8"/>
+          </svg>
+        </div>
+        <div>
+          <div class="p-name">Liquidador/a</div>
+          <div class="p-desc">Operativa diaria, cálculos, cruces y debugging</div>
+        </div>
       </div>
-      <div>
-        <div class="p-name">Liquidador/a</div>
-        <div class="p-desc">Operativa diaria, cálculos, cruces y debugging</div>
+      <div class="profile-card" id="p-jefe" onclick="selectProfile('jefe')">
+        <div class="p-icon">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="10" width="3" height="7"/><rect x="8.5" y="6" width="3" height="11"/><rect x="14" y="3" width="3" height="14"/>
+          </svg>
+        </div>
+        <div>
+          <div class="p-name">Jefe de Payroll</div>
+          <div class="p-desc">Reportes, comunicaciones y supervisión de procesos</div>
+        </div>
       </div>
-    </div>
-    <div class="profile-card" id="p-jefe" onclick="selectProfile('jefe')">
-      <div class="p-icon">
-        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
-          <rect x="3" y="10" width="3" height="7"/><rect x="8.5" y="6" width="3" height="11"/><rect x="14" y="3" width="3" height="14"/>
-        </svg>
-      </div>
-      <div>
-        <div class="p-name">Jefe de Payroll</div>
-        <div class="p-desc">Reportes, comunicaciones y supervisión de procesos</div>
-      </div>
-    </div>
-    <div class="profile-card" id="p-gerente" onclick="selectProfile('gerente')">
-      <div class="p-icon">
-        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
-          <circle cx="10" cy="7" r="3.5"/><path d="M3 18c0-4 3-6 7-6s7 2 7 6"/>
-        </svg>
-      </div>
-      <div>
-        <div class="p-name">Gerente / Dirección</div>
-        <div class="p-desc">Decisiones estratégicas e informes ejecutivos</div>
+      <div class="profile-card" id="p-gerente" onclick="selectProfile('gerente')">
+        <div class="p-icon">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="10" cy="7" r="3.5"/><path d="M3 18c0-4 3-6 7-6s7 2 7 6"/>
+          </svg>
+        </div>
+        <div>
+          <div class="p-name">Gerente / Dirección</div>
+          <div class="p-desc">Decisiones estratégicas e informes ejecutivos</div>
+        </div>
       </div>
     </div>
   </div>
@@ -276,32 +262,16 @@
 
   <div id="view-artifacts" class="view-hidden">
     <div class="model-variation-info">
-      <div class="mvi-title">⚙️ Cómo varía pedirle el mismo artifact a cada modelo</div>
-      <div class="mvi-text">El tipo de artifact lo elegís vos según el resultado que querés. El modelo (Haiku, Sonnet, Opus, Fable) afecta sobre todo la <strong>calidad del diseño, profundidad del código y velocidad</strong>. Misma pregunta, distinto pulido:</div>
-      <div class="mvi-grid">
-        <div class="mvi-pill">
-          <div class="mvi-pill-name haiku">Haiku 4.5</div>
-          <div class="mvi-pill-text">Rápido pero artifacts más simples y planos. Ideal para iterar borradores o cuando la velocidad importa más que el pulido.</div>
-        </div>
-        <div class="mvi-pill">
-          <div class="mvi-pill-name sonnet">Sonnet 5</div>
-          <div class="mvi-pill-text">Balance ideal — diseño profesional, código limpio y casi el nivel de Opus a menor costo. La opción default para casi todo.</div>
-        </div>
-        <div class="mvi-pill">
-          <div class="mvi-pill-name opus">Opus 4.8</div>
-          <div class="mvi-pill-text">Artifacts más complejos, mejor coherencia en documentos largos y detecta proactivamente problemas antes de entregar. Para entregables formales y auditoría.</div>
-        </div>
-        <div class="mvi-pill">
-          <div class="mvi-pill-name fable">Fable 5</div>
-          <div class="mvi-pill-text">El modelo más capaz de Anthropic. Reservado para artifacts extensos y de altísima exigencia (tableros complejos, migraciones grandes) — es el más lento y caro, así que no es la opción por default.</div>
-        </div>
-      </div>
+      <div class="mvi-text">💡 El modelo elegido (Haiku, Sonnet, Opus o Fable) afecta sobre todo el pulido y la profundidad del resultado — no cambia qué tipo de artifact pedís. Para elegir modelo, ver la pestaña "Por tarea".</div>
+      <div class="mvi-text">Las tarjetas marcadas con ★ son sugerencias según tu perfil — el resto también está disponible para vos, no son un filtro.</div>
     </div>
 
     <div id="artifacts-content"></div>
   </div>
 
   <div id="view-code" class="view-hidden">
+    <div class="cc-audience-note"><strong>Esta sección es para quien mantiene o edita el código de este portal</strong> (IT / desarrollo). Si sos Liquidador, Jefe o Gerente y solo necesitás usar Claude para tu trabajo diario, quedate en "Por tarea" o "Por visualización" — acá no hay nada distinto para tu perfil.</div>
+
     <div class="cc-intro">
       <p><strong>Claude Code</strong> es la versión de Claude para trabajar directamente sobre este repositorio de GitHub: lee y edita los archivos HTML del portal (como esta misma guía, el Gestor de Novedades o el análisis de IG anual), ejecuta comandos, prueba los cambios y prepara los commits. No es un chat aparte — trabaja sobre el código real que después queda publicado.</p>
       <p>La diferencia con usar Claude por chat normal es que <strong>Claude Code ve todo el repositorio</strong>: puede abrir varios archivos a la vez, mantener el mismo estilo visual entre páginas y correr el resultado antes de mostrártelo. Sirve tanto para pedirle una página nueva como para mantener las que ya existen.</p>
@@ -325,7 +295,7 @@
         <div class="cc-role-tag">Default para programar</div>
         <div class="cc-role-text">El que usás para el día a día: agregar un campo al recibo, corregir un bug puntual, ajustar estilos de una página existente. Casi el nivel de Opus en tareas de código a un costo mucho menor — arrancá siempre por acá.</div>
       </div>
-      <div class="cc-role-card is-opus">
+      <div class="cc-role-card">
         <div class="cc-role-head opus">
           <span class="cc-role-name opus">Opus 4.8</span>
           <span class="cc-role-price">$5 / $25 por MTok</span>
@@ -333,19 +303,19 @@
         <div class="cc-role-tag">Cambios grandes o riesgosos</div>
         <div class="cc-role-text">Para refactors que tocan varios archivos, lógica de cálculo compleja (SAC, retenciones, recálculos) o cuando necesitás que verifique su propio trabajo antes de entregar. Más lento y caro que Sonnet, pero más confiable en tareas largas.</div>
       </div>
-      <div class="cc-role-card is-fable">
+      <div class="cc-role-card">
         <div class="cc-role-head fable">
           <span class="cc-role-name fable">Fable 5</span>
           <span class="cc-role-price">$10 / $50 por MTok</span>
         </div>
-        <div class="cc-role-tag">El más capaz</div>
+        <div class="cc-role-tag">Último recurso</div>
         <div class="cc-role-text">Pensado para tareas de código de máxima complejidad y largo aliento — migrar todo un sistema, auditar el repositorio completo o trabajar de forma autónoma por varios minutos sin supervisión. Es el más caro: usalo solo cuando Opus no alcanza.</div>
       </div>
     </div>
 
     <div class="ultracode-box">
-      <div class="ultracode-title">🧩 Ultracode: varios agentes trabajando en paralelo</div>
-      <div class="ultracode-lead">Ultracode es un modo de Claude Code que reparte una tarea grande entre varios agentes que trabajan al mismo tiempo — por ejemplo, uno busca bugs de cálculo, otro revisa consistencia de estilos entre archivos, otro verifica seguridad — y después cruza los resultados entre sí antes de mostrarte una conclusión. Es más lento que un pedido normal, pero mucho más exhaustivo.</div>
+      <div class="ultracode-title">🧩 Ultracode — no es un modelo, es un modo</div>
+      <div class="ultracode-lead">Ultracode se activa sobre Sonnet 5, Opus 4.8 o Fable 5 — no es una quinta opción de modelo. Reparte una tarea grande entre varios agentes que trabajan al mismo tiempo (uno busca bugs de cálculo, otro revisa consistencia de estilos entre archivos, otro verifica seguridad) y después cruza los resultados entre sí antes de mostrarte una conclusión. Es más lento que un pedido normal, pero mucho más exhaustivo.</div>
       <div class="ultracode-cols">
         <div>
           <div class="uc-col-label good">Conviene usarlo cuando</div>
@@ -399,7 +369,7 @@
       <div class="footer-dot"></div>
       <span class="footer-name">Claude · Anthropic</span>
     </div>
-    <span class="footer-note">Datos verificados · Incluye Sonnet 5 y Fable 5 · anthropic.com/pricing</span>
+    <span class="footer-note">Datos verificados · Diseño alineado a la marca oficial de Claude · anthropic.com/pricing</span>
   </div>
 </div>
 
@@ -419,87 +389,83 @@ const cases={
   debug:{
     title:'Resolver errores de liquidación',
     desc:'Un concepto muestra valor incorrecto o cero para ciertos empleados. Necesitás rastrear la lógica de cálculo, identificar dónde falla y proponer la corrección.',
-    chips:['4x menos probable que deje errores sin marcar vs 4.7','Pregunta antes de asumir — mejor judgment en cada paso','Nivel xhigh para errores multi-concepto'],
-    verdict:'Usá Sonnet 5 como primera opción — resuelve el 90% de los errores en una sola iteración. Escalá a Opus 4.8 si el error involucra 3 o más conceptos encadenados, o si Sonnet no llega en 2 intentos. Reservá Fable 5 para auditorías con implicancia legal.',
-    haiku: {tokens:'~2.5K',time:'3–4s',iter:3,conf:62,quality:'Detecta errores obvios (valores nulos, campos vacíos) pero no logra trazar lógica de cálculo encadenada. Requiere guía manual en cada paso.'},
-    sonnet:{tokens:'~4K',  time:'5–8s',iter:1,conf:91,quality:'Traza el flujo de cálculo de punta a punta, identifica la causa raíz y propone corrección en el primer intento. Cubre el 90% de los errores típicos.'},
-    opus:  {tokens:'~5K',  time:'7–11s',iter:1,conf:97,quality:'4x menos probable que deje errores sin marcar vs 4.7 — advierte cuando su diagnóstico tiene incertidumbre en vez de afirmar con confianza injustificada. Ideal cuando el error cruza múltiples conceptos encadenados o reglas de negocio complejas.'},
-    fable: {tokens:'~7K',  time:'12–20s',iter:0,conf:99,quality:'Reservado para errores que requieren auditoría multi-año o remediación con implicancia legal. Razonamiento exhaustivo y verificación cruzada antes de reportar, pero el costo y el tiempo no se justifican para un error de liquidación estándar.'}
+    verdict:'Arrancá con Sonnet 5. Si el error cruza 3 o más conceptos encadenados, o Sonnet no lo resuelve en dos intentos, escalá a Opus 4.8. Fable 5 solo si hay implicancia legal o auditoría multi-año.',
+    haiku: {tokens:'~2.5K',time:'3–4s',iter:3,conf:'Media',quality:'Detecta errores obvios (valores nulos, campos vacíos) pero no logra trazar lógica de cálculo encadenada. Requiere guía manual en cada paso.'},
+    sonnet:{tokens:'~4K',  time:'5–8s',iter:1,conf:'Alta',quality:'Traza el flujo de cálculo de punta a punta, identifica la causa raíz y propone corrección en el primer intento. Cubre el 90% de los errores típicos.'},
+    opus:  {tokens:'~5K',  time:'7–11s',iter:1,conf:'Muy alta',quality:'Rara vez deja errores sin marcar y avisa cuando su propio diagnóstico tiene incertidumbre, en vez de afirmar con confianza injustificada. Ideal cuando el error cruza varios conceptos encadenados o reglas de negocio complejas.'},
+    fable: {tokens:'~7K',  time:'12–20s',iter:0,conf:'Muy alta',quality:'Para errores que requieren auditoría multi-año o remediación con implicancia legal: razona de punta a punta y verifica cruzado antes de reportar.'}
   },
   formulas:{
     title:'Entender fórmulas de cálculo',
     desc:'Una fórmula de proporcionalidad, SAC, retención o haberes variables no da el resultado esperado. Necesitás entender cada paso, identificar casos borde y detectar errores en la lógica.',
-    chips:['Detecta errores estructurales sin afirmar avances sin evidencia','Más honesto: marca incertidumbres antes de concluir','Seguimiento de instrucciones mejorado vs 4.7'],
-    verdict:'Sonnet para entender fórmulas del día a día. Opus 4.8 si necesitás auditar una fórmula heredada, detectar errores estructurales o documentar la lógica para un proceso formal.',
-    haiku: {tokens:'~1.5K',time:'2–3s',iter:2,conf:68,quality:'Explica fórmulas simples correctamente, pero pierde el hilo en cálculos con múltiples condiciones o tablas de referencia.'},
-    sonnet:{tokens:'~2.5K',time:'4–6s',iter:1,conf:89,quality:'Explica paso a paso, identifica casos borde (empleado nuevo, ausencia parcial, prorrateo) y traduce la lógica a lenguaje comprensible.'},
-    opus:  {tokens:'~3K',  time:'6–9s',iter:1,conf:95,quality:'Explica la lógica completa y advierte cuando la fórmula tiene ambigüedades antes de concluir — no confirma lógicas incorrectas con confianza injustificada. Detecta posibles errores estructurales. Útil para auditar rutinas heredadas.'},
-    fable: {tokens:'~5K',  time:'10–16s',iter:0,conf:99,quality:'Útil solo para auditar fórmulas heredadas con múltiples capas de excepciones legales o convenios colectivos complejos. Para el uso diario, Opus 4.8 ya cubre estos casos a menor costo.'}
+    verdict:'Sonnet 5 para entender una fórmula del día a día. Opus 4.8 si es una fórmula heredada que hay que auditar o documentar formalmente.',
+    haiku: {tokens:'~1.5K',time:'2–3s',iter:2,conf:'Media',quality:'Explica fórmulas simples correctamente, pero pierde el hilo en cálculos con múltiples condiciones o tablas de referencia.'},
+    sonnet:{tokens:'~2.5K',time:'4–6s',iter:1,conf:'Alta',quality:'Explica paso a paso, identifica casos borde (empleado nuevo, ausencia parcial, prorrateo) y traduce la lógica a lenguaje comprensible.'},
+    opus:  {tokens:'~3K',  time:'6–9s',iter:1,conf:'Muy alta',quality:'Explica la lógica completa y avisa cuando la fórmula tiene ambigüedades, sin confirmar por error una lógica incorrecta. Detecta posibles errores estructurales — útil para auditar rutinas heredadas.'},
+    fable: {tokens:'~5K',  time:'10–16s',iter:0,conf:'Muy alta',quality:'Para fórmulas heredadas con múltiples capas de excepciones legales o convenios colectivos muy complejos.'}
   },
   cruces:{
     title:'Cruces de información entre sistemas',
     desc:'Necesitás comparar totales de liquidación contra sistema contable, RRHH u otro origen para detectar diferencias, conciliar o validar antes del cierre.',
-    chips:['Auto-verifica la lógica del cruce antes de reportar','Tool calling más eficiente: mismo resultado en menos pasos','Mejor rendimiento con 3+ sistemas vs 4.7'],
-    verdict:'Sonnet para cruces entre dos sistemas. Opus 4.8 si tenés tres o más fuentes con reglas de negocio distintas, o si el cruce necesita distinguir diferencias de timing de errores reales.',
-    haiku: {tokens:'~2K',  time:'3–4s',iter:3,conf:65,quality:'Compara tablas simples correctamente, pero pierde el hilo con 3+ fuentes o condiciones complejas. Genera falsos positivos en cruces con excepciones.'},
-    sonnet:{tokens:'~3.5K',time:'5–7s',iter:1,conf:90,quality:'Detecta inconsistencias, agrupa por tipo de diferencia, sugiere causas probables y propone plan de acción por prioridad.'},
-    opus:  {tokens:'~4.5K',time:'7–11s',iter:1,conf:96,quality:'Para cruces multi-sistema con reglas de negocio específicas. Tool calling más eficiente vs 4.7 — llega al mismo resultado en menos pasos. Distingue diferencias de timing de errores reales sin inventar causas.'},
-    fable: {tokens:'~8K',  time:'14–22s',iter:0,conf:99,quality:'Pensado para cruces con cinco o más sistemas y reglas de negocio en conflicto, típicos de fusiones de nómina o migraciones de proveedor. Para cruces habituales es una sobreinversión de tokens y tiempo.'}
+    verdict:'Sonnet 5 para cruces entre dos sistemas. Opus 4.8 con tres o más fuentes, o cuando hay que distinguir diferencias de timing de errores reales.',
+    haiku: {tokens:'~2K',  time:'3–4s',iter:3,conf:'Media',quality:'Compara tablas simples correctamente, pero pierde el hilo con 3+ fuentes o condiciones complejas. Genera falsos positivos en cruces con excepciones.'},
+    sonnet:{tokens:'~3.5K',time:'5–7s',iter:1,conf:'Alta',quality:'Detecta inconsistencias, agrupa por tipo de diferencia, sugiere causas probables y propone plan de acción por prioridad.'},
+    opus:  {tokens:'~4.5K',time:'7–11s',iter:1,conf:'Muy alta',quality:'Para cruces multi-sistema con reglas de negocio específicas — llega al resultado en menos pasos y distingue diferencias de timing de errores reales sin inventar causas.'},
+    fable: {tokens:'~8K',  time:'14–22s',iter:0,conf:'Muy alta',quality:'Para cruces con cinco o más sistemas y reglas de negocio en conflicto, típicos de fusiones de nómina o migraciones de proveedor.'}
   },
   stats:{
     title:'Análisis de estadísticas salariales',
     desc:'Datos de variaciones salariales, ausentismo, rotación o costos de nómina. Detectar anomalías, calcular tendencias e identificar patrones para tomar decisiones o reportar.',
-    chips:['Detecta proactivamente problemas en los datos fuente','Outputs más densos e informativos vs 4.7','No afirma avances sin evidencia — marca brechas de datos'],
-    verdict:'Sonnet para análisis operativos y reportes al jefe. Opus 4.8 para análisis que van a dirección o cuando los datos tienen muchos vacíos — detecta y reporta proactivamente problemas en los datos antes de concluir.',
-    haiku: {tokens:'~1.8K',time:'3–5s',iter:2,conf:70,quality:'Calcula estadísticas básicas correctamente, pero pierde outliers y no genera insights cualitativos. Pivot incompleto.'},
-    sonnet:{tokens:'~2.8K',time:'5–7s',iter:1,conf:90,quality:'Análisis completo con anomalías, tendencias, segmentación por concepto y visualización lista para presentar al jefe.'},
-    opus:  {tokens:'~3.5K',time:'7–10s',iter:0,conf:97,quality:'Detecta proactivamente problemas en los datos de entrada y los reporta antes de concluir — mejora clave vs 4.7. Outputs más densos y ricos en información. Ideal para presentar a dirección cuando los datos son ambiguos o incompletos.'},
-    fable: {tokens:'~6K',  time:'12–18s',iter:0,conf:99,quality:'Indicado para análisis con datos muy incompletos o series históricas de varios años que requieren razonamiento de largo alcance. Para el reporte mensual estándar, Opus 4.8 es más eficiente en costo y tiempo.'}
+    verdict:'Sonnet 5 para análisis operativos y reportes al jefe. Opus 4.8 cuando el análisis va a dirección o los datos tienen muchos vacíos.',
+    haiku: {tokens:'~1.8K',time:'3–5s',iter:2,conf:'Media',quality:'Calcula estadísticas básicas correctamente, pero pierde outliers y no genera insights cualitativos. Pivot incompleto.'},
+    sonnet:{tokens:'~2.8K',time:'5–7s',iter:1,conf:'Alta',quality:'Análisis completo con anomalías, tendencias, segmentación por concepto y visualización lista para presentar al jefe.'},
+    opus:  {tokens:'~3.5K',time:'7–10s',iter:0,conf:'Muy alta',quality:'Detecta problemas en los datos de entrada y los reporta antes de concluir, en vez de ignorarlos. Ideal para presentar a dirección cuando los datos son ambiguos o incompletos.'},
+    fable: {tokens:'~6K',  time:'12–18s',iter:0,conf:'Muy alta',quality:'Para análisis con datos muy incompletos o series históricas de varios años que requieren razonamiento de largo alcance.'}
   },
   comunicacion:{
     title:'Redacción de comunicaciones',
     desc:'Emails a clientes, vendors o equipos de IT explicando problemas, solicitando acciones o respondiendo escalaciones. Tono profesional, claro y con propuesta de resolución.',
-    chips:['Mejor contexto y estilo a lo largo de sesiones largas','Mayor ratio señal/información — menos ruido vs 4.7','Anticipa objeciones y preguntas del destinatario'],
-    verdict:'Sonnet para comunicaciones de rutina. Opus 4.8 para escalaciones críticas, propuestas de alto valor o situaciones donde el tono y la precisión son determinantes.',
-    haiku: {tokens:'~1.2K',time:'2–3s',iter:4,conf:45,quality:'Draft plano con estructura desorganizada y tono inconsistente. Requiere reescritura completa. Solo útil para avisos internos muy simples.'},
-    sonnet:{tokens:'~2K',  time:'4–6s',iter:1,conf:88,quality:'Draft profesional listo para enviar en el primer intento. Tono adecuado, estructura clara y detalles técnicos bien presentados.'},
-    opus:  {tokens:'~2.5K',time:'6–9s',iter:0,conf:95,quality:'Mejor coherencia de estilo y contexto en sesiones largas vs 4.7. Mayor densidad informativa con menos relleno. Anticipa preguntas del destinatario y gestiona el tono con más precisión.'},
-    fable: {tokens:'~4K',  time:'10–14s',iter:0,conf:98,quality:'Reservado para comunicaciones de alto riesgo legal o reputacional — mediación, comité ejecutivo. Para el email típico es más lento y más caro sin ganancia perceptible.'}
+    verdict:'Sonnet 5 para comunicaciones de rutina. Opus 4.8 para escalaciones críticas o propuestas donde el tono y la precisión son determinantes.',
+    haiku: {tokens:'~1.2K',time:'2–3s',iter:4,conf:'Baja',quality:'Draft plano con estructura desorganizada y tono inconsistente. Requiere reescritura completa. Solo útil para avisos internos muy simples.'},
+    sonnet:{tokens:'~2K',  time:'4–6s',iter:1,conf:'Alta',quality:'Draft profesional listo para enviar en el primer intento. Tono adecuado, estructura clara y detalles técnicos bien presentados.'},
+    opus:  {tokens:'~2.5K',time:'6–9s',iter:0,conf:'Muy alta',quality:'Mantiene coherencia de estilo y contexto en sesiones largas, con más densidad informativa y menos relleno. Anticipa preguntas del destinatario y gestiona el tono con precisión.'},
+    fable: {tokens:'~4K',  time:'10–14s',iter:0,conf:'Muy alta',quality:'Para comunicaciones de alto riesgo legal o reputacional — mediación, comité ejecutivo.'}
   },
   reportes:{
     title:'Armado de reportes e informes',
     desc:'Informe de cierre de mes, reporte de variaciones, informe ejecutivo o presentación para dirección. Necesitás narrativa, análisis de datos y recomendaciones accionables.',
-    chips:['Outputs más densos e informativos vs 4.7','Detecta proactivamente problemas en los datos fuente','Anticipa preguntas de directorio con mayor precisión'],
-    verdict:'Sonnet para reportes al jefe y cierres mensuales. Opus 4.8 para informes de directorio, presentaciones a stakeholders externos o cuando los datos son ambiguos.',
-    haiku: {tokens:'~1.5K',time:'2–4s',iter:3,conf:55,quality:'Estructura básica sin análisis real. Presenta datos sin contexto ni recomendaciones. No apto para reportes de dirección.'},
-    sonnet:{tokens:'~2.5K',time:'4–7s',iter:1,conf:88,quality:'Informe completo con narrativa, datos clave y recomendaciones concretas. Listo para entregar al jefe o management.'},
-    opus:  {tokens:'~3K',  time:'7–10s',iter:0,conf:96,quality:'Outputs más densos y ricos en información vs 4.7. Detecta proactivamente problemas en los datos fuente que otros modelos dejan al usuario. Anticipa preguntas de directorio y propone acciones con impacto estimado.'},
-    fable: {tokens:'~5K',  time:'12–18s',iter:0,conf:99,quality:'Pensado para informes de directorio con implicancias estratégicas o financieras mayores. Para el cierre mensual habitual, Opus 4.8 entrega la misma calidad a menor costo.'}
+    verdict:'Sonnet 5 para reportes al jefe y cierres mensuales. Opus 4.8 para informes de directorio o presentaciones a stakeholders externos.',
+    haiku: {tokens:'~1.5K',time:'2–4s',iter:3,conf:'Baja',quality:'Estructura básica sin análisis real. Presenta datos sin contexto ni recomendaciones. No apto para reportes de dirección.'},
+    sonnet:{tokens:'~2.5K',time:'4–7s',iter:1,conf:'Alta',quality:'Informe completo con narrativa, datos clave y recomendaciones concretas. Listo para entregar al jefe o management.'},
+    opus:  {tokens:'~3K',  time:'7–10s',iter:0,conf:'Muy alta',quality:'Outputs densos y ricos en información. Detecta problemas en los datos fuente que otros modelos dejan pasar, y anticipa preguntas de directorio con acciones de impacto estimado.'},
+    fable: {tokens:'~5K',  time:'12–18s',iter:0,conf:'Muy alta',quality:'Para informes de directorio con implicancias estratégicas o financieras mayores.'}
   },
   decisiones:{
     title:'Toma de decisiones estratégicas',
     desc:'Evaluar opciones para cambiar un proceso, implementar un sistema, gestionar un escalamiento o definir una estrategia. Necesitás análisis de impacto, riesgos y recomendaciones.',
-    chips:['Marca incertidumbres — no afirma avances sin evidencia','Identifica supuestos ocultos y consecuencias de segundo orden','Mejor judgment en decisiones multi-variable vs 4.7'],
-    verdict:'Sonnet para decisiones operativas con impacto acotado. Opus 4.8 para decisiones estratégicas — cambio de sistema, definición de procesos críticos o evaluaciones con alto impacto organizacional o financiero.',
-    haiku: {tokens:'~1.5K',time:'3–5s',iter:3,conf:48,quality:'Lista genérica de pros y contras sin ponderación ni contexto. No útil para decisiones con variables múltiples.'},
-    sonnet:{tokens:'~2.5K',time:'5–7s',iter:1,conf:85,quality:'Marco de decisión estructurado con criterios ponderados, escenarios y análisis de riesgos. Sólido para decisiones operativas.'},
-    opus:  {tokens:'~3.5K',time:'8–12s',iter:0,conf:95,quality:'Anticipa consecuencias de segundo orden e identifica supuestos ocultos. Más honesto respecto a incertidumbres: no afirma progreso sin evidencia. Ideal para decisiones de alto impacto organizacional o financiero.'},
-    fable: {tokens:'~6K',  time:'14–20s',iter:0,conf:99,quality:'Para decisiones de alto impacto organizacional sostenidas en el tiempo — cambio de proveedor de nómina, rediseño de convenio. Razona sobre horizontes largos, pero rara vez se justifica para decisiones operativas del día a día.'}
+    verdict:'Sonnet 5 para decisiones operativas con impacto acotado. Opus 4.8 para decisiones estratégicas de alto impacto organizacional o financiero.',
+    haiku: {tokens:'~1.5K',time:'3–5s',iter:3,conf:'Baja',quality:'Lista genérica de pros y contras sin ponderación ni contexto. No útil para decisiones con variables múltiples.'},
+    sonnet:{tokens:'~2.5K',time:'5–7s',iter:1,conf:'Alta',quality:'Marco de decisión estructurado con criterios ponderados, escenarios y análisis de riesgos. Sólido para decisiones operativas.'},
+    opus:  {tokens:'~3.5K',time:'8–12s',iter:0,conf:'Muy alta',quality:'Anticipa consecuencias de segundo orden e identifica supuestos ocultos, sin afirmar avances sin evidencia. Ideal para decisiones de alto impacto organizacional o financiero.'},
+    fable: {tokens:'~6K',  time:'14–20s',iter:0,conf:'Muy alta',quality:'Para decisiones sostenidas en el tiempo con alto impacto organizacional — cambio de proveedor de nómina, rediseño de convenio.'}
   },
   documentacion:{
     title:'Documentación de procesos',
     desc:'Documentar flujos de liquidación, guías de operación, manuales para auditoría o wikis internas. Necesitás claridad, completitud y un formato que se pueda mantener en el tiempo.',
-    chips:['Coherencia mejorada en documentos largos vs 4.7','Detecta inconsistencias en la propia documentación','Menor tasa de afirmaciones sin respaldo — apta para auditoría'],
-    verdict:'Sonnet para documentación interna del equipo. Opus 4.8 si el destino es externo — auditor, partner o cliente — o si necesitás que la documentación resista una revisión formal.',
-    haiku: {tokens:'~1.4K',time:'2–4s',iter:3,conf:52,quality:'Estructura base superficial. Omite casos de error, excepciones y detalles de proceso. No apto para documentación formal.'},
-    sonnet:{tokens:'~2.5K',time:'4–7s',iter:1,conf:87,quality:'Documentación completa con flujos, excepciones, casos de error y guía de troubleshooting. Lista para wiki interna del equipo.'},
-    opus:  {tokens:'~3K',  time:'6–9s',iter:0,conf:96,quality:'Documentación enterprise-grade con mejor coherencia en documentos largos vs 4.7. Detecta inconsistencias en la propia documentación antes de entregar. Apta para auditoría externa y onboarding formal.'},
-    fable: {tokens:'~5.5K',time:'12–18s',iter:0,conf:99,quality:'Apta para documentación que debe sostener auditorías externas exhaustivas o certificaciones regulatorias. Para wikis internas, Opus 4.8 es suficiente y más rápido.'}
+    verdict:'Sonnet 5 para documentación interna del equipo. Opus 4.8 si el destino es externo — auditor, partner o cliente.',
+    haiku: {tokens:'~1.4K',time:'2–4s',iter:3,conf:'Baja',quality:'Estructura base superficial. Omite casos de error, excepciones y detalles de proceso. No apto para documentación formal.'},
+    sonnet:{tokens:'~2.5K',time:'4–7s',iter:1,conf:'Alta',quality:'Documentación completa con flujos, excepciones, casos de error y guía de troubleshooting. Lista para wiki interna del equipo.'},
+    opus:  {tokens:'~3K',  time:'6–9s',iter:0,conf:'Muy alta',quality:'Documentación enterprise-grade, coherente incluso en documentos largos, que detecta sus propias inconsistencias antes de entregar. Apta para auditoría externa y onboarding formal.'},
+    fable: {tokens:'~5.5K',time:'12–18s',iter:0,conf:'Muy alta',quality:'Para documentación que debe sostener auditorías externas exhaustivas o certificaciones regulatorias.'}
   }
 };
 
-const barColors={haiku:'#c0511f',sonnet:'#1450a0',opus:'#483eac',fable:'#8a1c42'};
 let currentProfile='liquidador',currentCase='debug',currentView='tasks';
+
+function iterText(n){
+  if(n===0)return'sin reintentos';
+  return n===1?'1 reintento':`${n} reintentos`;
+}
 
 /* ============ DATOS DE ARTIFACTS VISUALES ============ */
 const categories=[
@@ -508,10 +474,11 @@ const categories=[
   {id:'documents', label:'Documentos editables',     items:['markdown','xlsx','office']},
   {id:'special',   label:'Conectores y búsqueda',    items:['monday','image_search']}
 ];
+const weightLabels={rapido:'Rápido',moderado:'Moderado',pesado:'Pesado'};
 
 const artifacts={
   mermaid:{
-    name:'Mermaid', type:'Artifact descargable (.mermaid)', tokens:'150–300',
+    name:'Mermaid', type:'Artifact descargable (.mermaid)', weight:'rapido',
     prompt:'"hacé un diagrama mermaid del flujo del recálculo SIRADIG"',
     pros:'Flujos secuenciales, árboles de decisión y organigramas simples',
     cons:'Ilustraciones custom o cuando necesitás interactividad',
@@ -520,7 +487,7 @@ const artifacts={
     recommendedFor:['liquidador','jefe']
   },
   viz_svg:{
-    name:'Visualizer SVG', type:'Inline en chat', tokens:'800–1.500',
+    name:'Visualizer SVG', type:'Inline en chat', weight:'moderado',
     prompt:'"mostrame un diagrama visual de la estructura del recibo"',
     pros:'Diagramas únicos en chat, ilustraciones rápidas para explicar',
     cons:'Cuando querés descargarlo como archivo independiente',
@@ -529,7 +496,7 @@ const artifacts={
     recommendedFor:['liquidador','jefe']
   },
   svg_file:{
-    name:'SVG (.svg)', type:'Artifact descargable', tokens:'500–3.000',
+    name:'SVG (.svg)', type:'Artifact descargable', weight:'moderado',
     prompt:'"creame un archivo SVG del organigrama del equipo"',
     pros:'Gráficos vectoriales para insertar en slides o documentos',
     cons:'Cuando no necesitás portabilidad o querés interactividad',
@@ -538,7 +505,7 @@ const artifacts={
     recommendedFor:['jefe','gerente']
   },
   viz_html:{
-    name:'Visualizer HTML interactivo', type:'Inline en chat', tokens:'2.500–4.500',
+    name:'Visualizer HTML interactivo', type:'Inline en chat', weight:'pesado',
     prompt:'"mostrame un widget interactivo para simular ganancias"',
     pros:'Simuladores de un solo uso, calculadoras, demos rápidas',
     cons:'Cuando necesitás guardar el archivo o compartirlo fuera del chat',
@@ -547,7 +514,7 @@ const artifacts={
     recommendedFor:['liquidador','jefe']
   },
   html_file:{
-    name:'HTML (.html)', type:'Artifact descargable', tokens:'1.500–4.500',
+    name:'HTML (.html)', type:'Artifact descargable', weight:'moderado',
     prompt:'"armame un archivo HTML con el dashboard de KPIs del cierre"',
     pros:'Dashboards estáticos, one-pagers, guías como esta misma',
     cons:'Cuando necesitás integrar datos en vivo desde un sistema',
@@ -556,7 +523,7 @@ const artifacts={
     recommendedFor:['jefe','gerente']
   },
   react:{
-    name:'React (.jsx)', type:'Artifact descargable', tokens:'2.500–7.000+',
+    name:'React (.jsx)', type:'Artifact descargable', weight:'pesado',
     prompt:'"creame un artifact en React con filtros por cliente y fase"',
     pros:'Apps complejas con estado, filtros, gráficos y múltiples vistas',
     cons:'Para algo simple — es sobreingeniería y consume más cupo',
@@ -565,7 +532,7 @@ const artifacts={
     recommendedFor:['gerente']
   },
   markdown:{
-    name:'Markdown (.md)', type:'Artifact descargable', tokens:'300–3.000',
+    name:'Markdown (.md)', type:'Artifact descargable', weight:'rapido',
     prompt:'"armame un documento markdown del manual del proceso SIRADIG"',
     pros:'Manuales técnicos, READMEs, documentación interna mantenible',
     cons:'Cuando necesitás formato corporativo (logo, márgenes, headers)',
@@ -574,7 +541,7 @@ const artifacts={
     recommendedFor:['liquidador','jefe']
   },
   xlsx:{
-    name:'XLSX', type:'Archivo descargable', tokens:'1.500–2.500',
+    name:'XLSX', type:'Archivo descargable', weight:'moderado',
     prompt:'"creame un Excel con la tabla de control de recálculo cliente x fase"',
     pros:'Datos tabulares con fórmulas para seguir trabajando en Excel',
     cons:'Cuando solo necesitás visualizar los datos sin editarlos',
@@ -583,7 +550,7 @@ const artifacts={
     recommendedFor:['liquidador','jefe','gerente']
   },
   office:{
-    name:'DOCX / PPTX / PDF', type:'Archivo descargable', tokens:'2.000–4.000',
+    name:'DOCX / PPTX / PDF', type:'Archivo descargable', weight:'pesado',
     prompt:'"armame un PowerPoint del informe ejecutivo de cierre del cliente X"',
     pros:'Entregables formales para clientes, partners externos o auditoría',
     cons:'Para borradores rápidos o documentos internos que cambian seguido',
@@ -592,7 +559,7 @@ const artifacts={
     recommendedFor:['jefe','gerente']
   },
   image_search:{
-    name:'Búsqueda de imágenes', type:'Inline en chat', tokens:'~100',
+    name:'Búsqueda de imágenes', type:'Inline en chat', weight:'rapido',
     prompt:'"buscame imágenes de oficinas corporativas en Buenos Aires"',
     pros:'Necesitás imágenes reales de productos, lugares u objetos',
     cons:'Si querés gráficos generados, diagramas custom o ilustraciones',
@@ -601,7 +568,7 @@ const artifacts={
     recommendedFor:['jefe','gerente']
   },
   monday:{
-    name:'Widgets Monday.com', type:'Inline en chat', tokens:'200–800',
+    name:'Widgets Monday.com', type:'Inline en chat', weight:'rapido',
     prompt:'"mostrame el board del Validador Novedades como tabla"',
     pros:'Cuando los datos ya están vivos en un board de Monday',
     cons:'Para datos que no están en Monday — usá XLSX o HTML en su lugar',
@@ -620,6 +587,8 @@ function switchView(v){
   document.getElementById('view-tasks').classList.toggle('view-hidden',v!=='tasks');
   document.getElementById('view-artifacts').classList.toggle('view-hidden',v!=='artifacts');
   document.getElementById('view-code').classList.toggle('view-hidden',v!=='code');
+  // El perfil de Payroll no aplica a la pestaña Claude Code (otra audiencia) — se oculta para no prometer una personalización que no existe ahí
+  document.getElementById('profile-section').classList.toggle('view-hidden',v==='code');
   if(v==='artifacts')renderArtifacts();
 }
 
@@ -638,7 +607,7 @@ function renderArtifacts(){
             <div class="artifact-name">${a.name}</div>
             <div class="artifact-type">${a.type}</div>
           </div>
-          <span class="artifact-tokens">${a.tokens} tokens</span>
+          <span class="artifact-weight ${a.weight}">${weightLabels[a.weight]}</span>
         </div>
         <div class="artifact-prompt">
           <div class="artifact-prompt-label">Cómo pedirlo</div>
@@ -676,25 +645,17 @@ function renderNav(){
 function renderCase(){
   const c=cases[currentCase];
   const pLabel=profiles[currentProfile].label;
+  const names={haiku:'Haiku 4.5',sonnet:'Sonnet 5',opus:'Opus 4.8',fable:'Fable 5'};
   const card=(model,cls)=>{
     const m=c[model];
-    const names={haiku:'Haiku 4.5',sonnet:'Sonnet 5',opus:'Opus 4.8',fable:'Fable 5'};
-    const isOpus=model==='opus';
     const isFable=model==='fable';
-    return `<div class="model-card${isOpus?' is-opus':''}${isFable?' is-fable':''}">
+    return `<div class="model-card">
       <div class="model-header ${cls}">
         <span class="model-label ${cls}">${names[model]}</span>
-        ${isFable?'<span class="v47-tag is-fable">MÁS CAPAZ</span>':''}
+        ${isFable?'<span class="tier-badge">ÚLTIMO RECURSO</span>':''}
       </div>
-      <div class="metric"><span class="m-label">Tokens</span><span class="m-val c-green">${m.tokens}</span></div>
-      <div class="metric"><span class="m-label">Tiempo</span><span class="m-val c-amber">${m.time}</span></div>
-      <div class="metric"><span class="m-label">Iteraciones</span><span class="m-val c-blue">${m.iter}</span></div>
-      <div class="metric"><span class="m-label">Confianza</span><span class="m-val c-purple">${m.conf}%</span></div>
-      <div class="conf-track"><div class="conf-fill" style="width:${m.conf}%;background:${barColors[model]}"></div></div>
-      <div class="quality-block">
-        <div class="q-label">Calidad de respuesta</div>
-        <div class="q-text">${m.quality}</div>
-      </div>
+      <div class="q-text">${m.quality}</div>
+      <div class="m-detail">${m.tokens} tokens · ${m.time} · ${iterText(m.iter)} · confianza ${m.conf.toLowerCase()}</div>
     </div>`;
   };
   document.getElementById('case-content').innerHTML=`
@@ -703,15 +664,12 @@ function renderCase(){
       <div class="case-title">${c.title}</div>
       <div class="case-desc">${c.desc}</div>
     </div>
-    <div class="models-grid">${card('haiku','haiku')}${card('sonnet','sonnet')}${card('opus','opus')}${card('fable','fable')}</div>
-    <div class="opus-strip">
-      <span class="os-label">Opus 4.8 vs 4.7</span>
-      ${c.chips.map(ch=>`<span class="os-chip">${ch}</span>`).join('')}
-    </div>
     <div class="verdict">
       <div class="v-title">Recomendación</div>
       <div class="v-text">${c.verdict}</div>
-    </div>`;
+    </div>
+    <div class="models-detail-label">Detalle por modelo</div>
+    <div class="models-grid">${card('haiku','haiku')}${card('sonnet','sonnet')}${card('opus','opus')}${card('fable','fable')}</div>`;
 }
 selectProfile('liquidador');
 </script>
