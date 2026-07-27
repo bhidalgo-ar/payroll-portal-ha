@@ -65,49 +65,118 @@
       </sc-if>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-bottom:10px;">
-      <sc-for list="{{ toolTiles }}" as="t" hint-placeholder-count="4">
-        <button onClick="{{ t.onClick }}" style="background:{{ t.bg }};border:1.5px solid {{ t.border }};border-radius:10px;padding:11px 13px;cursor:pointer;text-align:left;">
-          <div style="display:flex;align-items:center;gap:7px;margin-bottom:3px;flex-wrap:wrap;">
-            <span style="font-size:14px;">{{ t.icon }}</span>
-            <span style="font-family:'Poppins',Arial,sans-serif;font-size:12.5px;font-weight:700;color:{{ t.color }};">{{ t.name }}</span>
-            <sc-if value="{{ t.suggested }}"><span style="background:rgba(120,140,93,0.16);color:#5a6b45;font-family:'Poppins',Arial,sans-serif;font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;padding:2px 6px;border-radius:5px;">Sugerida</span></sc-if>
+    <div id="flow-anchor" style="background:#ffffff;border:2px solid rgba(120,140,93,0.5);border-radius:12px;padding:20px 24px;margin-bottom:16px;">
+
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;margin-bottom:14px;">
+        <div>
+          <div style="font-family:'Poppins',Arial,sans-serif;font-size:13.5px;font-weight:700;color:#141413;">Decime qué necesitás y te digo cómo pedirlo</div>
+          <div style="font-size:12px;color:#726c62;margin-top:2px;">{{ flow.subtitle }}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:9px;flex-shrink:0;">
+          <span style="font-family:'Poppins',Arial,sans-serif;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#b0aea5;">{{ flow.progressLabel }}</span>
+          <span style="display:flex;gap:4px;">
+            <sc-for list="{{ flow.dots }}" as="d" hint-placeholder-count="4">
+              <span style="width:8px;height:8px;border-radius:50%;background:{{ d.color }};display:inline-block;"></span>
+            </sc-for>
+          </span>
+        </div>
+      </div>
+
+      <sc-if value="{{ flow.showRoles }}" hint-placeholder-val="{{ true }}">
+        <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:11px 13px;margin-bottom:14px;">
+          <div style="font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:#877f74;margin-bottom:7px;">Opcional · ¿en qué andás? — ajusta los consejos del final</div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap;">
+            <sc-for list="{{ flow.roles }}" as="ro" hint-placeholder-count="5">
+              <button onClick="{{ ro.onClick }}" style="background:{{ ro.bg }};border:1px solid {{ ro.border }};border-radius:20px;padding:5px 11px;cursor:pointer;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:{{ ro.weight }};color:{{ ro.color }};">{{ ro.label }}</button>
+            </sc-for>
           </div>
-          <div style="font-size:11px;color:#726c62;line-height:1.5;">{{ t.one }}</div>
-        </button>
-      </sc-for>
-    </div>
-
-    <div style="font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:#b0aea5;margin:16px 0 8px;">¿Qué tenés que hacer?</div>
-    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;">
-      <sc-for list="{{ caseChips }}" as="c" hint-placeholder-count="8">
-        <button onClick="{{ c.onClick }}" style="background:{{ c.bg }};border:1.5px solid {{ c.border }};border-radius:20px;padding:6px 13px;cursor:pointer;font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:{{ c.weight }};color:{{ c.color }};">{{ c.label }}</button>
-      </sc-for>
-    </div>
-
-    <div style="background:#ffffff;border:2px solid rgba(120,140,93,0.5);border-radius:12px;padding:20px 24px;margin-bottom:20px;">
-      <div style="font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#5a6b45;margin-bottom:8px;">La respuesta · {{ answer.caseTitle }}</div>
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
-        <span style="background:{{ answer.modelBg }};color:{{ answer.modelColor }};font-family:'Poppins',Arial,sans-serif;font-size:16px;font-weight:700;padding:4px 12px;border-radius:8px;">{{ answer.model }}</span>
-        <span style="font-size:13px;color:#877f74;">·</span>
-        <span style="font-family:'Poppins',Arial,sans-serif;font-size:14px;font-weight:600;color:#141413;">thinking {{ answer.thinking }}</span>
-        <span style="font-size:13px;color:#877f74;">·</span>
-        <span style="font-family:'Poppins',Arial,sans-serif;font-size:14px;font-weight:600;color:#141413;">en {{ answer.tool }}</span>
-      </div>
-      <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:11px;">
-        <span style="background:#f2f0ea;color:#726c62;font-family:'Poppins',Arial,sans-serif;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:6px;">cupo {{ answer.cupo }}</span>
-        <span style="background:#f2f0ea;color:#726c62;font-family:'Poppins',Arial,sans-serif;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:6px;">esfuerzo {{ answer.effort }}</span>
-      </div>
-      <div style="font-size:12.5px;color:#141413;line-height:1.7;margin-bottom:6px;">{{ answer.escalate }}</div>
-      <div style="font-size:12px;color:#726c62;line-height:1.7;">{{ answer.toolAlt }}</div>
-      <sc-if value="{{ answer.folderWarning }}">
-        <div style="background:#fff8e1;border-left:3px solid #d97757;border-radius:0 8px 8px 0;padding:10px 13px;margin-top:11px;font-size:12px;color:#5d4037;line-height:1.65;">📁 Cowork lee la carpeta entera, no lo que vos elegís pegar. Mirá qué hay adentro antes de darle acceso — un export de liquidación tiene DNI y CUIL en las columnas.</div>
+        </div>
       </sc-if>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:13px;">
-        <button onClick="{{ answer.openWhy }}" style="background:#faf9f5;border:1px solid #d5d0c6;border-radius:7px;padding:6px 12px;cursor:pointer;font-family:'Poppins',Arial,sans-serif;font-size:11.5px;font-weight:600;color:#726c62;">¿Por qué este modelo? →</button>
-        <button onClick="{{ answer.openToolSection }}" style="background:#faf9f5;border:1px solid #d5d0c6;border-radius:7px;padding:6px 12px;cursor:pointer;font-family:'Poppins',Arial,sans-serif;font-size:11.5px;font-weight:600;color:#726c62;">Cómo se usa {{ answer.tool }} →</button>
+
+      <sc-if value="{{ flow.asking }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <div style="font-family:'Poppins',Arial,sans-serif;font-size:15px;font-weight:600;color:#141413;margin-bottom:3px;">{{ flow.question.text }}</div>
+          <div style="font-size:12px;color:#877f74;line-height:1.6;margin-bottom:11px;">{{ flow.question.hint }}</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <sc-for list="{{ flow.question.options }}" as="o" hint-placeholder-count="5">
+              <button onClick="{{ o.onClick }}" style="background:{{ o.bg }};border:1.5px solid {{ o.border }};border-radius:9px;padding:11px 14px;cursor:pointer;text-align:left;display:flex;align-items:flex-start;gap:10px;">
+                <span style="font-size:14px;flex-shrink:0;">{{ o.icon }}</span>
+                <span>
+                  <span style="font-family:'Lora',Georgia,serif;font-size:13px;color:#141413;line-height:1.5;">{{ o.label }}</span>
+                  <sc-if value="{{ o.hasSub }}"><span style="display:block;font-size:11.5px;color:#877f74;line-height:1.5;margin-top:2px;">{{ o.sub }}</span></sc-if>
+                </span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ flow.hasAnswers }}">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px solid #f0ece4;align-items:center;">
+          <span style="font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#b0aea5;">Tus respuestas</span>
+          <sc-for list="{{ flow.chosen }}" as="ch" hint-placeholder-count="4">
+            <button onClick="{{ ch.onClick }}" style="background:#f2f0ea;border:1px solid #d5d0c6;border-radius:20px;padding:4px 10px;cursor:pointer;font-family:'Lora',Georgia,serif;font-size:11.5px;color:#5d4037;">{{ ch.short }} ✎</button>
+          </sc-for>
+          <button onClick="{{ flow.restart }}" style="background:none;border:none;padding:4px 6px;cursor:pointer;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:600;color:#a8532f;text-decoration:underline;">Empezar de nuevo</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ flow.done }}">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;">
+            <span style="font-size:20px;">{{ rec.toolIcon }}</span>
+            <span style="font-family:'Poppins',Arial,sans-serif;font-size:20px;font-weight:700;color:{{ rec.toolColor }};">{{ rec.tool }}</span>
+            <sc-if value="{{ rec.hasToolExtra }}"><span style="background:#f2f0ea;color:#726c62;font-family:'Poppins',Arial,sans-serif;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:6px;">{{ rec.toolExtra }}</span></sc-if>
+          </div>
+          <div style="font-size:13px;color:#141413;line-height:1.75;margin-bottom:14px;">{{ rec.toolWhy }}</div>
+
+          <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:10px;padding:13px 15px;margin-bottom:14px;">
+            <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:8px;">
+              <span style="background:{{ rec.modelBg }};color:{{ rec.modelColor }};font-family:'Poppins',Arial,sans-serif;font-size:15px;font-weight:700;padding:3px 11px;border-radius:8px;">{{ rec.model }}</span>
+              <span style="font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:600;color:#141413;">thinking {{ rec.thinking }}</span>
+              <span style="font-size:12px;color:#877f74;">·</span>
+              <span style="font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:600;color:#141413;">esfuerzo {{ rec.effort }}</span>
+              <span style="background:#f2f0ea;color:#726c62;font-family:'Poppins',Arial,sans-serif;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:6px;">cupo {{ rec.cupo }}</span>
+            </div>
+            <div style="font-size:12.5px;color:#141413;line-height:1.7;">{{ rec.modelWhy }}</div>
+          </div>
+
+          <div style="font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:#5a6b45;margin-bottom:8px;">Cómo pedirlo</div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
+            <sc-for list="{{ rec.tips }}" as="tip" hint-placeholder-count="4">
+              <div style="display:flex;gap:9px;font-size:12.5px;line-height:1.65;"><span style="flex-shrink:0;color:#788c5d;">→</span><span style="color:#141413;">{{ tip.text }}</span></div>
+            </sc-for>
+          </div>
+
+          <sc-if value="{{ rec.hasPrompt }}">
+            <div style="background:#faf9f5;border:1px dashed #cfc9bd;border-radius:9px;padding:11px 13px;margin-bottom:14px;">
+              <div style="font-family:'Poppins',Arial,sans-serif;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:#b0aea5;margin-bottom:4px;">Un pedido así funciona</div>
+              <div style="font-size:12.5px;color:#141413;font-style:italic;line-height:1.6;">{{ rec.promptExample }}</div>
+            </div>
+          </sc-if>
+
+          <sc-for list="{{ rec.warnings }}" as="w" hint-placeholder-count="2">
+            <div style="background:{{ w.bg }};border-left:3px solid {{ w.border }};border-radius:0 8px 8px 0;padding:10px 13px;margin-bottom:8px;font-size:12px;color:#5d4037;line-height:1.65;">{{ w.icon }} {{ w.text }}</div>
+          </sc-for>
+
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
+            <button onClick="{{ rec.openToolSection }}" style="background:#faf9f5;border:1px solid #d5d0c6;border-radius:7px;padding:6px 12px;cursor:pointer;font-family:'Poppins',Arial,sans-serif;font-size:11.5px;font-weight:600;color:#726c62;">Cómo se usa {{ rec.tool }} →</button>
+            <button onClick="{{ rec.openWhy }}" style="background:#faf9f5;border:1px solid #d5d0c6;border-radius:7px;padding:6px 12px;cursor:pointer;font-family:'Poppins',Arial,sans-serif;font-size:11.5px;font-weight:600;color:#726c62;">Comparar los cuatro modelos →</button>
+            <button onClick="{{ rec.openDatos }}" style="background:#faf9f5;border:1px solid #d5d0c6;border-radius:7px;padding:6px 12px;cursor:pointer;font-family:'Poppins',Arial,sans-serif;font-size:11.5px;font-weight:600;color:#726c62;">Qué puedo subir →</button>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+
+    <div style="margin-bottom:20px;">
+      <div style="font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:#b0aea5;margin-bottom:7px;">O andá directo a un caso frecuente</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <sc-for list="{{ shortcuts }}" as="s" hint-placeholder-count="6">
+          <button onClick="{{ s.onClick }}" style="background:#ffffff;border:1.5px solid #e8e6dc;border-radius:20px;padding:6px 13px;cursor:pointer;font-family:'Poppins',Arial,sans-serif;font-size:11.5px;font-weight:500;color:#726c62;">{{ s.label }}</button>
+        </sc-for>
       </div>
     </div>
+
 
     <div style="font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:#b0aea5;margin:22px 0 8px;">Si querés leer más — todo cerrado, abrí solo lo que busques</div>
 
@@ -123,6 +192,14 @@
         </button>
         <sc-if value="{{ secWhy.open }}">
           <div style="padding:4px 18px 18px;">
+            <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:11px 13px;margin-bottom:14px;">
+              <div style="font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:#877f74;margin-bottom:7px;">Estos números los medimos sobre ocho tareas concretas — elegí cuál mirar</div>
+              <div style="display:flex;gap:5px;flex-wrap:wrap;">
+                <sc-for list="{{ caseChips }}" as="c" hint-placeholder-count="8">
+                  <button onClick="{{ c.onClick }}" style="background:{{ c.bg }};border:1.5px solid {{ c.border }};border-radius:20px;padding:5px 11px;cursor:pointer;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:{{ c.weight }};color:{{ c.color }};">{{ c.label }}</button>
+                </sc-for>
+              </div>
+            </div>
         <div style="background:#fdf1ec;border-left:3px solid #d97757;border-radius:0 8px 8px 0;padding:13px 16px;margin-bottom:22px;">
           <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#a8532f;margin-bottom:5px;">Recomendación</div>
           <div style="font-size:13.5px;color:#141413;line-height:1.75;">
@@ -319,6 +396,14 @@
         </button>
         <sc-if value="{{ secCompare.open }}">
           <div style="padding:4px 18px 18px;">
+            <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:11px 13px;margin-bottom:14px;">
+              <div style="font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:#877f74;margin-bottom:7px;">Estos números los medimos sobre ocho tareas concretas — elegí cuál mirar</div>
+              <div style="display:flex;gap:5px;flex-wrap:wrap;">
+                <sc-for list="{{ caseChips }}" as="c" hint-placeholder-count="8">
+                  <button onClick="{{ c.onClick }}" style="background:{{ c.bg }};border:1.5px solid {{ c.border }};border-radius:20px;padding:5px 11px;cursor:pointer;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:{{ c.weight }};color:{{ c.color }};">{{ c.label }}</button>
+                </sc-for>
+              </div>
+            </div>
         <div style="background:#ffffff;border:1.5px solid #e8e6dc;border-radius:12px;overflow-x:auto;margin-bottom:8px;">
           <div style="display:grid;grid-template-columns:130px repeat(4,minmax(180px,1fr));min-width:820px;">
 
@@ -1253,45 +1338,14 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
      ============================================================ */
   var SECTION_IDS = ['why','tools','effort','compare','cowork','code','artifacts','datos','refs'];
   var state = {
-    currentCase: (CASES[props.defaultCase] ? props.defaultCase : 'debug'),
-    tool: null,          // override manual de herramienta; null = la sugerida del caso
+    answers: {},         // respuestas del cuestionario: out, data, risk, size
+    editing: null,       // índice de la pregunta que se está reeditando
+    role: null,          // rol opcional, solo ajusta el consejo final
+    currentCase: (CASES[props.defaultCase] ? props.defaultCase : 'debug'), // para la comparativa
     query: '',           // buscador
     searchFocus: false,  // para devolver el foco al input despues de rerender
     open: {}             // acordeones abiertos por id
   };
-
-  /* Herramientas: una linea cada una y a que seccion lleva su detalle. */
-  var TOOLS = [
-    {key:'chat',   icon:'💬', name:'Chat',          color:'#3d6690', one:'Conversación: vos hacés el trabajo, Claude te ayuda.', section:'tools'},
-    {key:'cowork', icon:'🧑‍💻', name:'Cowork',        color:'#5a6b45', one:'Sesión de trabajo: lo hace sobre tus archivos.',       section:'cowork'},
-    {key:'code',   icon:'🤖', name:'Claude Code',   color:'#141413', one:'Para el repo del portal, cuando se publica.',            section:'code'},
-    {key:'design', icon:'🎨', name:'Claude Design', color:'#6d4a7d', one:'La parte visual antes que el código.',                   section:'artifacts'}
-  ];
-  var TOOL_BY_KEY = {}; TOOLS.forEach(function(t){ TOOL_BY_KEY[t.key] = t; });
-
-  /* Respuesta por caso. El modelo y el cupo salen de CASES_RAW y LADDER_META;
-     thinking aplica el criterio del doc de referencia (numeros que rastrear o
-     pasos que dependen entre si = prendido; escribir = apagado); el texto de
-     escalada es el veredicto del caso, condensado. */
-  var ANSWER_BY_CASE = {
-    debug:        {model:'sonnet', thinking:'activado', effort:'high',   tool:'chat',   escalate:'Escalá a Opus 5 si el error cruza tres o más conceptos encadenados, o si Sonnet no lo resuelve en dos intentos. Fable 5 solo con implicancia legal o auditoría multi-año.', alt:'Si el error está en archivos del portal, va por Code.'},
-    formulas:     {model:'sonnet', thinking:'activado', effort:'high',   tool:'chat',   escalate:'Escalá a Opus 5 si es una fórmula heredada que hay que auditar o documentar formalmente.', alt:'Si la fórmula vive en el repo del portal, va por Code.'},
-    cruces:       {model:'sonnet', thinking:'activado', effort:'high',   tool:'cowork', escalate:'Escalá a Opus 5 con tres o más fuentes, o cuando hay que distinguir diferencias de timing de errores reales.', alt:'Si los archivos los tenés a mano y solo querés mirar el cruce, alcanza Chat.'},
-    stats:        {model:'sonnet', thinking:'activado', effort:'high',   tool:'chat',   escalate:'Escalá a Opus 5 cuando el análisis va a dirección o los datos tienen muchos vacíos.', alt:'Si los datos están en archivos tuyos y querés el informe armado, va por Cowork.'},
-    comunicacion: {model:'sonnet', thinking:'apagado',  effort:'medium', tool:'chat',   escalate:'Escalá a Opus 5 en escalaciones críticas o propuestas donde el tono y la precisión son determinantes.', alt:'Es conversación pura: no hace falta que toque tus archivos.'},
-    reportes:     {model:'sonnet', thinking:'apagado',  effort:'high',   tool:'cowork', escalate:'Escalá a Opus 5 para informes de directorio o presentaciones a stakeholders externos.', alt:'Si es un reporte corto y los datos los pegás vos, alcanza Chat.'},
-    documentacion:{model:'sonnet', thinking:'apagado',  effort:'high',   tool:'cowork', escalate:'Escalá a Opus 5 si el destino es externo — auditor, partner o cliente.', alt:'Si la documentación vive en el repo del portal, va por Code.'},
-    decisiones:   {model:'sonnet', thinking:'activado', effort:'high',   tool:'chat',   escalate:'Escalá a Opus 5 en decisiones estratégicas de alto impacto organizacional o financiero.', alt:'Si hay que cruzar varios archivos para decidir, va por Cowork.'}
-  };
-
-  var MODEL_STYLE = {
-    haiku:  {bg:'rgba(106,155,204,0.16)', color:'#3d6690'},
-    sonnet: {bg:'rgba(120,140,93,0.18)',  color:'#5a6b45'},
-    opus:   {bg:'rgba(20,20,19,0.10)',    color:'#141413'},
-    fable:  {bg:'rgba(138,106,156,0.16)', color:'#6d4a7d'}
-  };
-  var CUPO_BY_MODEL = {};
-  LADDER_META.forEach(function(m){ CUPO_BY_MODEL[m.key] = m.costLabel.toLowerCase(); });
 
   var SECTION_LABELS = {
     why:'¿Por qué este modelo y no otro?', tools:'¿Chat, Cowork, Code o Design?',
@@ -1309,10 +1363,10 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
     {label:'Niveles de esfuerzo: low, medium, high, xhigh',    section:'effort',    kw:'esfuerzo effort low medium high xhigh max default nivel'},
     {label:'Consumo de cupo por modelo',                      section:'compare',   kw:'cupo costo consumo caro barato dolares precio mtok token'},
     {label:'Excel con fórmulas que funcionan',                section:'cowork',    kw:'excel xlsx formulas vlookup planilla solapas entregable'},
-    {label:'Tareas programadas (/schedule)',                  section:'cowork',    kw:'schedule programada automatica mensual recurrente nube'},
+    {label:'Tareas programadas (/schedule)',                  section:'cowork',    kw:'schedule programada automatica mensual recurrente nube repetir'},
     {label:'Modos de permiso: manual, auto, skip',            section:'cowork',    kw:'permiso permisos manual auto skip aprobacion aprobar'},
     {label:'Proyectos y sub-agentes en paralelo',              section:'cowork',    kw:'proyectos subagentes paralelo memoria'},
-    {label:'Primeros pasos en Claude Code',                   section:'code',      kw:'code repo git carpeta local diff commit preview pasos instalar'},
+    {label:'Primeros pasos en Claude Code',                   section:'code',      kw:'code repo git carpeta local diff commit preview pasos instalar plan mode'},
     {label:'Ultracode — no es un modelo, es un modo',          section:'code',      kw:'ultracode modo agentes auditoria repo paralelo'},
     {label:'Precios de lista de API (referencia)',             section:'code',      kw:'precio precios api dolares mtok lista referencia'},
     {label:'Claude Design: exportar a PDF, PPT, Slides',       section:'artifacts', kw:'design deck mockup recibo pdf powerpoint slides exportar visual one-pager'},
@@ -1334,9 +1388,9 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
   var SEARCH_INDEX = [];
   CASE_ORDER.forEach(function(k){
     SEARCH_INDEX.push({
-      kind:'tarea', label: CASE_LABELS[k].replace(/^\S+\s/,''), hint:'ver la respuesta',
+      kind:'caso', label: CASE_LABELS[k].replace(/^\S+\s/,''), hint:'ver la comparativa medida',
       text: norm(CASE_LABELS[k] + ' ' + CASES[k].title + ' ' + CASES[k].desc + ' ' + CASES[k].verdict),
-      go: function(){ state.currentCase = k; state.tool = null; }
+      go: function(){ state.currentCase = k; state.open.compare = true; }, scrollTo:'compare'
     });
   });
   CONCEPTS.forEach(function(c){
@@ -1377,9 +1431,9 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
       results = results.slice(0, 8);
     }
     var KIND_STYLE = {
-      'tarea':   {bg:'rgba(120,140,93,0.16)',  color:'#5a6b45'},
+      'caso':    {bg:'rgba(120,140,93,0.16)',  color:'#5a6b45'},
       'dato':    {bg:'rgba(106,155,204,0.16)', color:'#3d6690'},
-      'sección': {bg:'#f2f0ea',           color:'#726c62'}
+      'sección': {bg:'#f2f0ea',                color:'#726c62'}
     };
     return {
       query: state.query,
@@ -1429,25 +1483,312 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
     return out;
   }
 
-  function buildAnswer(){
-    var key = state.currentCase;
-    var a = ANSWER_BY_CASE[key];
-    var toolKey = state.tool || a.tool;
-    var tool = TOOL_BY_KEY[toolKey];
-    var st = MODEL_STYLE[a.model];
+  /* Herramientas: una linea cada una y a que seccion lleva su detalle. */
+  var TOOLS = {
+    chat:   {icon:'💬', name:'Chat',          color:'#3d6690', section:'tools'},
+    cowork: {icon:'🧑‍💻', name:'Cowork',        color:'#5a6b45', section:'cowork'},
+    code:   {icon:'🤖', name:'Claude Code',   color:'#141413', section:'code'},
+    design: {icon:'🎨', name:'Claude Design', color:'#6d4a7d', section:'artifacts'}
+  };
+
+  var MODEL_STYLE = {
+    haiku:  {bg:'rgba(106,155,204,0.16)', color:'#3d6690'},
+    sonnet: {bg:'rgba(120,140,93,0.18)',  color:'#5a6b45'},
+    opus:   {bg:'rgba(20,20,19,0.10)',    color:'#141413'},
+    fable:  {bg:'rgba(138,106,156,0.16)', color:'#6d4a7d'}
+  };
+  var CUPO_BY_MODEL = {};
+  LADDER_META.forEach(function(m){ CUPO_BY_MODEL[m.key] = m.costLabel.toLowerCase(); });
+
+  /* ------------------------------------------------------------------
+     El cuestionario. Cuatro dimensiones que, combinadas, cubren
+     cualquier pedido — no una lista cerrada de casos:
+
+       1. qué tiene que existir cuando termines   -> herramienta
+       2. dónde está la información               -> herramienta (puede pisar la 1)
+       3. qué pasa si sale mal                    -> modelo, thinking, esfuerzo
+       4. qué tamaño tiene                        -> modelo, esfuerzo, ultracode
+
+     La resolución es determinística: mismas respuestas, misma salida.
+     Los criterios salen de referencia-claude-hya.md (§2, §3, §5) y de
+     datos-y-planes-claude-hya.md. No hay números inventados acá.
+     ------------------------------------------------------------------ */
+  var QUESTIONS = [
+    {
+      id:'out', text:'¿Qué tiene que existir cuando termines?',
+      hint:'Lo que te queda en la mano, no cómo lo vas a hacer.',
+      options:[
+        {id:'respuesta', icon:'💬', label:'Una respuesta, una explicación, un texto o un mail', sub:'entender algo, redactar, revisar un borrador, pensar opciones', short:'una respuesta'},
+        {id:'analisis',  icon:'🔍', label:'Un número o un análisis que hoy no tengo', sub:'un cruce, una estadística, revisar una fórmula, encontrar un error', short:'un análisis'},
+        {id:'entregable',icon:'📎', label:'Un archivo para usar o compartir', sub:'Excel con fórmulas, informe, documento, presentación', short:'un archivo'},
+        {id:'pantalla',  icon:'🖥️', label:'Una pantalla o página que el equipo va a volver a abrir', sub:'algo del portal: una guía, un validador, un gestor', short:'una pantalla del portal'},
+        {id:'visual',    icon:'🎨', label:'Una propuesta visual para mostrar', sub:'mockup, one-pager, deck de diseño', short:'algo visual'},
+        {id:'proceso',   icon:'⚙️', label:'Algo que quede funcionando y se repita solo', sub:'un control mensual, una revisión que corra sin que la pidas', short:'algo que se repita'}
+      ]
+    },
+    {
+      id:'data', text:'¿Dónde está la información con la que hay que trabajar?',
+      hint:'Es la pregunta que más cambia la herramienta.',
+      options:[
+        {id:'ninguna', icon:'🤷', label:'No hace falta información mía', sub:'es una duda, una explicación o algo a redactar de cero', short:'sin datos'},
+        {id:'pego',    icon:'📋', label:'La tengo a mano y la puedo pegar', sub:'un export, una tabla, un texto', short:'la pego'},
+        {id:'archivos',icon:'📂', label:'En archivos o carpetas de mi computadora', sub:'varios archivos, o uno pesado que no querés pegar', short:'mis archivos'},
+        {id:'repo',    icon:'🗂️', label:'En los archivos del portal', sub:'el repositorio donde viven las páginas', short:'el repo'},
+        {id:'monday',  icon:'📌', label:'En un board de Monday', sub:'', short:'Monday'}
+      ]
+    },
+    {
+      id:'risk', text:'¿Qué pasa si sale mal?',
+      hint:'Acá se decide el modelo y si conviene prender el razonamiento extendido.',
+      options:[
+        {id:'rehago',     icon:'🔄', label:'Me doy cuenta al instante y lo rehago', sub:'sin consecuencias: lo miro y listo', short:'lo rehago'},
+        {id:'encadenado', icon:'🔗', label:'Hay números o pasos que dependen entre sí', sub:'si se equivoca en el paso 2, arrastra el error hasta el final', short:'pasos encadenados'},
+        {id:'plata',      icon:'💰', label:'Toca plata o sale al cliente', sub:'sueldos, retenciones, SAC, un informe que se manda afuera', short:'toca plata'},
+        {id:'critico',    icon:'⚖️', label:'Es crítico: auditoría, implicancia legal, muchos archivos', sub:'hay que poder defender el resultado', short:'crítico'}
+      ]
+    },
+    {
+      id:'size', text:'¿Qué tamaño tiene?',
+      hint:'Último dato: define el esfuerzo y si conviene partirlo entre varios agentes.',
+      options:[
+        {id:'puntual', icon:'⚡', label:'Una pregunta puntual, un minuto', sub:'', short:'puntual'},
+        {id:'rato',    icon:'🕐', label:'Un rato de ida y vuelta', sub:'', short:'un rato'},
+        {id:'pasos',   icon:'🧩', label:'Varios pasos y varios archivos', sub:'', short:'varios pasos'},
+        {id:'largo',   icon:'🏔️', label:'Largo: revisar todo, migrar, auditar de punta a punta', sub:'', short:'largo aliento'}
+      ]
+    }
+  ];
+
+  var ROLES = [
+    {id:'payroll',   label:'Payroll / IT',        tip:'Como vos publicás en el portal, cerrá siempre con un commit descriptivo y dejá el visto bueno registrado.'},
+    {id:'impl',      label:'Implementación',      tip:'Si esto se repite cliente por cliente, pedí que lo deje como plantilla reutilizable y no como respuesta suelta.'},
+    {id:'gerencia',  label:'Gerencia de Payroll', tip:'Pedí la conclusión y la recomendación arriba, y el detalle abajo: así el reporte se lee en treinta segundos.'},
+    {id:'dev',       label:'Programación',        tip:'Tenés la sección de Claude Code completa: permisos, modelos y Ultracode para lo que toque muchos archivos.'},
+    {id:'direccion', label:'Dirección',           tip:'Pedí una sola página con la conclusión y el impacto; sin comparativas intermedias.'}
+  ];
+  var ROLE_BY_ID = {}; ROLES.forEach(function(r){ ROLE_BY_ID[r.id] = r; });
+
+  /* Atajos: precargan las cuatro respuestas de un pedido típico del equipo. */
+  var SHORTCUTS = [
+    {label:'Un mail a un cliente',            a:{out:'respuesta', data:'ninguna',  risk:'rehago',     size:'rato'}},
+    {label:'Entender una fórmula heredada',   a:{out:'analisis',  data:'pego',     risk:'encadenado', size:'rato'}},
+    {label:'Cruzar liquidación con contable', a:{out:'analisis',  data:'archivos', risk:'encadenado', size:'pasos'}},
+    {label:'Excel de control con fórmulas',   a:{out:'entregable',data:'archivos', risk:'encadenado', size:'pasos'}},
+    {label:'Revisar un cálculo de SAC',       a:{out:'analisis',  data:'pego',     risk:'plata',      size:'rato'}},
+    {label:'Informe para dirección',          a:{out:'entregable',data:'archivos', risk:'plata',      size:'pasos'}},
+    {label:'Editar una página del portal',    a:{out:'pantalla',  data:'repo',     risk:'encadenado', size:'pasos'}},
+    {label:'Un deck para presentar',          a:{out:'visual',    data:'ninguna',  risk:'rehago',     size:'rato'}},
+    {label:'Auditar todo el repositorio',     a:{out:'analisis',  data:'repo',     risk:'critico',    size:'largo'}}
+  ];
+
+  /* ---- resolución ---------------------------------------------------- */
+  function resolveTool(A){
+    // La regla principal manda: si va a vivir en el portal, es Code.
+    if (A.out === 'pantalla' || A.data === 'repo') return 'code';
+    if (A.out === 'visual') return 'design';
+    if (A.out === 'proceso') return 'cowork';
+    if (A.out === 'entregable') return 'cowork';
+    if (A.data === 'archivos') return 'cowork';
+    if (A.out === 'analisis' && (A.size === 'pasos' || A.size === 'largo')) return 'cowork';
+    return 'chat';
+  }
+
+  function resolveModel(A, tool){
+    if (A.risk === 'critico') return (A.size === 'largo') ? 'opusFable' : 'opus';
+    if (A.risk === 'plata') return 'opus';
+    if (A.risk === 'rehago' && A.size === 'puntual' && A.out === 'respuesta' && A.data !== 'archivos') return 'haiku';
+    return 'sonnet';
+  }
+
+  function resolveThinking(A){
+    if (A.risk !== 'rehago') return 'activado';
+    if (A.out === 'analisis' || A.out === 'proceso') return 'activado';
+    return 'apagado';
+  }
+
+  function resolveEffort(A, tool, modelKey){
+    if (modelKey === 'haiku') return 'low';
+    if (A.risk === 'critico') return (A.size === 'largo') ? 'xhigh o max' : 'xhigh';
+    if (A.risk === 'plata') return (tool === 'code') ? 'xhigh' : 'high';
+    if (A.risk === 'rehago' && (A.size === 'puntual' || A.size === 'rato')) return 'medium';
+    return 'high';
+  }
+
+  var TOOL_WHY = {
+    chat:   'Lo que necesitás sale de una conversación: vos hacés el trabajo y Claude te ayuda a pensarlo, entenderlo o redactarlo. No toca tus archivos, así que es lo más rápido y lo que menos cupo consume.',
+    cowork: 'Hay varios pasos y archivos de por medio: le describís el resultado, arma el plan y lo ejecuta sobre tus archivos. Te devuelve el entregable hecho, no instrucciones para hacerlo.',
+    code:   'El resultado va a vivir en el portal y otra persona lo va a abrir la semana que viene. Aunque sea más rápido resolverlo en Chat, va por Code: ve todo el repositorio y mantiene el estilo del resto de las páginas.',
+    design: 'Primero necesitás la parte visual, antes del código. Iterás el diseño en lenguaje natural y después lo exportás o se lo pasás a Code para el HTML final.'
+  };
+
+  var MODEL_WHY = {
+    haiku:  'Es una consulta puntual y de bajo riesgo: Haiku 4.5 responde al instante y casi no consume cupo. Ojo: no lo uses si aparece cálculo encadenado — ahí subí a Sonnet 5.',
+    sonnet: 'Sonnet 5 es el default del día a día y resuelve esto sin escalar. Si el resultado no te cierra en dos intentos, subí a Opus 5 antes de seguir insistiendo.',
+    opus:   'Acá el error cuesta caro, así que va Opus 5 directo: verifica su propio trabajo y avisa cuando no está seguro, en vez de afirmar con confianza injustificada.',
+    opusFable: 'Opus 5 en el nivel más alto de esfuerzo. Si con eso no alcanza, el último recurso es Fable 5 — pero avisá antes: consume mucho cupo y con Opus 5 el margen entre ambos quedó chico.'
+  };
+
+  function buildTips(A, tool, modelKey){
+    var tips = [];
+    if (tool === 'chat'){
+      if (A.data === 'pego') tips.push('Pegá el dato con contexto: de qué sistema salió, qué período es y qué esperabas ver.');
+      if (A.out === 'analisis') tips.push('Pedile que muestre los pasos y no solo el número final: así podés verificarlo.');
+      if (A.out === 'respuesta') tips.push('Decile para quién es y en qué tono: cambia bastante el resultado.');
+      if (A.data === 'monday') tips.push('Activá el conector de Monday y nombrá el board: lee los datos en vivo, no hace falta exportar.');
+      tips.push('Si la respuesta te sirve para otra cosa después, guardala en el portal por Code — en el chat se pierde.');
+    }
+    if (tool === 'cowork'){
+      tips.push('Describí el resultado que querés, no los pasos: Cowork planifica solo y después te muestra el plan.');
+      tips.push('Arrancá en modo Manual: aprueba acción por acción. Pasá a Auto solo en tareas largas de bajo riesgo.');
+      tips.push('Trabajá sobre una carpeta preparada, con lo que necesita esa tarea y nada más.');
+      if (A.out === 'entregable') tips.push('Pedile el archivo final con fórmulas que funcionen (VLOOKUP, formato condicional, varias solapas), no un CSV para arreglar después.');
+      if (A.out === 'proceso') tips.push('Con /schedule lo dejás corriendo con la frecuencia que quieras: corre en la nube, sin tu computadora prendida.');
+      if (A.size === 'largo') tips.push('Si son muchos pedidos parecidos, agrupalos en un proyecto: comparten archivos, instrucciones y memoria.');
+    }
+    if (tool === 'code'){
+      tips.push('Nombrá el archivo a tocar y pedí ver el diff antes de que guarde nada.');
+      if (A.risk === 'plata' || A.risk === 'critico' || A.size === 'largo') tips.push('Pedí Plan mode primero: arma el plan sin tocar ningún archivo, lo revisás y después lo aplica.');
+      tips.push('Dejá el modo de permisos en Ask permissions hasta que le tomes la mano.');
+      if (A.size === 'largo' || A.risk === 'critico') tips.push('Si el cambio se repite en muchas páginas o es una auditoría, pedí ultracode: reparte el trabajo entre varios agentes y cruza los resultados.');
+      tips.push('Probá la página en el navegador antes de dar el cambio por terminado.');
+    }
+    if (tool === 'design'){
+      tips.push('Elegí el "H&A Design System" en el selector para que salga con nuestra identidad.');
+      tips.push('Mostrale una página del portal o una captura como referencia: hereda colores, tipografía y componentes.');
+      tips.push('Exportá a PDF, PowerPoint, HTML o Google Slides, o pasáselo a Code para el HTML definitivo.');
+    }
+    if (resolveThinking(A) === 'activado') tips.push('Prendé el razonamiento extendido antes de mandar el pedido: hay pasos que dependen entre sí.');
+    else tips.push('Dejá el razonamiento extendido apagado: para escribir solo lo hace más lento, sin mejorar el resultado.');
+    if (modelKey === 'opus' || modelKey === 'opusFable') tips.push('Si querés estirar el cupo, probá primero con Sonnet 5 y subí a Opus 5 solo si el resultado no te convence.');
+    return tips.map(function(t){ return {text:t}; });
+  }
+
+  var PROMPT_EXAMPLES = {
+    chat:   '"Te paso el detalle de liquidación de julio del cliente X. El concepto de antigüedad da distinto a lo que esperaba: explicame paso a paso cómo se calcula y dónde puede estar la diferencia."',
+    cowork: '"En la carpeta de julio están el export de liquidación y el archivo contable. Cruzalos por centro de costo y dejame un Excel con las diferencias agrupadas por concepto, con una solapa de resumen y las fórmulas armadas."',
+    code:   '"Actualizá GestorNovedades_HyA.html: agregá una columna de estado en la tabla, con el mismo estilo que el resto del portal. Mostrame el diff antes de guardar."',
+    design: '"Armá el mockup de un formato de recibo nuevo con el H&A Design System: encabezado con datos del empleado, detalle de conceptos y totales al pie. Mostrame dos variantes."'
+  };
+
+  function buildWarnings(A, tool, modelKey){
+    var w = [];
+    if (tool === 'cowork'){
+      w.push({icon:'📁', bg:'#fff8e1', border:'#d97757', text:'Cowork lee la carpeta entera, no lo que vos elegís pegar. Mirá qué hay adentro antes de darle acceso: un export de liquidación trae DNI y CUIL en las columnas aunque vos solo quieras los totales.'});
+    }
+    if (A.data === 'pego' || A.data === 'archivos' || A.data === 'monday'){
+      w.push({icon:'🔐', bg:'#f2f0ea', border:'#b0aea5', text:'Vas a trabajar con información real: hacelo desde el plan de la empresa. Desde una cuenta personal hay que revisar la configuración y avisar a IT; desde una cuenta gratuita, nunca.'});
+    }
+    if (modelKey === 'opusFable'){
+      w.push({icon:'⚠️', bg:'#fff8e1', border:'#d97757', text:'Si llegás a necesitar Fable 5, avisá antes: consume mucho cupo del equipo.'});
+    }
+    if (tool === 'code'){
+      w.push({icon:'🚦', bg:'#f2f0ea', border:'#b0aea5', text:'Claude Code puede preparar el commit, pero la publicación final la coordina ' + props.reviewerName + '.'});
+    }
+    return w;
+  }
+
+  function buildRecommendation(){
+    var A = state.answers;
+    var toolKey = resolveTool(A);
+    var tool = TOOLS[toolKey];
+    var modelKey = resolveModel(A, toolKey);
+    var baseModel = (modelKey === 'opusFable') ? 'opus' : modelKey;
+    var st = MODEL_STYLE[baseModel];
+    var modelLabel = MODEL_NAMES[baseModel] + (modelKey === 'opusFable' ? ' → Fable 5 si no alcanza' : '');
+    var role = state.role ? ROLE_BY_ID[state.role] : null;
+    var tips = buildTips(A, toolKey, modelKey);
+    if (role) tips.push({text: role.tip});
     return {
-      caseTitle: CASES[key].title,
-      model: MODEL_NAMES[a.model],
-      modelBg: st.bg, modelColor: st.color,
-      thinking: a.thinking,
-      effort: a.effort,
-      cupo: CUPO_BY_MODEL[a.model],
-      tool: tool.name,
-      toolAlt: state.tool ? ('Elegiste ' + tool.name + ': ' + tool.one + ' La sugerida para esta tarea es ' + TOOL_BY_KEY[a.tool].name + '.') : a.alt,
-      escalate: a.escalate,
-      folderWarning: toolKey === 'cowork',
-      openWhy: function(){ state.open.why = true; rerender(); scrollToSection('why'); },
-      openToolSection: function(){ state.open[tool.section] = true; rerender(); scrollToSection(tool.section); }
+      tool: tool.name, toolIcon: tool.icon, toolColor: tool.color,
+      toolWhy: TOOL_WHY[toolKey],
+      hasToolExtra: A.data === 'monday' && toolKey !== 'code',
+      toolExtra: 'con el conector de Monday',
+      model: modelLabel, modelBg: st.bg, modelColor: st.color,
+      modelWhy: MODEL_WHY[modelKey],
+      thinking: resolveThinking(A),
+      effort: resolveEffort(A, toolKey, modelKey),
+      cupo: CUPO_BY_MODEL[baseModel],
+      tips: tips,
+      hasPrompt: !!PROMPT_EXAMPLES[toolKey],
+      promptExample: PROMPT_EXAMPLES[toolKey],
+      warnings: buildWarnings(A, toolKey, modelKey),
+      openToolSection: function(){ state.open[tool.section] = true; rerender(); scrollToSection(tool.section); },
+      openWhy: function(){ state.open.compare = true; rerender(); scrollToSection('compare'); },
+      openDatos: function(){ state.open.datos = true; rerender(); scrollToSection('datos'); }
+    };
+  }
+
+  function buildFlow(){
+    var A = state.answers;
+    var answered = 0;
+    QUESTIONS.forEach(function(q){ if (A[q.id]) answered++; });
+    var done = answered === QUESTIONS.length;
+
+    // la pregunta activa: la que el usuario está editando, o la primera sin responder
+    var idx = state.editing;
+    if (idx === null || idx === undefined){
+      idx = -1;
+      for (var i = 0; i < QUESTIONS.length; i++){
+        if (!A[QUESTIONS[i].id]){ idx = i; break; }
+      }
+    }
+    var asking = idx >= 0 && idx < QUESTIONS.length;
+    var q = asking ? QUESTIONS[idx] : null;
+
+    var subtitle = done
+      ? 'Listo. Si cambia algo, tocá una respuesta y la recalculo.'
+      : 'Cuatro preguntas cortas. Sirve para cualquier pedido, no solo para los casos de la lista.';
+
+    return {
+      subtitle: subtitle,
+      progressLabel: done ? 'recomendación' : ('paso ' + (idx + 1) + ' de ' + QUESTIONS.length),
+      dots: QUESTIONS.map(function(qq, k){
+        return {color: A[qq.id] ? '#788c5d' : (k === idx ? '#d97757' : '#e8e6dc')};
+      }),
+      asking: asking, done: done,
+      showRoles: true,   // también al final: cambiar el rol recalcula el consejo
+      roles: ROLES.map(function(r){
+        var active = state.role === r.id;
+        return {
+          label: r.label,
+          bg: active ? 'rgba(120,140,93,0.14)' : '#ffffff',
+          border: active ? 'rgba(120,140,93,0.5)' : '#e8e6dc',
+          color: active ? '#3f4a30' : '#726c62',
+          weight: active ? 700 : 500,
+          onClick: function(){ state.role = (state.role === r.id ? null : r.id); rerender(); }
+        };
+      }),
+      question: asking ? {
+        text: q.text, hint: q.hint,
+        options: q.options.map(function(o){
+          var active = A[q.id] === o.id;
+          return {
+            icon: o.icon, label: o.label, sub: o.sub, hasSub: !!o.sub,
+            bg: active ? 'rgba(120,140,93,0.10)' : '#faf9f5',
+            border: active ? 'rgba(120,140,93,0.5)' : '#e8e6dc',
+            onClick: function(){
+              state.answers[q.id] = o.id;
+              state.editing = null;   // vuelve al flujo normal: siguiente sin responder
+              rerender();
+            }
+          };
+        })
+      } : {text:'', hint:'', options:[]},
+      hasAnswers: answered > 0,
+      chosen: QUESTIONS.filter(function(qq){ return !!A[qq.id]; }).map(function(qq, k){
+        var opt = null;
+        qq.options.forEach(function(o){ if (o.id === A[qq.id]) opt = o; });
+        var realIdx = QUESTIONS.indexOf(qq);
+        return {
+          short: opt ? opt.short : '',
+          onClick: function(){ state.editing = realIdx; rerender(); }
+        };
+      }),
+      restart: function(){
+        state.answers = {}; state.editing = null; rerender();
+        var el = document.getElementById('flow-anchor');
+        if (el) window.scrollTo(0, Math.max(el.getBoundingClientRect().top + window.scrollY - 20, 0));
+      }
     };
   }
 
@@ -1461,25 +1802,25 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
         border: active ? 'rgba(120,140,93,0.5)' : '#e8e6dc',
         color: active ? '#3f4a30' : '#726c62',
         weight: active ? 700 : 500,
-        onClick: function(){ state.currentCase = k; state.tool = null; rerender(); }
+        onClick: function(){ state.currentCase = k; rerender(); }
       };
     });
-    var suggestedTool = ANSWER_BY_CASE[currentCase].tool;
-    var toolTiles = TOOLS.map(function(t){
-      var active = (state.tool || suggestedTool) === t.key;
+    var shortcuts = SHORTCUTS.map(function(s){
       return {
-        icon: t.icon, name: t.name, one: t.one, color: t.color,
-        suggested: t.key === suggestedTool,
-        bg: active ? '#ffffff' : '#faf9f5',
-        border: active ? 'rgba(120,140,93,0.5)' : '#e8e6dc',
-        onClick: function(){ state.tool = (state.tool === t.key ? null : t.key); rerender(); }
+        label: s.label,
+        onClick: function(){
+          state.answers = {out:s.a.out, data:s.a.data, risk:s.a.risk, size:s.a.size};
+          state.editing = null;
+          rerender();
+        }
       };
     });
     var vals = {
+      flow: buildFlow(),
+      rec: buildRecommendation(),
+      shortcuts: shortcuts,
       caseChips: caseChips,
-      toolTiles: toolTiles,
       search: buildSearch(),
-      answer: buildAnswer(),
       selectedCase: CASES[currentCase],
       categories: CATEGORIES,
       reviewerName: props.reviewerName,
@@ -1490,7 +1831,6 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
     for (var k in secs) vals[k] = secs[k];
     return vals;
   }
-
 
   /* ============================================================
      Mini-motor de plantillas: interpreta <sc-if>, <sc-for>,
