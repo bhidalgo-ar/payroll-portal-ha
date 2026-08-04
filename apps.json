@@ -2,69 +2,111 @@
   "meta": {
     "titulo": "Portal Hidalgo & Asociados",
     "subtitulo": "Herramientas internas del equipo",
-    "version": "1.0",
-    "ultimaActualizacion": "2026-05-26"
+    "version": "1.1",
+    "ultimaActualizacion": "2026-08-04",
+    "ultimaRevision": "2026-08-04",
+    "diasReciente": 7,
+    "repoDefecto": "bhidalgo-ar/payroll-portal-ha"
   },
   "apps": [
     {
       "id": 1,
       "nombre": "SIRADIG Engine",
       "descripcion": "Comparador de SIRADIG entre períodos",
-      "url": "https://willyesposito.github.io/payroll-portal-ha/siradig_engine_hya.html",
+      "url": "https://bhidalgo-ar.github.io/payroll-portal-ha/siradig_engine_hya.html",
       "icono": "🧮",
-      "version": "2.0",
+      "version": "2.1",
       "categoria": "Nómina",
-      "estado": "activo"
+      "estado": "productivo",
+      "agregado": "2026-04-09",
+      "actualizado": "2026-06-18"
     },
     {
       "id": 2,
       "nombre": "Validador F. 1359",
       "descripcion": "Cruza txt de 1359 contra Impgan y reglas de ARCA",
-      "url": "https://willyesposito.github.io/payroll-portal-ha/validador-f1359.html",
+      "url": "https://bhidalgo-ar.github.io/payroll-portal-ha/validador-f1359.html",
       "icono": "📊",
-      "version": "1.5",
+      "version": "2.4",
       "categoria": "Reportes",
-      "estado": "beta"
+      "estado": "productivo",
+      "agregado": "2026-04-09",
+      "actualizado": "2026-04-28"
     },
     {
       "id": 3,
       "nombre": "Análisis IG Anual",
       "descripcion": "Revisión de IMPGAN y SIRADIG",
-      "url": "https://willyesposito.github.io/payroll-portal-ha/analisis_ig_anual_hya.html",
+      "url": "https://bhidalgo-ar.github.io/payroll-portal-ha/analisis_ig_anual_hya.html",
       "icono": "🚀",
-      "version": "1.0",
+      "version": "4.1",
       "categoria": "Nómina",
-      "estado": "beta"
+      "estado": "productivo",
+      "agregado": "2026-04-09",
+      "actualizado": "2026-06-18"
     },
     {
       "id": 4,
       "nombre": "Visor F. 1359",
       "descripcion": "Descarga la información de los TXT en Excel",
-      "url": "https://willyesposito.github.io/payroll-portal-ha/visor_siradig.html",
+      "url": "https://bhidalgo-ar.github.io/payroll-portal-ha/visor_siradig.html",
       "icono": "📥",
       "version": "2.0",
       "categoria": "Reportes",
-      "estado": "activo"
+      "estado": "productivo",
+      "agregado": "2026-04-16",
+      "actualizado": "2026-04-16"
     },
     {
       "id": 5,
       "nombre": "Validador Novedades",
       "descripcion": "Valida las novedades subidas por el cliente y baja el importador",
-      "url": "https://willyesposito.github.io/payroll-portal-ha/GestorNovedades_HyA.html",
+      "url": "https://bhidalgo-ar.github.io/payroll-portal-ha/GestorNovedades_HyA.html",
       "icono": "✅",
-      "version": "1.0",
+      "version": "1.4",
       "categoria": "Nómina",
-      "estado": "beta"
+      "estado": "productivo",
+      "agregado": "2026-04-16",
+      "actualizado": "2026-06-18"
     },
     {
       "id": 6,
       "nombre": "Cómo usar Claude",
       "descripcion": "Guía para entender qué modelo de IA usar según la tarea",
-      "url": "https://willyesposito.github.io/payroll-portal-ha/casos_uso_modelos_comparativa.html",
+      "url": "https://bhidalgo-ar.github.io/payroll-portal-ha/casos_uso_modelos_comparativa.html",
       "icono": "🤖",
-      "version": "1.0",
+      "version": "12",
       "categoria": "Herramientas",
-      "estado": "activo"
+      "estado": "productivo",
+      "agregado": "2026-04-16",
+      "actualizado": "2026-07-27"
+    },
+    {
+      "id": 7,
+      "nombre": "Validador de Recibos",
+      "descripcion": "Cruza la liquidación de sueldos contra los recibos de haberes",
+      "url": "https://bhidalgo-ar.github.io/validadorrecibos/",
+      "icono": "🧾",
+      "version": "1.0",
+      "categoria": "Nómina",
+      "estado": "beta",
+      "repo": "bhidalgo-ar/validadorrecibos",
+      "path": "docs",
+      "agregado": "2026-08-04",
+      "actualizado": "2026-08-04"
+    },
+    {
+      "id": 8,
+      "nombre": "Controles Nómina",
+      "descripcion": "Valida la nómina mensual del cliente contra sus archivos de control",
+      "url": "https://bhidalgo-ar.github.io/controles-varios/",
+      "icono": "🔎",
+      "version": "1.0",
+      "categoria": "Nómina",
+      "estado": "beta",
+      "repo": "bhidalgo-ar/controles-varios",
+      "agregado": "2026-08-04",
+      "actualizado": "2026-08-04"
     }
   ]
 }
