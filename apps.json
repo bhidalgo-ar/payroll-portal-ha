@@ -99,12 +99,12 @@
       "id": 8,
       "nombre": "Controles Nómina",
       "descripcion": "Valida la nómina mensual del cliente contra sus archivos de control",
-      "url": "https://bhidalgo-ar.github.io/controles-varios/",
+      "url": "https://bhidalgo-ar.github.io/Controles-Varios/",
       "icono": "🔎",
       "version": "1.0",
       "categoria": "Nómina",
       "estado": "beta",
-      "repo": "bhidalgo-ar/controles-varios",
+      "repo": "bhidalgo-ar/Controles-Varios",
       "agregado": "2026-08-04",
       "actualizado": "2026-08-04"
     }

@@ -7,7 +7,7 @@ Publicado con GitHub Pages en **https://bhidalgo-ar.github.io/payroll-portal-ha/
 
 | Archivo | Qué es |
 |---|---|
-| `index.html` | El portal. **Es un bundle**: la línea 177 es un string JSON con todo el template. Ver §5. |
+| `index.html` | El portal. **Es un bundle**: una de las líneas del `<head>` externo es un string JSON con todo el template. Ver §5. |
 | `apps.json` | Catálogo de herramientas. Fuente de verdad de versión, estado y fechas. |
 | `cumpleanios.json`, `eventos.json`, `frases.json` | Datos que el portal lee en runtime. |
 | `*.html` (resto) | Las herramientas en sí. Cada una es un HTML autónomo, sin backend. |
@@ -107,22 +107,33 @@ apps que no la declaren).
 
 ## 5. Editar `index.html` (bundle)
 
-`index.html` **no se edita a mano.** La línea 177 es un string JSON con el template
-entero y cada `</` va escapado como `<\u002F` para que el `<script>` contenedor
-no se cierre antes de tiempo. El round-trip tiene que preservar esa convención:
+**El `<head>`/`<html>` de afuera del bundle no importa — se descarta entero.** El
+script arrancador hace `document.documentElement.replaceWith(doc.documentElement)`
+con el HTML parseado del template, así que cualquier `<title>`, `<meta>` o
+`<link rel="icon">` puesto fuera del string JSON nunca se ve: se reemplaza apenas
+carga la página. Favicon, título y demás van **dentro** del `<head>` que está en
+el propio template (justo después del `<meta name="viewport">`).
+
+`index.html` **no se edita a mano.** Una de las líneas del `<head>` externo (hoy la
+177, pero **no asumir el número** — se corre cada vez que se toca algo antes, como
+casi pasó al agregar el favicon) es un string JSON con el template entero, y cada `</`
+va escapado como `<\u002F` para que el `<script>` contenedor no se cierre antes
+de tiempo. Ubicarla por contenido, no por número de línea, y preservar esa
+convención en el round-trip:
 
 ```python
 import json
 raw = open('index.html', encoding='utf-8').read().split('\n')
-tpl = json.loads(raw[176])          # extraer
+i = next(i for i, l in enumerate(raw) if l.startswith('"<!DOCTYPE html>'))
+tpl = json.loads(raw[i])            # extraer
 # ... modificar tpl ...
 enc = json.dumps(tpl, ensure_ascii=False).replace('</', '<\\u002F')
 assert '</' not in enc
-raw[176] = enc
+raw[i] = enc
 open('index.html', 'w', encoding='utf-8').write('\n'.join(raw))
 ```
 
-Verificar siempre después: `json.loads` de la línea 177 tiene que seguir andando, y
+Verificar siempre después: `json.loads` de esa línea tiene que seguir andando, y
 `línea.count('</')` tiene que dar 0.
 
 El template usa un motor propio: `{{ expr }}`, `<sc-for list="{{ rows }}" as="r">` y
