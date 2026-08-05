@@ -27,12 +27,12 @@
     <div style="margin-bottom:28px;">
       <h1 style="font-family:'Poppins',Arial,sans-serif;font-size:28px;font-weight:600;color:#141413;letter-spacing:-0.3px;margin-bottom:6px;">Cómo usar Claude en Payroll</h1>
       <div style="display:flex;align-items:center;gap:9px;margin-bottom:8px;flex-wrap:wrap;">
-        <span style="background:#e8e6dc;color:#726c62;font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:3px 9px;border-radius:20px;">Guía interna · v12</span>
-        <span style="font-size:11px;color:#b0aea5;">Datos verificados al 27 de julio de 2026</span>
+        <span style="background:#e8e6dc;color:#726c62;font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:3px 9px;border-radius:20px;">Guía interna · v13</span>
+        <span style="font-size:11px;color:#b0aea5;">Datos verificados al 5 de agosto de 2026</span>
       </div>
       <p style="font-size:14px;color:#726c62;max-width:760px;">Elegí qué tenés que hacer y la guía te dice con qué herramienta, qué modelo y si conviene prender thinking. Si querés el detrás de escena, está todo abajo — cerrado, para abrir solo lo que busques.</p>
       <div style="background:#fdf1ec;border-left:3px solid #d97757;border-radius:0 8px 8px 0;padding:11px 15px;margin-top:14px;max-width:860px;">
-        <div style="font-size:12.5px;color:#141413;line-height:1.7;"><strong style="color:#a8532f;">Actualizado el 27 de julio de 2026:</strong> el escalón Opus de esta guía ahora es <strong style="color:#141413;">Opus 5</strong>, que salió el 24 de julio y reemplazó al escalón anterior. Rinde bastante más sin consumir más cupo, así que <strong style="color:#141413;">escalar de Sonnet a Opus rinde más que antes</strong> y llegar hasta Fable 5 hace falta menos seguido: <strong style="color:#141413;">seguí arrancando por Sonnet</strong>.</div>
+        <div style="font-size:12.5px;color:#141413;line-height:1.7;"><strong style="color:#a8532f;">Actualizado el 5 de agosto de 2026:</strong> se revisó la guía contra dos artículos oficiales de Anthropic sobre cómo elegir modelo y esfuerzo. Los dos cambios que más importan: <strong style="color:#141413;">el "esfuerzo" no es tiempo de pensar</strong> — controla cuántos archivos lee, cuánto verifica y hasta dónde avanza antes de volver a preguntarte — y hay una <strong style="color:#141413;">forma concreta de saber qué perilla tocar cuando algo sale mal</strong>: si no sabía, cambiá el modelo; si no se esforzó, subí el esfuerzo. Está todo en <strong style="color:#141413;">"Thinking y niveles de esfuerzo"</strong>.</div>
       </div>
     </div>
 
@@ -212,6 +212,60 @@
           </div>
         </div>
 
+        <div style="background:#ffffff;border:1.5px solid rgba(217,119,87,0.45);border-radius:12px;padding:18px 20px;margin-bottom:22px;">
+          <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:10px;">
+            <span style="font-size:15px;">📘</span>
+            <span style="font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:700;color:#a8532f;">Lo que recomienda Anthropic — y por qué acá arrancamos distinto</span>
+            <span style="background:#fdf1ec;border:1px solid rgba(217,119,87,0.35);color:#a8532f;font-family:'Poppins',Arial,sans-serif;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;padding:3px 9px;border-radius:20px;">Guía oficial</span>
+          </div>
+
+          <div style="background:#faf9f5;border-left:3px solid #d97757;border-radius:0 8px 8px 0;padding:12px 15px;margin-bottom:14px;">
+            <div style="font-size:12.5px;color:#141413;line-height:1.75;"><strong style="color:#141413;">La recomendación por defecto es al revés de la nuestra:</strong> arrancar por el modelo más capaz que tengas disponible y usar el <strong style="color:#141413;">nivel de esfuerzo</strong> para ajustar costo y velocidad — en vez de arrancar por el más chico y subir. El argumento: el <strong style="color:#141413;">costo por tarea</strong> suele ser más bajo en un modelo más capaz, incluso con esfuerzo bajo y aunque el precio por token sea mayor, porque resuelve en menos vueltas y pensando menos. Y arrancar con un modelo chico hace más difícil distinguir <strong style="color:#141413;">"el modelo no pudo" de "el pedido estaba mal armado"</strong>.</div>
+          </div>
+
+          <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:12px 15px;margin-bottom:14px;">
+            <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#726c62;margin-bottom:5px;">⚖️ El matiz: los dos artículos oficiales no ponen el acento en el mismo lugar</div>
+            <div style="font-size:12.5px;color:#141413;line-height:1.75;">La guía general de elección de modelo dice "arrancá por el más capaz y bajá el esfuerzo". La guía específica de Claude Code dice algo más matizado: <strong style="color:#141413;">modelo chico para trabajo rutinario, modelo grande para lo complejo o ambiguo</strong>, y si venís un rato haciendo cosas rutinarias con el modelo grande, bajar de escalón <strong style="color:#141413;">gana velocidad y ahorra plata sin perder calidad</strong>. Las dos cosas conviven: para la tanda de tareas repetidas de todos los días, el modelo chico; para el problema difícil de verdad, el grande desde el arranque.</div>
+          </div>
+
+          <div style="background:rgba(120,140,93,0.08);border:1px solid rgba(120,140,93,0.3);border-radius:9px;padding:12px 15px;margin-bottom:14px;">
+            <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#5a6b45;margin-bottom:5px;">✅ Qué hacemos acá, por ahora</div>
+            <div style="font-size:12.5px;color:#141413;line-height:1.75;">La regla del equipo <strong style="color:#141413;">no cambia: seguí arrancando por Sonnet 5</strong>. Anthropic documenta las dos direcciones como válidas y la nuestra es la segunda: arrancar por el modelo más económico y subir hasta que el resultado cierre. La razón es que acá <strong style="color:#141413;">el límite no es el precio por token sino el cupo compartido del plan Team</strong>, y los números de esta guía se midieron con esa lógica.<br><strong style="color:#a8532f;">Punto a revalidar:</strong> el argumento de "menos vueltas = menos consumo total" también aplica al cupo, así que puede ser que arrancar por Opus 5 gaste <em>menos</em> cupo que insistirle dos veces a Sonnet. Nadie lo midió todavía. Si te toca una tarea de las difíciles, probá las dos formas y contá el resultado.</div>
+          </div>
+
+          <div style="background:rgba(106,155,204,0.08);border:1px solid rgba(106,155,204,0.28);border-radius:9px;padding:12px 15px;margin-bottom:14px;">
+            <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#3d6690;margin-bottom:5px;">💬 Cómo pedirle a cada escalón — cambia según el tamaño del modelo</div>
+            <div style="font-size:12.5px;color:#141413;line-height:1.75;">Los <strong style="color:#141413;">modelos grandes manejan mejor la ambigüedad</strong>: les podés describir el resultado que querés sin explicarles el camino. A los <strong style="color:#141413;">modelos chicos les rinde más una instrucción precisa</strong>, paso por paso, diciéndoles qué hacer y en qué orden. Así que si estás en Sonnet o Haiku y el resultado no cierra, antes de escalar probá pedirlo con más detalle — muchas veces alcanza.</div>
+          </div>
+
+          <div style="font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:#877f74;margin-bottom:8px;">Las cuatro preguntas de la guía oficial</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-bottom:14px;">
+            <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:11px 13px;">
+              <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#141413;margin-bottom:4px;">¿Qué tan difícil es la tarea?</div>
+              <div style="font-size:11.5px;color:#726c62;line-height:1.6;">Si normalmente lleva mucho tiempo, tiene varios pasos, o es algo que nunca se resolvió antes → modelo más capaz.</div>
+            </div>
+            <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:11px 13px;">
+              <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#141413;margin-bottom:4px;">¿Cuánto puede tardar?</div>
+              <div style="font-size:11.5px;color:#726c62;line-height:1.6;">Si alguien está esperando la respuesta del otro lado, Sonnet suele ser la mejor opción.</div>
+            </div>
+            <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:11px 13px;">
+              <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#141413;margin-bottom:4px;">¿A qué tenés acceso?</div>
+              <div style="font-size:11.5px;color:#726c62;line-height:1.6;">No todos los modelos están habilitados para todos los roles. Mythos, por ejemplo, es solo para organizaciones dentro de Project Glasswing.</div>
+            </div>
+            <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:11px 13px;">
+              <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#141413;margin-bottom:4px;">¿Cuánto volumen es?</div>
+              <div style="font-size:11.5px;color:#726c62;line-height:1.6;">A mucho volumen conviene un modelo más chico, siempre que ya hayas comprobado que resuelve bien esa tarea puntual.</div>
+            </div>
+          </div>
+
+          <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:12px 15px;margin-bottom:14px;">
+            <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#726c62;margin-bottom:5px;">🧊 Por qué pegarle la normativa funciona — y por qué a veces inventa</div>
+            <div style="font-size:12.5px;color:#141413;line-height:1.75;">Lo que el modelo "sabe" quedó fijo durante su entrenamiento y <strong style="color:#141413;">no cambia con nada de lo que le mandes</strong>. Tu pedido, tus archivos y tus instrucciones <strong style="color:#141413;">orientan</strong> la respuesta — y orientan muy bien — pero no le enseñan nada permanente: sirven para ese pedido y nada más.<br>De ahí salen dos conclusiones prácticas. Una: si una resolución de ARCA salió después de la fecha de corte del modelo, <strong style="color:#141413;">no la tiene</strong> — pegásela y la va a usar sin problema, pero no cuentes con que la conozca. Dos: cuando <strong style="color:#141413;">afirma con seguridad algo que no existe</strong>, no es que buscó mal y falló: está completando lo que "suena plausible" según los patrones con los que se entrenó. Por eso <strong style="color:#a8532f;">todo dato normativo o de cálculo se verifica contra la fuente</strong>, por seguro que suene.</div>
+          </div>
+
+          <div style="background:#faf9f5;border:1px dashed #cfc9bd;border-radius:8px;padding:11px 14px;font-size:11.5px;color:#5d4037;line-height:1.7;">💡 <strong style="color:#141413;">Los modelos no se especializan por rubro.</strong> No hay un modelo "para finanzas" y otro "para ciencia": todos se entrenan para rendir en código, tareas agénticas y trabajo de conocimiento. Lo único que cambia entre escalones es <strong style="color:#141413;">qué tan difícil es el problema que pueden sostener de forma confiable</strong>, y qué cuesta esa capacidad en tiempo y cupo. Así que no busques el modelo "de Payroll" — mirá qué tan dura es la tarea que tenés enfrente.</div>
+        </div>
+
         <sc-if value="{{ showLadder }}" hint-placeholder-val="{{ true }}">
           <div style="background:#ffffff;border:1.5px solid #e8e6dc;border-radius:12px;padding:20px 24px;margin-bottom:22px;">
             <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;">
@@ -339,16 +393,63 @@
         <sc-if value="{{ secEffort.open }}">
           <div style="padding:4px 18px 18px;">
           <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:#a8532f;margin-bottom:12px;">¿Thinking sí o no? ¿Cuánto esfuerzo?</div>
+
+          <div style="background:#fdf1ec;border-left:4px solid #d97757;border-radius:0 9px 9px 0;padding:13px 16px;margin-bottom:14px;">
+            <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#a8532f;margin-bottom:5px;">Lo primero que hay que desarmar · el esfuerzo no es "tiempo de pensar"</div>
+            <div style="font-size:13px;color:#141413;line-height:1.75;">El nombre engaña. El nivel de esfuerzo <strong style="color:#141413;">no regula solamente cuánto piensa antes de contestar</strong>: regula <strong style="color:#141413;">cuánto trabajo hace en total</strong> por cada pedido. Cuántos archivos abre, cuántas herramientas usa, cuánto verifica lo que hizo, y <strong style="color:#141413;">hasta dónde avanza en una tarea de varios pasos antes de volver a preguntarte</strong>.<br>Con esfuerzo alto lee más, corre las pruebas y se revisa antes de volver. Con esfuerzo bajo <strong style="color:#141413;">prefiere pedirte contexto</strong> antes que gastar tokens averiguándolo solo. Por eso "subir el esfuerzo" cambia el comportamiento, no solo la demora.</div>
+          </div>
+
+          <div style="background:rgba(120,140,93,0.09);border:1.5px solid rgba(120,140,93,0.35);border-radius:10px;padding:13px 16px;margin-bottom:14px;">
+            <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#5a6b45;margin-bottom:5px;">La recomendación oficial · dejá el default</div>
+            <div style="font-size:13px;color:#141413;line-height:1.75;"><strong style="color:#141413;">Para la enorme mayoría de las tareas, no toques el esfuerzo.</strong> El default de cada modelo (hoy <strong style="color:#141413;">High</strong> en Sonnet 5 y Opus 5) está calibrado para gastar lo que la mayoría querría gastar en esa tarea. Y el modelo <strong style="color:#141413;">no infla el gasto porque le hayas puesto esfuerzo alto</strong>: si el primer chequeo ya encontró el problema, se saltea el resto — el "sobrepensar" es algo que Anthropic mide y penaliza durante el entrenamiento.<br>Pensá el esfuerzo como <strong style="color:#141413;">una preferencia general según el tipo de trabajo que hacés</strong>, no como una decisión tarea por tarea.</div>
+          </div>
+
+          <div style="background:#ffffff;border:1.5px solid rgba(217,119,87,0.45);border-radius:10px;padding:14px 16px;margin-bottom:14px;">
+            <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#a8532f;margin-bottom:4px;">🔧 Salió mal — ¿qué perilla toco?</div>
+            <div style="font-size:12px;color:#726c62;line-height:1.65;margin-bottom:11px;">Esta es la parte más útil de la guía oficial. <strong style="color:#141413;">Antes de tocar cualquier perilla, mirá el contexto</strong>: ¿el pedido era demasiado vago? ¿le diste los archivos que hacían falta? Si estás subiendo el esfuerzo en algo que no debería necesitarlo, el problema casi siempre está más arriba — en cómo pediste la tarea, no en la configuración. Recién después, la pregunta es una sola: <strong style="color:#141413;">¿no supo, o no se esforzó?</strong></div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:11px;">
+              <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:12px 14px;">
+                <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#141413;margin-bottom:5px;">📈 Cambiá el modelo — "no supo"</div>
+                <div style="font-size:12px;color:#141413;line-height:1.65;">Tenía todo el contexto necesario, <strong style="color:#141413;">se ve que lo intentó en serio</strong>, y el resultado igual está mal. O está seguro de algo equivocado por más contexto que le des. Ahí el problema es capacidad: <strong style="color:#141413;">subí de escalón</strong>.<br><span style="color:#726c62;">Y al revés: si venís un rato con tareas rutinarias en el modelo grande, bajá de escalón — ganás velocidad y ahorrás cupo sin perder calidad.</span></div>
+              </div>
+              <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:12px 14px;">
+                <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#141413;margin-bottom:5px;">⚡ Subí el esfuerzo — "no se esforzó"</div>
+                <div style="font-size:12px;color:#141413;line-height:1.65;">Salió mal porque <strong style="color:#141413;">se salteó un archivo</strong>, no corrió las validaciones, o <strong style="color:#141413;">abandonó un cambio largo a mitad de camino</strong>. No es que no supiera: no llegó hasta el final. Ahí subí el esfuerzo.<br><span style="color:#726c62;">Aplica sobre todo si habías bajado el esfuerzo por debajo del default del modelo.</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:10px;padding:14px 16px;margin-bottom:14px;">
+            <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#141413;margin-bottom:4px;">🎭 La analogía que lo ordena todo</div>
+            <div style="font-size:12px;color:#726c62;line-height:1.65;margin-bottom:11px;">De la guía oficial de Claude Code. <strong style="color:#141413;">El modelo define qué tan capaz es; el esfuerzo, cuánto tiempo le dedica.</strong> Casi toda tarea real necesita algo de las dos cosas.</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;gap:12px;align-items:flex-start;background:#ffffff;border:1px solid #e8e6dc;border-radius:9px;padding:11px 14px;">
+                <span style="flex:0 0 auto;background:rgba(120,140,93,0.16);color:#5a6b45;font-family:'Poppins',Arial,sans-serif;font-size:10.5px;font-weight:700;padding:4px 0;border-radius:6px;width:84px;text-align:center;">Sonnet</span>
+                <div style="flex:1;font-size:12.5px;color:#141413;line-height:1.6;"><strong style="color:#141413;">Un generalista muy bueno.</strong> Con esfuerzo alto es como darle toda la tarde: lee todo, prueba, se revisa y termina entendiendo tu caso a fondo. Lo que le falta es el "esto ya lo vi antes".</div>
+              </div>
+              <div style="display:flex;gap:12px;align-items:flex-start;background:#ffffff;border:1px solid #e8e6dc;border-radius:9px;padding:11px 14px;">
+                <span style="flex:0 0 auto;background:rgba(20,20,19,0.85);color:#fff;font-family:'Poppins',Arial,sans-serif;font-size:10.5px;font-weight:700;padding:4px 0;border-radius:6px;width:84px;text-align:center;">Opus</span>
+                <div style="flex:1;font-size:12.5px;color:#141413;line-height:1.6;"><strong style="color:#141413;">El experto.</strong> Con esfuerzo bajo es como tener cinco minutos con alguien que ya resolvió muchos casos parecidos: trae los patrones y las trampas que conviene chequear, cosas que no están en ningún archivo tuyo. Pero en cinco minutos lee tu caso rápido, no con cuidado.</div>
+              </div>
+              <div style="display:flex;gap:12px;align-items:flex-start;background:#ffffff;border:1px solid rgba(138,106,156,0.4);border-radius:9px;padding:11px 14px;">
+                <span style="flex:0 0 auto;background:#8a6a9c;color:#fff;font-family:'Poppins',Arial,sans-serif;font-size:10.5px;font-weight:700;padding:4px 0;border-radius:6px;width:84px;text-align:center;">Fable</span>
+                <div style="flex:1;font-size:12.5px;color:#141413;line-height:1.6;"><strong style="color:#141413;">El especialista.</strong> Vio problemas que casi nadie vio. Incluso con esfuerzo bajo, mira el problema en el que todos los demás se trabaron y ve la cosa que nadie más vería. <strong style="color:#141413;">Ese reconocimiento es exactamente lo que estás pagando caro</strong> — por eso se guarda para las tareas que de verdad lo necesitan. En las pruebas de Anthropic terminó trabajos que Opus y Sonnet no alcanzan con ningún nivel de esfuerzo.</div>
+              </div>
+            </div>
+          </div>
+
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;">
             <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:13px 15px;">
               <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#141413;margin-bottom:6px;">🧠 ¿Prendo thinking?</div>
-              <div style="font-size:12.5px;color:#141413;line-height:1.7;"><strong style="color:#5a6b45;">Prendelo</strong> cuando hay <strong style="color:#141413;">números que rastrear o pasos que dependen entre sí</strong>: debugging de liquidación, fórmulas encadenadas, cruces entre sistemas, decisiones con varias variables.<br><strong style="color:#a8532f;">Apagalo</strong> cuando <strong style="color:#141413;">escribís</strong>: un mail, documentar, pensar opciones. Ahí solo lo hace más lento, sin mejorar el resultado.</div>
+              <div style="font-size:12.5px;color:#141413;line-height:1.7;"><strong style="color:#5a6b45;">Prendelo</strong> cuando hay <strong style="color:#141413;">números que rastrear o pasos que dependen entre sí</strong>: debugging de liquidación, fórmulas encadenadas, cruces entre sistemas, decisiones con varias variables.<br><strong style="color:#a8532f;">Apagalo</strong> cuando <strong style="color:#141413;">escribís</strong>: un mail, documentar, pensar opciones. Ahí solo lo hace más lento, sin mejorar el resultado.<br><span style="font-size:11.5px;color:#877f74;">Donde el esfuerzo está disponible, es la forma recomendada de controlar cuánto piensa — la perilla de thinking queda para casos puntuales.</span></div>
             </div>
             <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:13px 15px;">
               <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#141413;margin-bottom:6px;">⚡ ¿Qué esfuerzo?</div>
-              <div style="font-size:12.5px;color:#141413;line-height:1.7;">Para el día a día, <strong style="color:#141413;">High</strong> (el default de Sonnet 5 y Opus 5) alcanza. Bajá a <strong style="color:#141413;">Medium/Low</strong> para consultas puntuales de alto volumen cuando querés estirar el cupo. Subí a <strong style="color:#141413;">xhigh/Max</strong> solo para tareas de código largas o cuando necesitás la máxima profundidad sin importar el tiempo.</div>
+              <div style="font-size:12.5px;color:#141413;line-height:1.7;">Para el día a día, <strong style="color:#141413;">dejá el default: High</strong> (el de Sonnet 5 y Opus 5). Bajá a <strong style="color:#141413;">Medium/Low</strong> si tu trabajo es de consultas puntuales y alto volumen y querés estirar el cupo. Subí a <strong style="color:#141413;">xhigh/Max</strong> solo para tareas de código largas o cuando necesitás la máxima profundidad sin importar el tiempo.<br><span style="font-size:11.5px;color:#877f74;">Elegilo por el tipo de trabajo que hacés, no tarea por tarea.</span></div>
             </div>
           </div>
+
+          <div style="background:#faf9f5;border:1px dashed #cfc9bd;border-radius:8px;padding:11px 14px;margin-top:12px;font-size:11.5px;color:#5d4037;line-height:1.7;">📌 <strong style="color:#141413;">El esfuerzo orienta el gasto, no lo limita.</strong> No es un presupuesto de tokens: cada nivel cae en un rango que depende de la tarea. Si querés acotar de verdad la respuesta, <strong style="color:#141413;">pedíselo en el mensaje</strong> ("respondeme corto", "no toques otros archivos") — el modelo está entrenado para respetar ese tipo de indicación. Y ojo con el otro lado: <strong style="color:#141413;">en una tarea fácil los escalones se igualan</strong>. Los dos modelos la resuelven casi de entrada, y de ahí en más los tokens extra compran doble chequeo, no calidad.</div>
 
           <details style="margin-top:12px;">
             <summary style="cursor:pointer;font-family:'Poppins',Arial,sans-serif;font-size:11.5px;font-weight:600;color:#a8532f;">Ver el detalle de los cinco niveles de esfuerzo (referencia)</summary>
@@ -839,6 +940,72 @@
           </div>
         </div>
 
+        <div style="border:1.5px solid rgba(106,155,204,0.4);border-radius:12px;overflow:hidden;margin-top:22px;background:#ffffff;">
+          <div style="background:rgba(106,155,204,0.09);padding:14px 18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+            <span style="font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:700;color:#3d6690;display:flex;align-items:center;gap:7px;"><span style="font-size:15px;">🎓</span>La estrategia del asesor</span>
+            <span style="background:#ffffff;border:1px solid rgba(106,155,204,0.4);color:#3d6690;font-family:'Poppins',Arial,sans-serif;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;padding:3px 9px;border-radius:20px;">Solo API</span>
+            <span style="background:#ffffff;border:1px solid #cfc9bd;color:#726c62;font-family:'Poppins',Arial,sans-serif;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;padding:3px 9px;border-radius:20px;">Beta</span>
+          </div>
+          <div style="padding:18px;">
+            <div style="background:#fff8e1;border-left:3px solid #d97757;border-radius:0 8px 8px 0;padding:11px 14px;margin-bottom:14px;font-size:12px;color:#5d4037;line-height:1.7;">⚠️ <strong style="color:#141413;">Esto no se usa desde Chat, Cowork ni Claude Code.</strong> Es una función de la API de Anthropic, para código que llama a Claude por programa. Hoy el equipo no tiene nada así — las herramientas del portal corren enteras en el navegador y no hablan con ninguna API. Queda documentado por si algún día se evalúa integrar algo, y porque explica bien <strong style="color:#141413;">cómo se consigue casi la calidad de Opus pagando cerca de Sonnet</strong>.</div>
+
+            <p style="font-size:13px;color:#141413;line-height:1.75;margin-bottom:14px;max-width:840px;">La idea: en vez de que el modelo grande reparta el trabajo entre modelos chicos, <strong style="color:#141413;">se da vuelta</strong>. Un modelo económico (Sonnet o Haiku) es el <strong style="color:#141413;">ejecutor</strong> y hace la tarea de punta a punta — llama herramientas, lee resultados, itera. Cuando llega a una decisión que no puede resolver bien solo, <strong style="color:#141413;">consulta a Opus como asesor</strong>. Opus mira el contexto compartido y devuelve un plan, una corrección o un "pará acá"; el ejecutor sigue. <strong style="color:#141413;">El asesor nunca llama herramientas ni le escribe al usuario</strong>: solo orienta al ejecutor.</p>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:16px;">
+              <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:13px 14px;">
+                <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#3d6690;margin-bottom:5px;">💰 Por qué sale barato</div>
+                <div style="font-size:12px;color:#141413;line-height:1.6;">El asesor solo escribe un plan corto (unos <strong style="color:#141413;">400 a 700 tokens</strong>) y se le cobra a la tarifa de Opus. Todo el resto de la salida — que es la mayor parte — la genera el ejecutor a su tarifa más baja. El costo total queda muy por debajo de correr Opus de punta a punta.</div>
+              </div>
+              <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:13px 14px;">
+                <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#3d6690;margin-bottom:5px;">📊 Qué midió Anthropic</div>
+                <div style="font-size:12px;color:#141413;line-height:1.6;">Sonnet con asesor Opus: <strong style="color:#141413;">+2,7 puntos</strong> sobre Sonnet solo en SWE-bench Multilingual, y <strong style="color:#141413;">11,9% menos de costo</strong> por tarea. Haiku con asesor Opus en BrowseComp: <strong style="color:#141413;">41,2% contra 19,7%</strong> solo — más del doble.</div>
+              </div>
+              <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:13px 14px;">
+                <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#3d6690;margin-bottom:5px;">🎚️ Controles de gasto</div>
+                <div style="font-size:12px;color:#141413;line-height:1.6;"><code style="background:#e8e6dc;padding:1px 5px;border-radius:4px;font-size:11.5px;">max_uses</code> limita cuántas veces se puede consultar al asesor por pedido. Los tokens del asesor <strong style="color:#141413;">se informan aparte</strong> en el bloque de <code style="background:#e8e6dc;padding:1px 5px;border-radius:4px;font-size:11.5px;">usage</code>, así que se puede seguir el gasto de cada escalón por separado.</div>
+              </div>
+              <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:13px 14px;">
+                <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#3d6690;margin-bottom:5px;">⚙️ Cuánto trabajo es</div>
+                <div style="font-size:12px;color:#141413;line-height:1.6;">Una entrada más en la lista de herramientas del pedido: <strong style="color:#141413;">no hay que armar orquestación, ni pool de workers, ni manejar el contexto a mano</strong>. El traspaso pasa dentro de un mismo pedido a <code style="background:#e8e6dc;padding:1px 5px;border-radius:4px;font-size:11.5px;">/v1/messages</code>, sin vueltas extra.</div>
+              </div>
+            </div>
+
+            <div style="font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:#877f74;margin-bottom:8px;">Cómo se hace — tres pasos</div>
+            <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:14px;">
+              <div style="display:flex;gap:11px;align-items:flex-start;background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:11px 13px;">
+                <span style="flex:0 0 auto;background:rgba(106,155,204,0.16);color:#3d6690;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;width:22px;height:22px;line-height:22px;border-radius:50%;text-align:center;">1</span>
+                <div style="flex:1;font-size:12.5px;color:#141413;line-height:1.6;">Agregar el header de beta: <code style="background:#e8e6dc;padding:1px 5px;border-radius:4px;font-size:11.5px;">anthropic-beta: advisor-tool-2026-03-01</code></div>
+              </div>
+              <div style="display:flex;gap:11px;align-items:flex-start;background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:11px 13px;">
+                <span style="flex:0 0 auto;background:rgba(106,155,204,0.16);color:#3d6690;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;width:22px;height:22px;line-height:22px;border-radius:50%;text-align:center;">2</span>
+                <div style="flex:1;font-size:12.5px;color:#141413;line-height:1.6;">Sumar la herramienta <code style="background:#e8e6dc;padding:1px 5px;border-radius:4px;font-size:11.5px;">advisor_20260301</code> al pedido, indicando qué modelo hace de asesor y el tope de consultas.</div>
+              </div>
+              <div style="display:flex;gap:11px;align-items:flex-start;background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:11px 13px;">
+                <span style="flex:0 0 auto;background:rgba(106,155,204,0.16);color:#3d6690;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;width:22px;height:22px;line-height:22px;border-radius:50%;text-align:center;">3</span>
+                <div style="flex:1;font-size:12.5px;color:#141413;line-height:1.6;">Ajustar el system prompt según el caso de uso — la documentación trae uno sugerido para tareas de código.</div>
+              </div>
+            </div>
+
+            <div style="background:#141413;border-radius:9px;padding:14px 16px;overflow-x:auto;margin-bottom:12px;">
+              <pre style="margin:0;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:11.5px;line-height:1.7;color:#f0ece4;">response = client.messages.create(
+    model="claude-sonnet-5",          # ejecutor: hace el trabajo
+    tools=[
+        {
+            "type": "advisor_20260301",
+            "name": "advisor",
+            "model": "claude-opus-5",  # asesor: solo orienta
+            "max_uses": 3,             # tope de consultas
+        },
+        # ... el resto de tus herramientas
+    ],
+    messages=[...]
+)</pre>
+            </div>
+
+            <div style="background:rgba(120,140,93,0.08);border:1px solid rgba(120,140,93,0.3);border-radius:9px;padding:12px 15px;font-size:12.5px;color:#141413;line-height:1.7;"><strong style="color:#5a6b45;">Antes de adoptarlo:</strong> la recomendación oficial es correr tus propias pruebas en las tres configuraciones — <strong style="color:#141413;">Sonnet solo</strong>, <strong style="color:#141413;">Sonnet con asesor Opus</strong> y <strong style="color:#141413;">Opus solo</strong> — y comparar calidad contra costo con tus casos reales, no con los benchmarks. El ejecutor decide por sí mismo cuándo consultar al asesor, así que el ahorro real depende de cuán seguido se trabe en tu tarea concreta.</div>
+          </div>
+        </div>
+
         <div style="background:#faf9f5;border:1px dashed #cfc9bd;border-radius:9px;padding:12px 15px;margin-top:18px;">
           <div style="font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:#877f74;margin-bottom:6px;">Precios de lista de API — solo de referencia, no aplican al plan del equipo</div>
           <div style="font-size:11px;color:#877f74;line-height:1.7;">El equipo entra por el plan Team de H&amp;A, donde nadie paga por token: la unidad que importa es el cupo. Estos números sirven únicamente si alguna vez se evalúa integrar algo por fuera del plan, por millón de tokens de entrada / salida: <strong style="color:#726c62;">Haiku 4.5 $1 / $5</strong> · <strong style="color:#726c62;">Sonnet 5 $3 / $15</strong> (con precio introductorio de $2 / $10 hasta el 31 de agosto de 2026) · <strong style="color:#726c62;">Opus 5 $5 / $25</strong> · <strong style="color:#726c62;">Fable 5 $10 / $50</strong>. Fuente: <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener" style="color:#a8532f;">precios oficiales de Anthropic</a>.</div>
@@ -1037,6 +1204,26 @@
         <sc-if value="{{ secRefs.open }}">
           <div style="padding:4px 18px 18px;">
       <div style="font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.9px;color:#a8532f;margin-bottom:12px;display:flex;align-items:center;gap:8px;"><span style="width:18px;height:1.5px;background:#d97757;display:inline-block;"></span>Referencias oficiales de Anthropic</div>
+
+      <div style="background:#fdf1ec;border:1.5px solid rgba(217,119,87,0.45);border-radius:11px;padding:15px 17px;margin-bottom:20px;">
+        <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#a8532f;margin-bottom:4px;">📘 Las fuentes de esta guía · elección de modelo y esfuerzo</div>
+        <div style="font-size:12px;color:#5d4037;line-height:1.65;margin-bottom:12px;">Los tres artículos de Anthropic contra los que se revisó esta versión (5 ago 2026). Si algo de acá te suena raro o quedó viejo, la respuesta está en estos links.</div>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <a href="https://claude.com/blog/claude-models-explained-choosing-the-best-model-for-your-use-case" target="_blank" rel="noopener" style="display:block;background:#ffffff;border:1px solid rgba(217,119,87,0.3);border-radius:9px;padding:11px 13px;text-decoration:none;">
+            <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#a8532f;margin-bottom:2px;">Claude models explained: choosing the best model for your use case →</div>
+            <div style="font-size:11.5px;color:#726c62;line-height:1.6;">Las cuatro clases de modelo, las cuatro preguntas para elegir, y por qué el costo por tarea puede ser menor en un modelo más capaz.</div>
+          </a>
+          <a href="https://claude.com/blog/claude-model-and-effort-level-in-claude-code" target="_blank" rel="noopener" style="display:block;background:#ffffff;border:1px solid rgba(217,119,87,0.3);border-radius:9px;padding:11px 13px;text-decoration:none;">
+            <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#a8532f;margin-bottom:2px;">Choosing a Claude model and effort level in Claude Code →</div>
+            <div style="font-size:11.5px;color:#726c62;line-height:1.6;">Qué controla realmente el esfuerzo, el criterio de "¿no supo o no se esforzó?", y la analogía especialista / experto / generalista.</div>
+          </a>
+          <a href="https://claude.com/blog/the-advisor-strategy" target="_blank" rel="noopener" style="display:block;background:#ffffff;border:1px solid rgba(217,119,87,0.3);border-radius:9px;padding:11px 13px;text-decoration:none;">
+            <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#a8532f;margin-bottom:2px;">The advisor strategy: give agents an intelligence boost →</div>
+            <div style="font-size:11.5px;color:#726c62;line-height:1.6;">Sonnet o Haiku como ejecutor consultando a Opus como asesor. Solo API — el detalle está en la sección de Claude Code.</div>
+          </a>
+        </div>
+      </div>
+
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;">
         <div>
           <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#141413;margin-bottom:7px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">Claude Opus 5 <span style="font-weight:500;color:#877f74;font-size:11px;">· 24 jul 2026</span><span style="background:#d97757;color:#fff;font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;padding:2px 6px;border-radius:20px;">Nuevo</span></div>
@@ -1068,6 +1255,7 @@
             <a href="https://platform.claude.com/docs/en/about-claude/models/introducing-claude-fable-5-and-claude-mythos-5" target="_blank" rel="noopener" style="font-size:12px;color:#a8532f;text-decoration:none;border-bottom:1px solid rgba(168,83,47,0.28);width:fit-content;">Documentación técnica</a>
             <a href="https://www.anthropic.com/glasswing" target="_blank" rel="noopener" style="font-size:12px;color:#a8532f;text-decoration:none;border-bottom:1px solid rgba(168,83,47,0.28);width:fit-content;">Project Glasswing</a>
           </div>
+          <div style="font-size:11.5px;color:#877f74;line-height:1.6;margin-top:7px;">Son <strong style="color:#726c62;">el mismo modelo con distinto empaquetado</strong>: Mythos es para organizaciones habilitadas que trabajan con temas de ciberseguridad y biología de doble uso, y Fable es la versión con salvaguardas extra, apta para uso general. Al equipo le corresponde Fable.</div>
         </div>
       </div>
       <div style="background:#fff8e1;border:1px solid rgba(217,119,87,0.3);border-radius:8px;padding:11px 14px;margin-top:16px;font-size:11.5px;color:#5d4037;line-height:1.65;"><strong style="color:#a8532f;">Novedad (24 jul 2026):</strong> se lanzó <strong style="color:#a8532f;">Claude Opus 5</strong>, que pasa a ser el escalón Opus de esta guía. Mismo consumo de cupo que el escalón anterior, con capacidad muy cercana a Fable 5 — el detalle está en la pestaña "Claude Code". Fuente: <a href="https://www.anthropic.com/news/claude-opus-5" target="_blank" rel="noopener" style="color:#a8532f;font-weight:600;">anuncio oficial</a>.</div>
@@ -1084,7 +1272,7 @@
         <span style="width:1px;height:22px;background:#d5d0c6;display:inline-block;"></span>
         <span style="font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:600;color:#726c62;letter-spacing:-0.2px;opacity:0.82;">Anthropic</span>
       </div>
-      <span style="font-size:11px;color:#b0aea5;text-align:right;">Guía interna de Payroll · v12 · Hidalgo &amp; Asociados · Datos verificados al 27 de julio de 2026 · anthropic.com/pricing</span>
+      <span style="font-size:11px;color:#b0aea5;text-align:right;">Guía interna de Payroll · v13 · Hidalgo &amp; Asociados · Datos verificados al 5 de agosto de 2026 · anthropic.com/pricing</span>
     </div>
 
   </div>
@@ -1361,6 +1549,12 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
     {label:'SAC, retenciones, cálculo que toca plata',        section:'why',       kw:'sac retenciones aguinaldo sueldo plata riesgo opus escalar calculo'},
     {label:'¿Prendo thinking?',                               section:'effort',    kw:'thinking razonamiento extendido prender apagar'},
     {label:'Niveles de esfuerzo: low, medium, high, xhigh',    section:'effort',    kw:'esfuerzo effort low medium high xhigh max default nivel'},
+    {label:'Salió mal: ¿cambio el modelo o subo el esfuerzo?', section:'effort',    kw:'salio mal error equivocado perilla modelo esfuerzo no supo no se esforzo diagnostico arreglar'},
+    {label:'Qué controla realmente el esfuerzo',               section:'effort',    kw:'esfuerzo effort archivos verifica pasos tiempo pensar thinking mito controla'},
+    {label:'Especialista, experto y generalista',               section:'effort',    kw:'analogia especialista experto generalista fable opus sonnet metafora comparar'},
+    {label:'Recomendación oficial de Anthropic para elegir',    section:'why',       kw:'oficial anthropic recomendacion arrancar empezar mas capaz costo por tarea blog fuente'},
+    {label:'Por qué inventa datos y por qué pegar la norma sirve', section:'why',    kw:'alucinacion inventa pesos entrenamiento corte contexto arca normativa verificar fuente'},
+    {label:'Estrategia del asesor (advisor tool, solo API)',    section:'code',      kw:'asesor advisor ejecutor api opus sonnet haiku barato costo max_uses'},
     {label:'Consumo de cupo por modelo',                      section:'compare',   kw:'cupo costo consumo caro barato dolares precio mtok token'},
     {label:'Excel con fórmulas que funcionan',                section:'cowork',    kw:'excel xlsx formulas vlookup planilla solapas entregable'},
     {label:'Tareas programadas (/schedule)',                  section:'cowork',    kw:'schedule programada automatica mensual recurrente nube repetir'},
