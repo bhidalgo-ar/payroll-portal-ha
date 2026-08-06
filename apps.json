@@ -2,9 +2,9 @@
   "meta": {
     "titulo": "Portal Hidalgo & Asociados",
     "subtitulo": "Herramientas internas del equipo",
-    "version": "1.2",
-    "ultimaActualizacion": "2026-08-05",
-    "ultimaRevision": "2026-08-05",
+    "version": "1.3",
+    "ultimaActualizacion": "2026-08-06",
+    "ultimaRevision": "2026-08-06",
     "diasReciente": 7,
     "repoDefecto": "bhidalgo-ar/payroll-portal-ha"
   },
@@ -75,11 +75,11 @@
       "descripcion": "Guía para entender qué modelo de IA usar según la tarea",
       "url": "https://bhidalgo-ar.github.io/payroll-portal-ha/casos_uso_modelos_comparativa.html",
       "icono": "🤖",
-      "version": "13",
+      "version": "14",
       "categoria": "Herramientas",
       "estado": "productivo",
       "agregado": "2026-04-16",
-      "actualizado": "2026-08-05"
+      "actualizado": "2026-08-06"
     },
     {
       "id": 7,

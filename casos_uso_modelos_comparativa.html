@@ -27,12 +27,12 @@
     <div style="margin-bottom:28px;">
       <h1 style="font-family:'Poppins',Arial,sans-serif;font-size:28px;font-weight:600;color:#141413;letter-spacing:-0.3px;margin-bottom:6px;">Cómo usar Claude en Payroll</h1>
       <div style="display:flex;align-items:center;gap:9px;margin-bottom:8px;flex-wrap:wrap;">
-        <span style="background:#e8e6dc;color:#726c62;font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:3px 9px;border-radius:20px;">Guía interna · v13</span>
-        <span style="font-size:11px;color:#b0aea5;">Datos verificados al 5 de agosto de 2026</span>
+        <span style="background:#e8e6dc;color:#726c62;font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:3px 9px;border-radius:20px;">Guía interna · v14</span>
+        <span style="font-size:11px;color:#b0aea5;">Datos verificados al 6 de agosto de 2026</span>
       </div>
-      <p style="font-size:14px;color:#726c62;max-width:760px;">Elegí qué tenés que hacer y la guía te dice con qué herramienta, qué modelo y si conviene prender thinking. Si querés el detrás de escena, está todo abajo — cerrado, para abrir solo lo que busques.</p>
+      <p style="font-size:14px;color:#726c62;max-width:760px;">Elegí qué tenés que hacer y la guía te dice con qué herramienta, qué modelo y cuánto esfuerzo. Si querés el detrás de escena, está todo abajo — cerrado, para abrir solo lo que busques.</p>
       <div style="background:#fdf1ec;border-left:3px solid #d97757;border-radius:0 8px 8px 0;padding:11px 15px;margin-top:14px;max-width:860px;">
-        <div style="font-size:12.5px;color:#141413;line-height:1.7;"><strong style="color:#a8532f;">Actualizado el 5 de agosto de 2026:</strong> se revisó la guía contra dos artículos oficiales de Anthropic sobre cómo elegir modelo y esfuerzo. Los dos cambios que más importan: <strong style="color:#141413;">el "esfuerzo" no es tiempo de pensar</strong> — controla cuántos archivos lee, cuánto verifica y hasta dónde avanza antes de volver a preguntarte — y hay una <strong style="color:#141413;">forma concreta de saber qué perilla tocar cuando algo sale mal</strong>: si no sabía, cambiá el modelo; si no se esforzó, subí el esfuerzo. Está todo en <strong style="color:#141413;">"Thinking y niveles de esfuerzo"</strong>.</div>
+        <div style="font-size:12.5px;color:#141413;line-height:1.7;"><strong style="color:#a8532f;">Actualizado el 6 de agosto de 2026:</strong> lo más útil que se sumó no es un modelo nuevo, es una forma de pedir: <strong style="color:#141413;">escribí "entrevistame" y dejá que pregunte antes de arrancar</strong>. Mejora el resultado más que subir de modelo, y tiene su propia sección. Además: el <strong style="color:#141413;">"esfuerzo" no es tiempo de pensar</strong> — controla cuántos archivos lee, cuánto verifica y hasta dónde avanza antes de volver a preguntarte — y hay una <strong style="color:#141413;">forma concreta de saber qué perilla tocar cuando algo sale mal</strong>: si no sabía, cambiá el modelo; si no se esforzó, subí el esfuerzo.</div>
       </div>
     </div>
 
@@ -133,8 +133,10 @@
           <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:10px;padding:13px 15px;margin-bottom:14px;">
             <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:8px;">
               <span style="background:{{ rec.modelBg }};color:{{ rec.modelColor }};font-family:'Poppins',Arial,sans-serif;font-size:15px;font-weight:700;padding:3px 11px;border-radius:8px;">{{ rec.model }}</span>
-              <span style="font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:600;color:#141413;">thinking {{ rec.thinking }}</span>
-              <span style="font-size:12px;color:#877f74;">·</span>
+              <sc-if value="{{ rec.showThinking }}">
+                <span style="background:rgba(120,140,93,0.16);color:#5a6b45;font-family:'Poppins',Arial,sans-serif;font-size:12.5px;font-weight:700;padding:3px 10px;border-radius:6px;">🧠 conviene thinking</span>
+                <span style="font-size:12px;color:#877f74;">·</span>
+              </sc-if>
               <span style="font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:600;color:#141413;">esfuerzo {{ rec.effort }}</span>
               <span style="background:#f2f0ea;color:#726c62;font-family:'Poppins',Arial,sans-serif;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:6px;">cupo {{ rec.cupo }}</span>
             </div>
@@ -376,6 +378,57 @@
 
       <div style="background:#faf9f5;border:1px dashed #cfc9bd;border-radius:8px;padding:10px 13px;margin-top:12px;font-size:11.5px;color:#877f74;line-height:1.65;">Cowork y Code son <strong style="color:#726c62;">el mismo motor por debajo</strong>; cambia para qué está pensado cada uno. Code es para trabajo de ingeniería de software; Cowork, para trabajo de oficina de varios pasos que no es programar. Chat y Cowork comparten el mismo cuadro de mensaje: se elige uno u otro ahí, antes de escribir.</div>
     </div>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+    <sc-if value="{{ secPedir.visible }}">
+      <div id="sec-pedir" style="background:#ffffff;border:1.5px solid #e8e6dc;border-radius:12px;margin-bottom:9px;">
+        <button onClick="{{ secPedir.toggle }}" style="width:100%;background:{{ secPedir.headBg }};border:none;border-radius:12px;padding:14px 18px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;">
+          <span style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+            <span style="font-size:15px;">🎤</span>
+            <span style="font-family:'Poppins',Arial,sans-serif;font-size:13.5px;font-weight:600;color:#141413;">Cómo pedir mejor — hacé que te entreviste</span>
+            <span style="font-size:11.5px;color:#877f74;">la técnica que más mejora el resultado, sin cambiar de modelo</span>
+          </span>
+          <span style="font-family:'Poppins',Arial,sans-serif;font-size:15px;color:#a8532f;flex-shrink:0;">{{ secPedir.chev }}</span>
+        </button>
+        <sc-if value="{{ secPedir.open }}">
+          <div style="padding:4px 18px 18px;">
+
+            <div style="background:#fdf1ec;border-left:4px solid #d97757;border-radius:0 9px 9px 0;padding:14px 17px;margin-bottom:16px;">
+              <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#a8532f;margin-bottom:6px;">La palabra mágica</div>
+              <div style="font-size:14px;color:#141413;line-height:1.75;">Antes de subir de modelo o de tocar el esfuerzo, probá esto: pedile que <strong style="color:#141413;">te entreviste</strong>. Escribí lo que querés lograr y agregá <strong style="color:#a8532f;">"entrevistame antes de empezar"</strong>. Claude pasa a modo pregunta: te va a preguntar para quién es, con qué restricciones, qué esperás ver — cosas que probablemente no habías pensado.<br><span style="font-size:12.5px;color:#726c62;">Funciona bastante mejor que intentar escribir el pedido perfecto de entrada.</span></div>
+            </div>
+
+            <div style="font-size:13px;color:#141413;line-height:1.75;margin-bottom:14px;max-width:860px;">Por qué funciona: <strong style="color:#141413;">casi todo pedido deja afuera más de lo que dice</strong>. Vos tenés el cuadro completo en la cabeza, y cuando lo escribís se pierde la mitad. Cuando el pedido queda vago, <strong style="color:#141413;">el modelo rellena los huecos — y los rellena distinto de como los habrías rellenado vos</strong>. Preguntando primero, esos supuestos salen a la luz <strong style="color:#141413;">cuando todavía son baratos de cambiar</strong>, en vez de aparecer cuando ya está el Excel armado o la página escrita.</div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:11px;margin-bottom:16px;">
+              <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:12px 14px;">
+                <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#141413;margin-bottom:4px;">✅ Lo que ya está en el pedido</div>
+                <div style="font-size:12px;color:#726c62;line-height:1.6;">Lo que escribiste. Es la parte fácil y la más chica.</div>
+              </div>
+              <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:12px 14px;">
+                <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#141413;margin-bottom:4px;">🤔 Lo que sabés que no dijiste</div>
+                <div style="font-size:12px;color:#726c62;line-height:1.6;">El contexto que tenías en la cabeza y no llegaste a escribir. Sale con una pregunta.</div>
+              </div>
+              <div style="background:#fdf1ec;border:1.5px solid rgba(217,119,87,0.35);border-radius:9px;padding:12px 14px;">
+                <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#a8532f;margin-bottom:4px;">❗ Lo que ni pensaste</div>
+                <div style="font-size:12px;color:#5d4037;line-height:1.6;"><strong style="color:#141413;">Acá está el valor.</strong> Es lo que no consideraste todavía, y lo único que lo saca a la luz es que alguien pregunte. Con los modelos actuales, lo que más limita el resultado es esto — no la capacidad del modelo.</div>
+              </div>
+            </div>
+
+            <div style="font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:#5a6b45;margin-bottom:8px;">Cómo se ve en la práctica</div>
+            <div style="background:#faf9f5;border:1px dashed #cfc9bd;border-radius:9px;padding:12px 15px;margin-bottom:14px;">
+              <div style="font-size:12.5px;color:#141413;font-style:italic;line-height:1.7;margin-bottom:9px;">"Necesito un control mensual que compare la liquidación contra el archivo contable. <strong style="font-style:normal;color:#a8532f;">Entrevistame antes de empezar</strong> para entender bien qué necesito."</div>
+              <div style="font-size:12px;color:#726c62;line-height:1.7;">Y ahí te pregunta cosas como: ¿por centro de costo o por concepto? ¿qué diferencia es tolerable y cuál hay que reportar? ¿quién lo va a abrir? ¿qué pasa con los conceptos que existen en un sistema y no en el otro? <strong style="color:#141413;">Son las preguntas que si no se hacen ahora, aparecen cuando el control ya está hecho y hay que rehacerlo.</strong></div>
+            </div>
+
+            <div style="background:rgba(120,140,93,0.09);border:1.5px solid rgba(120,140,93,0.35);border-radius:10px;padding:13px 16px;margin-bottom:14px;">
+              <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#5a6b45;margin-bottom:5px;">Cuándo conviene y cuándo no</div>
+              <div style="font-size:12.5px;color:#141413;line-height:1.75;"><strong style="color:#5a6b45;">Usalo</strong> cuando arranca algo nuevo y todavía no está claro el detalle: un control que no existía, una página nueva, un informe con un formato a definir, un proceso a automatizar. En Claude Code, combinalo con <strong style="color:#141413;">Plan mode</strong> — te entrevista, arma el plan, y recién después toca un archivo.<br><strong style="color:#a8532f;">No hace falta</strong> cuando el pedido ya es preciso y chico ("agregá una columna de estado con el mismo estilo"). Ahí preguntar solo agrega vueltas.</div>
+            </div>
+
+            <div style="background:#faf9f5;border:1px dashed #cfc9bd;border-radius:8px;padding:11px 14px;font-size:11.5px;color:#5d4037;line-height:1.7;">📌 La técnica la difundió <strong style="color:#141413;">Thariq Shihipar</strong>, del equipo de Claude Code en Anthropic — es quien construyó la herramienta con la que Claude hace estas preguntas. Está integrada al producto: no es un truco de prompt, es una función pensada para usarse así. Un resumen de sus recomendaciones, en la <a href="https://simonwillison.net/2026/Jul/21/cat-and-thariq/" target="_blank" rel="noopener" style="color:#a8532f;font-weight:600;">charla del equipo de Claude Code</a>.</div>
           </div>
         </sc-if>
       </div>
@@ -1272,7 +1325,7 @@
         <span style="width:1px;height:22px;background:#d5d0c6;display:inline-block;"></span>
         <span style="font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:600;color:#726c62;letter-spacing:-0.2px;opacity:0.82;">Anthropic</span>
       </div>
-      <span style="font-size:11px;color:#b0aea5;text-align:right;">Guía interna de Payroll · v13 · Hidalgo &amp; Asociados · Datos verificados al 5 de agosto de 2026 · anthropic.com/pricing</span>
+      <span style="font-size:11px;color:#b0aea5;text-align:right;">Guía interna de Payroll · v14 · Hidalgo &amp; Asociados · Datos verificados al 6 de agosto de 2026 · anthropic.com/pricing</span>
     </div>
 
   </div>
@@ -1524,7 +1577,7 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
      todo lo demás vive en acordeones cerrados, que el buscador
      puede abrir. Ya no hay pestañas.
      ============================================================ */
-  var SECTION_IDS = ['why','tools','effort','compare','cowork','code','artifacts','datos','refs'];
+  var SECTION_IDS = ['why','tools','pedir','effort','compare','cowork','code','artifacts','datos','refs'];
   var state = {
     answers: {},         // respuestas del cuestionario: out, data, risk, size
     editing: null,       // índice de la pregunta que se está reeditando
@@ -1537,6 +1590,7 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
 
   var SECTION_LABELS = {
     why:'¿Por qué este modelo y no otro?', tools:'¿Chat, Cowork, Code o Design?',
+    pedir:'Cómo pedir mejor — hacé que te entreviste',
     effort:'Thinking y niveles de esfuerzo', compare:'Comparativa de los cuatro modelos',
     cowork:'Cowork — cómo se usa', code:'Claude Code — para quien edita el portal',
     artifacts:'Qué puede generar Claude', datos:'Qué puedo subir y desde qué cuenta',
@@ -1547,7 +1601,8 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
      en que seccion viven. */
   var CONCEPTS = [
     {label:'SAC, retenciones, cálculo que toca plata',        section:'why',       kw:'sac retenciones aguinaldo sueldo plata riesgo opus escalar calculo'},
-    {label:'¿Prendo thinking?',                               section:'effort',    kw:'thinking razonamiento extendido prender apagar'},
+    {label:'¿Prendo thinking?',                               section:'effort',    kw:'thinking razonamiento extendido prender apagar adaptativo'},
+    {label:'"Entrevistame" — que pregunte antes de arrancar',  section:'pedir',     kw:'entrevistame entrevista preguntar preguntas pedido prompt vago supuestos intencion aclarar askuserquestion plan mode thariq'},
     {label:'Niveles de esfuerzo: low, medium, high, xhigh',    section:'effort',    kw:'esfuerzo effort low medium high xhigh max default nivel'},
     {label:'Salió mal: ¿cambio el modelo o subo el esfuerzo?', section:'effort',    kw:'salio mal error equivocado perilla modelo esfuerzo no supo no se esforzo diagnostico arreglar'},
     {label:'Qué controla realmente el esfuerzo',               section:'effort',    kw:'esfuerzo effort archivos verifica pasos tiempo pensar thinking mito controla'},
@@ -1794,8 +1849,12 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
     return 'sonnet';
   }
 
+  /* El razonamiento extendido suma cuando hay números que rastrear o pasos
+     que dependen entre sí. Escribiendo o explicando solo agrega demora, y eso
+     no cambia porque la tarea toque plata: "toca plata" define el modelo y el
+     esfuerzo, no si conviene razonar. Ver la sección de thinking y esfuerzo. */
   function resolveThinking(A){
-    if (A.risk !== 'rehago') return 'activado';
+    if (A.risk === 'encadenado' || A.risk === 'critico') return 'activado';
     if (A.out === 'analisis' || A.out === 'proceso') return 'activado';
     return 'apagado';
   }
@@ -1851,8 +1910,8 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
       tips.push('Mostrale una página del portal o una captura como referencia: hereda colores, tipografía y componentes.');
       tips.push('Exportá a PDF, PowerPoint, HTML o Google Slides, o pasáselo a Code para el HTML definitivo.');
     }
-    if (resolveThinking(A) === 'activado') tips.push('Prendé el razonamiento extendido antes de mandar el pedido: hay pasos que dependen entre sí.');
-    else tips.push('Dejá el razonamiento extendido apagado: para escribir solo lo hace más lento, sin mejorar el resultado.');
+    tips.unshift('Si no estás seguro de cómo pedirlo, escribí "entrevistame": Claude te hace las preguntas que hacen falta antes de arrancar, en vez de suponer.');
+    if (resolveThinking(A) === 'activado') tips.push('Acá conviene que razone antes de contestar: hay pasos que dependen entre sí. En Sonnet 5 y Opus 5 el razonamiento es adaptativo — la palanca es el nivel de esfuerzo, no un interruptor.');
     if (modelKey === 'opus' || modelKey === 'opusFable') tips.push('Si querés estirar el cupo, probá primero con Sonnet 5 y subí a Opus 5 solo si el resultado no te convence.');
     return tips.map(function(t){ return {text:t}; });
   }
@@ -1900,6 +1959,7 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
       model: modelLabel, modelBg: st.bg, modelColor: st.color,
       modelWhy: MODEL_WHY[modelKey],
       thinking: resolveThinking(A),
+      showThinking: resolveThinking(A) === 'activado',
       effort: resolveEffort(A, toolKey, modelKey),
       cupo: CUPO_BY_MODEL[baseModel],
       tips: tips,
