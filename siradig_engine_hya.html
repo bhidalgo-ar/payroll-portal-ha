@@ -165,6 +165,7 @@ header .hdr-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
 .emp-sub{font-size:11px;color:var(--gray);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .emp-sub .sep{color:var(--border)}
 .tag-pago{color:var(--amber);font-size:11px;font-weight:600}
+.tag-aj{color:#c62828;font-size:11px;font-weight:700}
 .tag-carga{color:#1565c0;font-size:11px;font-weight:600}
 .meta-pills{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
 .mpill{font-size:10px;font-weight:600;padding:2px 8px;border-radius:8px}
@@ -623,6 +624,7 @@ header .hdr-period{color:rgba(255,255,255,0.55);font-size:11px}
         <option value="nochanges">Sin cambios</option>
         <option value="new">Solo en período B</option>
         <option value="ret">Con pagos a cuenta</option>
+        <option value="aj">Con ajustes (suman a la base)</option>
         <option value="baja">Bajas ⚠</option>
       </select>
       <span class="fc-count" id="fc-count"></span>
@@ -806,6 +808,15 @@ function parseXML(xmlStr){
     cargas.push({apellido:tag(cf,'apellido'),nombre:tag(cf,'nombre'),nroDoc:tag(cf,'nroDoc'),parentesco:tag(cf,'parentesco'),fechaNac:tag(cf,'fechaNac'),mesDesde:tag(cf,'mesDesde')||'1',mesHasta:tag(cf,'mesHasta')||'12',porcentajeDeduccion:tag(cf,'porcentajeDeduccion')||'100',vigenteProximosPeriodos:tag(cf,'vigenteProximosPeriodos')||'N'});
   }
   data.cargasFamilia=cargas;
+  // Ajustes (ej. reintegro de aportes a SGR, art. 79 Ley 24.467): suman a la base, no son deducciones
+  const ajustes=[];
+  const ajNodes=doc.getElementsByTagName('ajuste');
+  for(let i=0;i<ajNodes.length;i++){
+    const a=ajNodes[i];const monto=tagf(a,'montoTotal');
+    if(monto===0)continue;
+    ajustes.push({tipo:a.getAttribute('tipo')||'',cuit:tag(a,'cuit'),denominacion:tag(a,'denominacion'),desc:tag(a,'descAdicional')||tag(a,'descBasica'),monto});
+  }
+  data.ajustes=ajustes;
   const empEntNodes=doc.getElementsByTagName('empEnt');
   const ganLiqOtros=[];
   for(let i=0;i<empEntNodes.length;i++){
@@ -956,12 +967,16 @@ function buildAppData(dic,pre,nomina,clientName,periodo1,periodo2){
     const total_ret_dic=ret_dic.reduce((s,r)=>s+r.monto,0);
     const total_ret_pre=ret_pre.reduce((s,r)=>s+r.monto,0);
     const hasNeg=Object.values(ded_rows).some(v=>v.pre<-0.01||v.dic<-0.01)||ret_pre.some(r=>r.monto<-0.01)||ret_dic.some(r=>r.monto<-0.01)||Object.values(ooee_rows||{}).some(v=>v.pre<-0.01||v.dic<-0.01);
+    const aggAj=(arr,lado)=>{for(const a of arr){const k=a.tipo+'|'+a.cuit;if(!ajMap.has(k))ajMap.set(k,{tipo:a.tipo,cuit:a.cuit,denominacion:a.denominacion,dic:0,pre:0,items_dic:[],items_pre:[]});const r=ajMap.get(k);r[lado]+=a.monto;r['items_'+lado].push(a);}};
+    const ajMap=new Map();aggAj(d.ajustes||[],'dic');aggAj(p.ajustes||[],'pre');
+    const aj_rows=[...ajMap.values()].map(r=>({...r,dif:r.pre-r.dic}));
+    const aj_changed=aj_rows.some(r=>Math.abs(r.dif)>0.01);
     const total_dif_full=(total_pre-total_dic)+(total_ret_pre-total_ret_dic)+(total_ooee_pre-total_ooee_dic);
     const nom=nomina[cuit]||{};
     const in_nomina=hasNomina?!!nom.CUIL:true;
     const id_empresa=nom.ID_EMPRESA?parseInt(nom.ID_EMPRESA):null;
     const id_convenio=nom.ID_CONVENIO?parseInt(nom.ID_CONVENIO):null;
-    employees.push({cuit,apellido,nombre,legajo:nom.ID_EMPLEADO?String(parseInt(nom.ID_EMPLEADO)):'',empresa:EMPRESA_LABELS[id_empresa]||'',id_empresa,cct:CONV_LABELS[id_convenio]||'',id_convenio,puesto:nom.N_PUESTO||'',departamento:nom.N_DEPARTAMENTO||'',in_nomina,only_in_pre:!dic[cuit],nroPres_dic:d.nroPresentacion||'',nroPres_pre:p.nroPresentacion||'',fecha_dic:d.fechaPresentacion||'',fecha_pre:p.fechaPresentacion||'',deds:ded_rows,total_dic,total_pre,total_dif:total_pre-total_dic,total_dif_full,cargas,ret_dic,ret_pre,ret_dic_raw,ret_pre_raw,total_ret_dic,total_ret_pre,hasNeg,tipo99_detail:p.tipo99_detail||d.tipo99_detail||[],ooee_rows,total_ooee_dic,total_ooee_pre,ganLiqOtrosEmpEnt_pre:p.ganLiqOtrosEmpEnt||[],ganLiqOtrosEmpEnt_dic:d.ganLiqOtrosEmpEnt||[]});
+    employees.push({cuit,apellido,nombre,legajo:nom.ID_EMPLEADO?String(parseInt(nom.ID_EMPLEADO)):'',empresa:EMPRESA_LABELS[id_empresa]||'',id_empresa,cct:CONV_LABELS[id_convenio]||'',id_convenio,puesto:nom.N_PUESTO||'',departamento:nom.N_DEPARTAMENTO||'',in_nomina,only_in_pre:!dic[cuit],nroPres_dic:d.nroPresentacion||'',nroPres_pre:p.nroPresentacion||'',fecha_dic:d.fechaPresentacion||'',fecha_pre:p.fechaPresentacion||'',deds:ded_rows,total_dic,total_pre,total_dif:total_pre-total_dic,total_dif_full,cargas,ret_dic,ret_pre,ret_dic_raw,ret_pre_raw,total_ret_dic,total_ret_pre,hasNeg,tipo99_detail:p.tipo99_detail||d.tipo99_detail||[],ooee_rows,total_ooee_dic,total_ooee_pre,ganLiqOtrosEmpEnt_pre:p.ganLiqOtrosEmpEnt||[],ganLiqOtrosEmpEnt_dic:d.ganLiqOtrosEmpEnt||[],aj_rows,aj_changed});
   }
   // ── SORT: legajo numérico asc, luego apellido/nombre asc ──
   employees.sort((a,b)=>{
@@ -980,7 +995,7 @@ function buildAppData(dic,pre,nomina,clientName,periodo1,periodo2){
   const huerfanos_xml=employees.filter(e=>!e.in_nomina).map(e=>({cuit:e.cuit,apellido:e.apellido,nombre:e.nombre,total_pre:e.total_pre,nroPres_pre:e.nroPres_pre}));
   const sin_xml_nom=hasNomina?Array.from(nomCuils).filter(c=>!xmlCuits.has(c)).map(c=>{const r=nomina[c];const ide=r.ID_EMPRESA?parseInt(r.ID_EMPRESA):null;const idc=r.ID_CONVENIO?parseInt(r.ID_CONVENIO):null;return{cuil:c,legajo:r.ID_EMPLEADO?String(parseInt(r.ID_EMPLEADO)):'',apellido:r.APELLIDO_1||r.APELLIDO||'',nombre:r.NOMBRE||'',empresa:EMPRESA_LABELS[ide]||'',cct:CONV_LABELS[idc]||'',puesto:r.N_PUESTO||'',departamento:r.N_DEPARTAMENTO||''};})
   :[];
-  const with_changes=employees.filter(e=>Math.abs(e.total_dif_full)>0.01||e.cargas.some(c=>c.estado!=='sin cambio')).length;
+  const with_changes=employees.filter(e=>Math.abs(e.total_dif_full)>0.01||e.aj_changed||e.cargas.some(c=>c.estado!=='sin cambio')).length;
   const empresas=[...new Set(employees.map(e=>e.empresa).filter(Boolean))].sort();
   const ccts=[...new Set(employees.map(e=>e.cct).filter(Boolean))].sort();
   return{employees,totals,all_tipos:allTipos,tipo_labels:Object.fromEntries(Object.entries(TIPO_LABELS).map(([k,v])=>[String(k),v])),tipo_short:Object.fromEntries(Object.entries(TIPO_SHORT).map(([k,v])=>[String(k),v])),ret_labels:RET_LABELS,empresas,ccts,auditoria:{huerfanos_xml,sin_xml_nom},stats:{total_employees:employees.length,with_changes,only_new:employees.filter(e=>e.only_in_pre).length,with_ret:employees.filter(e=>e.ret_pre.length>0).length,in_nomina:employees.filter(e=>e.in_nomina).length,sin_nomina:huerfanos_xml.length,sin_xml:sin_xml_nom.length}};
@@ -1079,8 +1094,9 @@ function renderEmps(){
   fEmps=employees.filter(e=>{
     if(q&&!`${e.legajo} ${e.apellido} ${e.nombre} ${e.cuit}`.toLowerCase().includes(q))return false;
     if(tipo&&!e.deds[tipo])return false;
-    if(cambio==='changes'&&Math.abs(e.total_dif_full)<0.01&&!e.cargas.some(c=>c.estado!=='sin cambio'))return false;
-    if(cambio==='nochanges'&&(Math.abs(e.total_dif_full)>0.01||e.cargas.some(c=>c.estado!=='sin cambio')))return false;
+    if(cambio==='changes'&&Math.abs(e.total_dif_full)<0.01&&!e.aj_changed&&!e.cargas.some(c=>c.estado!=='sin cambio'))return false;
+    if(cambio==='nochanges'&&(Math.abs(e.total_dif_full)>0.01||e.aj_changed||e.cargas.some(c=>c.estado!=='sin cambio')))return false;
+    if(cambio==='aj'&&!e.aj_rows.length)return false;
     if(cambio==='new'&&!e.only_in_pre)return false;
     if(cambio==='ret'&&!e.ret_pre.length)return false;
     if(cambio==='baja'&&e.in_nomina)return false;
@@ -1099,12 +1115,13 @@ function renderEmps(){
 function buildCard(e,tl){
   const bg=badgeText(e);
   const bCls=e.only_in_pre?'badge-new-emp':!e.in_nomina?'badge-baja':'badge-default';
-  const hasChanges=Math.abs(e.total_dif_full)>0.01||e.cargas.some(c=>c.estado!=='sin cambio');
+  const hasChanges=Math.abs(e.total_dif_full)>0.01||e.aj_changed||e.cargas.some(c=>c.estado!=='sin cambio');
+  const hasAj=e.aj_rows.length>0;
   const hasCargaChange=e.cargas.some(c=>c.estado!=='sin cambio');
   const hasRet=e.ret_pre.length>0;
   const hasOOEE=Object.keys(e.ooee_rows||{}).length>0;
   const pills=[e.only_in_pre?'<span class="pill-new">NUEVO</span>':'',parseInt(e.nroPres_pre||0)>5?`<span class="pill-rect">Rect.${e.nroPres_pre}</span>`:'',!e.in_nomina?'<span class="pill-baja">⚠ Baja</span>':''].filter(Boolean).join('');
-  const subTags=[e.nroPres_dic?`Pres. ${APP_LABEL.p1} #${e.nroPres_dic}`:`Sin pres. ${APP_LABEL.p1}`,`Pres. ${APP_LABEL.p2} #${e.nroPres_pre||'—'}`,hasRet?'<span class="tag-pago">🏷 Pagos a cuenta</span>':'',hasOOEE?'<span class="tag-ooee">🏢 Otros Emp./Ent.</span>':'',hasCargaChange?'<span class="tag-carga">🏷 Cambio en cargas</span>':'',e.hasNeg?'<span class="tag-neg" style="background:#fee;color:#c62828;font-weight:700;padding:2px 8px;border-radius:10px;border:1px solid #ef9a9a">⚠ Valores negativos</span>':''].filter(Boolean).join('<span class="sep">·</span>');
+  const subTags=[e.nroPres_dic?`Pres. ${APP_LABEL.p1} #${e.nroPres_dic}`:`Sin pres. ${APP_LABEL.p1}`,`Pres. ${APP_LABEL.p2} #${e.nroPres_pre||'—'}`,hasRet?'<span class="tag-pago">🏷 Pagos a cuenta</span>':'',hasOOEE?'<span class="tag-ooee">🏢 Otros Emp./Ent.</span>':'',hasAj?'<span class="tag-aj">⬆ Ajustes (suman a la base)</span>':'',hasCargaChange?'<span class="tag-carga">🏷 Cambio en cargas</span>':'',e.hasNeg?'<span class="tag-neg" style="background:#fee;color:#c62828;font-weight:700;padding:2px 8px;border-radius:10px;border:1px solid #ef9a9a">⚠ Valores negativos</span>':''].filter(Boolean).join('<span class="sep">·</span>');
   const meta=[empPill(e.empresa,e.id_empresa),cctPill(e.cct),e.legajo?`<span class="mpill mpill-gray">Leg. ${e.legajo}</span>`:'',e.puesto?`<span class="mpill mpill-gray">${e.puesto}</span>`:''].filter(Boolean).join('');
   const dv=e.total_dif_full;const dc=dv>0.01?'pos':dv<-0.01?'neg':'zero';
   let tDic=0,tPre=0;for(const v of Object.values(e.deds)){tDic+=v.dic;tPre+=v.pre;}
@@ -1139,6 +1156,17 @@ function buildCard(e,tl){
   const finLabel='Total final'+(e.total_ret_pre&&(tOoeedic||tOoeepre)?' (c/ pagos a cta. + OOEE)':e.total_ret_pre?' (c/ pagos a cta.)':' (c/ OOEE)');
   if(hasFinalRow){const difColor=e.total_dif_full>0.01?'var(--green)':e.total_dif_full<-0.01?'var(--red)':'rgba(255,255,255,0.6)';footRows+='<tr class="final-row"><td>'+finLabel+'</td><td class="num">'+(finDic>0?fmt(finDic):'—')+'</td><td class="num">'+fmt(finPre)+'</td><td style="text-align:right;color:'+difColor+';font-weight:800">'+sfmt(e.total_dif_full)+'</td></tr>';}
   const dedSection=(dedRows||ooeeRows)?'<div class="section-title">Deducciones — '+APP_LABEL.p1+' vs. '+APP_LABEL.p2+'</div><table class="ded-table"><thead><tr><th>Rubro</th><th>'+APP_LABEL.p1.toUpperCase()+'</th><th>'+APP_LABEL.p2.toUpperCase()+'</th><th>Diferencia</th></tr></thead><tbody>'+dedRows+ooeeRows+'</tbody><tfoot>'+footRows+'</tfoot></table>':'';
+  let ajSection='';
+  if(hasAj){
+    const esc=x=>String(x||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const ajRows=e.aj_rows.map(r=>{
+      const rc=r.dif>0.01?'row-changed-pos':r.dif<-0.01?'row-changed-neg':'';
+      const dc2=r.dif>0.01?'dif-pos':r.dif<-0.01?'dif-neg':'dif-zero';
+      const items=(r.items_pre.length?r.items_pre:r.items_dic).map(a=>esc(a.desc||fmt(a.monto))).join('<br>');
+      return'<tr class="'+rc+'"><td class="rubro-name">'+esc(r.denominacion||'Ajuste')+'<span class="sub99">Tipo '+esc(r.tipo)+(r.cuit?' · CUIT '+esc(r.cuit):'')+'<br>'+items+'</span></td><td class="num">'+(r.dic?fmt(r.dic):'—')+'</td><td class="num">'+(r.pre?fmt(r.pre):'—')+'</td><td class="'+dc2+'">'+(r.dif!==0?sfmt(r.dif):'Sin cambio')+'</td></tr>';
+    }).join('');
+    ajSection='<div class="section-title">Ajustes — suman a la base (no son deducciones) — '+APP_LABEL.p1+' vs. '+APP_LABEL.p2+'</div><table class="ded-table"><thead><tr><th>Concepto</th><th>'+APP_LABEL.p1.toUpperCase()+'</th><th>'+APP_LABEL.p2.toUpperCase()+'</th><th>Diferencia</th></tr></thead><tbody>'+ajRows+'</tbody></table>';
+  }
   let cargasSection='';
   const MESES_GL=['','Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   const CAMPOS_GL=[['ganBrut','Gan. Bruta'],['retGan','Ret. Ganancias'],['obraSoc','Obra Social'],['segSocANSES','Seg.Soc. ANSES'],['segSocCajas','Seg.Soc. Cajas'],['sind','Sindicato'],['retribNoHab','Retrib. No Hab.'],['ajusteRemGravadas','Aj. Rem. Grav.'],['ajusteRemExeNoAlcanzadas','Aj. Rem. Exe.'],['asignFam','Asig. Familiares'],['intPrestEmp','Int. Préstamo'],['indemLey4003','Indem. L.4003'],['remunLey19640','Rem. L.19640'],['remunCctPetro','Rem. CCT Petro.'],['cursosSemin','Cursos/Semin.'],['indumEquipEmp','Indum./Equip.'],['sac','SAC']];
@@ -1169,7 +1197,7 @@ function buildCard(e,tl){
     }).join('');
     cargasSection=`<div class="section-title">Cargas de familia</div><table class="cargas-table"><thead><tr><th>Familiar</th><th>${APP_LABEL.p1.toUpperCase()}</th><th>${APP_LABEL.p2.toUpperCase()}</th><th>Estado</th></tr></thead><tbody>${cRows}</tbody></table>`;
   }
-  return`<div class="emp-card${!e.in_nomina?' baja':''}" id="c${e.cuit}"><div class="emp-header" onclick="tc('${e.cuit}')"><div class="emp-badge ${bCls}" style="font-size:${bg.fs}">${bg.txt}</div><div class="emp-info"><div class="emp-name-row"><span class="emp-fullname">${e.apellido}, ${e.nombre}</span>${pills}</div><div class="emp-sub">${subTags}</div>${meta?`<div class="meta-pills">${meta}</div>`:''}</div><div class="emp-right"><span class="status-pill ${hasChanges?'status-con':'status-sin'}">${hasChanges?'Con cambios':'Sin cambios'}</span><span class="emp-dif ${dc}">${dv!==0?sfmt(dv):'Sin cambio'}</span><span class="chevron">▾</span></div></div><div class="emp-body">${presHtml}${dedSection}${cargasSection}</div></div>`;
+  return`<div class="emp-card${!e.in_nomina?' baja':''}" id="c${e.cuit}"><div class="emp-header" onclick="tc('${e.cuit}')"><div class="emp-badge ${bCls}" style="font-size:${bg.fs}">${bg.txt}</div><div class="emp-info"><div class="emp-name-row"><span class="emp-fullname">${e.apellido}, ${e.nombre}</span>${pills}</div><div class="emp-sub">${subTags}</div>${meta?`<div class="meta-pills">${meta}</div>`:''}</div><div class="emp-right"><span class="status-pill ${hasChanges?'status-con':'status-sin'}">${hasChanges?'Con cambios':'Sin cambios'}</span><span class="emp-dif ${dc}">${dv!==0?sfmt(dv):'Sin cambio'}</span><span class="chevron">▾</span></div></div><div class="emp-body">${presHtml}${dedSection}${ajSection}${cargasSection}</div></div>`;
 }
 function tc(cuit){document.getElementById('c'+cuit)?.classList.toggle('open');}
 
