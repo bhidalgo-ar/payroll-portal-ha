@@ -2,8 +2,8 @@
   "meta": {
     "titulo": "Portal Hidalgo & Asociados",
     "subtitulo": "Herramientas internas del equipo",
-    "version": "1.4",
-    "ultimaActualizacion": "2026-08-10",
+    "version": "1.5",
+    "ultimaActualizacion": "2026-09-22",
     "ultimaRevision": "2026-08-10",
     "diasReciente": 7,
     "repoDefecto": "bhidalgo-ar/payroll-portal-ha"
@@ -15,11 +15,11 @@
       "descripcion": "Comparador de SIRADIG entre períodos",
       "url": "https://bhidalgo-ar.github.io/payroll-portal-ha/siradig_engine_hya.html",
       "icono": "🧮",
-      "version": "2.1",
+      "version": "2.2",
       "categoria": "Nómina",
       "estado": "productivo",
       "agregado": "2026-04-09",
-      "actualizado": "2026-06-18"
+      "actualizado": "2026-09-22"
     },
     {
       "id": 2,
