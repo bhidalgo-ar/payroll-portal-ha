@@ -27,12 +27,12 @@
     <div style="margin-bottom:28px;">
       <h1 style="font-family:'Poppins',Arial,sans-serif;font-size:28px;font-weight:600;color:#141413;letter-spacing:-0.3px;margin-bottom:6px;">Cómo usar Claude en Payroll</h1>
       <div style="display:flex;align-items:center;gap:9px;margin-bottom:8px;flex-wrap:wrap;">
-        <span style="background:#e8e6dc;color:#726c62;font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:3px 9px;border-radius:20px;">Guía interna · v14</span>
-        <span style="font-size:11px;color:#b0aea5;">Datos verificados al 6 de agosto de 2026</span>
+        <span style="background:#e8e6dc;color:#726c62;font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;padding:3px 9px;border-radius:20px;">Guía interna · v15</span>
+        <span style="font-size:11px;color:#b0aea5;">Datos verificados al 28 de septiembre de 2026</span>
       </div>
       <p style="font-size:14px;color:#726c62;max-width:760px;">Elegí qué tenés que hacer y la guía te dice con qué herramienta, qué modelo y cuánto esfuerzo. Si querés el detrás de escena, está todo abajo — cerrado, para abrir solo lo que busques.</p>
       <div style="background:#fdf1ec;border-left:3px solid #d97757;border-radius:0 8px 8px 0;padding:11px 15px;margin-top:14px;max-width:860px;">
-        <div style="font-size:12.5px;color:#141413;line-height:1.7;"><strong style="color:#a8532f;">Actualizado el 6 de agosto de 2026:</strong> lo más útil que se sumó no es un modelo nuevo, es una forma de pedir: <strong style="color:#141413;">escribí "entrevistame" y dejá que pregunte antes de arrancar</strong>. Mejora el resultado más que subir de modelo, y tiene su propia sección. Además: el <strong style="color:#141413;">"esfuerzo" no es tiempo de pensar</strong> — controla cuántos archivos lee, cuánto verifica y hasta dónde avanza antes de volver a preguntarte — y hay una <strong style="color:#141413;">forma concreta de saber qué perilla tocar cuando algo sale mal</strong>: si no sabía, cambiá el modelo; si no se esforzó, subí el esfuerzo.</div>
+        <div style="font-size:12.5px;color:#141413;line-height:1.7;"><strong style="color:#a8532f;">Actualizado el 28 de septiembre de 2026:</strong> la guía pasó a <strong style="color:#141413;">Sonnet 5.5, Opus 5.5 y Fable 5.1</strong>. Ya no hay interruptor de thinking: la perilla es el <strong style="color:#141413;">nivel de esfuerzo</strong>, y ante la duda se sube primero el esfuerzo y después el modelo. El consumo se mide en <strong style="color:#141413;">cupo</strong>, no en dólares. Y sigue en pie lo de escribir <strong style="color:#141413;">"entrevistame"</strong> y dejar que pregunte antes de arrancar.</div>
       </div>
     </div>
 
@@ -40,7 +40,7 @@
     <div style="background:#ffffff;border:1.5px solid #e8e6dc;border-radius:12px;padding:14px 16px;margin-bottom:14px;">
       <div style="display:flex;align-items:center;gap:9px;">
         <span style="font-size:15px;">🔎</span>
-        <input type="text" value="{{ search.query }}" placeholder="Buscá lo que necesitás: SAC, cruce, Excel, recibo, thinking, DNI, Cowork…" oninput="{{ search.onInput }}" style="flex:1;border:none;outline:none;background:transparent;font-family:'Lora',Georgia,serif;font-size:13.5px;color:#141413;min-width:0;">
+        <input type="text" value="{{ search.query }}" placeholder="Buscá lo que necesitás: SAC, cruce, Excel, recibo, esfuerzo, DNI, Cowork…" oninput="{{ search.onInput }}" style="flex:1;border:none;outline:none;background:transparent;font-family:'Lora',Georgia,serif;font-size:13.5px;color:#141413;min-width:0;">
         <sc-if value="{{ search.hasQuery }}">
           <button onClick="{{ search.clear }}" style="background:#f2f0ea;border:1px solid #d5d0c6;border-radius:7px;padding:4px 10px;cursor:pointer;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:600;color:#726c62;">Limpiar</button>
         </sc-if>
@@ -59,7 +59,7 @@
             </div>
           </sc-if>
           <sc-if value="{{ search.noResults }}">
-            <div style="font-size:12px;color:#877f74;line-height:1.6;">Sin resultados para "{{ search.query }}". Probá con una palabra más corta: cupo, thinking, Excel, cliente, DNI, deck.</div>
+            <div style="font-size:12px;color:#877f74;line-height:1.6;">Sin resultados para "{{ search.query }}". Probá con una palabra más corta: cupo, esfuerzo, Excel, cliente, DNI, deck.</div>
           </sc-if>
         </div>
       </sc-if>
@@ -133,10 +133,6 @@
           <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:10px;padding:13px 15px;margin-bottom:14px;">
             <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:8px;">
               <span style="background:{{ rec.modelBg }};color:{{ rec.modelColor }};font-family:'Poppins',Arial,sans-serif;font-size:15px;font-weight:700;padding:3px 11px;border-radius:8px;">{{ rec.model }}</span>
-              <sc-if value="{{ rec.showThinking }}">
-                <span style="background:rgba(120,140,93,0.16);color:#5a6b45;font-family:'Poppins',Arial,sans-serif;font-size:12.5px;font-weight:700;padding:3px 10px;border-radius:6px;">🧠 conviene thinking</span>
-                <span style="font-size:12px;color:#877f74;">·</span>
-              </sc-if>
               <span style="font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:600;color:#141413;">esfuerzo {{ rec.effort }}</span>
               <span style="background:#f2f0ea;color:#726c62;font-family:'Poppins',Arial,sans-serif;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:6px;">cupo {{ rec.cupo }}</span>
             </div>
@@ -214,6 +210,12 @@
           </div>
         </div>
 
+        <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:10px;padding:13px 16px;margin-bottom:22px;">
+          <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#726c62;margin-bottom:5px;">Esfuerzo para este caso</div>
+          <div style="font-size:13px;color:#141413;line-height:1.75;">Arrancá en <strong style="color:#141413;">{{ selectedCase.effortStart }}</strong>. {{ selectedCase.effortUp }}</div>
+          <div style="font-size:11px;color:#877f74;line-height:1.65;margin-top:6px;">Criterio del equipo, no medido. Regla de bolsillo: Sonnet para escribir y armar, Opus para pensar y revisar. Si no supo, cambiá el modelo; si no se esforzó, subí el esfuerzo.</div>
+        </div>
+
         <div style="background:#ffffff;border:1.5px solid rgba(217,119,87,0.45);border-radius:12px;padding:18px 20px;margin-bottom:22px;">
           <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:10px;">
             <span style="font-size:15px;">📘</span>
@@ -232,7 +234,7 @@
 
           <div style="background:rgba(120,140,93,0.08);border:1px solid rgba(120,140,93,0.3);border-radius:9px;padding:12px 15px;margin-bottom:14px;">
             <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#5a6b45;margin-bottom:5px;">✅ Qué hacemos acá, por ahora</div>
-            <div style="font-size:12.5px;color:#141413;line-height:1.75;">La regla del equipo <strong style="color:#141413;">no cambia: seguí arrancando por Sonnet 5</strong>. Anthropic documenta las dos direcciones como válidas y la nuestra es la segunda: arrancar por el modelo más económico y subir hasta que el resultado cierre. La razón es que acá <strong style="color:#141413;">el límite no es el precio por token sino el cupo compartido del plan Team</strong>, y los números de esta guía se midieron con esa lógica.<br><strong style="color:#a8532f;">Punto a revalidar:</strong> el argumento de "menos vueltas = menos consumo total" también aplica al cupo, así que puede ser que arrancar por Opus 5 gaste <em>menos</em> cupo que insistirle dos veces a Sonnet. Nadie lo midió todavía. Si te toca una tarea de las difíciles, probá las dos formas y contá el resultado.</div>
+            <div style="font-size:12.5px;color:#141413;line-height:1.75;">La regla del equipo <strong style="color:#141413;">no cambia: seguí arrancando por Sonnet 5.5</strong>. Anthropic documenta las dos direcciones como válidas y la nuestra es la segunda: arrancar por el modelo más económico y subir hasta que el resultado cierre. La razón es que acá <strong style="color:#141413;">el límite no es el precio por token sino el cupo compartido del plan Team</strong>, y los números de esta guía se midieron con esa lógica.<br><strong style="color:#5a6b45;">Regla de bolsillo:</strong> Sonnet para escribir y armar, Opus para pensar y revisar.<br><strong style="color:#a8532f;">Punto a revalidar:</strong> el argumento de "menos vueltas = menos consumo total" también aplica al cupo, así que puede ser que arrancar por Opus 5.5 gaste <em>menos</em> cupo que insistirle dos veces a Sonnet. Nadie lo midió todavía. Si te toca una tarea de las difíciles, probá las dos formas y contá el resultado.</div>
           </div>
 
           <div style="background:rgba(106,155,204,0.08);border:1px solid rgba(106,155,204,0.28);border-radius:9px;padding:12px 15px;margin-bottom:14px;">
@@ -275,20 +277,20 @@
                 <div style="font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:600;color:#141413;">Confianza frente a consumo de cupo</div>
                 <div style="font-size:12px;color:#726c62;margin-top:2px;max-width:520px;">Qué tan seguido el modelo entrega un resultado usable sin rehacer el pedido — y cuánto cupo se come ese nivel. El salto grande es de Haiku a Sonnet; de ahí en más gastás bastante más cupo por unos pocos puntos.</div>
               </div>
-              <div style="background:#faf9f5;border:1px dashed #cfc9bd;border-radius:8px;padding:8px 11px;font-size:10.5px;color:#877f74;line-height:1.5;max-width:236px;flex-shrink:0;">📌 Estimación interna del equipo, basada en casos reales de Payroll. No es un benchmark publicado por Anthropic. La fila de Opus se midió con el escalón Opus anterior: con Opus 5 debería dar igual o mejor.</div>
+              <div style="background:#faf9f5;border:1px dashed #cfc9bd;border-radius:8px;padding:8px 11px;font-size:10.5px;color:#877f74;line-height:1.5;max-width:236px;flex-shrink:0;">📌 Estimación interna del equipo, basada en casos reales de Payroll. No es un benchmark publicado por Anthropic. Los porcentajes se midieron sobre el escalón anterior, pendiente de re-medir con Sonnet 5.5, Opus 5.5 y Fable 5.1.</div>
             </div>
 
             <div style="display:flex;flex-direction:column;gap:0;margin-top:16px;">
               <sc-for list="{{ selectedCase.rungs }}" as="r" hint-placeholder-count="4">
                 <sc-if value="{{ r.deltaBig }}">
                   <div style="display:flex;align-items:center;gap:9px;padding:7px 0 7px 168px;flex-wrap:wrap;">
-                    <span style="background:#fdf1ec;border:1px solid rgba(217,119,87,0.4);color:#a8532f;border-radius:20px;padding:3px 11px;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;white-space:nowrap;">▲ {{ r.deltaConf }} · {{ r.costMult }} el cupo</span>
+                    <span style="background:#fdf1ec;border:1px solid rgba(217,119,87,0.4);color:#a8532f;border-radius:20px;padding:3px 11px;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;white-space:nowrap;">▲ {{ r.deltaConf }}</span>
                     <span style="font-size:11px;color:#a8532f;font-style:italic;">{{ r.deltaNote }}</span>
                   </div>
                 </sc-if>
                 <sc-if value="{{ r.deltaSmall }}">
                   <div style="display:flex;align-items:center;gap:9px;padding:7px 0 7px 168px;">
-                    <span style="background:#f2f0ea;border:1px solid #d5d0c6;color:#726c62;border-radius:20px;padding:3px 11px;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;white-space:nowrap;">▲ {{ r.deltaConf }} · {{ r.costMult }} el cupo</span>
+                    <span style="background:#f2f0ea;border:1px solid #d5d0c6;color:#726c62;border-radius:20px;padding:3px 11px;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;white-space:nowrap;">▲ {{ r.deltaConf }}</span>
                     <span style="font-size:11px;color:#a09a8f;">rinde cada vez menos</span>
                   </div>
                 </sc-if>
@@ -317,7 +319,7 @@
 
             <div style="display:flex;gap:18px;margin-top:16px;padding-top:12px;border-top:1px solid #f0ece4;flex-wrap:wrap;">
               <div style="display:flex;align-items:center;gap:7px;"><span style="width:22px;height:9px;border-radius:3px;background:#788c5d;display:inline-block;flex-shrink:0;"></span><span style="font-size:11px;color:#726c62;">Barra ancha = confianza en el primer intento</span></div>
-              <div style="display:flex;align-items:center;gap:7px;"><span style="width:22px;height:6px;border-radius:3px;background:#d97757;display:inline-block;flex-shrink:0;"></span><span style="font-size:11px;color:#726c62;">Barra fina = consumo de cupo relativo</span></div>
+              <div style="display:flex;align-items:center;gap:7px;"><span style="width:22px;height:6px;border-radius:3px;background:#d97757;display:inline-block;flex-shrink:0;"></span><span style="font-size:11px;color:#726c62;">Barra fina = consumo de cupo relativo (escalones parejos, no es una medición)</span></div>
             </div>
           </div>
         </sc-if>
@@ -438,14 +440,14 @@
         <button onClick="{{ secEffort.toggle }}" style="width:100%;background:{{ secEffort.headBg }};border:none;border-radius:12px;padding:14px 18px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;">
           <span style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
             <span style="font-size:15px;">🧠</span>
-            <span style="font-family:'Poppins',Arial,sans-serif;font-size:13.5px;font-weight:600;color:#141413;">Thinking y niveles de esfuerzo</span>
-            <span style="font-size:11.5px;color:#877f74;">cuándo prenderlo y cuánto esfuerzo usar</span>
+            <span style="font-family:'Poppins',Arial,sans-serif;font-size:13.5px;font-weight:600;color:#141413;">Niveles de esfuerzo</span>
+            <span style="font-size:11.5px;color:#877f74;">qué esfuerzo usar, cuándo subirlo y cuándo cambiar de modelo</span>
           </span>
           <span style="font-family:'Poppins',Arial,sans-serif;font-size:15px;color:#a8532f;flex-shrink:0;">{{ secEffort.chev }}</span>
         </button>
         <sc-if value="{{ secEffort.open }}">
           <div style="padding:4px 18px 18px;">
-          <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:#a8532f;margin-bottom:12px;">¿Thinking sí o no? ¿Cuánto esfuerzo?</div>
+          <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:#a8532f;margin-bottom:12px;">¿Cuánto esfuerzo?</div>
 
           <div style="background:#fdf1ec;border-left:4px solid #d97757;border-radius:0 9px 9px 0;padding:13px 16px;margin-bottom:14px;">
             <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#a8532f;margin-bottom:5px;">Lo primero que hay que desarmar · el esfuerzo no es "tiempo de pensar"</div>
@@ -454,7 +456,7 @@
 
           <div style="background:rgba(120,140,93,0.09);border:1.5px solid rgba(120,140,93,0.35);border-radius:10px;padding:13px 16px;margin-bottom:14px;">
             <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#5a6b45;margin-bottom:5px;">La recomendación oficial · dejá el default</div>
-            <div style="font-size:13px;color:#141413;line-height:1.75;"><strong style="color:#141413;">Para la enorme mayoría de las tareas, no toques el esfuerzo.</strong> El default de cada modelo (hoy <strong style="color:#141413;">High</strong> en Sonnet 5 y Opus 5) está calibrado para gastar lo que la mayoría querría gastar en esa tarea. Y el modelo <strong style="color:#141413;">no infla el gasto porque le hayas puesto esfuerzo alto</strong>: si el primer chequeo ya encontró el problema, se saltea el resto — el "sobrepensar" es algo que Anthropic mide y penaliza durante el entrenamiento.<br>Pensá el esfuerzo como <strong style="color:#141413;">una preferencia general según el tipo de trabajo que hacés</strong>, no como una decisión tarea por tarea.</div>
+            <div style="font-size:13px;color:#141413;line-height:1.75;"><strong style="color:#141413;">Para la enorme mayoría de las tareas, no toques el esfuerzo.</strong> El default (hoy <strong style="color:#141413;">Medium</strong> en las apps; en la API, <strong style="color:#141413;">High</strong> para Sonnet 5.5) está calibrado para gastar lo que la mayoría querría gastar en esa tarea. Y el modelo <strong style="color:#141413;">no infla el gasto porque le hayas puesto esfuerzo alto</strong>: si el primer chequeo ya encontró el problema, se saltea el resto — el "sobrepensar" es algo que Anthropic mide y penaliza durante el entrenamiento.<br>Pensá el esfuerzo como <strong style="color:#141413;">una preferencia general según el tipo de trabajo que hacés</strong>, no como una decisión tarea por tarea.</div>
           </div>
 
           <div style="background:#ffffff;border:1.5px solid rgba(217,119,87,0.45);border-radius:10px;padding:14px 16px;margin-bottom:14px;">
@@ -472,6 +474,11 @@
             </div>
           </div>
 
+          <div style="background:rgba(120,140,93,0.09);border:1.5px solid rgba(120,140,93,0.35);border-radius:10px;padding:13px 16px;margin-bottom:14px;">
+            <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#5a6b45;margin-bottom:5px;">🪜 La escalera del equipo · primero el esfuerzo, después el modelo</div>
+            <div style="font-size:12.5px;color:#141413;line-height:1.75;">Cuando dudás cuál de las dos perillas tocar: <strong style="color:#141413;">primero subí el esfuerzo</strong> (de Medium a High, de High a Extra high). Si con eso no alcanza, <strong style="color:#141413;">cambiá de modelo</strong>. Y <strong style="color:#141413;">Fable 5.1 solo después de dos fallas de Opus 5.5 en Extra high</strong>, avisando antes.<br><span style="color:#726c62;">Fable 5.1: Para el equipo solo está disponible con Créditos de Uso (hoy no habilitados) y solo lo tienen los asientos premium.</span><br><span style="color:#726c62;">Regla de bolsillo: Sonnet para escribir y armar, Opus para pensar y revisar.</span></div>
+          </div>
+
           <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:10px;padding:14px 16px;margin-bottom:14px;">
             <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#141413;margin-bottom:4px;">🎭 La analogía que lo ordena todo</div>
             <div style="font-size:12px;color:#726c62;line-height:1.65;margin-bottom:11px;">De la guía oficial de Claude Code. <strong style="color:#141413;">El modelo define qué tan capaz es; el esfuerzo, cuánto tiempo le dedica.</strong> Casi toda tarea real necesita algo de las dos cosas.</div>
@@ -486,19 +493,15 @@
               </div>
               <div style="display:flex;gap:12px;align-items:flex-start;background:#ffffff;border:1px solid rgba(138,106,156,0.4);border-radius:9px;padding:11px 14px;">
                 <span style="flex:0 0 auto;background:#8a6a9c;color:#fff;font-family:'Poppins',Arial,sans-serif;font-size:10.5px;font-weight:700;padding:4px 0;border-radius:6px;width:84px;text-align:center;">Fable</span>
-                <div style="flex:1;font-size:12.5px;color:#141413;line-height:1.6;"><strong style="color:#141413;">El especialista.</strong> Vio problemas que casi nadie vio. Incluso con esfuerzo bajo, mira el problema en el que todos los demás se trabaron y ve la cosa que nadie más vería. <strong style="color:#141413;">Ese reconocimiento es exactamente lo que estás pagando caro</strong> — por eso se guarda para las tareas que de verdad lo necesitan. En las pruebas de Anthropic terminó trabajos que Opus y Sonnet no alcanzan con ningún nivel de esfuerzo.</div>
+                <div style="flex:1;font-size:12.5px;color:#141413;line-height:1.6;"><strong style="color:#141413;">El especialista.</strong> Vio problemas que casi nadie vio. Incluso con esfuerzo bajo, mira el problema en el que todos los demás se trabaron y ve la cosa que nadie más vería. <strong style="color:#141413;">Ese reconocimiento es lo que consume tanto cupo</strong> — por eso se guarda para las tareas que de verdad lo necesitan.</div>
               </div>
             </div>
           </div>
 
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;">
             <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:13px 15px;">
-              <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#141413;margin-bottom:6px;">🧠 ¿Prendo thinking?</div>
-              <div style="font-size:12.5px;color:#141413;line-height:1.7;"><strong style="color:#5a6b45;">Prendelo</strong> cuando hay <strong style="color:#141413;">números que rastrear o pasos que dependen entre sí</strong>: debugging de liquidación, fórmulas encadenadas, cruces entre sistemas, decisiones con varias variables.<br><strong style="color:#a8532f;">Apagalo</strong> cuando <strong style="color:#141413;">escribís</strong>: un mail, documentar, pensar opciones. Ahí solo lo hace más lento, sin mejorar el resultado.<br><span style="font-size:11.5px;color:#877f74;">Donde el esfuerzo está disponible, es la forma recomendada de controlar cuánto piensa — la perilla de thinking queda para casos puntuales.</span></div>
-            </div>
-            <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:13px 15px;">
               <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#141413;margin-bottom:6px;">⚡ ¿Qué esfuerzo?</div>
-              <div style="font-size:12.5px;color:#141413;line-height:1.7;">Para el día a día, <strong style="color:#141413;">dejá el default: High</strong> (el de Sonnet 5 y Opus 5). Bajá a <strong style="color:#141413;">Medium/Low</strong> si tu trabajo es de consultas puntuales y alto volumen y querés estirar el cupo. Subí a <strong style="color:#141413;">xhigh/Max</strong> solo para tareas de código largas o cuando necesitás la máxima profundidad sin importar el tiempo.<br><span style="font-size:11.5px;color:#877f74;">Elegilo por el tipo de trabajo que hacés, no tarea por tarea.</span></div>
+              <div style="font-size:12.5px;color:#141413;line-height:1.7;">Para el día a día, <strong style="color:#141413;">dejá el default: Medium</strong> en las apps (en la API, High para Sonnet 5.5). Alcanza para escribir un mail, documentar o pensar opciones. Subí a <strong style="color:#141413;">High o Extra high</strong> cuando hay <strong style="color:#141413;">números que rastrear o pasos que dependen entre sí</strong>: debugging de liquidación, fórmulas encadenadas, cruces entre sistemas. Bajá a <strong style="color:#141413;">Low</strong> si tu trabajo es de consultas puntuales y alto volumen y querés estirar el cupo. <strong style="color:#141413;">Max</strong> solo cuando necesitás la máxima profundidad sin importar el tiempo.<br><span style="font-size:11.5px;color:#877f74;">Como preferencia general por tipo de trabajo; en "Por tarea" está el esfuerzo inicial de cada caso y cuándo subirlo.</span></div>
             </div>
           </div>
 
@@ -511,17 +514,17 @@
                 <span style="flex:0 0 auto;background:#f2f0ea;color:#726c62;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;padding:4px 0;border-radius:6px;width:78px;text-align:center;">Low</span>
                 <div style="flex:1;"><div style="font-size:12.5px;color:#141413;line-height:1.55;">Consultas puntuales, alto volumen — priorizás velocidad.</div><div style="font-size:11.5px;color:#877f74;margin-top:2px;">Estira más el cupo del equipo.</div></div>
               </div>
-              <div style="display:flex;gap:12px;align-items:flex-start;background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:11px 14px;">
-                <span style="flex:0 0 auto;background:rgba(106,155,204,0.16);color:#3d6690;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;padding:4px 0;border-radius:6px;width:78px;text-align:center;">Medium</span>
-                <div style="flex:1;"><div style="font-size:12.5px;color:#141413;line-height:1.55;">Tareas de rutina donde no hace falta el máximo nivel de detalle.</div><div style="font-size:11.5px;color:#877f74;margin-top:2px;">Buen balance cupo / calidad.</div></div>
-              </div>
               <div style="display:flex;gap:12px;align-items:flex-start;background:rgba(120,140,93,0.07);border:1.5px solid rgba(120,140,93,0.3);border-radius:9px;padding:11px 14px;">
-                <span style="flex:0 0 auto;background:#788c5d;color:#fff;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;padding:4px 0;border-radius:6px;width:78px;text-align:center;">High ★</span>
-                <div style="flex:1;"><div style="font-size:12.5px;color:#141413;line-height:1.55;"><strong style="color:#141413;">(Default)</strong> Razonamiento complejo, código, tareas con varios pasos — el mejor balance general.</div><div style="font-size:11.5px;color:#877f74;margin-top:2px;">Es el nivel por defecto de Sonnet 5 y Opus 5.</div></div>
+                <span style="flex:0 0 auto;background:#788c5d;color:#fff;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;padding:4px 0;border-radius:6px;width:78px;text-align:center;">Medium ★</span>
+                <div style="flex:1;"><div style="font-size:12.5px;color:#141413;line-height:1.55;"><strong style="color:#141413;">(Default en las apps)</strong> Tareas de rutina donde no hace falta el máximo nivel de detalle.</div><div style="font-size:11.5px;color:#877f74;margin-top:2px;">Buen balance cupo / calidad.</div></div>
+              </div>
+              <div style="display:flex;gap:12px;align-items:flex-start;background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:11px 14px;">
+                <span style="flex:0 0 auto;background:rgba(106,155,204,0.16);color:#3d6690;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;padding:4px 0;border-radius:6px;width:78px;text-align:center;">High</span>
+                <div style="flex:1;"><div style="font-size:12.5px;color:#141413;line-height:1.55;">Razonamiento complejo, código, tareas con varios pasos.</div><div style="font-size:11.5px;color:#877f74;margin-top:2px;">Es el default de Sonnet 5.5 en la API.</div></div>
               </div>
               <div style="display:flex;gap:12px;align-items:flex-start;background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:11px 14px;">
                 <span style="flex:0 0 auto;background:rgba(20,20,19,0.85);color:#fff;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;padding:4px 0;border-radius:6px;width:78px;text-align:center;">Extra high</span>
-                <div style="flex:1;"><div style="font-size:12.5px;color:#141413;line-height:1.55;">Tareas de código o agénticas largas y difíciles.</div><div style="font-size:11.5px;color:#877f74;margin-top:2px;">En Opus 5 es el nivel recomendado para código y trabajo agéntico (xhigh).</div></div>
+                <div style="flex:1;"><div style="font-size:12.5px;color:#141413;line-height:1.55;">Tareas de código o agénticas largas y difíciles.</div><div style="font-size:11.5px;color:#877f74;margin-top:2px;">Es el último escalón de esfuerzo antes de pensar en cambiar de modelo (Max aparte).</div></div>
               </div>
               <div style="display:flex;gap:12px;align-items:flex-start;background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:11px 14px;">
                 <span style="flex:0 0 auto;background:#a8532f;color:#fff;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;padding:4px 0;border-radius:6px;width:78px;text-align:center;">Max</span>
@@ -530,7 +533,7 @@
             </div>
             <div style="background:rgba(106,155,204,0.08);border:1px solid rgba(106,155,204,0.28);border-radius:9px;padding:12px 15px;margin-top:12px;">
               <div style="font-family:'Poppins',Arial,sans-serif;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#3d6690;margin-bottom:5px;">Ejemplo aplicado — fórmulas encadenadas</div>
-              <div style="font-size:12.5px;color:#141413;line-height:1.7;">Para interpretar fórmulas M4 que encadenan varios conceptos (por ejemplo algo que combina <code style="background:#e8e6dc;padding:1px 5px;border-radius:4px;font-size:11.5px;">#3510</code>, <code style="background:#e8e6dc;padding:1px 5px;border-radius:4px;font-size:11.5px;">#4050</code> y <code style="background:#e8e6dc;padding:1px 5px;border-radius:4px;font-size:11.5px;">#9080</code>), conviene <strong style="color:#141413;">High o Max + thinking activado</strong>, porque hay que rastrear dependencias entre conceptos. Para consultas simples ("¿qué significa el concepto <code style="background:#e8e6dc;padding:1px 5px;border-radius:4px;font-size:11.5px;">#1006</code>?"), <strong style="color:#141413;">Low o Medium</strong> alcanza y responde más rápido.</div>
+              <div style="font-size:12.5px;color:#141413;line-height:1.7;">Para interpretar fórmulas M4 que encadenan varios conceptos (por ejemplo algo que combina <code style="background:#e8e6dc;padding:1px 5px;border-radius:4px;font-size:11.5px;">#3510</code>, <code style="background:#e8e6dc;padding:1px 5px;border-radius:4px;font-size:11.5px;">#4050</code> y <code style="background:#e8e6dc;padding:1px 5px;border-radius:4px;font-size:11.5px;">#9080</code>), conviene <strong style="color:#141413;">High o Max</strong>, porque hay que rastrear dependencias entre conceptos. Para consultas simples ("¿qué significa el concepto <code style="background:#e8e6dc;padding:1px 5px;border-radius:4px;font-size:11.5px;">#1006</code>?"), <strong style="color:#141413;">Low o Medium</strong> alcanza y responde más rápido.</div>
             </div>
           </details>
         </div>
@@ -567,15 +570,15 @@
               <div style="font-size:10.5px;color:#726c62;margin-top:2px;">Subagentes rápidos</div>
             </div>
             <div style="padding:14px 12px;border-bottom:3px solid #788c5d;background:rgba(120,140,93,0.05);">
-              <div style="font-family:'Poppins',Arial,sans-serif;font-size:14px;font-weight:700;color:#788c5d;">Sonnet 5</div>
-              <div style="font-size:10.5px;color:#726c62;margin-top:2px;">Default para programar</div>
+              <div style="font-family:'Poppins',Arial,sans-serif;font-size:14px;font-weight:700;color:#788c5d;">Sonnet 5.5</div>
+              <div style="font-size:10.5px;color:#726c62;margin-top:2px;">Default del día a día</div>
             </div>
             <div style="padding:14px 12px;border-bottom:4px solid #141413;background:rgba(20,20,19,0.04);">
-              <div style="font-family:'Poppins',Arial,sans-serif;font-size:15px;font-weight:700;color:#141413;">Opus 5</div>
+              <div style="font-family:'Poppins',Arial,sans-serif;font-size:15px;font-weight:700;color:#141413;">Opus 5.5</div>
               <div style="font-size:10.5px;color:#726c62;margin-top:2px;">Cambios grandes o riesgosos</div>
             </div>
             <div style="padding:14px 12px;border-bottom:5px solid #8a6a9c;background:rgba(138,106,156,0.09);">
-              <div style="font-family:'Poppins',Arial,sans-serif;font-size:16px;font-weight:700;color:#6d4a7d;">Fable 5</div>
+              <div style="font-family:'Poppins',Arial,sans-serif;font-size:16px;font-weight:700;color:#6d4a7d;">Fable 5.1</div>
               <div style="font-size:10.5px;color:#726c62;margin-top:2px;">Último recurso</div>
             </div>
 
@@ -637,7 +640,6 @@
 
           </div>
         </div>
-        <div style="background:#faf9f5;border:1px dashed #cfc9bd;border-radius:8px;padding:10px 13px;margin-bottom:8px;font-size:11px;color:#877f74;line-height:1.65;">📌 La fila de tokens salió de esta tabla a propósito: lo que mide el equipo es cupo, no tokens. Los estimados de tokens que quedan en la guía son de la generación anterior de modelos y hoy <strong style="color:#726c62;">subestiman alrededor de 30%</strong>, porque Sonnet 5 usa un tokenizador nuevo que cuenta más para el mismo texto — con más peso en código, datos estructurados y texto que no está en inglés.</div>
           </div>
         </sc-if>
       </div>
@@ -744,7 +746,7 @@
           </div>
         </div>
 
-        <div style="background:#fdf1ec;border-left:3px solid #d97757;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:22px;font-size:12.5px;color:#141413;line-height:1.7;"><strong style="color:#a8532f;">Nota para el equipo:</strong> desde el <strong style="color:#141413;">3 de agosto de 2026</strong> Cowork entra en beta en web y mobile para planes Team. En web y mobile las sesiones corren en la nube de Anthropic.</div>
+        <div style="background:#fdf1ec;border-left:3px solid #d97757;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:22px;font-size:12.5px;color:#141413;line-height:1.7;"><strong style="color:#a8532f;">Nota para el equipo:</strong> desde el <strong style="color:#141413;">3 de agosto de 2026</strong> Cowork entra en beta en web y mobile para planes Team. En web y mobile las sesiones corren en la nube de Anthropic.<br><strong style="color:#a8532f;">Novedad (16 de septiembre):</strong> Cowork se fusionó con Chat, con despliegue por olas. En Team todavía no tiene fecha; hasta entonces, esta sección describe el funcionamiento actual.</div>
 
         <details style="background:#ffffff;border:1.5px solid #e8e6dc;border-radius:10px;padding:14px 18px;">
           <summary style="cursor:pointer;font-family:'Poppins',Arial,sans-serif;font-size:11.5px;font-weight:700;color:#726c62;">🔧 Para administradores — controles de la organización (Primary Owner)</summary>
@@ -847,105 +849,100 @@
           </div>
           <div style="background:#ffffff;border:1.5px solid #e8e6dc;border-radius:10px;padding:16px;">
             <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:9px;margin-bottom:10px;border-bottom:2px solid #788c5d;">
-              <span style="font-family:'Poppins',Arial,sans-serif;font-size:14px;font-weight:600;color:#788c5d;">Sonnet 5</span>
+              <span style="font-family:'Poppins',Arial,sans-serif;font-size:14px;font-weight:600;color:#788c5d;">Sonnet 5.5</span>
               <span style="font-size:10px;font-weight:600;color:#b0aea5;">Cupo: medio</span>
             </div>
-            <div style="font-family:'Poppins',Arial,sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;color:#a8532f;margin-bottom:6px;">Default para programar</div>
-            <div style="font-size:12px;color:#141413;line-height:1.65;">El que usás para el día a día: agregar un campo al recibo, corregir un bug puntual, ajustar estilos de una página existente. Casi el nivel de Opus en tareas de código a un costo mucho menor — arrancá siempre por acá.</div>
+            <div style="font-family:'Poppins',Arial,sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;color:#a8532f;margin-bottom:6px;">Para lo acotado</div>
+            <div style="font-size:12px;color:#141413;line-height:1.65;">El que usás para el día a día: agregar un campo al recibo, corregir un bug puntual, ajustar estilos de una página existente. En Claude Code se elige con <code style="background:#e8e6dc;padding:1px 5px;border-radius:4px;font-size:11.5px;">/model sonnet</code> (Sonnet 5.5, desde la v2.1.284).</div>
           </div>
           <div style="background:#ffffff;border:1.5px solid #e8e6dc;border-radius:10px;padding:16px;">
             <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:9px;margin-bottom:10px;border-bottom:2px solid #141413;">
-              <span style="font-family:'Poppins',Arial,sans-serif;font-size:14px;font-weight:600;color:#141413;display:flex;align-items:center;gap:6px;">Opus 5<span style="background:#d97757;color:#fff;font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;padding:2px 6px;border-radius:20px;">Nuevo</span></span>
+              <span style="font-family:'Poppins',Arial,sans-serif;font-size:14px;font-weight:600;color:#141413;display:flex;align-items:center;gap:6px;">Opus 5.5<span style="background:#d97757;color:#fff;font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;padding:2px 6px;border-radius:20px;">Nuevo</span></span>
               <span style="font-size:10px;font-weight:600;color:#b0aea5;">Cupo: alto</span>
             </div>
             <div style="font-family:'Poppins',Arial,sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;color:#a8532f;margin-bottom:6px;">Cambios grandes o riesgosos</div>
-            <div style="font-size:12px;color:#141413;line-height:1.65;">Para refactors que tocan varios archivos, lógica de cálculo compleja (SAC, retenciones, recálculos) o cuando necesitás que verifique su propio trabajo antes de entregar. Más lento y consume más cupo que Sonnet, pero es más confiable en tareas largas. <strong style="color:#141413;">Opus 5 salió al mismo precio que el escalón anterior y rinde bastante más; seguí arrancando por Sonnet.</strong></div>
+            <div style="font-size:12px;color:#141413;line-height:1.65;">Para refactors que tocan varios archivos, lógica de cálculo compleja (SAC, retenciones, recálculos) o cuando necesitás que verifique su propio trabajo antes de entregar. Más lento y consume más cupo que Sonnet, pero es más confiable en tareas largas. <strong style="color:#141413;">En Claude Code, con el plan Team Standard, es el modelo por defecto (desde la v2.1.280).</strong> Para lo acotado, bajá con <code style="background:#e8e6dc;padding:1px 5px;border-radius:4px;font-size:11.5px;">/model sonnet</code>.</div>
           </div>
           <div style="background:#ffffff;border:1.5px solid #e8e6dc;border-radius:10px;padding:16px;">
             <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:9px;margin-bottom:10px;border-bottom:2px solid #8a6a9c;">
-              <span style="font-family:'Poppins',Arial,sans-serif;font-size:14px;font-weight:600;color:#6d4a7d;">Fable 5</span>
+              <span style="font-family:'Poppins',Arial,sans-serif;font-size:14px;font-weight:600;color:#6d4a7d;">Fable 5.1</span>
               <span style="font-size:10px;font-weight:600;color:#b0aea5;">Cupo: muy alto</span>
             </div>
             <div style="font-family:'Poppins',Arial,sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;color:#a8532f;margin-bottom:6px;">Último recurso</div>
-            <div style="font-size:12px;color:#141413;line-height:1.65;">Pensado para tareas de código de máxima complejidad y largo aliento — migrar todo un sistema, auditar el repositorio completo o trabajar de forma autónoma por varios minutos sin supervisión. Es el que más cupo consume: usalo solo cuando Opus no alcanza, y avisando antes. <strong style="color:#141413;">Con la salida de Opus 5 ese margen se volvió muy chico</strong> — ver el detalle abajo.</div>
+            <div style="font-size:12px;color:#141413;line-height:1.65;">Pensado para tareas de código de máxima complejidad y largo aliento — migrar todo un sistema, auditar el repositorio completo o trabajar de forma autónoma por varios minutos sin supervisión. Es el que más cupo consume: usalo solo cuando Opus no alcanza, y avisando antes. Para el equipo solo está disponible con Créditos de Uso (hoy no habilitados) y solo lo tienen los asientos premium. <strong style="color:#141413;">Solo después de dos fallas de Opus 5.5 en Extra high</strong> — ver el detalle abajo.</div>
           </div>
         </div>
 
         <div style="border:1.5px solid rgba(217,119,87,0.4);border-radius:12px;overflow:hidden;margin-bottom:26px;background:#ffffff;">
           <div style="background:#fdf1ec;padding:14px 18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
-            <span style="font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:700;color:#a8532f;display:flex;align-items:center;gap:7px;"><span style="font-size:15px;">✨</span>Novedad · Claude Opus 5</span>
-            <span style="background:#ffffff;border:1px solid rgba(217,119,87,0.35);color:#a8532f;font-family:'Poppins',Arial,sans-serif;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;padding:3px 9px;border-radius:20px;">24 jul 2026</span>
+            <span style="font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:700;color:#a8532f;display:flex;align-items:center;gap:7px;"><span style="font-size:15px;">✨</span>Novedad · Claude Opus 5.5</span>
             <span style="background:#ffffff;border:1px solid #cfc9bd;color:#726c62;font-family:'Poppins',Arial,sans-serif;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;padding:3px 9px;border-radius:20px;">Nuevo escalón Opus</span>
           </div>
           <div style="padding:18px;">
-            <p style="font-size:13px;color:#141413;line-height:1.75;margin-bottom:16px;max-width:840px;">Anthropic lanzó <strong style="color:#141413;">Claude Opus 5</strong> el 24 de julio de 2026 y reemplazó al escalón Opus anterior. La idea central: entrega <strong style="color:#141413;">casi toda la capacidad de Fable 5 consumiendo bastante menos cupo</strong>, sin subir de precio de lista respecto del escalón que reemplaza. Para el equipo eso significa que <strong style="color:#141413;">el escalón "Opus" mejoró mucho sin salir más caro</strong>, y que las razones para llegar hasta Fable 5 se reducen bastante. <strong style="color:#141413;">Seguí arrancando por Sonnet.</strong></p>
+            <p style="font-size:13px;color:#141413;line-height:1.75;margin-bottom:16px;max-width:840px;"><strong style="color:#141413;">Claude Opus 5.5</strong> es el escalón Opus de esta guía y, en Claude Code con el plan Team Standard, el modelo que viene seleccionado. La regla de arranque del equipo no cambia: <strong style="color:#141413;">Sonnet 5.5 para el día a día, Opus 5.5 para pensar y revisar.</strong></p>
 
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-bottom:16px;">
               <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:13px 14px;">
-                <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#a8532f;margin-bottom:5px;">🎯 Casi al nivel de Fable 5</div>
-                <div style="font-size:12px;color:#141413;line-height:1.6;">Con esfuerzo máximo queda muy cerca del mejor resultado de Fable 5 en tareas de código, consumiendo bastante menos cupo por tarea. Ese margen chico es la razón para casi no llegar a Fable.</div>
+                <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#a8532f;margin-bottom:5px;">🧭 Default en Team Standard</div>
+                <div style="font-size:12px;color:#141413;line-height:1.6;">En Claude Code, Opus 5.5 viene seleccionado desde la v2.1.280. Si la tarea es acotada, bajá de escalón con <code style="background:#e8e6dc;padding:1px 5px;border-radius:4px;font-size:11.5px;">/model sonnet</code> (Sonnet 5.5, desde la v2.1.284).</div>
               </div>
               <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:13px 14px;">
-                <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#a8532f;margin-bottom:5px;">📈 Mismo cupo, más capacidad</div>
-                <div style="font-size:12px;color:#141413;line-height:1.6;">Donde antes escalabas al escalón Opus anterior, ahora tenés Opus 5 con el mismo consumo de cupo y bastante más capacidad. No hay que rehacer ningún cálculo del equipo.</div>
+                <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#a8532f;margin-bottom:5px;">🎚️ Esfuerzo sin cambiar de modelo</div>
+                <div style="font-size:12px;color:#141413;line-height:1.6;"><code style="background:#e8e6dc;padding:1px 5px;border-radius:4px;font-size:11.5px;">/effort</code> cambia el nivel de esfuerzo. Primero subí el esfuerzo; si no alcanza, recién ahí el modelo.</div>
               </div>
               <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:13px 14px;">
-                <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#a8532f;margin-bottom:5px;">⚡ Modo rápido (Fast mode)</div>
-                <div style="font-size:12px;color:#141413;line-height:1.6;">Existe una variante que corre a <strong style="color:#141413;">~2,5× la velocidad normal</strong> consumiendo el doble de cupo. Útil cuando la demora molesta más que el cupo; no es el modo por defecto.</div>
-              </div>
-              <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:13px 14px;">
-                <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#a8532f;margin-bottom:5px;">🔑 Dónde está disponible</div>
-                <div style="font-size:12px;color:#141413;line-height:1.6;">En todas las plataformas de Anthropic desde el día del lanzamiento. Es el <strong style="color:#141413;">modelo por defecto del plan Claude Max</strong> y el más capaz disponible en Claude Pro.</div>
+                <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#a8532f;margin-bottom:5px;">🪜 Cuándo llegar a Fable 5.1</div>
+                <div style="font-size:12px;color:#141413;line-height:1.6;">Solo después de dos fallas de Opus 5.5 en Extra high, y avisando antes: es el que más cupo consume. Para el equipo solo está disponible con Créditos de Uso (hoy no habilitados) y solo lo tienen los asientos premium.</div>
               </div>
             </div>
 
             <div style="background:rgba(120,140,93,0.08);border:1px solid rgba(120,140,93,0.3);border-radius:9px;padding:13px 15px;margin-bottom:12px;">
               <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#5a6b45;margin-bottom:5px;">✅ Qué cambia en la práctica para Payroll</div>
-              <div style="font-size:12.5px;color:#141413;line-height:1.7;">La regla de arranque no cambia: <strong style="color:#141413;">seguí empezando por Sonnet 5</strong> para el trabajo del día a día. Lo que cambió es el escalón de arriba: cuando antes escalabas al Opus anterior, ahora tenés Opus 5 con el mismo consumo de cupo y más capacidad — así que <strong style="color:#141413;">conviene escalar a Opus antes que antes</strong> ante un refactor grande o un cálculo riesgoso. Y salvo casos muy puntuales (auditoría multi-año, implicancia legal fuerte), <strong style="color:#141413;">ya casi no hace falta llegar hasta Fable 5</strong>.</div>
+              <div style="font-size:12.5px;color:#141413;line-height:1.7;">La regla de arranque no cambia: <strong style="color:#141413;">seguí empezando por Sonnet 5.5</strong> para el trabajo del día a día. Para pensar y revisar (un refactor grande, un cálculo riesgoso) escalá a <strong style="color:#141413;">Opus 5.5</strong>, y solo si falla dos veces en Extra high, a <strong style="color:#141413;">Fable 5.1</strong>.</div>
             </div>
 
-            <div style="background:#fff8e1;border:1px solid rgba(217,119,87,0.3);border-radius:8px;padding:11px 14px;font-size:11.5px;color:#5d4037;line-height:1.65;">📌 Los números de confianza de la pestaña "Por tarea" siguen siendo estimaciones internas del equipo tomadas del escalón Opus anterior. Con Opus 5 el resultado real debería ser igual o mejor en cada caso — conviene revalidarlos con casos propios en las próximas semanas.</div>
+            <div style="background:#fff8e1;border:1px solid rgba(217,119,87,0.3);border-radius:8px;padding:11px 14px;font-size:11.5px;color:#5d4037;line-height:1.65;">📌 Los números de confianza de la sección "Por tarea" siguen siendo estimaciones internas del equipo, medidos sobre el escalón anterior, pendiente de re-medir con los modelos actuales.</div>
           </div>
         </div>
 
         <div style="background:#ffffff;border:1.5px solid #e8e6dc;border-radius:12px;padding:20px 24px 14px;margin-bottom:26px;">
-          <div style="font-size:11px;color:#b0aea5;margin-bottom:14px;font-family:'Poppins',Arial,sans-serif;text-transform:uppercase;letter-spacing:0.6px;">Consumo de cupo relativo por modelo — el mismo salto de nivel que en "Por tarea"</div>
+          <div style="font-size:11px;color:#b0aea5;margin-bottom:14px;font-family:'Poppins',Arial,sans-serif;text-transform:uppercase;letter-spacing:0.6px;">Consumo de cupo relativo por modelo — alturas ilustrativas, no una medición</div>
           <div style="display:flex;align-items:flex-end;gap:2px;height:120px;">
             <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;">
               <div style="font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:700;color:#6a9bcc;margin-bottom:6px;">Bajo</div>
-              <div style="width:100%;max-width:60px;border-radius:8px 8px 0 0;background:#6a9bcc;height:10%;min-height:4px;"></div>
+              <div style="width:100%;max-width:60px;border-radius:8px 8px 0 0;background:#6a9bcc;height:25%;min-height:4px;"></div>
               <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:600;color:#6a9bcc;margin-top:8px;">Haiku 4.5</div>
             </div>
-            <div style="flex:0 0 46px;display:flex;align-items:center;justify-content:center;height:100%;padding-bottom:26px;"><div style="background:#fdf1ec;border:1px solid rgba(217,119,87,0.3);border-radius:20px;padding:3px 8px;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#a8532f;">3x</div></div>
+            <div style="flex:0 0 46px;display:flex;align-items:center;justify-content:center;height:100%;padding-bottom:26px;color:#b0aea5;font-size:16px;">›</div>
             <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;">
               <div style="font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:700;color:#788c5d;margin-bottom:6px;">Medio</div>
-              <div style="width:100%;max-width:60px;border-radius:8px 8px 0 0;background:#788c5d;height:30%;min-height:4px;"></div>
-              <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:600;color:#788c5d;margin-top:8px;">Sonnet 5</div>
+              <div style="width:100%;max-width:60px;border-radius:8px 8px 0 0;background:#788c5d;height:50%;min-height:4px;"></div>
+              <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:600;color:#788c5d;margin-top:8px;">Sonnet 5.5</div>
             </div>
-            <div style="flex:0 0 46px;display:flex;align-items:center;justify-content:center;height:100%;padding-bottom:26px;"><div style="background:#f2f0ea;border:1px solid #cfc9bd;border-radius:20px;padding:3px 8px;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#141413;">1.7x</div></div>
+            <div style="flex:0 0 46px;display:flex;align-items:center;justify-content:center;height:100%;padding-bottom:26px;color:#b0aea5;font-size:16px;">›</div>
             <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;">
               <div style="font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:700;color:#141413;margin-bottom:6px;">Alto</div>
-              <div style="width:100%;max-width:60px;border-radius:8px 8px 0 0;background:#141413;height:50%;min-height:4px;"></div>
-              <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:600;color:#141413;margin-top:8px;">Opus 5</div>
+              <div style="width:100%;max-width:60px;border-radius:8px 8px 0 0;background:#141413;height:75%;min-height:4px;"></div>
+              <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:600;color:#141413;margin-top:8px;">Opus 5.5</div>
             </div>
-            <div style="flex:0 0 46px;display:flex;align-items:center;justify-content:center;height:100%;padding-bottom:26px;"><div style="background:#f2f0ea;border:1px solid #cfc9bd;border-radius:20px;padding:3px 8px;font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#726c62;">2x</div></div>
+            <div style="flex:0 0 46px;display:flex;align-items:center;justify-content:center;height:100%;padding-bottom:26px;color:#b0aea5;font-size:16px;">›</div>
             <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;">
               <div style="font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:700;color:#6d4a7d;margin-bottom:6px;">Muy alto</div>
               <div style="width:100%;max-width:60px;border-radius:8px 8px 0 0;background:#8a6a9c;height:100%;min-height:4px;"></div>
-              <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:600;color:#6d4a7d;margin-top:8px;">Fable 5</div>
+              <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:600;color:#6d4a7d;margin-top:8px;">Fable 5.1</div>
             </div>
           </div>
         </div>
 
-        <div style="font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.9px;color:#b0aea5;margin-bottom:10px;">Razonamiento extendido y niveles de esfuerzo</div>
+        <div style="font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.9px;color:#b0aea5;margin-bottom:10px;">Niveles de esfuerzo</div>
         <div style="background:#ffffff;border:1.5px solid #e8e6dc;border-radius:12px;padding:16px 20px;margin-bottom:26px;">
-          <div style="font-size:12.5px;color:#141413;line-height:1.7;max-width:840px;">Thinking y esfuerzo son <strong style="color:#141413;">dos configuraciones separadas que se pueden combinar</strong>, disponibles tanto en el chat como en Claude Code y en Claude Design. El criterio de cuándo usar cada cosa <strong style="color:#141413;">pasó a la pestaña "Por tarea"</strong>, que es donde lo necesita todo el equipo — ahí está la regla corta y, desplegable, la tabla con los cinco niveles.</div>
+          <div style="font-size:12.5px;color:#141413;line-height:1.7;max-width:840px;">El esfuerzo se elige junto al selector de modelo, tanto en el chat como en Claude Code (con <code style="background:#e8e6dc;padding:1px 5px;border-radius:4px;font-size:11.5px;">/effort</code>) y en Claude Design. El criterio de cuándo subirlo <strong style="color:#141413;">está en la sección "Niveles de esfuerzo"</strong>, que es donde lo necesita todo el equipo — ahí está la escalera (primero el esfuerzo, después el modelo) y, desplegable, la tabla con los cinco niveles.</div>
         </div>
 
 
         <div style="background:rgba(106,155,204,0.08);border:1.5px solid rgba(106,155,204,0.28);border-radius:12px;padding:20px 24px;margin-bottom:26px;">
           <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:#3d6690;margin-bottom:10px;display:flex;align-items:center;gap:7px;">🧩 Ultracode — no es un modelo, es un modo</div>
-          <div style="font-size:13px;color:#141413;line-height:1.75;margin-bottom:16px;max-width:820px;">Ultracode se activa sobre Sonnet 5, Opus 5 o Fable 5 — no es una quinta opción de modelo. Reparte una tarea grande entre varios agentes que trabajan al mismo tiempo (uno busca bugs de cálculo, otro revisa consistencia de estilos entre archivos, otro verifica seguridad) y después cruza los resultados entre sí antes de mostrarte una conclusión. Es más lento que un pedido normal, pero mucho más exhaustivo.</div>
+          <div style="font-size:13px;color:#141413;line-height:1.75;margin-bottom:16px;max-width:820px;">Ultracode se activa sobre Sonnet 5.5, Opus 5.5 o Fable 5.1 — no es una quinta opción de modelo. Reparte una tarea grande entre varios agentes que trabajan al mismo tiempo (uno busca bugs de cálculo, otro revisa consistencia de estilos entre archivos, otro verifica seguridad) y después cruza los resultados entre sí antes de mostrarte una conclusión. Es más lento que un pedido normal, pero mucho más exhaustivo.</div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-bottom:14px;">
             <div>
               <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;color:#5a6b45;">Conviene usarlo cuando</div>
@@ -961,7 +958,7 @@
               <ul style="list-style:none;display:flex;flex-direction:column;gap:7px;padding:0;margin:0;">
                 <li style="font-size:12.5px;color:#141413;line-height:1.55;padding-left:16px;position:relative;"><span style="position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:#6a9bcc;"></span>Un fix puntual en un solo archivo.</li>
                 <li style="font-size:12.5px;color:#141413;line-height:1.55;padding-left:16px;position:relative;"><span style="position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:#6a9bcc;"></span>Cambios chicos de texto, color o estilo.</li>
-                <li style="font-size:12.5px;color:#141413;line-height:1.55;padding-left:16px;position:relative;"><span style="position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:#6a9bcc;"></span>Cualquier cosa que resolverías en un mensaje con Sonnet 5.</li>
+                <li style="font-size:12.5px;color:#141413;line-height:1.55;padding-left:16px;position:relative;"><span style="position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:#6a9bcc;"></span>Cualquier cosa que resolverías en un mensaje con Sonnet 5.5.</li>
                 <li style="font-size:12.5px;color:#141413;line-height:1.55;padding-left:16px;position:relative;"><span style="position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:#6a9bcc;"></span>Preguntas rápidas sobre cómo funciona algo del código.</li>
               </ul>
             </div>
@@ -1000,18 +997,14 @@
             <span style="background:#ffffff;border:1px solid #cfc9bd;color:#726c62;font-family:'Poppins',Arial,sans-serif;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;padding:3px 9px;border-radius:20px;">Beta</span>
           </div>
           <div style="padding:18px;">
-            <div style="background:#fff8e1;border-left:3px solid #d97757;border-radius:0 8px 8px 0;padding:11px 14px;margin-bottom:14px;font-size:12px;color:#5d4037;line-height:1.7;">⚠️ <strong style="color:#141413;">Esto no se usa desde Chat, Cowork ni Claude Code.</strong> Es una función de la API de Anthropic, para código que llama a Claude por programa. Hoy el equipo no tiene nada así — las herramientas del portal corren enteras en el navegador y no hablan con ninguna API. Queda documentado por si algún día se evalúa integrar algo, y porque explica bien <strong style="color:#141413;">cómo se consigue casi la calidad de Opus pagando cerca de Sonnet</strong>.</div>
+            <div style="background:#fff8e1;border-left:3px solid #d97757;border-radius:0 8px 8px 0;padding:11px 14px;margin-bottom:14px;font-size:12px;color:#5d4037;line-height:1.7;">⚠️ <strong style="color:#141413;">Esto no se usa desde Chat, Cowork ni Claude Code.</strong> Es una función de la API de Anthropic, para código que llama a Claude por programa. Hoy el equipo no tiene nada así — las herramientas del portal corren enteras en el navegador y no hablan con ninguna API. Queda documentado por si algún día se evalúa integrar algo, y porque explica bien <strong style="color:#141413;">cómo se consigue casi la calidad de Opus gastando cerca de lo que gasta Sonnet</strong>.</div>
 
             <p style="font-size:13px;color:#141413;line-height:1.75;margin-bottom:14px;max-width:840px;">La idea: en vez de que el modelo grande reparta el trabajo entre modelos chicos, <strong style="color:#141413;">se da vuelta</strong>. Un modelo económico (Sonnet o Haiku) es el <strong style="color:#141413;">ejecutor</strong> y hace la tarea de punta a punta — llama herramientas, lee resultados, itera. Cuando llega a una decisión que no puede resolver bien solo, <strong style="color:#141413;">consulta a Opus como asesor</strong>. Opus mira el contexto compartido y devuelve un plan, una corrección o un "pará acá"; el ejecutor sigue. <strong style="color:#141413;">El asesor nunca llama herramientas ni le escribe al usuario</strong>: solo orienta al ejecutor.</p>
 
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:16px;">
               <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:13px 14px;">
-                <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#3d6690;margin-bottom:5px;">💰 Por qué sale barato</div>
-                <div style="font-size:12px;color:#141413;line-height:1.6;">El asesor solo escribe un plan corto (unos <strong style="color:#141413;">400 a 700 tokens</strong>) y se le cobra a la tarifa de Opus. Todo el resto de la salida — que es la mayor parte — la genera el ejecutor a su tarifa más baja. El costo total queda muy por debajo de correr Opus de punta a punta.</div>
-              </div>
-              <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:13px 14px;">
-                <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#3d6690;margin-bottom:5px;">📊 Qué midió Anthropic</div>
-                <div style="font-size:12px;color:#141413;line-height:1.6;">Sonnet con asesor Opus: <strong style="color:#141413;">+2,7 puntos</strong> sobre Sonnet solo en SWE-bench Multilingual, y <strong style="color:#141413;">11,9% menos de costo</strong> por tarea. Haiku con asesor Opus en BrowseComp: <strong style="color:#141413;">41,2% contra 19,7%</strong> solo — más del doble.</div>
+                <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#3d6690;margin-bottom:5px;">💰 Por qué rinde</div>
+                <div style="font-size:12px;color:#141413;line-height:1.6;">El asesor solo escribe un plan corto y ese tramo cuenta como consumo de Opus. Todo el resto de la salida — que es la mayor parte — la genera el ejecutor, que es el modelo más económico. El consumo total queda muy por debajo de correr Opus de punta a punta.</div>
               </div>
               <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:13px 14px;">
                 <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#3d6690;margin-bottom:5px;">🎚️ Controles de gasto</div>
@@ -1041,12 +1034,12 @@
 
             <div style="background:#141413;border-radius:9px;padding:14px 16px;overflow-x:auto;margin-bottom:12px;">
               <pre style="margin:0;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:11.5px;line-height:1.7;color:#f0ece4;">response = client.messages.create(
-    model="claude-sonnet-5",          # ejecutor: hace el trabajo
+    model="claude-sonnet-5-5",        # ejecutor: hace el trabajo
     tools=[
         {
             "type": "advisor_20260301",
             "name": "advisor",
-            "model": "claude-opus-5",  # asesor: solo orienta
+            "model": "claude-opus-5-5",  # asesor: solo orienta
             "max_uses": 3,             # tope de consultas
         },
         # ... el resto de tus herramientas
@@ -1059,10 +1052,6 @@
           </div>
         </div>
 
-        <div style="background:#faf9f5;border:1px dashed #cfc9bd;border-radius:9px;padding:12px 15px;margin-top:18px;">
-          <div style="font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:#877f74;margin-bottom:6px;">Precios de lista de API — solo de referencia, no aplican al plan del equipo</div>
-          <div style="font-size:11px;color:#877f74;line-height:1.7;">El equipo entra por el plan Team de H&amp;A, donde nadie paga por token: la unidad que importa es el cupo. Estos números sirven únicamente si alguna vez se evalúa integrar algo por fuera del plan, por millón de tokens de entrada / salida: <strong style="color:#726c62;">Haiku 4.5 $1 / $5</strong> · <strong style="color:#726c62;">Sonnet 5 $3 / $15</strong> (con precio introductorio de $2 / $10 hasta el 31 de agosto de 2026) · <strong style="color:#726c62;">Opus 5 $5 / $25</strong> · <strong style="color:#726c62;">Fable 5 $10 / $50</strong>. Fuente: <a href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="noopener" style="color:#a8532f;">precios oficiales de Anthropic</a>.</div>
-        </div>
           </div>
         </sc-if>
       </div>
@@ -1102,10 +1091,6 @@
                 <div style="font-size:12px;color:#141413;line-height:1.6;">Ya tiene cargados los design systems del equipo, incluido el <strong style="color:#141413;">"H&amp;A Design System"</strong>. Desde la semana del 20/07 también trae design systems incorporados de fábrica.</div>
               </div>
               <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:13px 14px;">
-                <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#a8532f;margin-bottom:5px;">🎛️ Corre sobre cualquier modelo</div>
-                <div style="font-size:12px;color:#141413;line-height:1.6;">El selector ofrece Fable 5 (requiere usage credits), Opus 5, Sonnet 5 y Haiku 4.5, con un selector de <strong style="color:#141413;">Effort</strong> propio. Opus 5 viene seleccionado por defecto.</div>
-              </div>
-              <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:13px 14px;">
                 <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#a8532f;margin-bottom:5px;">📤 Exporta a</div>
                 <div style="font-size:12px;color:#141413;line-height:1.6;">PDF (con elección de tamaño de página), PowerPoint, HTML y Google Slides, directo desde el menú de exportación. También permite <strong style="color:#141413;">publicar un diseño como artifact público</strong> accesible por link.</div>
               </div>
@@ -1140,7 +1125,6 @@
                     <div style="font-family:'Poppins',Arial,sans-serif;font-size:14px;font-weight:600;color:#141413;margin-bottom:3px;">{{ a.name }}</div>
                     <div style="font-size:11px;color:#726c62;">{{ a.type }}</div>
                   </div>
-                  <span style="background:rgba(120,140,93,0.14);border:1px solid rgba(120,140,93,0.32);color:#5a6b45;font-family:'Poppins',Arial,sans-serif;font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;flex-shrink:0;">{{ a.tokens }} tokens</span>
                 </div>
                 <div style="background:#faf9f5;border:1px dashed #cfc9bd;border-radius:7px;padding:9px 11px;margin-bottom:11px;">
                   <div style="font-family:'Poppins',Arial,sans-serif;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.7px;color:#b0aea5;margin-bottom:3px;">Cómo pedirlo</div>
@@ -1156,7 +1140,6 @@
             </sc-for>
           </div>
         </sc-for>
-        <div style="background:#faf9f5;border:1px dashed #cfc9bd;border-radius:8px;padding:10px 13px;margin-top:20px;font-size:11px;color:#877f74;line-height:1.65;">📌 Sobre los rangos de tokens de las tarjetas: son estimados de la generación anterior de modelos y hoy <strong style="color:#726c62;">subestiman alrededor de 30%</strong>. Sonnet 5 usa un tokenizador nuevo que cuenta más tokens para el mismo texto, con más peso en código, datos estructurados y texto que no está en inglés. Sirven para comparar tipos de artifact entre sí, no como medida absoluta.</div>
           </div>
         </sc-if>
       </div>
@@ -1183,15 +1166,26 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-bottom:18px;">
         <div style="background:rgba(120,140,93,0.08);border:1.5px solid rgba(120,140,93,0.32);border-radius:9px;padding:13px 15px;">
           <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#5a6b45;margin-bottom:5px;">✅ Plan de la empresa (Team de H&amp;A)</div>
-          <div style="font-size:12px;color:#141413;line-height:1.65;"><strong style="color:#141413;">Sí</strong>, podés trabajar con información de clientes. El contenido no se usa para entrenar modelos y la retención es la estándar de 30 días.</div>
+          <div style="font-size:12px;color:#141413;line-height:1.65;"><strong style="color:#141413;">Sí</strong>, podés trabajar con información de clientes. Team no entrena con el contenido por defecto.</div>
         </div>
         <div style="background:#fff8e1;border:1.5px solid rgba(217,119,87,0.32);border-radius:9px;padding:13px 15px;">
           <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#a8532f;margin-bottom:5px;">⚠️ Cuenta personal paga (Pro o Max)</div>
-          <div style="font-size:12px;color:#141413;line-height:1.65;"><strong style="color:#141413;">Solo después de revisar la configuración de privacidad y avisar a IT.</strong> Aunque esté apagado el uso para entrenamiento, esa información queda atada a la licencia personal: H&amp;A no la puede administrar, auditar ni dar de baja. El trabajo con datos de clientes va por el plan de la empresa.</div>
+          <div style="font-size:12px;color:#141413;line-height:1.65;"><strong style="color:#141413;">Solo después de revisar la configuración de privacidad y avisar a IT.</strong> Los plazos de retención (30 días, o hasta 5 años si la opción de mejorar Claude está activada) rigen solo en cuentas personales. Aunque esté apagado el uso para entrenamiento, esa información queda atada a la licencia personal: H&amp;A no la puede administrar, auditar ni dar de baja. El trabajo con datos de clientes va por el plan de la empresa.</div>
         </div>
         <div style="background:rgba(168,83,47,0.07);border:1.5px solid rgba(168,83,47,0.3);border-radius:9px;padding:13px 15px;">
           <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#a8532f;margin-bottom:5px;">⛔ Cuenta gratuita (Free)</div>
           <div style="font-size:12px;color:#141413;line-height:1.65;"><strong style="color:#141413;">No. Nunca.</strong> Ni datos de empleados, ni de clientes, ni documentos internos.</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:18px;">
+        <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:13px 15px;">
+          <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#726c62;margin-bottom:5px;">👍 El pulgar guarda la conversación</div>
+          <div style="font-size:12px;color:#141413;line-height:1.65;">Darle pulgar arriba o abajo a una respuesta puede hacer que esa conversación se guarde hasta 5 años. Si hay datos de clientes en el chat, no lo uses.</div>
+        </div>
+        <div style="background:#faf9f5;border:1px solid #e8e6dc;border-radius:9px;padding:13px 15px;">
+          <div style="font-family:'Poppins',Arial,sans-serif;font-size:11px;font-weight:700;color:#726c62;margin-bottom:5px;">🕶️ Incógnito no es invisible</div>
+          <div style="font-size:12px;color:#141413;line-height:1.65;">Las conversaciones en modo incógnito aparecen en las exportaciones de datos del Owner de la organización.</div>
         </div>
       </div>
 
@@ -1260,7 +1254,7 @@
 
       <div style="background:#fdf1ec;border:1.5px solid rgba(217,119,87,0.45);border-radius:11px;padding:15px 17px;margin-bottom:20px;">
         <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#a8532f;margin-bottom:4px;">📘 Las fuentes de esta guía · elección de modelo y esfuerzo</div>
-        <div style="font-size:12px;color:#5d4037;line-height:1.65;margin-bottom:12px;">Los tres artículos de Anthropic contra los que se revisó esta versión (5 ago 2026). Si algo de acá te suena raro o quedó viejo, la respuesta está en estos links.</div>
+        <div style="font-size:12px;color:#5d4037;line-height:1.65;margin-bottom:12px;">Los artículos de Anthropic contra los que se revisó esta versión (28 sep 2026). Si algo de acá te suena raro o quedó viejo, la respuesta está en estos links.</div>
         <div style="display:flex;flex-direction:column;gap:9px;">
           <a href="https://claude.com/blog/claude-models-explained-choosing-the-best-model-for-your-use-case" target="_blank" rel="noopener" style="display:block;background:#ffffff;border:1px solid rgba(217,119,87,0.3);border-radius:9px;padding:11px 13px;text-decoration:none;">
             <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#a8532f;margin-bottom:2px;">Claude models explained: choosing the best model for your use case →</div>
@@ -1274,14 +1268,26 @@
             <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#a8532f;margin-bottom:2px;">The advisor strategy: give agents an intelligence boost →</div>
             <div style="font-size:11.5px;color:#726c62;line-height:1.6;">Sonnet o Haiku como ejecutor consultando a Opus como asesor. Solo API — el detalle está en la sección de Claude Code.</div>
           </a>
+          <a href="https://claude.dev/blog/spending-your-effort/" target="_blank" rel="noopener" style="display:block;background:#ffffff;border:1px solid rgba(217,119,87,0.3);border-radius:9px;padding:11px 13px;text-decoration:none;">
+            <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#a8532f;margin-bottom:2px;">Using Claude Code: Spending your effort →</div>
+            <div style="font-size:11.5px;color:#726c62;line-height:1.6;">Qué es el esfuerzo y cuándo usar cada nivel en Claude Code.</div>
+          </a>
+          <a href="https://claude.dev/blog/getting-the-most-out-of-opus-5-5/" target="_blank" rel="noopener" style="display:block;background:#ffffff;border:1px solid rgba(217,119,87,0.3);border-radius:9px;padding:11px 13px;text-decoration:none;">
+            <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#a8532f;margin-bottom:2px;">Getting the most out of Opus 5.5 in Claude and Claude Code →</div>
+            <div style="font-size:11.5px;color:#726c62;line-height:1.6;">Cómo pedirle a Opus 5.5, cómo llevar una corrida larga y cómo chequear el resultado.</div>
+          </a>
+          <a href="https://claude.dev/blog/what-a-task-costs-on-opus-5-5/" target="_blank" rel="noopener" style="display:block;background:#ffffff;border:1px solid rgba(217,119,87,0.3);border-radius:9px;padding:11px 13px;text-decoration:none;">
+            <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#a8532f;margin-bottom:2px;">What a task costs on Opus 5.5 →</div>
+            <div style="font-size:11.5px;color:#726c62;line-height:1.6;">Cuándo alcanza Opus 5.5 y cuándo conviene pasar a Fable 5.1.</div>
+          </a>
         </div>
       </div>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;">
         <div>
-          <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#141413;margin-bottom:7px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">Claude Opus 5 <span style="font-weight:500;color:#877f74;font-size:11px;">· 24 jul 2026</span><span style="background:#d97757;color:#fff;font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;padding:2px 6px;border-radius:20px;">Nuevo</span></div>
+          <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#141413;margin-bottom:7px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">Claude Opus 5.5 <span style="font-weight:500;color:#877f74;font-size:11px;">· verificado 28 sep 2026</span><span style="background:#d97757;color:#fff;font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;padding:2px 6px;border-radius:20px;">Nuevo</span></div>
           <div style="display:flex;flex-direction:column;gap:5px;">
-            <a href="https://www.anthropic.com/news/claude-opus-5" target="_blank" rel="noopener" style="font-size:12px;color:#a8532f;text-decoration:none;border-bottom:1px solid rgba(168,83,47,0.28);width:fit-content;">Anuncio oficial</a>
+            <a href="https://www.anthropic.com/claude-opus-5-5" target="_blank" rel="noopener" style="font-size:12px;color:#a8532f;text-decoration:none;border-bottom:1px solid rgba(168,83,47,0.28);width:fit-content;">Anuncio oficial</a>
             <a href="https://www.anthropic.com/claude/opus" target="_blank" rel="noopener" style="font-size:12px;color:#a8532f;text-decoration:none;border-bottom:1px solid rgba(168,83,47,0.28);width:fit-content;">Página de producto</a>
           </div>
         </div>
@@ -1295,24 +1301,24 @@
           </div>
         </div>
         <div>
-          <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#141413;margin-bottom:7px;">Claude Sonnet 5 <span style="font-weight:500;color:#877f74;font-size:11px;">· 30 jun 2026</span></div>
+          <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#141413;margin-bottom:7px;">Claude Sonnet 5.5 <span style="font-weight:500;color:#877f74;font-size:11px;">· verificado 28 sep 2026</span></div>
           <div style="display:flex;flex-direction:column;gap:5px;">
-            <a href="https://www.anthropic.com/news/claude-sonnet-5" target="_blank" rel="noopener" style="font-size:12px;color:#a8532f;text-decoration:none;border-bottom:1px solid rgba(168,83,47,0.28);width:fit-content;">Anuncio oficial</a>
+            <a href="https://www.anthropic.com/claude-sonnet-5-5" target="_blank" rel="noopener" style="font-size:12px;color:#a8532f;text-decoration:none;border-bottom:1px solid rgba(168,83,47,0.28);width:fit-content;">Anuncio oficial</a>
             <a href="https://www.anthropic.com/claude/sonnet" target="_blank" rel="noopener" style="font-size:12px;color:#a8532f;text-decoration:none;border-bottom:1px solid rgba(168,83,47,0.28);width:fit-content;">Página de producto</a>
+            <a href="https://platform.claude.com/docs/es/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5" target="_blank" rel="noopener" style="font-size:12px;color:#a8532f;text-decoration:none;border-bottom:1px solid rgba(168,83,47,0.28);width:fit-content;">Guía de prompting (en español)</a>
           </div>
         </div>
         <div>
-          <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#141413;margin-bottom:7px;">Claude Fable 5 y Mythos 5 <span style="font-weight:500;color:#877f74;font-size:11px;">· 9 jun 2026</span></div>
+          <div style="font-family:'Poppins',Arial,sans-serif;font-size:12px;font-weight:700;color:#141413;margin-bottom:7px;">Claude Fable 5.1 y Mythos 5.1 <span style="font-weight:500;color:#877f74;font-size:11px;">· verificado 28 sep 2026</span></div>
           <div style="display:flex;flex-direction:column;gap:5px;">
-            <a href="https://www.anthropic.com/news/claude-fable-5-mythos-5" target="_blank" rel="noopener" style="font-size:12px;color:#a8532f;text-decoration:none;border-bottom:1px solid rgba(168,83,47,0.28);width:fit-content;">Anuncio de lanzamiento</a>
-            <a href="https://platform.claude.com/docs/en/about-claude/models/introducing-claude-fable-5-and-claude-mythos-5" target="_blank" rel="noopener" style="font-size:12px;color:#a8532f;text-decoration:none;border-bottom:1px solid rgba(168,83,47,0.28);width:fit-content;">Documentación técnica</a>
+            <a href="https://www.anthropic.com/claude-fable-and-mythos-5-1" target="_blank" rel="noopener" style="font-size:12px;color:#a8532f;text-decoration:none;border-bottom:1px solid rgba(168,83,47,0.28);width:fit-content;">Anuncio de lanzamiento</a>
+            <a href="https://platform.claude.com/docs/en/models/fable-5-1/overview" target="_blank" rel="noopener" style="font-size:12px;color:#a8532f;text-decoration:none;border-bottom:1px solid rgba(168,83,47,0.28);width:fit-content;">Documentación técnica</a>
             <a href="https://www.anthropic.com/glasswing" target="_blank" rel="noopener" style="font-size:12px;color:#a8532f;text-decoration:none;border-bottom:1px solid rgba(168,83,47,0.28);width:fit-content;">Project Glasswing</a>
           </div>
           <div style="font-size:11.5px;color:#877f74;line-height:1.6;margin-top:7px;">Son <strong style="color:#726c62;">el mismo modelo con distinto empaquetado</strong>: Mythos es para organizaciones habilitadas que trabajan con temas de ciberseguridad y biología de doble uso, y Fable es la versión con salvaguardas extra, apta para uso general. Al equipo le corresponde Fable.</div>
         </div>
       </div>
-      <div style="background:#fff8e1;border:1px solid rgba(217,119,87,0.3);border-radius:8px;padding:11px 14px;margin-top:16px;font-size:11.5px;color:#5d4037;line-height:1.65;"><strong style="color:#a8532f;">Novedad (24 jul 2026):</strong> se lanzó <strong style="color:#a8532f;">Claude Opus 5</strong>, que pasa a ser el escalón Opus de esta guía. Mismo consumo de cupo que el escalón anterior, con capacidad muy cercana a Fable 5 — el detalle está en la pestaña "Claude Code". Fuente: <a href="https://www.anthropic.com/news/claude-opus-5" target="_blank" rel="noopener" style="color:#a8532f;font-weight:600;">anuncio oficial</a>.</div>
-      <div style="background:#f2f0ea;border:1px solid #d5d0c6;border-radius:8px;padding:11px 14px;margin-top:10px;font-size:11.5px;color:#5d4037;line-height:1.65;"><strong style="color:#726c62;">Anterior (1 jul 2026):</strong> el control de exportación del 12 de junio que había suspendido el acceso a Fable 5 y Mythos 5 se levantó; según el comunicado oficial, el acceso a Fable 5 se restableció en Claude Platform, Claude.ai, Claude Code y Claude Cowork (<a href="https://www.anthropic.com/news/redeploying-fable-5" target="_blank" rel="noopener" style="color:#a8532f;font-weight:600;">página oficial</a>).</div>
+      <div style="background:#fff8e1;border:1px solid rgba(217,119,87,0.3);border-radius:8px;padding:11px 14px;margin-top:16px;font-size:11.5px;color:#5d4037;line-height:1.65;"><strong style="color:#a8532f;">Novedad (verificada el 28 sep 2026):</strong> <strong style="color:#a8532f;">Claude Opus 5.5</strong> y <strong style="color:#a8532f;">Claude Sonnet 5.5</strong> pasan a ser los escalones Opus y Sonnet de esta guía, junto con <strong style="color:#a8532f;">Claude Fable 5.1</strong>. Fuente: <a href="https://www.anthropic.com/claude-opus-5-5" target="_blank" rel="noopener" style="color:#a8532f;font-weight:600;">anuncio oficial de Opus 5.5</a>.</div>
     </div>
           </div>
         </sc-if>
@@ -1325,7 +1331,7 @@
         <span style="width:1px;height:22px;background:#d5d0c6;display:inline-block;"></span>
         <span style="font-family:'Poppins',Arial,sans-serif;font-size:13px;font-weight:600;color:#726c62;letter-spacing:-0.2px;opacity:0.82;">Anthropic</span>
       </div>
-      <span style="font-size:11px;color:#b0aea5;text-align:right;">Guía interna de Payroll · v14 · Hidalgo &amp; Asociados · Datos verificados al 6 de agosto de 2026 · anthropic.com/pricing</span>
+      <span style="font-size:11px;color:#b0aea5;text-align:right;">Guía interna de Payroll · v15 · Hidalgo &amp; Asociados · Datos verificados al 28 de septiembre de 2026</span>
     </div>
 
   </div>
@@ -1339,20 +1345,20 @@
      Datos y constructores — idénticos al componente original.
      ============================================================ */
 var MODEL_COLORS = { haiku:'#6a9bcc', sonnet:'#788c5d', opus:'#141413', fable:'#6d4a7d' };
-var MODEL_NAMES = { haiku:'Haiku 4.5', sonnet:'Sonnet 5', opus:'Opus 5', fable:'Fable 5' };
+var MODEL_NAMES = { haiku:'Haiku 4.5', sonnet:'Sonnet 5.5', opus:'Opus 5.5', fable:'Fable 5.1' };
 
 // Consumo de cupo relativo y rol — constante entre casos. costPct normaliza contra Fable=100.
-// El equipo entra por el plan Team: la unidad es el cupo, no el dólar. Los precios de lista
-// de API viven en una sola nota al pie del tab "Claude Code", como referencia.
+// El equipo entra por el plan Team: la unidad es el cupo, no el dólar. costPct son escalones
+// ordinales (25/50/75/100), solo visuales: no son una medición.
 var LADDER_META = [
-  {key:'haiku',  name:'Haiku 4.5', role:'Subagentes rápidos',          color:'#6a9bcc', costLabel:'Bajo',  costPct:10,  mult:''},
-  {key:'sonnet', name:'Sonnet 5',  role:'Default · el punto justo',     color:'#788c5d', costLabel:'Medio', costPct:30,  mult:'3×', sweet:true},
-  {key:'opus',   name:'Opus 5',    role:'Cambios grandes o riesgosos',  color:'#141413', costLabel:'Alto',  costPct:50,  mult:'1,7×'},
-  {key:'fable',  name:'Fable 5',   role:'Último recurso',               color:'#6d4a7d', costLabel:'Muy alto', costPct:100, mult:'2×'}
+  {key:'haiku',  name:'Haiku 4.5', role:'Subagentes rápidos',          color:'#6a9bcc', costLabel:'Bajo',  costPct:25},
+  {key:'sonnet', name:'Sonnet 5.5',  role:'Default · el punto justo',     color:'#788c5d', costLabel:'Medio', costPct:50, sweet:true},
+  {key:'opus',   name:'Opus 5.5',    role:'Cambios grandes o riesgosos',  color:'#141413', costLabel:'Alto',  costPct:75},
+  {key:'fable',  name:'Fable 5.1',   role:'Último recurso',               color:'#6d4a7d', costLabel:'Muy alto', costPct:100}
 ];
 
 /* ------------------------------------------------------------------
-   Curva de esfuerzo de un solo modelo (Sonnet 5) — SACADA de la vista.
+   Curva de esfuerzo de un solo modelo (Sonnet 5.5) — SACADA de la vista.
    El gráfico se quitó porque, sin datos medidos, mostraba cuatro barras
    "s/d" que solo sumaban ruido. Queda acá el protocolo para reponerlo
    cuando haya números reales:
@@ -1360,7 +1366,7 @@ var LADDER_META = [
    - 1 tarea representativa de liquidación, fija, la misma en las 4 corridas.
    - Criterio de acierto BINARIO: resuelve bien los casos borde definidos, sí o no.
    - 3 corridas por nivel de esfuerzo; registrar cuántas dan bien.
-   - Usar los niveles realmente disponibles para Sonnet 5 en el selector
+   - Usar los niveles realmente disponibles para Sonnet 5.5 en el selector
      (low/medium/high/max; si "max" no aparece, usar el tope y anotarlo).
    - usabilidad = % de corridas OK. cupoRel = cupo relativo, Low = 1.
    - No usar los porcentajes de confianza de CASES_RAW: son estimaciones
@@ -1391,74 +1397,82 @@ var CASES_RAW = {
   debug:{
     title:'Resolver errores de liquidación',
     desc:'Un concepto muestra valor incorrecto o cero para ciertos empleados. Necesitás rastrear la lógica de cálculo, identificar dónde falla y proponer la corrección.',
-    verdict:'Arrancá con Sonnet 5. Si el error cruza 3 o más conceptos encadenados, o Sonnet no lo resuelve en dos intentos, escalá a Opus 5. Fable 5 solo si hay implicancia legal o auditoría multi-año.',
-    haiku:{tokens:'~2.5K',time:'3–4s',iter:3,conf:62,quality:'Detecta errores obvios (valores nulos, campos vacíos) pero no logra trazar lógica de cálculo encadenada. Requiere guía manual en cada paso.'},
-    sonnet:{tokens:'~4K',time:'5–8s',iter:1,conf:91,quality:'Traza el flujo de cálculo de punta a punta, identifica la causa raíz y propone corrección en el primer intento. Cubre el 90% de los errores típicos.'},
-    opus:{tokens:'~5K',time:'7–11s',iter:1,conf:97,quality:'Rara vez deja errores sin marcar y avisa cuando su propio diagnóstico tiene incertidumbre, en vez de afirmar con confianza injustificada. Ideal cuando el error cruza varios conceptos encadenados o reglas de negocio complejas.'},
-    fable:{tokens:'~7K',time:'12–20s',iter:0,conf:99,quality:'Para errores que requieren auditoría multi-año o remediación con implicancia legal: razona de punta a punta y verifica cruzado antes de reportar.'}
+    verdict:'Arrancá con Sonnet 5.5. Si el error cruza 3 o más conceptos encadenados, o Sonnet no lo resuelve en dos intentos, escalá a Opus 5.5. Fable 5.1 solo tras dos fallas de Opus 5.5 en Extra high.',
+    effort:{start:'Medium', up:'Subilo a High si el error cruza 3 o más conceptos encadenados; si aun así no cierra, a Extra high y recién después Opus 5.5.'},
+    haiku:{time:'3–4s',iter:3,conf:62,quality:'Detecta errores obvios (valores nulos, campos vacíos) pero no logra trazar lógica de cálculo encadenada. Requiere guía manual en cada paso.'},
+    sonnet:{time:'5–8s',iter:1,conf:91,quality:'Traza el flujo de cálculo de punta a punta, identifica la causa raíz y propone corrección en el primer intento. Cubre el 90% de los errores típicos.'},
+    opus:{time:'7–11s',iter:1,conf:97,quality:'Rara vez deja errores sin marcar y avisa cuando su propio diagnóstico tiene incertidumbre, en vez de afirmar con confianza injustificada. Ideal cuando el error cruza varios conceptos encadenados o reglas de negocio complejas.'},
+    fable:{time:'12–20s',iter:0,conf:99,quality:'Para errores que requieren auditoría multi-año o remediación con implicancia legal: razona de punta a punta y verifica cruzado antes de reportar.'}
   },
   formulas:{
     title:'Entender fórmulas de cálculo',
     desc:'Una fórmula de proporcionalidad, SAC, retención o haberes variables no da el resultado esperado. Necesitás entender cada paso, identificar casos borde y detectar errores en la lógica.',
-    verdict:'Sonnet 5 para entender una fórmula del día a día. Opus 5 si es una fórmula heredada que hay que auditar o documentar formalmente.',
-    haiku:{tokens:'~1.5K',time:'2–3s',iter:2,conf:68,quality:'Explica fórmulas simples correctamente, pero pierde el hilo en cálculos con múltiples condiciones o tablas de referencia.'},
-    sonnet:{tokens:'~2.5K',time:'4–6s',iter:1,conf:89,quality:'Explica paso a paso, identifica casos borde (empleado nuevo, ausencia parcial, prorrateo) y traduce la lógica a lenguaje comprensible.'},
-    opus:{tokens:'~3K',time:'6–9s',iter:1,conf:95,quality:'Explica la lógica completa y avisa cuando la fórmula tiene ambigüedades, sin confirmar por error una lógica incorrecta. Detecta posibles errores estructurales — útil para auditar rutinas heredadas.'},
-    fable:{tokens:'~5K',time:'10–16s',iter:0,conf:99,quality:'Para fórmulas heredadas con múltiples capas de excepciones legales o convenios colectivos muy complejos.'}
+    verdict:'Sonnet 5.5 para entender una fórmula del día a día. Opus 5.5 si es una fórmula heredada que hay que auditar o documentar formalmente.',
+    effort:{start:'Medium', up:'Subilo a High si la fórmula tiene varias condiciones o tablas de referencia, y pasá a Opus 5.5 si es heredada y hay que auditarla o documentarla.'},
+    haiku:{time:'2–3s',iter:2,conf:68,quality:'Explica fórmulas simples correctamente, pero pierde el hilo en cálculos con múltiples condiciones o tablas de referencia.'},
+    sonnet:{time:'4–6s',iter:1,conf:89,quality:'Explica paso a paso, identifica casos borde (empleado nuevo, ausencia parcial, prorrateo) y traduce la lógica a lenguaje comprensible.'},
+    opus:{time:'6–9s',iter:1,conf:95,quality:'Explica la lógica completa y avisa cuando la fórmula tiene ambigüedades, sin confirmar por error una lógica incorrecta. Detecta posibles errores estructurales — útil para auditar rutinas heredadas.'},
+    fable:{time:'10–16s',iter:0,conf:99,quality:'Para fórmulas heredadas con múltiples capas de excepciones legales o convenios colectivos muy complejos.'}
   },
   cruces:{
     title:'Cruces de información entre sistemas',
     desc:'Necesitás comparar totales de liquidación contra sistema contable, RRHH u otro origen para detectar diferencias, conciliar o validar antes del cierre.',
-    verdict:'Sonnet 5 para cruces entre dos sistemas. Opus 5 con tres o más fuentes, o cuando hay que distinguir diferencias de timing de errores reales.',
-    haiku:{tokens:'~2K',time:'3–4s',iter:3,conf:65,quality:'Compara tablas simples correctamente, pero pierde el hilo con 3+ fuentes o condiciones complejas. Genera falsos positivos en cruces con excepciones.'},
-    sonnet:{tokens:'~3.5K',time:'5–7s',iter:1,conf:90,quality:'Detecta inconsistencias, agrupa por tipo de diferencia, sugiere causas probables y propone plan de acción por prioridad.'},
-    opus:{tokens:'~4.5K',time:'7–11s',iter:1,conf:96,quality:'Para cruces multi-sistema con reglas de negocio específicas — llega al resultado en menos pasos y distingue diferencias de timing de errores reales sin inventar causas.'},
-    fable:{tokens:'~8K',time:'14–22s',iter:0,conf:99,quality:'Para cruces con cinco o más sistemas y reglas de negocio en conflicto, típicos de fusiones de nómina o migraciones de proveedor.'}
+    verdict:'Sonnet 5.5 para cruces entre dos sistemas. Opus 5.5 con tres o más fuentes, o cuando hay que distinguir diferencias de timing de errores reales.',
+    effort:{start:'Medium', up:'Subilo a High con tres o más fuentes, o cuando hay que separar diferencias de timing de errores reales.'},
+    haiku:{time:'3–4s',iter:3,conf:65,quality:'Compara tablas simples correctamente, pero pierde el hilo con 3+ fuentes o condiciones complejas. Genera falsos positivos en cruces con excepciones.'},
+    sonnet:{time:'5–7s',iter:1,conf:90,quality:'Detecta inconsistencias, agrupa por tipo de diferencia, sugiere causas probables y propone plan de acción por prioridad.'},
+    opus:{time:'7–11s',iter:1,conf:96,quality:'Para cruces multi-sistema con reglas de negocio específicas — llega al resultado en menos pasos y distingue diferencias de timing de errores reales sin inventar causas.'},
+    fable:{time:'14–22s',iter:0,conf:99,quality:'Para cruces con cinco o más sistemas y reglas de negocio en conflicto, típicos de fusiones de nómina o migraciones de proveedor.'}
   },
   stats:{
     title:'Análisis de estadísticas salariales',
     desc:'Datos de variaciones salariales, ausentismo, rotación o costos de nómina. Detectar anomalías, calcular tendencias e identificar patrones para tomar decisiones o reportar.',
-    verdict:'Sonnet 5 para análisis operativos y reportes al jefe. Opus 5 cuando el análisis va a dirección o los datos tienen muchos vacíos.',
-    haiku:{tokens:'~1.8K',time:'3–5s',iter:2,conf:70,quality:'Calcula estadísticas básicas correctamente, pero pierde outliers y no genera insights cualitativos. Pivot incompleto.'},
-    sonnet:{tokens:'~2.8K',time:'5–7s',iter:1,conf:90,quality:'Análisis completo con anomalías, tendencias, segmentación por concepto y visualización lista para presentar al jefe.'},
-    opus:{tokens:'~3.5K',time:'7–10s',iter:0,conf:97,quality:'Detecta problemas en los datos de entrada y los reporta antes de concluir, en vez de ignorarlos. Ideal para presentar a dirección cuando los datos son ambiguos o incompletos.'},
-    fable:{tokens:'~6K',time:'12–18s',iter:0,conf:99,quality:'Para análisis con datos muy incompletos o series históricas de varios años que requieren razonamiento de largo alcance.'}
+    verdict:'Sonnet 5.5 para análisis operativos y reportes al jefe. Opus 5.5 cuando el análisis va a dirección o los datos tienen muchos vacíos.',
+    effort:{start:'Medium', up:'Subilo a High si los datos tienen muchos vacíos o el análisis va a dirección.'},
+    haiku:{time:'3–5s',iter:2,conf:70,quality:'Calcula estadísticas básicas correctamente, pero pierde outliers y no genera insights cualitativos. Pivot incompleto.'},
+    sonnet:{time:'5–7s',iter:1,conf:90,quality:'Análisis completo con anomalías, tendencias, segmentación por concepto y visualización lista para presentar al jefe.'},
+    opus:{time:'7–10s',iter:0,conf:97,quality:'Detecta problemas en los datos de entrada y los reporta antes de concluir, en vez de ignorarlos. Ideal para presentar a dirección cuando los datos son ambiguos o incompletos.'},
+    fable:{time:'12–18s',iter:0,conf:99,quality:'Para análisis con datos muy incompletos o series históricas de varios años que requieren razonamiento de largo alcance.'}
   },
   comunicacion:{
     title:'Redacción de comunicaciones',
     desc:'Emails a clientes, vendors o equipos de IT explicando problemas, solicitando acciones o respondiendo escalaciones. Tono profesional, claro y con propuesta de resolución.',
-    verdict:'Sonnet 5 para comunicaciones de rutina. Opus 5 para escalaciones críticas o propuestas donde el tono y la precisión son determinantes.',
-    haiku:{tokens:'~1.2K',time:'2–3s',iter:4,conf:45,quality:'Draft plano con estructura desorganizada y tono inconsistente. Requiere reescritura completa. Solo útil para avisos internos muy simples.'},
-    sonnet:{tokens:'~2K',time:'4–6s',iter:1,conf:88,quality:'Draft profesional listo para enviar en el primer intento. Tono adecuado, estructura clara y detalles técnicos bien presentados.'},
-    opus:{tokens:'~2.5K',time:'6–9s',iter:0,conf:95,quality:'Mantiene coherencia de estilo y contexto en sesiones largas, con más densidad informativa y menos relleno. Anticipa preguntas del destinatario y gestiona el tono con precisión.'},
-    fable:{tokens:'~4K',time:'10–14s',iter:0,conf:98,quality:'Para comunicaciones de alto riesgo legal o reputacional — mediación, comité ejecutivo.'}
+    verdict:'Sonnet 5.5 para comunicaciones de rutina. Opus 5.5 para escalaciones críticas o propuestas donde el tono y la precisión son determinantes.',
+    effort:{start:'Medium', up:'Subilo a High en escalaciones críticas o propuestas donde el tono y la precisión son determinantes.'},
+    haiku:{time:'2–3s',iter:4,conf:45,quality:'Draft plano con estructura desorganizada y tono inconsistente. Requiere reescritura completa. Solo útil para avisos internos muy simples.'},
+    sonnet:{time:'4–6s',iter:1,conf:88,quality:'Draft profesional listo para enviar en el primer intento. Tono adecuado, estructura clara y detalles técnicos bien presentados.'},
+    opus:{time:'6–9s',iter:0,conf:95,quality:'Mantiene coherencia de estilo y contexto en sesiones largas, con más densidad informativa y menos relleno. Anticipa preguntas del destinatario y gestiona el tono con precisión.'},
+    fable:{time:'10–14s',iter:0,conf:98,quality:'Para comunicaciones de alto riesgo legal o reputacional — mediación, comité ejecutivo.'}
   },
   reportes:{
     title:'Armado de reportes e informes',
     desc:'Informe de cierre de mes, reporte de variaciones, informe ejecutivo o presentación para dirección. Necesitás narrativa, análisis de datos y recomendaciones accionables.',
-    verdict:'Sonnet 5 para reportes al jefe y cierres mensuales. Opus 5 para informes de directorio o presentaciones a stakeholders externos.',
-    haiku:{tokens:'~1.5K',time:'2–4s',iter:3,conf:55,quality:'Estructura básica sin análisis real. Presenta datos sin contexto ni recomendaciones. No apto para reportes de dirección.'},
-    sonnet:{tokens:'~2.5K',time:'4–7s',iter:1,conf:88,quality:'Informe completo con narrativa, datos clave y recomendaciones concretas. Listo para entregar al jefe o management.'},
-    opus:{tokens:'~3K',time:'7–10s',iter:0,conf:96,quality:'Outputs densos y ricos en información. Detecta problemas en los datos fuente que otros modelos dejan pasar, y anticipa preguntas de directorio con acciones de impacto estimado.'},
-    fable:{tokens:'~5K',time:'12–18s',iter:0,conf:99,quality:'Para informes de directorio con implicancias estratégicas o financieras mayores.'}
+    verdict:'Sonnet 5.5 para reportes al jefe y cierres mensuales. Opus 5.5 para informes de directorio o presentaciones a stakeholders externos.',
+    effort:{start:'Medium', up:'Subilo a High para informes de directorio o presentaciones a stakeholders externos.'},
+    haiku:{time:'2–4s',iter:3,conf:55,quality:'Estructura básica sin análisis real. Presenta datos sin contexto ni recomendaciones. No apto para reportes de dirección.'},
+    sonnet:{time:'4–7s',iter:1,conf:88,quality:'Informe completo con narrativa, datos clave y recomendaciones concretas. Listo para entregar al jefe o management.'},
+    opus:{time:'7–10s',iter:0,conf:96,quality:'Outputs densos y ricos en información. Detecta problemas en los datos fuente que otros modelos dejan pasar, y anticipa preguntas de directorio con acciones de impacto estimado.'},
+    fable:{time:'12–18s',iter:0,conf:99,quality:'Para informes de directorio con implicancias estratégicas o financieras mayores.'}
   },
   documentacion:{
     title:'Documentación de procesos',
     desc:'Documentar flujos de liquidación, guías de operación, manuales para auditoría o wikis internas. Necesitás claridad, completitud y un formato que se pueda mantener en el tiempo.',
-    verdict:'Sonnet 5 para documentación interna del equipo. Opus 5 si el destino es externo — auditor, partner o cliente.',
-    haiku:{tokens:'~1.4K',time:'2–4s',iter:3,conf:52,quality:'Estructura base superficial. Omite casos de error, excepciones y detalles de proceso. No apto para documentación formal.'},
-    sonnet:{tokens:'~2.5K',time:'4–7s',iter:1,conf:87,quality:'Documentación completa con flujos, excepciones, casos de error y guía de troubleshooting. Lista para wiki interna del equipo.'},
-    opus:{tokens:'~3K',time:'6–9s',iter:0,conf:96,quality:'Documentación enterprise-grade, coherente incluso en documentos largos, que detecta sus propias inconsistencias antes de entregar. Apta para auditoría externa y onboarding formal.'},
-    fable:{tokens:'~5.5K',time:'12–18s',iter:0,conf:99,quality:'Para documentación que debe sostener auditorías externas exhaustivas o certificaciones regulatorias.'}
+    verdict:'Sonnet 5.5 para documentación interna del equipo. Opus 5.5 si el destino es externo — auditor, partner o cliente.',
+    effort:{start:'Medium', up:'Subilo a High si el destino es externo: auditor, partner o cliente.'},
+    haiku:{time:'2–4s',iter:3,conf:52,quality:'Estructura base superficial. Omite casos de error, excepciones y detalles de proceso. No apto para documentación formal.'},
+    sonnet:{time:'4–7s',iter:1,conf:87,quality:'Documentación completa con flujos, excepciones, casos de error y guía de troubleshooting. Lista para wiki interna del equipo.'},
+    opus:{time:'6–9s',iter:0,conf:96,quality:'Documentación enterprise-grade, coherente incluso en documentos largos, que detecta sus propias inconsistencias antes de entregar. Apta para auditoría externa y onboarding formal.'},
+    fable:{time:'12–18s',iter:0,conf:99,quality:'Para documentación que debe sostener auditorías externas exhaustivas o certificaciones regulatorias.'}
   },
   decisiones:{
     title:'Toma de decisiones estratégicas',
     desc:'Evaluar opciones para cambiar un proceso, implementar un sistema, gestionar un escalamiento o definir una estrategia. Necesitás análisis de impacto, riesgos y recomendaciones.',
-    verdict:'Sonnet 5 para decisiones operativas con impacto acotado. Opus 5 para decisiones estratégicas de alto impacto organizacional o financiero.',
-    haiku:{tokens:'~1.5K',time:'3–5s',iter:3,conf:48,quality:'Lista genérica de pros y contras sin ponderación ni contexto. No útil para decisiones con variables múltiples.'},
-    sonnet:{tokens:'~2.5K',time:'5–7s',iter:1,conf:85,quality:'Marco de decisión estructurado con criterios ponderados, escenarios y análisis de riesgos. Sólido para decisiones operativas.'},
-    opus:{tokens:'~3.5K',time:'8–12s',iter:0,conf:95,quality:'Anticipa consecuencias de segundo orden e identifica supuestos ocultos, sin afirmar avances sin evidencia. Ideal para decisiones de alto impacto organizacional o financiero.'},
-    fable:{tokens:'~6K',time:'14–20s',iter:0,conf:99,quality:'Para decisiones sostenidas en el tiempo con alto impacto organizacional — cambio de proveedor de nómina, rediseño de convenio.'}
+    verdict:'Sonnet 5.5 para decisiones operativas con impacto acotado. Opus 5.5 para decisiones estratégicas de alto impacto organizacional o financiero.',
+    effort:{start:'Medium', up:'Subilo a High en decisiones estratégicas de alto impacto organizacional o financiero; si aun así no cierra, a Extra high.'},
+    haiku:{time:'3–5s',iter:3,conf:48,quality:'Lista genérica de pros y contras sin ponderación ni contexto. No útil para decisiones con variables múltiples.'},
+    sonnet:{time:'5–7s',iter:1,conf:85,quality:'Marco de decisión estructurado con criterios ponderados, escenarios y análisis de riesgos. Sólido para decisiones operativas.'},
+    opus:{time:'8–12s',iter:0,conf:95,quality:'Anticipa consecuencias de segundo orden e identifica supuestos ocultos, sin afirmar avances sin evidencia. Ideal para decisiones de alto impacto organizacional o financiero.'},
+    fable:{time:'14–20s',iter:0,conf:99,quality:'Para decisiones sostenidas en el tiempo con alto impacto organizacional — cambio de proveedor de nómina, rediseño de convenio.'}
   }
 };
 
@@ -1470,17 +1484,17 @@ var CATEGORY_DEFS = [
 ];
 
 var ARTIFACTS_RAW = {
-  mermaid:{name:'Mermaid', type:'Artifact descargable (.mermaid)', tokens:'150–300', prompt:'"hacé un diagrama mermaid del flujo del recálculo SIRADIG"', pros:'Flujos secuenciales, árboles de decisión y organigramas simples', cons:'Ilustraciones custom o cuando necesitás interactividad', example:'Flujo de fases del recálculo SIRADIG por cliente', limit:'Sintaxis declarativa, pocas variantes visuales'},
-  viz_svg:{name:'Visualizer SVG', type:'Inline en chat', tokens:'800–1.500', prompt:'"mostrame un diagrama visual de la estructura del recibo"', pros:'Diagramas únicos en chat, ilustraciones rápidas para explicar', cons:'Cuando querés descargarlo como archivo independiente', example:'Estructura visual de un recibo de sueldo', limit:'Solo aparece inline, no se descarga'},
-  svg_file:{name:'SVG (.svg)', type:'Artifact descargable', tokens:'500–3.000', prompt:'"creame un archivo SVG del organigrama del equipo"', pros:'Gráficos vectoriales para insertar en slides o documentos', cons:'Cuando no necesitás portabilidad o querés interactividad', example:'Organigrama del equipo de Payroll', limit:'Estático, sin interactividad ni datos dinámicos'},
-  viz_html:{name:'Visualizer HTML interactivo', type:'Inline en chat', tokens:'2.500–4.500', prompt:'"mostrame un widget interactivo para simular ganancias"', pros:'Simuladores de un solo uso, calculadoras, demos rápidas', cons:'Cuando necesitás guardar el archivo o compartirlo fuera del chat', example:'Simulador interactivo de retención de ganancias', limit:'No persiste — se pierde al cerrar la conversación'},
-  html_file:{name:'HTML (.html)', type:'Artifact descargable', tokens:'1.500–4.500', prompt:'"armame un archivo HTML con el dashboard de KPIs del cierre"', pros:'Dashboards estáticos, one-pagers, guías como esta misma', cons:'Cuando necesitás integrar datos en vivo desde un sistema', example:'Dashboard de KPIs del cierre mensual de payroll', limit:'Sin backend, los datos quedan hardcoded en el archivo'},
-  react:{name:'React (.jsx)', type:'Artifact descargable', tokens:'2.500–7.000+', prompt:'"creame un artifact en React con filtros por cliente y fase"', pros:'Apps complejas con estado, filtros, gráficos y múltiples vistas', cons:'Para algo simple — es sobreingeniería y consume más cupo', example:'Tablero del recálculo SIRADIG con filtros y avance por fase', limit:'Sin localStorage/sessionStorage, librerías acotadas'},
-  markdown:{name:'Markdown (.md)', type:'Artifact descargable', tokens:'300–3.000', prompt:'"armame un documento markdown del manual del proceso SIRADIG"', pros:'Manuales técnicos, READMEs, documentación interna mantenible', cons:'Cuando necesitás formato corporativo (logo, márgenes, headers)', example:'Manual interno del proceso de recálculo anual', limit:'Formato simple, sin estilos custom ni imágenes embebidas complejas'},
-  xlsx:{name:'XLSX', type:'Archivo descargable', tokens:'1.500–2.500', prompt:'"creame un Excel con la tabla de control de recálculo cliente x fase"', pros:'Datos tabulares con fórmulas para seguir trabajando en Excel', cons:'Cuando solo necesitás visualizar los datos sin editarlos', example:'Plantilla de control del recálculo SIRADIG por cliente y fase', limit:'Se descarga, no se previsualiza inline en el chat'},
-  office:{name:'DOCX / PPTX / PDF', type:'Archivo descargable', tokens:'2.000–4.000', prompt:'"armame un PowerPoint del informe ejecutivo de cierre del cliente X"', pros:'Entregables formales para clientes, partners externos o auditoría', cons:'Para borradores rápidos o documentos internos que cambian seguido', example:'Informe ejecutivo de cierre de mes para cliente externo', limit:'Generación más lenta, se descarga sin previsualización'},
-  image_search:{name:'Búsqueda de imágenes', type:'Inline en chat', tokens:'~100', prompt:'"buscame imágenes de oficinas corporativas en Buenos Aires"', pros:'Necesitás imágenes reales de productos, lugares u objetos', cons:'Si querés gráficos generados, diagramas custom o ilustraciones', example:'Imágenes ilustrativas para una comunicación corporativa', limit:'Solo busca en la web — no genera imágenes nuevas con IA'},
-  monday:{name:'Widgets Monday.com', type:'Inline en chat', tokens:'200–800', prompt:'"mostrame el board del Validador Novedades como tabla"', pros:'Cuando los datos ya están vivos en un board de Monday', cons:'Para datos que no están en Monday — usá XLSX o HTML en su lugar', example:'Visualizar el avance del board del Validador Novedades', limit:'Requiere conector activo y permisos en el board correspondiente'}
+  mermaid:{name:'Mermaid', type:'Artifact descargable (.mermaid)', prompt:'"hacé un diagrama mermaid del flujo del recálculo SIRADIG"', pros:'Flujos secuenciales, árboles de decisión y organigramas simples', cons:'Ilustraciones custom o cuando necesitás interactividad', example:'Flujo de fases del recálculo SIRADIG por cliente', limit:'Sintaxis declarativa, pocas variantes visuales'},
+  viz_svg:{name:'Visualizer SVG', type:'Inline en chat', prompt:'"mostrame un diagrama visual de la estructura del recibo"', pros:'Diagramas únicos en chat, ilustraciones rápidas para explicar', cons:'Cuando querés descargarlo como archivo independiente', example:'Estructura visual de un recibo de sueldo', limit:'Solo aparece inline, no se descarga'},
+  svg_file:{name:'SVG (.svg)', type:'Artifact descargable', prompt:'"creame un archivo SVG del organigrama del equipo"', pros:'Gráficos vectoriales para insertar en slides o documentos', cons:'Cuando no necesitás portabilidad o querés interactividad', example:'Organigrama del equipo de Payroll', limit:'Estático, sin interactividad ni datos dinámicos'},
+  viz_html:{name:'Visualizer HTML interactivo', type:'Inline en chat', prompt:'"mostrame un widget interactivo para simular ganancias"', pros:'Simuladores de un solo uso, calculadoras, demos rápidas', cons:'Cuando necesitás guardar el archivo o compartirlo fuera del chat', example:'Simulador interactivo de retención de ganancias', limit:'No persiste — se pierde al cerrar la conversación'},
+  html_file:{name:'HTML (.html)', type:'Artifact descargable', prompt:'"armame un archivo HTML con el dashboard de KPIs del cierre"', pros:'Dashboards estáticos, one-pagers, guías como esta misma', cons:'Cuando necesitás integrar datos en vivo desde un sistema', example:'Dashboard de KPIs del cierre mensual de payroll', limit:'Sin backend, los datos quedan hardcoded en el archivo'},
+  react:{name:'React (.jsx)', type:'Artifact descargable', prompt:'"creame un artifact en React con filtros por cliente y fase"', pros:'Apps complejas con estado, filtros, gráficos y múltiples vistas', cons:'Para algo simple — es sobreingeniería y consume más cupo', example:'Tablero del recálculo SIRADIG con filtros y avance por fase', limit:'Sin localStorage/sessionStorage, librerías acotadas'},
+  markdown:{name:'Markdown (.md)', type:'Artifact descargable', prompt:'"armame un documento markdown del manual del proceso SIRADIG"', pros:'Manuales técnicos, READMEs, documentación interna mantenible', cons:'Cuando necesitás formato corporativo (logo, márgenes, headers)', example:'Manual interno del proceso de recálculo anual', limit:'Formato simple, sin estilos custom ni imágenes embebidas complejas'},
+  xlsx:{name:'XLSX', type:'Archivo descargable', prompt:'"creame un Excel con la tabla de control de recálculo cliente x fase"', pros:'Datos tabulares con fórmulas para seguir trabajando en Excel', cons:'Cuando solo necesitás visualizar los datos sin editarlos', example:'Plantilla de control del recálculo SIRADIG por cliente y fase', limit:'Se descarga, no se previsualiza inline en el chat'},
+  office:{name:'DOCX / PPTX / PDF', type:'Archivo descargable', prompt:'"armame un PowerPoint del informe ejecutivo de cierre del cliente X"', pros:'Entregables formales para clientes, partners externos o auditoría', cons:'Para borradores rápidos o documentos internos que cambian seguido', example:'Informe ejecutivo de cierre de mes para cliente externo', limit:'Generación más lenta, se descarga sin previsualización'},
+  image_search:{name:'Búsqueda de imágenes', type:'Inline en chat', prompt:'"buscame imágenes de oficinas corporativas en Buenos Aires"', pros:'Necesitás imágenes reales de productos, lugares u objetos', cons:'Si querés gráficos generados, diagramas custom o ilustraciones', example:'Imágenes ilustrativas para una comunicación corporativa', limit:'Solo busca en la web — no genera imágenes nuevas con IA'},
+  monday:{name:'Widgets Monday.com', type:'Inline en chat', prompt:'"mostrame el board del Validador Novedades como tabla"', pros:'Cuando los datos ya están vivos en un board de Monday', cons:'Para datos que no están en Monday — usá XLSX o HTML en su lugar', example:'Visualizar el avance del board del Validador Novedades', limit:'Requiere conector activo y permisos en el board correspondiente'}
 };
 
 function splitLede(text){
@@ -1490,7 +1504,7 @@ function splitLede(text){
 }
 
 function buildVerdictParts(text){
-  var re = /(Haiku 4\.5|Sonnet 5|Opus 5|Fable 5)/g;
+  var re = /(Haiku 4\.5|Sonnet 5\.5|Opus 5\.5|Fable 5\.1)/g;
   var parts = [];
   var last = 0, m;
   var keyFor = function(label){
@@ -1515,7 +1529,7 @@ function buildCase(key){
   ['haiku','sonnet','opus','fable'].forEach(function(m){
     var q = raw[m];
     var s = splitLede(q.quality);
-    models[m] = { tokens: q.tokens, time: q.time, iter: q.iter, conf: q.conf, lede: s.lede, rest: s.rest, name: MODEL_NAMES[m], color: MODEL_COLORS[m] };
+    models[m] = { time: q.time, iter: q.iter, conf: q.conf, lede: s.lede, rest: s.rest, name: MODEL_NAMES[m], color: MODEL_COLORS[m] };
   });
 
   // Escalera confianza-vs-costo: una fila por modelo, con el delta de confianza y el múltiplo de costo respecto del nivel anterior.
@@ -1523,7 +1537,7 @@ function buildCase(key){
     var conf = models[meta.key].conf;
     var rung = {
       name: meta.name, role: meta.role, color: meta.color, conf: conf, confPct: conf,
-      costLabel: meta.costLabel, costPct: meta.costPct, costMult: meta.mult,
+      costLabel: meta.costLabel, costPct: meta.costPct,
       isSweet: !!meta.sweet, hasDelta: i > 0, deltaBig: false, deltaSmall: false, deltaConf: '', deltaNote: ''
     };
     if (i > 0){
@@ -1540,6 +1554,7 @@ function buildCase(key){
   return {
     key: key, title: raw.title, desc: raw.desc,
     verdict: raw.verdict, verdictParts: buildVerdictParts(raw.verdict),
+    effortStart: raw.effort.start, effortUp: raw.effort.up,
     haiku: models.haiku, sonnet: models.sonnet, opus: models.opus, fable: models.fable,
     rungs: rungs,
     deltaSonnet: sign(models.sonnet.conf - models.haiku.conf),
@@ -1558,7 +1573,7 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
     items: cat.items.map(function(id, idx){
       var a = ARTIFACTS_RAW[id];
       return {
-        name: a.name, type: a.type, tokens: a.tokens, prompt: a.prompt,
+        name: a.name, type: a.type, prompt: a.prompt,
         pros: a.pros, cons: a.cons, example: a.example, limit: a.limit,
         numLabel: cat.id.toUpperCase() + ' · ' + (idx + 1)
       };
@@ -1591,7 +1606,7 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
   var SECTION_LABELS = {
     why:'¿Por qué este modelo y no otro?', tools:'¿Chat, Cowork, Code o Design?',
     pedir:'Cómo pedir mejor — hacé que te entreviste',
-    effort:'Thinking y niveles de esfuerzo', compare:'Comparativa de los cuatro modelos',
+    effort:'Niveles de esfuerzo', compare:'Comparativa de los cuatro modelos',
     cowork:'Cowork — cómo se usa', code:'Claude Code — para quien edita el portal',
     artifacts:'Qué puede generar Claude', datos:'Qué puedo subir y desde qué cuenta',
     refs:'Referencias oficiales de Anthropic'
@@ -1601,30 +1616,28 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
      en que seccion viven. */
   var CONCEPTS = [
     {label:'SAC, retenciones, cálculo que toca plata',        section:'why',       kw:'sac retenciones aguinaldo sueldo plata riesgo opus escalar calculo'},
-    {label:'¿Prendo thinking?',                               section:'effort',    kw:'thinking razonamiento extendido prender apagar adaptativo'},
     {label:'"Entrevistame" — que pregunte antes de arrancar',  section:'pedir',     kw:'entrevistame entrevista preguntar preguntas pedido prompt vago supuestos intencion aclarar askuserquestion plan mode thariq'},
-    {label:'Niveles de esfuerzo: low, medium, high, xhigh',    section:'effort',    kw:'esfuerzo effort low medium high xhigh max default nivel'},
-    {label:'Salió mal: ¿cambio el modelo o subo el esfuerzo?', section:'effort',    kw:'salio mal error equivocado perilla modelo esfuerzo no supo no se esforzo diagnostico arreglar'},
-    {label:'Qué controla realmente el esfuerzo',               section:'effort',    kw:'esfuerzo effort archivos verifica pasos tiempo pensar thinking mito controla'},
+    {label:'Niveles de esfuerzo: low, medium, high, xhigh',    section:'effort',    kw:'esfuerzo effort low medium high xhigh extra max default nivel'},
+    {label:'Salió mal: ¿cambio el modelo o subo el esfuerzo?', section:'effort',    kw:'salio mal error equivocado perilla modelo esfuerzo no supo no se esforzo diagnostico arreglar escalera'},
+    {label:'Qué controla realmente el esfuerzo',               section:'effort',    kw:'esfuerzo effort archivos verifica pasos tiempo pensar mito controla'},
     {label:'Especialista, experto y generalista',               section:'effort',    kw:'analogia especialista experto generalista fable opus sonnet metafora comparar'},
     {label:'Recomendación oficial de Anthropic para elegir',    section:'why',       kw:'oficial anthropic recomendacion arrancar empezar mas capaz costo por tarea blog fuente'},
     {label:'Por qué inventa datos y por qué pegar la norma sirve', section:'why',    kw:'alucinacion inventa pesos entrenamiento corte contexto arca normativa verificar fuente'},
     {label:'Estrategia del asesor (advisor tool, solo API)',    section:'code',      kw:'asesor advisor ejecutor api opus sonnet haiku barato costo max_uses'},
-    {label:'Consumo de cupo por modelo',                      section:'compare',   kw:'cupo costo consumo caro barato dolares precio mtok token'},
+    {label:'Consumo de cupo por modelo',                      section:'compare',   kw:'cupo costo consumo caro barato'},
     {label:'Excel con fórmulas que funcionan',                section:'cowork',    kw:'excel xlsx formulas vlookup planilla solapas entregable'},
     {label:'Tareas programadas (/schedule)',                  section:'cowork',    kw:'schedule programada automatica mensual recurrente nube repetir'},
     {label:'Modos de permiso: manual, auto, skip',            section:'cowork',    kw:'permiso permisos manual auto skip aprobacion aprobar'},
     {label:'Proyectos y sub-agentes en paralelo',              section:'cowork',    kw:'proyectos subagentes paralelo memoria'},
     {label:'Primeros pasos en Claude Code',                   section:'code',      kw:'code repo git carpeta local diff commit preview pasos instalar plan mode'},
     {label:'Ultracode — no es un modelo, es un modo',          section:'code',      kw:'ultracode modo agentes auditoria repo paralelo'},
-    {label:'Precios de lista de API (referencia)',             section:'code',      kw:'precio precios api dolares mtok lista referencia'},
     {label:'Claude Design: exportar a PDF, PPT, Slides',       section:'artifacts', kw:'design deck mockup recibo pdf powerpoint slides exportar visual one-pager'},
     {label:'Tipos de artifact: Mermaid, React, XLSX, DOCX',    section:'artifacts', kw:'artifact mermaid svg react html markdown xlsx docx pptx monday imagen widget simulador'},
     {label:'DNI, CUIL, datos bancarios: qué no se pega',       section:'datos',     kw:'dni cuil cuit bancario contrasena token api key salud nda prohibido pegar'},
     {label:'Cuenta personal vs plan de la empresa',            section:'datos',     kw:'cuenta personal pro max free gratuita empresa team privacidad entrenamiento retencion'},
     {label:'Cowork lee la carpeta entera',                     section:'datos',     kw:'carpeta acceso archivos sensible prompt injection anonimizar empleado'},
     {label:'Anonimizar antes de subir',                        section:'datos',     kw:'anonimizar identificador generico empleado export'},
-    {label:'Opus 5, Sonnet 5, Haiku 4.5, Fable 5',             section:'compare',   kw:'opus sonnet haiku fable modelo modelos novedad'}
+    {label:'Opus 5.5, Sonnet 5.5, Haiku 4.5, Fable 5.1',             section:'compare',   kw:'opus sonnet haiku fable modelo modelos novedad'}
   ];
 
   function norm(s){
@@ -1755,7 +1768,7 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
 
        1. qué tiene que existir cuando termines   -> herramienta
        2. dónde está la información               -> herramienta (puede pisar la 1)
-       3. qué pasa si sale mal                    -> modelo, thinking, esfuerzo
+       3. qué pasa si sale mal                    -> modelo, esfuerzo
        4. qué tamaño tiene                        -> modelo, esfuerzo, ultracode
 
      La resolución es determinística: mismas respuestas, misma salida.
@@ -1788,7 +1801,7 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
     },
     {
       id:'risk', text:'¿Qué pasa si sale mal?',
-      hint:'Acá se decide el modelo y si conviene prender el razonamiento extendido.',
+      hint:'Acá se decide el modelo y el esfuerzo.',
       options:[
         {id:'rehago',     icon:'🔄', label:'Me doy cuenta al instante y lo rehago', sub:'sin consecuencias: lo miro y listo', short:'lo rehago'},
         {id:'encadenado', icon:'🔗', label:'Hay números o pasos que dependen entre sí', sub:'si se equivoca en el paso 2, arrastra el error hasta el final', short:'pasos encadenados'},
@@ -1849,22 +1862,12 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
     return 'sonnet';
   }
 
-  /* El razonamiento extendido suma cuando hay números que rastrear o pasos
-     que dependen entre sí. Escribiendo o explicando solo agrega demora, y eso
-     no cambia porque la tarea toque plata: "toca plata" define el modelo y el
-     esfuerzo, no si conviene razonar. Ver la sección de thinking y esfuerzo. */
-  function resolveThinking(A){
-    if (A.risk === 'encadenado' || A.risk === 'critico') return 'activado';
-    if (A.out === 'analisis' || A.out === 'proceso') return 'activado';
-    return 'apagado';
-  }
-
   function resolveEffort(A, tool, modelKey){
     if (modelKey === 'haiku') return 'low';
     if (A.risk === 'critico') return (A.size === 'largo') ? 'xhigh o max' : 'xhigh';
     if (A.risk === 'plata') return (tool === 'code') ? 'xhigh' : 'high';
     if (A.risk === 'rehago' && (A.size === 'puntual' || A.size === 'rato')) return 'medium';
-    return 'high';
+    return 'medium';
   }
 
   var TOOL_WHY = {
@@ -1875,10 +1878,10 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
   };
 
   var MODEL_WHY = {
-    haiku:  'Es una consulta puntual y de bajo riesgo: Haiku 4.5 responde al instante y casi no consume cupo. Ojo: no lo uses si aparece cálculo encadenado — ahí subí a Sonnet 5.',
-    sonnet: 'Sonnet 5 es el default del día a día y resuelve esto sin escalar. Si el resultado no te cierra en dos intentos, subí a Opus 5 antes de seguir insistiendo.',
-    opus:   'Acá el error cuesta caro, así que va Opus 5 directo: verifica su propio trabajo y avisa cuando no está seguro, en vez de afirmar con confianza injustificada.',
-    opusFable: 'Opus 5 en el nivel más alto de esfuerzo. Si con eso no alcanza, el último recurso es Fable 5 — pero avisá antes: consume mucho cupo y con Opus 5 el margen entre ambos quedó chico.'
+    haiku:  'Es una consulta puntual y de bajo riesgo: Haiku 4.5 responde al instante y casi no consume cupo. Ojo: no lo uses si aparece cálculo encadenado — ahí subí a Sonnet 5.5.',
+    sonnet: 'Sonnet 5.5 es el default del día a día y resuelve esto sin escalar. Si el resultado no te cierra en dos intentos, subí a Opus 5.5 antes de seguir insistiendo.',
+    opus:   'Acá el error cuesta caro, así que va Opus 5.5 directo: verifica su propio trabajo y avisa cuando no está seguro, en vez de afirmar con confianza injustificada.',
+    opusFable: 'Opus 5.5 en Extra high. Fable 5.1 solo si Opus 5.5 falló dos veces en Extra high — y avisá antes: es el que más cupo consume. Para el equipo solo está disponible con Créditos de Uso (hoy no habilitados) y solo lo tienen los asientos premium.'
   };
 
   function buildTips(A, tool, modelKey){
@@ -1911,8 +1914,7 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
       tips.push('Exportá a PDF, PowerPoint, HTML o Google Slides, o pasáselo a Code para el HTML definitivo.');
     }
     tips.unshift('Si no estás seguro de cómo pedirlo, escribí "entrevistame": Claude te hace las preguntas que hacen falta antes de arrancar, en vez de suponer.');
-    if (resolveThinking(A) === 'activado') tips.push('Acá conviene que razone antes de contestar: hay pasos que dependen entre sí. En Sonnet 5 y Opus 5 el razonamiento es adaptativo — la palanca es el nivel de esfuerzo, no un interruptor.');
-    if (modelKey === 'opus' || modelKey === 'opusFable') tips.push('Si querés estirar el cupo, probá primero con Sonnet 5 y subí a Opus 5 solo si el resultado no te convence.');
+    if (modelKey === 'opus' || modelKey === 'opusFable') tips.push('Si querés estirar el cupo, probá primero con Sonnet 5.5 y subí a Opus 5.5 solo si el resultado no te convence.');
     return tips.map(function(t){ return {text:t}; });
   }
 
@@ -1932,7 +1934,7 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
       w.push({icon:'🔐', bg:'#f2f0ea', border:'#b0aea5', text:'Vas a trabajar con información real: hacelo desde el plan de la empresa. Desde una cuenta personal hay que revisar la configuración y avisar a IT; desde una cuenta gratuita, nunca.'});
     }
     if (modelKey === 'opusFable'){
-      w.push({icon:'⚠️', bg:'#fff8e1', border:'#d97757', text:'Si llegás a necesitar Fable 5, avisá antes: consume mucho cupo del equipo.'});
+      w.push({icon:'⚠️', bg:'#fff8e1', border:'#d97757', text:'Si llegás a necesitar Fable 5.1, avisá antes: consume mucho cupo. Para el equipo solo está disponible con Créditos de Uso (hoy no habilitados) y solo lo tienen los asientos premium.'});
     }
     if (tool === 'code'){
       w.push({icon:'🚦', bg:'#f2f0ea', border:'#b0aea5', text:'Claude Code puede preparar el commit, pero la publicación final la coordina ' + props.reviewerName + '.'});
@@ -1947,7 +1949,7 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
     var modelKey = resolveModel(A, toolKey);
     var baseModel = (modelKey === 'opusFable') ? 'opus' : modelKey;
     var st = MODEL_STYLE[baseModel];
-    var modelLabel = MODEL_NAMES[baseModel] + (modelKey === 'opusFable' ? ' → Fable 5 si no alcanza' : '');
+    var modelLabel = MODEL_NAMES[baseModel] + (modelKey === 'opusFable' ? ' → Fable 5.1 si no alcanza' : '');
     var role = state.role ? ROLE_BY_ID[state.role] : null;
     var tips = buildTips(A, toolKey, modelKey);
     if (role) tips.push({text: role.tip});
@@ -1958,8 +1960,6 @@ var CATEGORIES = CATEGORY_DEFS.map(function(cat){
       toolExtra: 'con el conector de Monday',
       model: modelLabel, modelBg: st.bg, modelColor: st.color,
       modelWhy: MODEL_WHY[modelKey],
-      thinking: resolveThinking(A),
-      showThinking: resolveThinking(A) === 'activado',
       effort: resolveEffort(A, toolKey, modelKey),
       cupo: CUPO_BY_MODEL[baseModel],
       tips: tips,
