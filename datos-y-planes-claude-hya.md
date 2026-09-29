@@ -1,6 +1,6 @@
 # Qué se puede subir a Claude — y desde qué cuenta
 
-**Verificado al 27 de julio de 2026.** Leer esto antes que cualquier otra parte de la guía.
+**Verificado al 28 de septiembre de 2026.** Leer esto antes que cualquier otra parte de la guía.
 Ante cualquier duda sobre un caso concreto, consultar con IT antes de pegar nada.
 
 ---
@@ -12,7 +12,7 @@ cuenta estás entrando.**
 
 | Desde dónde entrás | Podés trabajar con información de clientes |
 |---|---|
-| Plan de la empresa (Team de H&A) | **Sí.** El contenido no se usa para entrenar modelos. |
+| Plan de la empresa (Team de H&A) | **Sí.** Team no entrena con el contenido por defecto. |
 | Cuenta personal paga (Pro o Max) | **Solo después de revisar la configuración y avisar a IT.** Ver abajo. |
 | Cuenta gratuita (Free) | **No. Nunca.** Ni datos de empleados, ni de clientes, ni documentos internos. |
 
@@ -39,11 +39,13 @@ licencia personal del usuario, no a la empresa — o sea, H&A no tiene forma de 
 auditarla ni darla de baja cuando esa persona deja de usar la cuenta. Por eso, aunque la opción
 esté apagada, **el trabajo con datos de clientes va por el plan de la empresa.**
 
-En el plan Team de H&A esto no aplica: los planes comerciales (Team, Enterprise y API) no usan el
-contenido para entrenar modelos y mantienen retención estándar de 30 días.
+En el plan Team de H&A esto no aplica: Team no entrena con el contenido por defecto, y los plazos
+de 30 días / 5 años rigen solo en cuentas personales.
 
-Nota aparte: las conversaciones en modo incógnito nunca se usan para entrenamiento, cualquiera sea
-la configuración de la cuenta. Y las conversaciones marcadas por los sistemas de seguridad de
+Dos cosas más que suelen pasarse por alto. Primero: dar pulgar arriba o abajo a una respuesta puede
+hacer que esa conversación se guarde hasta **5 años**. Segundo: las conversaciones en modo incógnito
+nunca se usan para entrenamiento, pero **aparecen en las exportaciones de datos del Owner** de la
+organización. Además, las conversaciones marcadas por los sistemas de seguridad de
 Anthropic como posible violación de las políticas de uso pueden retenerse más tiempo que el
 estándar, en cualquier plan.
 
