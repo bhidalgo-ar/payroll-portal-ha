@@ -197,7 +197,7 @@ Corre los lunes por una tarea programada. Checklist:
 4. Correr `node scripts/validar-catalogo.mjs`.
 5. Preguntar al usuario por los repos de "sin decidir" y por cualquier repo nuevo que
    haya aparecido. **No publicar nada sin confirmación** y respetar la lista de §6.
-6. Commit y push a una rama `claude/...` + PR en draft.
+6. Commit y push a una rama `claude/...` + PR (ver §8, Pull requests).
 
 ## 8. Convenciones
 
@@ -286,3 +286,10 @@ no depende de mí.
 
 Qué subagentes corrieron, con qué modelo, qué devolvió cada uno en una línea, qué
 decisiones declararon y qué quedó como pregunta de criterio. No el contenido.
+
+### Pull requests
+
+- Los PR se abren listos para mergear, **no en borrador**.
+- Claude los mergea (squash) apenas el PR está creado y no hay CI en rojo ni conflicto.
+  No espera una aprobación aparte. Excepción: la revisión semanal (§7) sigue pidiendo
+  confirmación antes de publicar una app nueva o un repo de "sin decidir".
