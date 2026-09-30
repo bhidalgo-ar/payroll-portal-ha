@@ -13,6 +13,7 @@
     --t1: #F5E6DE; --t2: #EFD3C4; --t3: #E6B8A2; --t4: #DB9A7E; --t5: #CF7E5E;
   }
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
   body { margin: 0; background: var(--ivory); color: var(--slate); font-family: Poppins, system-ui, sans-serif; line-height: 1.5; }
   a { color: var(--clay-dark); }
   a:hover { color: var(--clay-deep); }
@@ -119,7 +120,9 @@
   .fill { height: 100%; border-radius: 8px; transition: width 400ms ease; }
   .crow .val { font-size: 20px; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
   .note { font-size: 13px; color: var(--muted); }
-  .takeaway { display: flex; gap: 12px; align-items: center; padding: 16px 20px; background: var(--soft); border-radius: 12px; font-size: 15px; }
+  /* Alturas reservadas para que la pantalla no salte al cambiar de gráfico */
+  .bench-head { min-height: 96px; }
+  .takeaway { min-height: 76px; display: flex; gap: 12px; align-items: center; padding: 16px 20px; background: var(--soft); border-radius: 12px; font-size: 15px; }
   .takeaway svg { flex-shrink: 0; }
 
   .links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
@@ -154,6 +157,8 @@
     .tabs { width: 100%; border-radius: 16px; }
     .tab { flex: 1 1 auto; padding: 0 12px; font-size: 14px; border-radius: 12px; }
     .chart { padding: 20px; }
+    .bench-head { min-height: 150px; }
+    .takeaway { min-height: 124px; }
     .crow { grid-template-columns: 90px minmax(0, 1fr) 56px; gap: 12px; }
     .crow .val { font-size: 16px; }
   }
@@ -252,7 +257,7 @@
         <div class="bench-btns" id="bench-btns"></div>
         <div class="note">Fuente: anuncio oficial de Sonnet 5.5, 28/09/2026</div>
       </div>
-      <div>
+      <div class="bench-head">
         <div class="serif" style="font-size:26px;font-weight:600;" id="bench-title"></div>
         <div style="font-size:15px;color:var(--ink-2);max-width:900px;" id="bench-what"></div>
       </div>
