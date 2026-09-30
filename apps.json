@@ -2,8 +2,8 @@
   "meta": {
     "titulo": "Portal Hidalgo & Asociados",
     "subtitulo": "Herramientas internas del equipo",
-    "version": "1.5",
-    "ultimaActualizacion": "2026-09-22",
+    "version": "1.6",
+    "ultimaActualizacion": "2026-09-30",
     "ultimaRevision": "2026-08-10",
     "diasReciente": 7,
     "repoDefecto": "bhidalgo-ar/payroll-portal-ha"
@@ -72,14 +72,14 @@
     {
       "id": 6,
       "nombre": "Cómo usar Claude",
-      "descripcion": "Guía para entender qué modelo de IA usar según la tarea",
+      "descripcion": "Qué modelo de Claude usar, con cuánto esfuerzo y cómo pedirle las cosas",
       "url": "https://bhidalgo-ar.github.io/payroll-portal-ha/casos_uso_modelos_comparativa.html",
       "icono": "🤖",
-      "version": "14",
+      "version": "16",
       "categoria": "Herramientas",
-      "estado": "productivo",
+      "estado": "beta",
       "agregado": "2026-04-16",
-      "actualizado": "2026-08-06"
+      "actualizado": "2026-09-30"
     },
     {
       "id": 7,
