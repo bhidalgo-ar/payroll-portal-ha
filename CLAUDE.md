@@ -207,6 +207,13 @@ Corre los lunes por una tarea programada. Checklist:
 - Marca H&A: celeste `#00ACD4`, gris cálido `#8C837B`. Hay una skill de branding en
   `.claude/skills/`.
 
+### Pull requests
+
+- Los PR se abren listos para mergear, **no en borrador**.
+- Claude los mergea (squash) apenas el PR está creado y no hay CI en rojo ni conflicto.
+  No espera una aprobación aparte. Excepción: la revisión semanal (§7) sigue pidiendo
+  confirmación antes de publicar una app nueva o un repo de "sin decidir".
+
 ## Forma de trabajar: orquestador y subagentes
 
 El chat principal es el orquestador: entiende el pedido, decide, arma los briefs, verifica lo
@@ -286,10 +293,3 @@ no depende de mí.
 
 Qué subagentes corrieron, con qué modelo, qué devolvió cada uno en una línea, qué
 decisiones declararon y qué quedó como pregunta de criterio. No el contenido.
-
-### Pull requests
-
-- Los PR se abren listos para mergear, **no en borrador**.
-- Claude los mergea (squash) apenas el PR está creado y no hay CI en rojo ni conflicto.
-  No espera una aprobación aparte. Excepción: la revisión semanal (§7) sigue pidiendo
-  confirmación antes de publicar una app nueva o un repo de "sin decidir".
