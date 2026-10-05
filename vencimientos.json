@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "actualizado": null,
+    "nota": "Vencimientos de ARCA que muestra el portal en «Próximos vencimientos». Se cargan únicamente desde el calendario oficial de vencimientos de ARCA (una obligación por período, con un grupo por terminación de CUIT del empleador) y se validan con `node scripts/validar-vencimientos.mjs` antes de pushear. Nunca cargar fechas de memoria ni de fuentes no oficiales. Pendiente de carga: las fechas oficiales todavía no se pudieron obtener."
+  },
+  "vencimientos": []
+}

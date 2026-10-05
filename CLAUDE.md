@@ -9,9 +9,11 @@ Publicado con GitHub Pages en **https://bhidalgo-ar.github.io/payroll-portal-ha/
 |---|---|
 | `index.html` | El portal. **Es un bundle**: una de las líneas del `<head>` externo es un string JSON con todo el template. Ver §5. |
 | `apps.json` | Catálogo de herramientas. Fuente de verdad de versión, estado y fechas. |
-| `cumpleanios.json`, `eventos.json`, `frases.json` | Datos que el portal lee en runtime. |
+| `cumpleanios.json`, `frases.json`, `vencimientos.json` | Datos que el portal lee en runtime. `vencimientos.json` alimenta el bloque "Próximos vencimientos" del hero. Ver §9. |
+| `feriados.json` | Feriados nacionales y días no laborables. **El portal no lo lee**: lo usa `scripts/validar-vencimientos.mjs`. Ver §9. |
 | `*.html` (resto) | Las herramientas en sí. Cada una es un HTML autónomo, sin backend. |
 | `scripts/validar-catalogo.mjs` | Valida `apps.json`. Corre solo vía hook al editarlo. |
+| `scripts/validar-vencimientos.mjs` | Valida `vencimientos.json` contra `feriados.json`. Se corre a mano antes de pushear cualquiera de los dos. |
 
 El portal lee `apps.json` en cada carga (`BASE` + fallback relativo), así que **para
 cambiar el catálogo alcanza con editar `apps.json` y pushear** — no hay build.
@@ -213,6 +215,90 @@ Corre los lunes por una tarea programada. Checklist:
 - Claude los mergea (squash) apenas el PR está creado y no hay CI en rojo ni conflicto.
   No espera una aprobación aparte. Excepción: la revisión semanal (§7) sigue pidiendo
   confirmación antes de publicar una app nueva o un repo de "sin decidir".
+
+## 9. Vencimientos y feriados
+
+**Los vencimientos de ARCA nunca se cargan de memoria ni de fuentes no oficiales**
+(blogs, estudios contables, prensa). Si la fuente oficial no se puede abrir, la fecha
+no se carga y queda como pendiente. En los feriados, `oficial` significa que hay norma
+citada para esa fecha; si el documento no se pudo abrir completo, `meta.nota` lo aclara.
+
+### `vencimientos.json`
+
+Lo lee el portal (mismo `loadData` que `apps.json`) y muestra hasta 4 obligaciones,
+ordenadas por su fecha vigente más próxima. Un grupo con fecha anterior a hoy no se
+muestra; una obligación sin grupos vigentes tampoco; si no queda ninguna, o el archivo
+falta o está roto, el bloque no aparece. Faltando 2 días o menos la ficha se pinta con
+`--urgent`.
+
+```jsonc
+{
+  "meta": { "actualizado": "AAAA-MM-DD", "nota": "..." },   // actualizado: null mientras no haya carga
+  "vencimientos": [
+    {
+      "id": "f931-AAAA-MM",                  // único y estable
+      "nombre": "F.931 · Presentación y pago",
+      "periodo": "AAAA-MM",                  // período fiscal; "AAAA" para obligaciones anuales
+      "grupos": [                            // por terminación de CUIT del empleador
+        { "terminaciones": "0-1-2-3", "fecha": "AAAA-MM-DD" },
+        { "terminaciones": "4-5-6", "fecha": "AAAA-MM-DD" },
+        { "terminaciones": "7-8-9", "fecha": "AAAA-MM-DD" }
+      ],                                     // o un único { "terminaciones": "todas", ... }
+      "fuente": "https://..."                // URL oficial de ARCA de donde sale la fecha
+    }
+  ]
+}
+```
+
+Cómo se carga: desde el **calendario oficial de vencimientos de ARCA**, una entrada por
+obligación y período, copiando la tabla de terminaciones de CUIT tal como la publica
+ARCA. Las terminaciones de cada obligación tienen que cubrir 0-9 una sola vez. Al
+cargar, poner `meta.actualizado` en la fecha de carga. Al 2026-10-05 la lista está
+vacía: los dominios de ARCA están bloqueados en este entorno y no se pudo obtener el
+calendario.
+
+### `feriados.json`
+
+No lo muestra el portal: sirve para que el validador rechace un vencimiento que caiga
+en día no hábil.
+
+```jsonc
+{
+  "meta": { "actualizado": "AAAA-MM-DD", "nota": "...", "pendientes": ["..."] },
+  "feriados": [   // ordenado por fecha, sin duplicados
+    { "fecha": "AAAA-MM-DD", "nombre": "...", "tipo": "inamovible", "estado": "oficial",
+      "fuente": "Ley 27.399 art. 1" },
+    { "fecha": "AAAA-MM-DD", "nombre": "...", "tipo": "trasladable", "estado": "estimado",
+      "fuente": "Ley 27.399 arts. 1 y 6", "fechaOriginal": "AAAA-MM-DD",
+      "regla": "regla aplicada para estimarla" }
+  ]
+}
+```
+
+- `tipo`: `inamovible` | `trasladable` | `puntual` (feriado por decreto, una sola vez) |
+  `no_laborable` (día no laborable, optativo para el empleador: no es feriado).
+- `estado`: `oficial` (hay norma para esa fecha) | `estimado` (calculado por la ley;
+  `regla` obligatoria). `fechaOriginal` (opcional): fecha histórica de un trasladado.
+- `fuente`: la norma, corta, sin URL.
+- **2026** está cargado como oficial (verificado por búsquedas en sitios oficiales y
+  cruce con prensa; ningún documento oficial se pudo abrir completo). **Todo 2027 es
+  estimado** por la Ley 27.399. Pendientes, en `meta.pendientes`: 2027-11-20
+  (Soberanía, cae sábado y la JGM puede moverlo), los días no laborables con fines
+  turísticos 2027, los feriados regionales del DNU 1103/2026 y los días no laborables
+  religiosos. Cuando salga la norma, pasar la fecha a `oficial` y sacarla de pendientes.
+
+### Validación
+
+```bash
+node scripts/validar-vencimientos.mjs
+```
+
+Error (exit 1): JSON inválido, fecha que no existe o fuera de formato, duplicados,
+`tipo`/`estado` fuera de los valores permitidos, estimado sin `regla`, feriados fuera de
+orden, `id` repetido, terminaciones que no cubren 0-9 exactamente una vez, `fuente` que
+no es una URL `https` de `arca.gob.ar`, `afip.gob.ar`, `argentina.gob.ar` o
+`boletinoficial.gob.ar` (o un subdominio), y vencimiento en un feriado o día no laborable de `feriados.json`.
+Advertencia: vencimiento en sábado o domingo, o en un año que `feriados.json` no cubre.
 
 ## Forma de trabajar: orquestador y subagentes
 
