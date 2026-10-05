@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "actualizado": "2026-10-05",
+    "carpeta": "https://bhidalgo.sharepoint.com/sites/Payroll/Documentos%20compartidos/General/Informaci%C3%B3n%20Legal",
+    "nota": "Cargado a mano desde la carpeta Información Legal de SharePoint (sitio Payroll)."
+  },
+  "items": [
+    {
+      "nombre": "Art 245 LCT",
+      "tipo": "carpeta",
+      "modificado": "2026-09-30",
+      "url": "https://bhidalgo.sharepoint.com/sites/Payroll/Documentos%20compartidos/General/Informaci%C3%B3n%20Legal/Art%20245%20LCT"
+    },
+    {
+      "nombre": "FAL",
+      "tipo": "carpeta",
+      "modificado": "2026-09-30",
+      "url": "https://bhidalgo.sharepoint.com/sites/Payroll/Documentos%20compartidos/General/Informaci%C3%B3n%20Legal/FAL"
+    },
+    {
+      "nombre": "Informe Nuevo Recibo de Sueldo - Clientes.pdf",
+      "tipo": "pdf",
+      "modificado": "2026-07-31",
+      "url": "https://bhidalgo.sharepoint.com/sites/Payroll/Documentos%20compartidos/General/Informaci%C3%B3n%20Legal/Informe%20Nuevo%20Recibo%20de%20Sueldo%20-%20Clientes.pdf"
+    },
+    {
+      "nombre": "informe_decreto_612_interno.pdf",
+      "tipo": "pdf",
+      "modificado": "2026-07-21",
+      "url": "https://bhidalgo.sharepoint.com/sites/Payroll/Documentos%20compartidos/General/Informaci%C3%B3n%20Legal/informe_decreto_612_interno.pdf"
+    },
+    {
+      "nombre": "informe_recibo_interno.pdf",
+      "tipo": "pdf",
+      "modificado": "2026-07-17",
+      "url": "https://bhidalgo.sharepoint.com/sites/Payroll/Documentos%20compartidos/General/Informaci%C3%B3n%20Legal/informe_recibo_interno.pdf"
+    }
+  ]
+}
