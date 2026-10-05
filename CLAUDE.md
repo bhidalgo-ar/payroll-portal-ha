@@ -100,7 +100,6 @@ Casos de esta revisión, para calibrar:
 
 - `NUEVO` (verde) si `agregado` está dentro de la ventana de `meta.diasReciente`.
 - `ACTUALIZADO` (verde) si `actualizado` está dentro de la ventana.
-- Además el número editorial de la fila se pinta en verde.
 
 **`actualizado` se mueve sólo por cambios funcionales.** Un bump de versión, un ajuste
 de estilo o un cambio de README no lo mueven — si no, cualquier commit cosmético haría
