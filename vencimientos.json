@@ -1,7 +1,188 @@
 {
   "meta": {
-    "actualizado": null,
-    "nota": "Vencimientos de ARCA que muestra el portal en «Próximos vencimientos». Se cargan únicamente desde el calendario oficial de vencimientos de ARCA (una obligación por período, con un grupo por terminación de CUIT del empleador) y se validan con `node scripts/validar-vencimientos.mjs` antes de pushear. Nunca cargar fechas de memoria ni de fuentes no oficiales. Pendiente de carga: las fechas oficiales todavía no se pudieron obtener."
+    "actualizado": "2026-10-05",
+    "nota": "Vencimientos de ARCA que muestra el portal en «Próximos vencimientos». Fuente: Agenda de Vencimientos oficial de ARCA (seti.afip.gob.ar), consultada el 2026-10-05; ARCA tiene publicado hasta diciembre 2026. F.931 = SIPA, empleadores, régimen general. Ganancias 4ª categoría = régimen general de retenciones SICORE (RG 2233): la agenda no la discrimina aparte. F.1359 no tiene vencimiento entre oct y dic 2026 (es anual). Se validan con `node scripts/validar-vencimientos.mjs` antes de pushear. Nunca cargar fechas de memoria ni de fuentes no oficiales."
   },
-  "vencimientos": []
+  "vencimientos": [
+    {
+      "id": "f931-2026-09",
+      "nombre": "F.931 · Presentación y pago",
+      "periodo": "2026-09",
+      "grupos": [
+        {
+          "terminaciones": "0-1-2-3",
+          "fecha": "2026-10-09"
+        },
+        {
+          "terminaciones": "4-5-6",
+          "fecha": "2026-10-13"
+        },
+        {
+          "terminaciones": "7-8-9",
+          "fecha": "2026-10-14"
+        }
+      ],
+      "fuente": "https://seti.afip.gob.ar/av/seleccionVencimientos.do"
+    },
+    {
+      "id": "sicore-q2-2026-09",
+      "nombre": "Ganancias 4ª (SICORE) · 2ª quincena sep + DJ F.744",
+      "periodo": "2026-09",
+      "grupos": [
+        {
+          "terminaciones": "0-1-2-3",
+          "fecha": "2026-10-09"
+        },
+        {
+          "terminaciones": "4-5-6",
+          "fecha": "2026-10-13"
+        },
+        {
+          "terminaciones": "7-8-9",
+          "fecha": "2026-10-14"
+        }
+      ],
+      "fuente": "https://seti.afip.gob.ar/av/seleccionVencimientos.do"
+    },
+    {
+      "id": "sicore-q1-2026-10",
+      "nombre": "Ganancias 4ª (SICORE) · Pago 1ª quincena oct",
+      "periodo": "2026-10",
+      "grupos": [
+        {
+          "terminaciones": "0-1-2-3",
+          "fecha": "2026-10-21"
+        },
+        {
+          "terminaciones": "4-5-6",
+          "fecha": "2026-10-22"
+        },
+        {
+          "terminaciones": "7-8-9",
+          "fecha": "2026-10-23"
+        }
+      ],
+      "fuente": "https://seti.afip.gob.ar/av/seleccionVencimientos.do"
+    },
+    {
+      "id": "f931-2026-10",
+      "nombre": "F.931 · Presentación y pago",
+      "periodo": "2026-10",
+      "grupos": [
+        {
+          "terminaciones": "0-1-2-3",
+          "fecha": "2026-11-10"
+        },
+        {
+          "terminaciones": "4-5-6",
+          "fecha": "2026-11-11"
+        },
+        {
+          "terminaciones": "7-8-9",
+          "fecha": "2026-11-12"
+        }
+      ],
+      "fuente": "https://seti.afip.gob.ar/av/seleccionVencimientos.do"
+    },
+    {
+      "id": "sicore-q2-2026-10",
+      "nombre": "Ganancias 4ª (SICORE) · 2ª quincena oct + DJ F.744",
+      "periodo": "2026-10",
+      "grupos": [
+        {
+          "terminaciones": "0-1-2-3",
+          "fecha": "2026-11-10"
+        },
+        {
+          "terminaciones": "4-5-6",
+          "fecha": "2026-11-11"
+        },
+        {
+          "terminaciones": "7-8-9",
+          "fecha": "2026-11-12"
+        }
+      ],
+      "fuente": "https://seti.afip.gob.ar/av/seleccionVencimientos.do"
+    },
+    {
+      "id": "sicore-q1-2026-11",
+      "nombre": "Ganancias 4ª (SICORE) · Pago 1ª quincena nov",
+      "periodo": "2026-11",
+      "grupos": [
+        {
+          "terminaciones": "0-1-2-3",
+          "fecha": "2026-11-24"
+        },
+        {
+          "terminaciones": "4-5-6",
+          "fecha": "2026-11-25"
+        },
+        {
+          "terminaciones": "7-8-9",
+          "fecha": "2026-11-26"
+        }
+      ],
+      "fuente": "https://seti.afip.gob.ar/av/seleccionVencimientos.do"
+    },
+    {
+      "id": "f931-2026-11",
+      "nombre": "F.931 · Presentación y pago",
+      "periodo": "2026-11",
+      "grupos": [
+        {
+          "terminaciones": "0-1-2-3",
+          "fecha": "2026-12-09"
+        },
+        {
+          "terminaciones": "4-5-6",
+          "fecha": "2026-12-10"
+        },
+        {
+          "terminaciones": "7-8-9",
+          "fecha": "2026-12-11"
+        }
+      ],
+      "fuente": "https://seti.afip.gob.ar/av/seleccionVencimientos.do"
+    },
+    {
+      "id": "sicore-q2-2026-11",
+      "nombre": "Ganancias 4ª (SICORE) · 2ª quincena nov + DJ F.744",
+      "periodo": "2026-11",
+      "grupos": [
+        {
+          "terminaciones": "0-1-2-3",
+          "fecha": "2026-12-09"
+        },
+        {
+          "terminaciones": "4-5-6",
+          "fecha": "2026-12-10"
+        },
+        {
+          "terminaciones": "7-8-9",
+          "fecha": "2026-12-11"
+        }
+      ],
+      "fuente": "https://seti.afip.gob.ar/av/seleccionVencimientos.do"
+    },
+    {
+      "id": "sicore-q1-2026-12",
+      "nombre": "Ganancias 4ª (SICORE) · Pago 1ª quincena dic",
+      "periodo": "2026-12",
+      "grupos": [
+        {
+          "terminaciones": "0-1-2-3",
+          "fecha": "2026-12-21"
+        },
+        {
+          "terminaciones": "4-5-6",
+          "fecha": "2026-12-22"
+        },
+        {
+          "terminaciones": "7-8-9",
+          "fecha": "2026-12-23"
+        }
+      ],
+      "fuente": "https://seti.afip.gob.ar/av/seleccionVencimientos.do"
+    }
+  ]
 }
