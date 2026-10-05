@@ -310,7 +310,7 @@ Willy lo encuentre después. Formato:
 
 | Sigla | Proyecto |
 |---|---|
-| (pendiente) | Portal Payroll H&A (este repo) |
+| PPH | Portal Payroll H&A (este repo) |
 
 Antes de titular, buscar la sigla del proyecto en esta tabla. Si el proyecto no está,
 es el primero: **no inventar la sigla**, proponer dos o tres opciones a Willy, esperar
