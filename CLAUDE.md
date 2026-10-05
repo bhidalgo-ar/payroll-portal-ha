@@ -293,3 +293,25 @@ no depende de mí.
 
 Qué subagentes corrieron, con qué modelo, qué devolvió cada uno en una línea, qué
 decisiones declararon y qué quedó como pregunta de criterio. No el contenido.
+
+## Título sugerido al cerrar cada respuesta
+
+Cada respuesta termina con una línea que propone cómo titular ese pedido, para que
+Willy lo encuentre después. Formato:
+
+`Título sugerido: XXX · <número de decisión o unas palabras de foco>`
+
+- `XXX` son tres letras fijas por proyecto, que siguen siendo las mismas en todos los chats.
+- Después va el número de la decisión que se tocó, si el pedido toca una decisión
+  numerada. Si no, dos a cinco palabras que digan en qué se trabajó.
+- Es una sola línea, siempre la última de la respuesta.
+
+### Siglas por proyecto
+
+| Sigla | Proyecto |
+|---|---|
+| (pendiente) | Portal Payroll H&A (este repo) |
+
+Antes de titular, buscar la sigla del proyecto en esta tabla. Si el proyecto no está,
+es el primero: **no inventar la sigla**, proponer dos o tres opciones a Willy, esperar
+su elección y recién entonces agregarla acá.
