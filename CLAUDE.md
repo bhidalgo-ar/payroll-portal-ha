@@ -9,7 +9,8 @@ Publicado con GitHub Pages en **https://bhidalgo-ar.github.io/payroll-portal-ha/
 |---|---|
 | `index.html` | El portal. **Es un bundle**: una de las líneas del `<head>` externo es un string JSON con todo el template. Ver §5. |
 | `apps.json` | Catálogo de herramientas. Fuente de verdad de versión, estado y fechas. |
-| `cumpleanios.json`, `frases.json`, `vencimientos.json` | Datos que el portal lee en runtime. `vencimientos.json` alimenta el bloque "Próximos vencimientos" del hero. Ver §9. |
+| `cumpleanios.json`, `frases.json`, `vencimientos.json` | Datos que el portal lee en runtime. `vencimientos.json` alimenta la tarjeta "Próximos vencimientos" del inicio. Ver §9. |
+| `legales.json` | Lista cargada a mano de la carpeta Información Legal de SharePoint (sitio Payroll); el portal la lee en runtime para la tarjeta "Actualizaciones legales". Para actualizarla: editar el JSON (`items` con `nombre`, `tipo` `carpeta`\|`pdf`, `modificado` AAAA-MM-DD y `url`; `meta.actualizado` en la fecha de carga) y pushear. |
 | `feriados.json` | Feriados nacionales y días no laborables. **El portal no lo lee**: lo usa `scripts/validar-vencimientos.mjs`. Ver §9. |
 | `*.html` (resto) | Las herramientas en sí. Cada una es un HTML autónomo, sin backend. |
 | `scripts/validar-catalogo.mjs` | Valida `apps.json`. Corre solo vía hook al editarlo. |
@@ -99,7 +100,6 @@ Casos de esta revisión, para calibrar:
 
 - `NUEVO` (verde) si `agregado` está dentro de la ventana de `meta.diasReciente`.
 - `ACTUALIZADO` (verde) si `actualizado` está dentro de la ventana.
-- Además el número editorial de la fila se pinta en verde.
 
 **`actualizado` se mueve sólo por cambios funcionales.** Un bump de versión, un ajuste
 de estilo o un cambio de README no lo mueven — si no, cualquier commit cosmético haría
@@ -228,7 +228,8 @@ citada para esa fecha; si el documento no se pudo abrir completo, `meta.nota` lo
 Lo lee el portal (mismo `loadData` que `apps.json`) y muestra hasta 4 obligaciones,
 ordenadas por su fecha vigente más próxima. Un grupo con fecha anterior a hoy no se
 muestra; una obligación sin grupos vigentes tampoco; si no queda ninguna, o el archivo
-falta o está roto, el bloque no aparece. Faltando 2 días o menos la ficha se pinta con
+falta o está roto, la tarjeta se muestra igual con el mensaje "Todavía no hay fechas
+cargadas. Se cargan desde el calendario oficial de ARCA.". Faltando 2 días o menos la ficha se pinta con
 `--urgent`.
 
 ```jsonc
