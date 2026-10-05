@@ -255,9 +255,21 @@ cargadas. Se cargan desde el calendario oficial de ARCA.". Faltando 2 días o me
 Cómo se carga: desde el **calendario oficial de vencimientos de ARCA**, una entrada por
 obligación y período, copiando la tabla de terminaciones de CUIT tal como la publica
 ARCA. Las terminaciones de cada obligación tienen que cubrir 0-9 una sola vez. Al
-cargar, poner `meta.actualizado` en la fecha de carga. Al 2026-10-05 la lista está
-vacía: los dominios de ARCA están bloqueados en este entorno y no se pudo obtener el
-calendario.
+cargar, poner `meta.actualizado` en la fecha de carga.
+
+De dónde sale: la Agenda de Vencimientos de ARCA, `https://seti.afip.gob.ar/av/seleccionVencimientos.do`.
+Es un formulario: GET con cookies, tomar el `action` del form `consultaVencimientoForm`
+y POST con `fechaVDesde`/`fechaVHasta` (dd/mm/aaaa), `terminacionCuit=Todos` e
+`impuestosSeleccionados` = `2` (Seguridad Social) y `16` (Ganancias). Respuesta en
+latin-1. Si el rango no está publicado responde "no está cargado"; consultar mes a mes.
+Mapeo: F.931 = Seguridad Social, Sujeto "Empleadores.", SIPA, Régimen General.
+Ganancias 4ª = régimen general de retenciones SICORE (RG 2233): la agenda no la
+discrimina aparte; la 2ª quincena se paga el mismo día que vence la DJ F.744. F.1359 es
+anual y no vence entre octubre y diciembre. El entorno tiene que permitir
+`*.arca.gob.ar`, `*.afip.gob.ar`, `*.argentina.gob.ar` y `*.boletinoficial.gob.ar`
+(con el comodín: sin él, `www.` queda bloqueado).
+
+Carga del 2026-10-05: vencimientos de oct, nov y dic 2026 (ARCA no publicó 2027 todavía).
 
 ### `feriados.json`
 
