@@ -10,6 +10,7 @@ Publicado con GitHub Pages en **https://bhidalgo-ar.github.io/payroll-portal-ha/
 | `index.html` | El portal. **Es un bundle**: una de las líneas del `<head>` externo es un string JSON con todo el template. Ver §5. |
 | `apps.json` | Catálogo de herramientas. Fuente de verdad de versión, estado y fechas. |
 | `cumpleanios.json`, `frases.json`, `vencimientos.json` | Datos que el portal lee en runtime. `vencimientos.json` alimenta el bloque "Próximos vencimientos" del hero. Ver §9. |
+| `legales.json` | Lista cargada a mano de la carpeta Información Legal de SharePoint (sitio Payroll); el portal la lee en runtime para la tarjeta "Actualizaciones legales" del hero. Para actualizarla: editar el JSON (`items` con `nombre`, `tipo` `carpeta`\|`pdf`, `modificado` AAAA-MM-DD y `url`; `meta.actualizado` en la fecha de carga) y pushear. |
 | `feriados.json` | Feriados nacionales y días no laborables. **El portal no lo lee**: lo usa `scripts/validar-vencimientos.mjs`. Ver §9. |
 | `*.html` (resto) | Las herramientas en sí. Cada una es un HTML autónomo, sin backend. |
 | `scripts/validar-catalogo.mjs` | Valida `apps.json`. Corre solo vía hook al editarlo. |
@@ -229,7 +230,8 @@ Lo lee el portal (mismo `loadData` que `apps.json`) y muestra hasta 4 obligacion
 ordenadas por su fecha vigente más próxima. Un grupo con fecha anterior a hoy no se
 muestra; una obligación sin grupos vigentes tampoco; si no queda ninguna, o el archivo
 falta o está roto, el bloque no aparece. Faltando 2 días o menos la ficha se pinta con
-`--urgent`.
+`--urgent`. El portal muestra solo las obligaciones F.931; las demás se cargan y validan
+igual pero no se muestran.
 
 ```jsonc
 {
