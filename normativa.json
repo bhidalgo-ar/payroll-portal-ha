@@ -1,0 +1,50 @@
+{
+ "meta": {
+  "consultado": "2026-10-05",
+  "fuente": "Boletín Oficial de la República Argentina, listado de la primera sección",
+  "nota": "Organismo, norma y detalle copiados del listado de cada edición. Las páginas de detalle no se pudieron abrir desde este entorno (el sitio rechaza la request).",
+  "filtro": "Se muestran ARCA, ANSES, salario mínimo, feriados, SRT (montos y prestaciones) y homologaciones de convenios. Se excluyen estatutos y altas de asociaciones sindicales, concursos y designaciones."
+ },
+ "items": [
+  {
+   "organismo": "ADMINISTRACIÓN NACIONAL DE LA SEGURIDAD SOCIAL",
+   "norma": "Resolución 292/2026",
+   "detalle": "RESOL-2026-292-ANSES-ANSES",
+   "fecha": "2026-10-02",
+   "tema": "Seguridad social",
+   "url": "https://www.boletinoficial.gob.ar/detalleAviso/primera/348397/20261002",
+   "resumen": "PRORROGASE EL PLAZO PREVISTO ORIGINARIAMENTE EN EL ARTICULO 5° DEL ANEXO N° IF-2026-83509467-ANSES-ANSES (TERMINOS Y CONDICIONES) DE LA RESOLUCION N° RESOL-2026-261-ANSES-ANSES, HASTA EL DIA 9 DE OCTUBRE DEL 2026 A LAS 23:59 HS., A EFECTOS DE LA ADHESION AL “PLAN DE RETIROS DE VOLUNTAD RECIPROCA (RVR) – ETAPA 2”, PARA EL PERSONAL DE ESTA ADMINISTRACION NACIONAL DE LA SEGURIDAD SOCIAL (ANSES).",
+   "fuenteResumen": "https://www.argentina.gob.ar/normativa/nacional/norma-430791"
+  },
+  {
+   "organismo": "SUPERINTENDENCIA DE RIESGOS DEL TRABAJO",
+   "norma": "Resolución 50/2026",
+   "detalle": "RESOL-2026-50-APN-SRT#MCH",
+   "fecha": "2026-10-02",
+   "tema": "Riesgos del trabajo",
+   "url": "https://www.boletinoficial.gob.ar/detalleAviso/primera/348412/20261002",
+   "resumen": "ESTABLECESE EN PESOS NOVENTA Y CINCO MIL OCHOCIENTOS SESENTA Y CUATRO CON 67/100 ($ 95.864,67) EL IMPORTE QUE SURGE DE APLICAR LA EQUIVALENCIA CONTENIDA EN EL PRIMER PARRAFO DEL ARTICULO 15 DEL DECRETO N° 1.694 DE FECHA 05 DE NOVIEMBRE DE 2009, DE CONFORMIDAD CON LO DISPUESTO EN LA RESOLUCION DE LA ADMINISTRACION NACIONAL DE LA SEGURIDAD SOCIAL (ANSES) N° 284 DE FECHA 22 DE SEPTIEMBRE DE 2026.",
+   "fuenteResumen": "https://www.argentina.gob.ar/normativa/nacional/norma-430809"
+  },
+  {
+   "organismo": "ADMINISTRACIÓN NACIONAL DE LA SEGURIDAD SOCIAL",
+   "norma": "Resolución 290/2026",
+   "detalle": "RESOL-2026-290-ANSES-ANSES",
+   "fecha": "2026-09-30",
+   "tema": "Seguridad social",
+   "url": "https://www.boletinoficial.gob.ar/detalleAviso/primera/348233/20260930",
+   "resumen": "APRUEBANSE LOS PROCEDIMIENTOS PARA LA IMPLEMENTACION DE LO DISPUESTO POR LA RESOLUCION Nº RESOL-2026-508-APN-STEYSS#MCH, EN RELACION CON LA ACREDITACION AUTOMATICA DE LA CONDICIONALIDAD EDUCATIVA ESTABLECIDA EN EL PUNTO 5 DEL APARTADO “ASIGNACION UNIVERSAL POR HIJO PARA PROTECCION SOCIAL” DEL CAPITULO II DEL ANEXO N° IF-2019-67431945-APN-DNARSS#MSYDS “NORMAS COMPLEMENTARIAS, ACLARATORIAS Y DE APLICACION DEL REGIMEN GENERAL DE ASIGNACIONES FAMILIARES” DE LA RESOLUCION N° RESOL-2019-11-APN-SESS#MSYDS Y SUS MODIFICATORIAS DE LA ENTONCES SECRETARIA DE SEGURIDAD SOCIAL, MEDIANTE EL INTERCAMBIO SEGURO DE INFORMACION ENTRE LA SECRETARIA DE EDUCACION, DEPENDIENTE DEL MINISTERIO DE CAPITAL HUMANO, Y ESTA ADMINISTRACION NACIONAL DE LA SEGURIDAD SOCIAL (ANSES).",
+   "fuenteResumen": "https://www.argentina.gob.ar/normativa/nacional/norma-430671"
+  },
+  {
+   "organismo": "PODER EJECUTIVO",
+   "norma": "Decreto 1103/2026",
+   "detalle": "DNU-2026-1103-APN-PTE - Visita oficial a la República Argentina de Su Santidad el Papa LEÓN XIV.",
+   "fecha": "2026-09-28",
+   "tema": "Feriados",
+   "url": "https://www.boletinoficial.gob.ar/detalleAviso/primera/348022/20260928",
+   "resumen": "DECLARANSE DE INTERES NACIONAL LA VISITA OFICIAL A LA REPUBLICA ARGENTINA DE SU SANTIDAD EL PAPA LEON XIV Y LAS ACTIVIDADES OFICIALES, INSTITUCIONALES, PROTOCOLARES Y DE ORGANIZACION VINCULADAS CON DICHA VISITA. ESTABLECESE COMO FERIADO NACIONAL EL DIA LUNES 9 DE NOVIEMBRE DE 2026 EN TODO EL TERRITORIO DE LA REPUBLICA ARGENTINA, CON MOTIVO DE LA VISITA DE SU SANTIDAD EL PAPA LEON XIV. ESTABLECENSE FERIADOS. CREASE, EN EL AMBITO DE LA JEFATURA DE GABINETE DE MINISTROS, LA UNIDAD EJECUTORA ESPECIAL TEMPORARIA “VISITA DE SU SANTIDAD EL PAPA LEON XIV”.",
+   "fuenteResumen": "https://www.argentina.gob.ar/normativa/nacional/norma-430580"
+  }
+ ]
+}
