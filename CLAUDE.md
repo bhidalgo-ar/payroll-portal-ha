@@ -340,10 +340,18 @@ Advertencia: vencimiento en sábado o domingo, o en un año que `feriados.json` 
 }
 ```
 
-La tarjeta "Indicadores del mes" muestra **dos columnas**: el período del mes en curso
-(destacado como "Vigente") y el del mes siguiente, elegidos por la fecha real. Motivo: hay
-empresas que liquidan los primeros días del mes con las tablas del mes anterior, y a fin de
-mes ya se necesitan los valores del que viene. Los `id` estables (`smvm`, `sipa-base-min`,
+La tarjeta "Indicadores del mes" muestra **dos columnas**, elegidas por la fecha real (hora
+local):
+
+- Del día 1 al 10 (inclusive): el mes anterior ("Mes anterior") y el mes en curso
+  (destacado como "Vigente"). Motivo: hay empresas que liquidan los primeros días del mes
+  con las tablas del mes anterior.
+- Del día 11 a fin de mes: el mes en curso ("Vigente") y el mes siguiente ("Mes
+  siguiente"), porque a fin de mes ya se necesitan los valores del que viene.
+
+Ejemplos: 15/10 → octubre + noviembre; 05/11 y 10/11 → octubre (anterior) + noviembre;
+11/11 → noviembre + diciembre. Por eso **el período anterior se conserva en el JSON hasta
+el día 10 del mes siguiente**; recién después se puede sacar. Los `id` estables (`smvm`, `sipa-base-min`,
 `sipa-base-max`, `movilidad`) alinean las filas entre períodos.
 
 **Regla dura:** un indicador sólo se carga desde fuente oficial, con `fuente` y `cita`
