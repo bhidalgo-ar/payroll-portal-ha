@@ -9,8 +9,11 @@ Publicado con GitHub Pages en **https://bhidalgo-ar.github.io/payroll-portal-ha/
 |---|---|
 | `index.html` | El portal. **Es un bundle**: una de las líneas del `<head>` externo es un string JSON con todo el template. Ver §5. |
 | `apps.json` | Catálogo de herramientas. Fuente de verdad de versión, estado y fechas. |
-| `cumpleanios.json`, `frases.json`, `vencimientos.json` | Datos que el portal lee en runtime. `vencimientos.json` alimenta el bloque "Próximos vencimientos" del hero. Ver §9. |
-| `feriados.json` | Feriados nacionales y días no laborables. **El portal no lo lee**: lo usa `scripts/validar-vencimientos.mjs`. Ver §9. |
+| `cumpleanios.json`, `frases.json`, `vencimientos.json` | Datos que el portal lee en runtime. `vencimientos.json` alimenta las fichas F.931 del calendario laboral. Ver §9. |
+| `feriados.json` | Feriados nacionales y días no laborables. El portal lo lee para el calendario laboral y los días hábiles del mes; además lo usa `scripts/validar-vencimientos.mjs`. Ver §9. |
+| `indicadores.json` | Indicadores del mes (SMVM, bases SIPA, movilidad) que el portal lee en runtime para la tarjeta "Indicadores del mes". Ver §10. |
+| `normativa.json` | Normas recientes del Boletín Oficial ya filtradas, que el portal lee en runtime para "Normativa reciente". Ver §10. |
+| `iconos/` | SVG de los accesos rápidos (monday, Outlook, Teams). El portal los pide con la misma base que los JSON (`BASE` + fallback relativo). |
 | `*.html` (resto) | Las herramientas en sí. Cada una es un HTML autónomo, sin backend. |
 | `scripts/validar-catalogo.mjs` | Valida `apps.json`. Corre solo vía hook al editarlo. |
 | `scripts/validar-vencimientos.mjs` | Valida `vencimientos.json` contra `feriados.json`. Se corre a mano antes de pushear cualquiera de los dos. |
@@ -225,11 +228,12 @@ citada para esa fecha; si el documento no se pudo abrir completo, `meta.nota` lo
 
 ### `vencimientos.json`
 
-Lo lee el portal (mismo `loadData` que `apps.json`) y muestra hasta 4 obligaciones,
-ordenadas por su fecha vigente más próxima. Un grupo con fecha anterior a hoy no se
-muestra; una obligación sin grupos vigentes tampoco; si no queda ninguna, o el archivo
-falta o está roto, el bloque no aparece. Faltando 2 días o menos la ficha se pinta con
-`--urgent`.
+Lo lee el portal (mismo `loadData` que `apps.json`). Ya no hay bloque "Próximos
+vencimientos" en el hero: las obligaciones F.931 se muestran como fichas por grupo de
+terminación dentro del **calendario laboral de 2 semanas** (desde el lunes de la semana
+actual), junto con los feriados de `feriados.json`; debajo, una línea con el próximo
+feriado fuera de la vista. Si el archivo falta o está roto, el calendario se muestra sin
+fichas de vencimiento.
 
 ```jsonc
 {
@@ -271,8 +275,11 @@ Carga del 2026-10-05: vencimientos de oct, nov y dic 2026 (ARCA no publicó 2027
 
 ### `feriados.json`
 
-No lo muestra el portal: sirve para que el validador rechace un vencimiento que caiga
-en día no hábil.
+Lo lee el portal: marca los feriados y días no laborables en el calendario de 2 semanas y
+calcula los días hábiles del mes del masthead (`inamovible`, `trasladable` y `puntual` hacen
+inhábil el día; `no_laborable` cuenta como hábil). Si falta o está roto, el calendario sale
+sin feriados y no se muestran los días hábiles. Además sirve para que el validador rechace
+un vencimiento que caiga en día no hábil.
 
 ```jsonc
 {
@@ -311,6 +318,52 @@ orden, `id` repetido, terminaciones que no cubren 0-9 exactamente una vez, `fuen
 no es una URL `https` de `arca.gob.ar`, `afip.gob.ar`, `argentina.gob.ar` o
 `boletinoficial.gob.ar` (o un subdominio), y vencimiento en un feriado o día no laborable de `feriados.json`.
 Advertencia: vencimiento en sábado o domingo, o en un año que `feriados.json` no cubre.
+
+## 10. Indicadores y normativa
+
+### `indicadores.json`
+
+```jsonc
+{
+  "meta": { "consultado": "AAAA-MM-DD" },
+  "items": [
+    { "id": "smvm", "nombre": "Salario mínimo, vital y móvil", "valor": 391200,
+      "unidad": "ARS/mes",                  // "ARS/mes" se muestra en pesos; "%" como porcentaje
+      "vigencia": "desde AAAA-MM-DD ...",
+      "norma": "Resolución X/AAAA ... (BO DD-MM-AAAA)",
+      "fuente": "https://...",              // URL oficial (boletinoficial.gob.ar, argentina.gob.ar, ...)
+      "cita": "texto literal de la norma que respalda el valor" }
+  ]
+}
+```
+
+**Regla dura:** un indicador sólo se carga desde fuente oficial, con `fuente` y `cita`
+literal. Si no se pudo verificar, no se carga: la tarjeta muestra "—" para los indicadores
+base (SMVM, base mínima y máxima SIPA). Si el archivo falta o está roto, pasa lo mismo.
+
+### `normativa.json`
+
+```jsonc
+{
+  "meta": { "consultado": "AAAA-MM-DD", "fuente": "...", "nota": "...",
+            "filtro": "qué se muestra y qué se excluye" },
+  "items": [
+    { "organismo": "...", "norma": "Resolución X/AAAA", "detalle": "RESOL-...",
+      "fecha": "AAAA-MM-DD", "tema": "Seguridad social",
+      "url": "https://www.boletinoficial.gob.ar/detalleAviso/primera/...",
+      "resumen": "...", "fuenteResumen": "https://www.argentina.gob.ar/normativa/..." }
+  ]
+}
+```
+
+- Se carga desde el listado de la primera sección del Boletín Oficial, aplicando el filtro
+  editorial de `meta.filtro` (hoy: ARCA, ANSES, salario mínimo, feriados, SRT y
+  homologaciones de convenios; fuera estatutos y altas sindicales, concursos y
+  designaciones).
+- El `resumen` se copia tal cual de InfoLEG (argentina.gob.ar/normativa); **no se redacta**.
+  Si no hay resumen oficial, se omite el campo.
+- El portal resalta con "HOY" las normas con `fecha` igual a la fecha real del día. Si el
+  archivo falta o está roto, la sección muestra "No hay normativa cargada por ahora".
 
 ## Forma de trabajar: orquestador y subagentes
 
