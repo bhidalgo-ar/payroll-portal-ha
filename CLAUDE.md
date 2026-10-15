@@ -326,20 +326,31 @@ Advertencia: vencimiento en sábado o domingo, o en un año que `feriados.json` 
 ```jsonc
 {
   "meta": { "consultado": "AAAA-MM-DD" },
-  "items": [
-    { "id": "smvm", "nombre": "Salario mínimo, vital y móvil", "valor": 391200,
-      "unidad": "ARS/mes",                  // "ARS/mes" se muestra en pesos; "%" como porcentaje
-      "vigencia": "desde AAAA-MM-DD ...",
-      "norma": "Resolución X/AAAA ... (BO DD-MM-AAAA)",
-      "fuente": "https://...",              // URL oficial (boletinoficial.gob.ar, argentina.gob.ar, ...)
-      "cita": "texto literal de la norma que respalda el valor" }
+  "periodos": [                              // uno por mes; el portal muestra dos
+    { "periodo": "AAAA-MM", "etiqueta": "Octubre 2026",
+      "items": [
+        { "id": "smvm", "nombre": "Salario mínimo, vital y móvil", "valor": 391200,
+          "unidad": "ARS/mes",              // "ARS/mes" se muestra en pesos; "%" como porcentaje
+          "vigencia": "desde AAAA-MM-DD ...",
+          "norma": "Resolución X/AAAA ... (BO DD-MM-AAAA)",
+          "fuente": "https://...",          // URL oficial (boletinoficial.gob.ar, argentina.gob.ar, ...)
+          "cita": "texto literal de la norma que respalda el valor" }
+      ] }
   ]
 }
 ```
 
+La tarjeta "Indicadores del mes" muestra **dos columnas**: el período del mes en curso
+(destacado como "Vigente") y el del mes siguiente, elegidos por la fecha real. Motivo: hay
+empresas que liquidan los primeros días del mes con las tablas del mes anterior, y a fin de
+mes ya se necesitan los valores del que viene. Los `id` estables (`smvm`, `sipa-base-min`,
+`sipa-base-max`, `movilidad`) alinean las filas entre períodos.
+
 **Regla dura:** un indicador sólo se carga desde fuente oficial, con `fuente` y `cita`
-literal. Si no se pudo verificar, no se carga: la tarjeta muestra "—" para los indicadores
-base (SMVM, base mínima y máxima SIPA). Si el archivo falta o está roto, pasa lo mismo.
+literal. Si no se pudo verificar, no se carga: la celda muestra "—" con "Pendiente de
+publicación oficial" (las filas base SMVM, base mínima y máxima SIPA salen siempre). El mes
+siguiente se completa a medida que sale cada norma; no se copia el valor del mes anterior.
+Si el archivo falta o está roto, todo sale en "—".
 
 ### `normativa.json`
 
