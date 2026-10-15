@@ -1,47 +1,47 @@
 {
-  "meta": {
-    "consultado": "2026-10-05"
+ "meta": {
+  "consultado": "2026-10-05"
+ },
+ "items": [
+  {
+   "id": "smvm",
+   "nombre": "Salario mínimo, vital y móvil",
+   "valor": 391200,
+   "unidad": "ARS/mes",
+   "vigencia": "desde 2026-10-01 hasta 2026-10-31 (desde 2026-11-01 rige $398.800)",
+   "norma": "Resolución 4/2026 CNEPYSMVYM (laudo), BO 02-09-2026",
+   "fuente": "https://www.boletinoficial.gob.ar/detalleAviso/primera/346775/20260902",
+   "cita": "A partir del 1° de octubre de 2026, en PESOS TRESCIENTOS NOVENTA Y UN MIL DOSCIENTOS ($ 391.200) para todos los trabajadores mensualizados que cumplen la jornada legal completa de trabajo"
   },
-  "items": [
-    {
-      "id": "smvm",
-      "nombre": "Salario mínimo, vital y móvil",
-      "valor": 391200,
-      "unidad": "ARS/mes",
-      "vigencia": "desde 2026-10-01 (jornada legal completa, mensualizados)",
-      "norma": "Resolución 4/2026 CNEPYSMVYM (laudo), BO 02-09-2026",
-      "fuente": "https://www.boletinoficial.gob.ar/detalleAviso/primera/346775/20260902",
-      "cita": "A partir del 1° de octubre de 2026, en PESOS TRESCIENTOS NOVENTA Y UN MIL DOSCIENTOS ($ 391.200) para todos los trabajadores mensualizados que cumplen la jornada legal completa de trabajo"
-    },
-    {
-      "id": "sipa-base-min",
-      "nombre": "Base imponible mínima SIPA",
-      "valor": 146759.98,
-      "unidad": "ARS/mes",
-      "vigencia": "período devengado octubre 2026",
-      "norma": "Resolución 284/2026 ANSES (BO 23-09-2026)",
-      "fuente": "https://www.argentina.gob.ar/normativa/nacional/norma-430390/texto",
-      "cita": "bases imponibles mínima y máxima previstas en el primer párrafo del artículo 9° de la Ley N° 24.241 ... en la suma de PESOS CIENTO CUARENTA Y SEIS MIL SETECIENTOS CINCUENTA Y NUEVE CON NOVENTA Y OCHO CENTAVOS ($146.759,98)"
-    },
-    {
-      "id": "sipa-base-max",
-      "nombre": "Base imponible máxima SIPA",
-      "valor": 4769631.49,
-      "unidad": "ARS/mes",
-      "vigencia": "período devengado octubre 2026",
-      "norma": "Resolución 284/2026 ANSES (BO 23-09-2026)",
-      "fuente": "https://www.argentina.gob.ar/normativa/nacional/norma-430390/texto",
-      "cita": "y PESOS CUATRO MILLONES SETECIENTOS SESENTA Y NUEVE MIL SEISCIENTOS TREINTA Y UNO CON CUARENTA Y NUEVE CENTAVOS ($4.769.631,49), respectivamente, a partir del período devengado octubre de 2026"
-    },
-    {
-      "id": "movilidad",
-      "nombre": "Movilidad ANSES",
-      "valor": 1.66,
-      "unidad": "%",
-      "vigencia": "mes de octubre 2026 (IPC agosto 2026)",
-      "norma": "Resolución 284/2026 ANSES (BO 23-09-2026)",
-      "fuente": "https://www.argentina.gob.ar/normativa/nacional/norma-430390/texto",
-      "cita": "se efectuó el cálculo de la movilidad a considerar para el mes de octubre de 2026 ... resultando éste del UNO CON SESENTA Y SEIS CENTÉSIMOS POR CIENTO (1,66%)"
-    }
-  ]
+  {
+   "id": "sipa-base-min",
+   "nombre": "Base imponible mínima SIPA",
+   "valor": 146759.98,
+   "unidad": "ARS/mes",
+   "vigencia": "período devengado octubre 2026",
+   "norma": "Resolución 284/2026 ANSES (BO 23-09-2026)",
+   "fuente": "https://www.argentina.gob.ar/normativa/nacional/norma-430390/texto",
+   "cita": "bases imponibles mínima y máxima previstas en el primer párrafo del artículo 9° de la Ley N° 24.241 ... en la suma de PESOS CIENTO CUARENTA Y SEIS MIL SETECIENTOS CINCUENTA Y NUEVE CON NOVENTA Y OCHO CENTAVOS ($146.759,98)"
+  },
+  {
+   "id": "sipa-base-max",
+   "nombre": "Base imponible máxima SIPA",
+   "valor": 4769631.49,
+   "unidad": "ARS/mes",
+   "vigencia": "período devengado octubre 2026",
+   "norma": "Resolución 284/2026 ANSES (BO 23-09-2026)",
+   "fuente": "https://www.argentina.gob.ar/normativa/nacional/norma-430390/texto",
+   "cita": "y PESOS CUATRO MILLONES SETECIENTOS SESENTA Y NUEVE MIL SEISCIENTOS TREINTA Y UNO CON CUARENTA Y NUEVE CENTAVOS ($4.769.631,49), respectivamente, a partir del período devengado octubre de 2026"
+  },
+  {
+   "id": "movilidad",
+   "nombre": "Movilidad ANSES",
+   "valor": 1.66,
+   "unidad": "%",
+   "vigencia": "mes de octubre 2026 (IPC agosto 2026)",
+   "norma": "Resolución 284/2026 ANSES (BO 23-09-2026)",
+   "fuente": "https://www.argentina.gob.ar/normativa/nacional/norma-430390/texto",
+   "cita": "se efectuó el cálculo de la movilidad a considerar para el mes de octubre de 2026 ... resultando éste del UNO CON SESENTA Y SEIS CENTÉSIMOS POR CIENTO (1,66%)"
+  }
+ ]
 }
