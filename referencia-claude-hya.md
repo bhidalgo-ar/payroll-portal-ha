@@ -1,6 +1,6 @@
 # Claude en Hidalgo & Asociados — referencia del equipo
 
-**Verificado al 28 de septiembre de 2026.** Reemplaza al documento de investigación de abril de 2026
+**Verificado al 28 de septiembre de 2026** (Haiku 5.5, el 20 de octubre de 2026). Reemplaza al documento de investigación de abril de 2026
 (`compass_artifact_wf-162df681...md`), que quedó completamente desactualizado: hablaba de Opus 4.6,
 Sonnet 4.6 y "adaptive thinking", ninguno de los cuales es el estado actual.
 
@@ -34,7 +34,7 @@ El detalle está en `datos-y-planes-claude-hya.md`, que es el documento que hay 
 
 Cuatro escalones. La regla de arranque no cambió: **empezá siempre por Sonnet 5.5.** Regla de bolsillo: Sonnet para escribir y armar, Opus para pensar y revisar.
 
-**Haiku 4.5** — el más rápido, el que menos cupo consume. Sirve para preguntas puntuales,
+**Haiku 5.5** — el más rápido, el que menos cupo consume. Es el primer Haiku con niveles de esfuerzo (por defecto, Medium). Sirve para preguntas puntuales,
 resúmenes cortos, clasificar o extraer datos de una lista. Claude Code también lo usa por
 detrás para tareas chicas en paralelo. No lo uses para nada que tenga cálculo encadenado.
 
@@ -57,7 +57,7 @@ El equipo entra por el plan de la empresa, no por API. Nadie paga por token, as�
 **la unidad correcta es cuánto cupo consume una consulta, no cuántos dólares cuesta.**
 Ninguna referencia a `$/MTok` ni a precios de API va en la guía.
 
-Escala relativa de consumo de cupo, de menor a mayor: Haiku 4.5 → Sonnet 5.5 → Opus 5.5 → Fable 5.1. En la guía las barras van en escalones parejos
+Escala relativa de consumo de cupo, de menor a mayor: Haiku 5.5 → Sonnet 5.5 → Opus 5.5 → Fable 5.1. En la guía las barras van en escalones parejos
 (25/50/75/100): son visuales, no una medición.
 El salto grande de calidad está entre Haiku y Sonnet; de Sonnet para arriba pagás bastante
 más cupo por unos pocos puntos de mejora.
@@ -201,6 +201,8 @@ casos propios, o se dejan con la nota de procedencia que ya tienen.
 
 - Opus 5.5: <https://www.anthropic.com/claude-opus-5-5>
 - Sonnet 5.5: <https://www.anthropic.com/claude-sonnet-5-5>
+- Haiku 5.5: <https://www.anthropic.com/claude-haiku-5-5>
+- Guía de prompting de Haiku 5.5 (español): <https://platform.claude.com/docs/es/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5>
 - Guía de prompting de Sonnet 5.5 (español): <https://platform.claude.com/docs/es/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5>
 - Fable 5.1 y Mythos 5.1: <https://www.anthropic.com/claude-fable-and-mythos-5-1>
 - Esfuerzo en Claude Code (claude.dev): <https://claude.dev/blog/spending-your-effort/>
