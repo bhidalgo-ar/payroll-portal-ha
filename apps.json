@@ -3,7 +3,7 @@
     "titulo": "Portal Hidalgo & Asociados",
     "subtitulo": "Herramientas internas del equipo",
     "version": "1.6",
-    "ultimaActualizacion": "2026-09-30",
+    "ultimaActualizacion": "2026-10-20",
     "ultimaRevision": "2026-08-10",
     "diasReciente": 7,
     "repoDefecto": "bhidalgo-ar/payroll-portal-ha"
@@ -75,11 +75,11 @@
       "descripcion": "Qué modelo de Claude usar, con cuánto esfuerzo y cómo pedirle las cosas",
       "url": "https://bhidalgo-ar.github.io/payroll-portal-ha/casos_uso_modelos_comparativa.html",
       "icono": "🤖",
-      "version": "16",
+      "version": "17",
       "categoria": "Herramientas",
       "estado": "beta",
       "agregado": "2026-04-16",
-      "actualizado": "2026-09-30"
+      "actualizado": "2026-10-20"
     },
     {
       "id": 7,
