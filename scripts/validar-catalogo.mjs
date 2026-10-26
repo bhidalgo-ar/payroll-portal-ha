@@ -104,6 +104,13 @@ for (const [i, a] of cat.apps.entries()) {
     err(et + ': "version" debe ser numérica tipo 2.4 o 12 — recibí "' + a.version + '"');
   }
 
+  if (a.cambios !== undefined && (!Number.isInteger(a.cambios) || a.cambios < 0)) {
+    err(et + ': "cambios" debe ser un entero >= 0 — recibí "' + a.cambios + '"');
+  }
+  if (a.versionPropia !== undefined && typeof a.versionPropia !== 'boolean') {
+    err(et + ': "versionPropia" debe ser true o false');
+  }
+
   if (a.estado && !ESTADOS.includes(a.estado)) {
     err(et + ': estado "' + a.estado + '" inválido (' + ESTADOS.join(' | ') + ')');
   }
@@ -130,6 +137,14 @@ for (const [i, a] of cat.apps.entries()) {
   }
   if (a.path !== undefined && /^\/|\/$/.test(a.path)) {
     err(et + ': "path" no lleva barras al inicio ni al final — "' + a.path + '"');
+  }
+}
+
+// El portal ordena solo por `cambios` (más primero); el archivo se mantiene igual para que se lea parejo.
+for (let i = 1; i < cat.apps.length; i++) {
+  if ((cat.apps[i].cambios ?? 0) > (cat.apps[i - 1].cambios ?? 0)) {
+    avisar('apps fuera de orden por "cambios" (corré scripts/revisar-catalogo.mjs --aplicar)');
+    break;
   }
 }
 

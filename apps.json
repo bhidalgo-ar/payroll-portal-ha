@@ -2,7 +2,7 @@
   "meta": {
     "titulo": "Portal Hidalgo & Asociados",
     "subtitulo": "Herramientas internas del equipo",
-    "version": "1.8",
+    "version": "1.9",
     "ultimaActualizacion": "2026-10-26",
     "ultimaRevision": "2026-10-26",
     "diasReciente": 7,
@@ -10,64 +10,18 @@
   },
   "apps": [
     {
-      "id": 1,
-      "nombre": "SIRADIG Engine",
-      "descripcion": "Comparador de SIRADIG entre períodos",
-      "url": "https://bhidalgo-ar.github.io/payroll-portal-ha/siradig_engine_hya.html",
-      "icono": "🧮",
-      "version": "2.2",
+      "id": 8,
+      "nombre": "Controles Nómina",
+      "descripcion": "Valida la nómina mensual del cliente contra sus archivos de control",
+      "url": "https://bhidalgo-ar.github.io/Controles-Varios/",
+      "icono": "🔎",
+      "version": "6.7",
       "categoria": "Nómina",
       "estado": "productivo",
-      "agregado": "2026-04-09",
-      "actualizado": "2026-09-22"
-    },
-    {
-      "id": 2,
-      "nombre": "Validador F. 1359",
-      "descripcion": "Cruza txt de 1359 contra Impgan y reglas de ARCA",
-      "url": "https://bhidalgo-ar.github.io/payroll-portal-ha/validador-f1359.html",
-      "icono": "📊",
-      "version": "2.5.2",
-      "categoria": "Reportes",
-      "estado": "productivo",
-      "agregado": "2026-04-09",
-      "actualizado": "2026-04-28"
-    },
-    {
-      "id": 3,
-      "nombre": "Análisis IG Anual",
-      "descripcion": "Revisión de IMPGAN y SIRADIG",
-      "url": "https://bhidalgo-ar.github.io/payroll-portal-ha/analisis_ig_anual_hya.html",
-      "icono": "🚀",
-      "version": "4.1",
-      "categoria": "Nómina",
-      "estado": "productivo",
-      "agregado": "2026-04-09",
-      "actualizado": "2026-06-18"
-    },
-    {
-      "id": 4,
-      "nombre": "Visor F. 1359",
-      "descripcion": "Descarga la información de los TXT en Excel",
-      "url": "https://bhidalgo-ar.github.io/payroll-portal-ha/visor_siradig.html",
-      "icono": "📥",
-      "version": "2.0",
-      "categoria": "Reportes",
-      "estado": "productivo",
-      "agregado": "2026-04-16",
-      "actualizado": "2026-04-16"
-    },
-    {
-      "id": 5,
-      "nombre": "Validador Novedades",
-      "descripcion": "Valida las novedades subidas por el cliente y baja el importador",
-      "url": "https://bhidalgo-ar.github.io/payroll-portal-ha/GestorNovedades_HyA.html",
-      "icono": "✅",
-      "version": "1.4",
-      "categoria": "Nómina",
-      "estado": "productivo",
-      "agregado": "2026-04-16",
-      "actualizado": "2026-06-18"
+      "repo": "bhidalgo-ar/Controles-Varios",
+      "agregado": "2026-08-04",
+      "actualizado": "2026-10-13",
+      "cambios": 192
     },
     {
       "id": 6,
@@ -79,7 +33,9 @@
       "categoria": "Herramientas",
       "estado": "productivo",
       "agregado": "2026-04-16",
-      "actualizado": "2026-10-20"
+      "actualizado": "2026-10-20",
+      "versionPropia": true,
+      "cambios": 14
     },
     {
       "id": 7,
@@ -93,20 +49,73 @@
       "repo": "bhidalgo-ar/validadorrecibos",
       "path": "docs",
       "agregado": "2026-08-04",
-      "actualizado": "2026-08-04"
+      "actualizado": "2026-08-04",
+      "cambios": 14
     },
     {
-      "id": 8,
-      "nombre": "Controles Nómina",
-      "descripcion": "Valida la nómina mensual del cliente contra sus archivos de control",
-      "url": "https://bhidalgo-ar.github.io/Controles-Varios/",
-      "icono": "🔎",
-      "version": "6.7",
+      "id": 1,
+      "nombre": "SIRADIG Engine",
+      "descripcion": "Comparador de SIRADIG entre períodos",
+      "url": "https://bhidalgo-ar.github.io/payroll-portal-ha/siradig_engine_hya.html",
+      "icono": "🧮",
+      "version": "2.2",
       "categoria": "Nómina",
       "estado": "productivo",
-      "repo": "bhidalgo-ar/Controles-Varios",
-      "agregado": "2026-08-04",
-      "actualizado": "2026-10-13"
+      "agregado": "2026-04-09",
+      "actualizado": "2026-09-22",
+      "cambios": 4
+    },
+    {
+      "id": 5,
+      "nombre": "Validador Novedades",
+      "descripcion": "Valida las novedades subidas por el cliente y baja el importador",
+      "url": "https://bhidalgo-ar.github.io/payroll-portal-ha/GestorNovedades_HyA.html",
+      "icono": "✅",
+      "version": "1.4",
+      "categoria": "Nómina",
+      "estado": "productivo",
+      "agregado": "2026-04-16",
+      "actualizado": "2026-06-18",
+      "cambios": 4
+    },
+    {
+      "id": 2,
+      "nombre": "Validador F. 1359",
+      "descripcion": "Cruza txt de 1359 contra Impgan y reglas de ARCA",
+      "url": "https://bhidalgo-ar.github.io/payroll-portal-ha/validador-f1359.html",
+      "icono": "📊",
+      "version": "2.5.2",
+      "categoria": "Reportes",
+      "estado": "productivo",
+      "agregado": "2026-04-09",
+      "actualizado": "2026-04-28",
+      "cambios": 2
+    },
+    {
+      "id": 3,
+      "nombre": "Análisis IG Anual",
+      "descripcion": "Revisión de IMPGAN y SIRADIG",
+      "url": "https://bhidalgo-ar.github.io/payroll-portal-ha/analisis_ig_anual_hya.html",
+      "icono": "🚀",
+      "version": "4.1",
+      "categoria": "Nómina",
+      "estado": "productivo",
+      "agregado": "2026-04-09",
+      "actualizado": "2026-06-18",
+      "cambios": 2
+    },
+    {
+      "id": 4,
+      "nombre": "Visor F. 1359",
+      "descripcion": "Descarga la información de los TXT en Excel",
+      "url": "https://bhidalgo-ar.github.io/payroll-portal-ha/visor_siradig.html",
+      "icono": "📥",
+      "version": "2.0",
+      "categoria": "Reportes",
+      "estado": "productivo",
+      "agregado": "2026-04-16",
+      "actualizado": "2026-04-16",
+      "cambios": 1
     },
     {
       "id": 9,
