@@ -16,6 +16,7 @@ Publicado con GitHub Pages en **https://bhidalgo-ar.github.io/payroll-portal-ha/
 | `iconos/` | SVG de los accesos rápidos (monday, Outlook, Teams). El portal los pide con la misma base que los JSON (`BASE` + fallback relativo). |
 | `*.html` (resto) | Las herramientas en sí. Cada una es un HTML autónomo, sin backend. |
 | `scripts/validar-catalogo.mjs` | Valida `apps.json`. Corre solo vía hook al editarlo. |
+| `scripts/revisar-catalogo.mjs` | Recalcula `cambios`, `actualizado` y `version` de cada app desde su historial git y reordena el catálogo. Ver §3. |
 | `scripts/validar-vencimientos.mjs` | Valida `vencimientos.json` contra `feriados.json`. Se corre a mano antes de pushear cualquiera de los dos. |
 
 El portal lee `apps.json` en cada carga (`BASE` + fallback relativo), así que **para
@@ -31,6 +32,8 @@ cambiar el catálogo alcanza con editar `apps.json` y pushear** — no hay build
   "url": "https://bhidalgo-ar.github.io/validadorrecibos/",
   "icono": "🧾",
   "version": "1.0",             // ver §3
+  "cambios": 12,                // cambios funcionales acumulados (lo escribe revisar-catalogo.mjs); ordena el portal
+  "versionPropia": true,        // sólo si la app lleva su propia numeración entera (vN en los commits): no se auto-incrementa
   "categoria": "Nómina",        // Nómina | Reportes | Herramientas
   "estado": "beta",             // productivo | beta | inactivo (inactivo = no se muestra)
   "repo": "bhidalgo-ar/validadorrecibos",  // sólo si la app NO vive en este repo
@@ -42,33 +45,40 @@ cambiar el catálogo alcanza con editar `apps.json` y pushear** — no hay build
 
 `meta.diasReciente` (hoy 7) es la ventana en días para destacar novedades.
 
-## 3. Cómo asignar la versión
+## 3. Versión, cambios y orden (criterio único, reemplaza al anterior)
 
-Prioridad, de mayor a menor. **Se toma la primera que aplique:**
+**Todo se deduce del historial git de cada app, no a ojo.** `scripts/revisar-catalogo.mjs`
+lo calcula y es lo primero que corre la revisión semanal.
 
-1. **La versión que declara la propia herramienta**: `APP_VERSION` en el JS,
-   `version` en su `package.json`, o el release de su `CHANGELOG.md`.
-   Ejemplos reales: `analisis_ig_anual_hya.html` → `const APP_VERSION='4.1'`;
-   `validadorrecibos` → `docs/package.json` `1.0.0`.
-2. **Marcadores internos de versión en el código** cuando el badge visible quedó atrás.
-   `validador-f1359.html` mostraba `v1.5` pero tenía secciones anotadas `v2.3`/`v2.4`
-   → la versión real es 2.4.
-3. **La versión que usa el equipo en los commits**: si los mensajes dicen `(v11)`,
-   `(v12)`, esa es la numeración de esa herramienta (`casos_uso_modelos_comparativa.html`
-   → `12`). Se respeta el esquema propio de cada tool, no se lo normaliza a `x.y`.
-4. **Si no hay ninguna señal**: partir de la versión que ya está en el catálogo y sumar
-   `0.1` por cada commit con cambio funcional posterior (feature, fix o corrección de
-   datos). No cuentan: cambios de branding/estilo puro, README, o el propio bump de
-   versión.
+**Cambio funcional** = commit (sin merges) que toca código de la app y no es cosmético.
+No cuentan: asuntos `docs`/`style`/`chore`/`test`/`ci`, README, branding, favicon, el
+propio bump del catálogo, commits que sólo tocan estilos (`.css`), tests, specs o
+configuración, ni un commit que sólo *agrega* el archivo (alta).
+
+- **`cambios`**: total acumulado de cambios funcionales de la app. Es lo que usa el portal
+  para ordenar: **las apps con más cambios van primero**, y el orden se arma solo en
+  runtime al leer `apps.json` (no hay que reordenar a mano; el script además deja el
+  archivo en el mismo orden).
+- **`version`**: se suma **+0,1 por cada cambio funcional nuevo** desde la corrida anterior
+  (`x.y` → décimas, `6.9` → `7.0`; `x.y.z` → +1 al parche por cambio). La primera vez que
+  una app recibe `cambios` es un ancla y no sube nada.
+- **`actualizado`**: fecha (hora Argentina) del último cambio funcional. Sólo avanza.
+- **`versionPropia: true`** (hoy sólo "Cómo usar Claude"): la app numera sus propios
+  cambios con un entero (`(v17)` en cada commit). Su versión se lee de ahí, a mano, y el
+  script no la toca.
+- Una app cuyo repo no está clonado en la sesión queda **sin tocar** y se informa como
+  "sin acceso": nunca se asume que no cambió.
 
 Reglas duras:
 
-- **La versión nunca baja.** Si el cálculo da menos que lo publicado, se deja lo publicado.
-- **Si la herramienta muestra su versión en pantalla, se sincroniza el badge** en el HTML
-  junto con `apps.json`. No dejar los dos números en desacuerdo.
-- Ojo con los falsos positivos: `F.1359 v2.0` es la versión del formulario de ARCA,
-  `skill v2.0` es la versión de una skill de branding, y `version="1.2"` dentro de
-  `siradig_engine_hya.html` viene de SheetJS. **Ninguna es la versión de la app.**
+- **La versión nunca baja.**
+- **Si la herramienta muestra su versión en pantalla** (`APP_VERSION` u otro badge), se
+  sincroniza el badge en el HTML junto con `apps.json`. No dejar los dos números en
+  desacuerdo.
+- Falsos positivos que no son la versión de la app: `F.1359 v2.0` (formulario de ARCA),
+  `skill v2.0` (skill de branding), `version="1.2"` de SheetJS en `siradig_engine_hya.html`.
+- Si el script cuenta algo que claramente no es funcional (o se pierde algo que sí lo es),
+  no se corrige a mano el número: se ajusta el filtro del script y se vuelve a correr.
 
 ## 4. Cómo decidir `estado` y qué destacar
 
@@ -104,9 +114,9 @@ Casos de esta revisión, para calibrar:
 - `ACTUALIZADO` (verde) si `actualizado` está dentro de la ventana.
 - Además el número editorial de la fila se pinta en verde.
 
-**`actualizado` se mueve sólo por cambios funcionales.** Un bump de versión, un ajuste
-de estilo o un cambio de README no lo mueven — si no, cualquier commit cosmético haría
-aparecer la app como novedad. Por eso el portal prioriza `actualizado` de `apps.json`
+**`actualizado` se recalcula solo con `scripts/revisar-catalogo.mjs`** (§3) y se mueve sólo por
+cambios funcionales. Un bump de versión, un ajuste de estilo o un cambio de README no lo
+mueven — si no, cualquier commit cosmético haría aparecer la app como novedad. Por eso el portal prioriza `actualizado` de `apps.json`
 sobre la fecha de commit que trae la API de GitHub (esa queda como respaldo para las
 apps que no la declaren).
 
@@ -158,7 +168,7 @@ requests y servir React desde `npm install react@18.3.1 react-dom@18.3.1`.
 
 ## 6. Inventario de repos de la organización
 
-Estado al 2026-08-10. Actualizar en cada revisión semanal.
+Estado al 2026-10-26. Actualizar en cada revisión semanal.
 
 ### Publicados en el portal
 
@@ -193,16 +203,27 @@ por API buscando un run exitoso de `pages-build-deployment`.
 
 Corre los lunes por una tarea programada. Checklist:
 
-1. Listar los repos de la organización y sus fechas de último push.
-2. Para cada app del catálogo: releer versión (§3) y estado (§4) contra la evidencia
-   real del repo, y actualizar `version`, `estado` y `actualizado` donde corresponda.
-   Sincronizar los badges internos de las herramientas que muestren su versión.
-3. Subir `meta.version` del catálogo si algo cambió, y poner `meta.ultimaActualizacion`
-   y `meta.ultimaRevision` en la fecha de la revisión.
-4. Correr `node scripts/validar-catalogo.mjs`.
-5. Preguntar al usuario por los repos de "sin decidir" y por cualquier repo nuevo que
-   haya aparecido. **No publicar nada sin confirmación** y respetar la lista de §6.
-6. Commit y push a una rama `claude/...` + PR (ver §8, Pull requests).
+1. Clonar (o actualizar con `git fetch`, **sin** `--depth`: un clon superficial subcuenta
+   los cambios) los repos de las apps de §6 que la sesión pueda leer. Listar los repos de
+   la organización con su último push si hay herramienta; si no la hay, decirlo en el
+   resumen en vez de asumir que no apareció nada.
+2. Correr `node scripts/revisar-catalogo.mjs --clones <carpeta>` (simulacro) y mirar el
+   informe; después con `--aplicar`. Eso actualiza `cambios`, `version` (+0,1 por cambio
+   funcional, §3), `actualizado` y el orden. Los repos sin acceso se listan en el resumen.
+   Sincronizar el badge interno de las herramientas que muestren su versión, y leer a mano
+   la versión de las de `versionPropia`.
+3. Revisar `estado` contra §4 (ahí sí hay juicio): beta → productivo sólo si cumple las tres
+   condiciones. Un pedido explícito de Willy pasa por encima del criterio y se anota en el PR.
+4. Subir `meta.version` si algo cambió; el script ya fija `ultimaActualizacion` y
+   `ultimaRevision`. Correr `node scripts/validar-catalogo.mjs` y dejarlo en verde.
+5. Repos nuevos o "sin decidir": **no publicar nada sin confirmación** y respetar la lista
+   de "NO publicar" de §6 (los seis). La tarea corre sin nadie delante: no hay
+   `AskUserQuestion`; las preguntas van en el resumen final y en la notificación.
+6. Si no cambió nada y no hay nada que preguntar, no abrir PR ni notificar. Si cambió algo:
+   rama de la sesión, commit y PR según §8 (listo para mergear, squash). Si el PR es sólo de
+   datos del catálogo (script + validador en verde) se mergea; si hay una decisión pendiente,
+   se avisa por notificación con lo que se necesita.
+7. Actualizar la fecha del inventario de §6.
 
 ## 8. Convenciones
 
