@@ -2,9 +2,9 @@
   "meta": {
     "titulo": "Portal Hidalgo & Asociados",
     "subtitulo": "Herramientas internas del equipo",
-    "version": "1.6",
-    "ultimaActualizacion": "2026-10-20",
-    "ultimaRevision": "2026-08-10",
+    "version": "1.7",
+    "ultimaActualizacion": "2026-10-26",
+    "ultimaRevision": "2026-10-26",
     "diasReciente": 7,
     "repoDefecto": "bhidalgo-ar/payroll-portal-ha"
   },
@@ -101,12 +101,12 @@
       "descripcion": "Valida la nómina mensual del cliente contra sus archivos de control",
       "url": "https://bhidalgo-ar.github.io/Controles-Varios/",
       "icono": "🔎",
-      "version": "1.0",
+      "version": "6.7",
       "categoria": "Nómina",
       "estado": "beta",
       "repo": "bhidalgo-ar/Controles-Varios",
       "agregado": "2026-08-04",
-      "actualizado": "2026-08-07"
+      "actualizado": "2026-10-13"
     },
     {
       "id": 9,
