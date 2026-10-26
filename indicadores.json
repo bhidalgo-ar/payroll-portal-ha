@@ -1,6 +1,6 @@
 {
  "meta": {
-  "consultado": "2026-10-05"
+  "consultado": "2026-10-26"
  },
  "periodos": [
   {
@@ -36,6 +36,16 @@
      "norma": "Resolución 284/2026 ANSES (BO 23-09-2026)",
      "fuente": "https://www.argentina.gob.ar/normativa/nacional/norma-430390/texto",
      "cita": "y PESOS CUATRO MILLONES SETECIENTOS SESENTA Y NUEVE MIL SEISCIENTOS TREINTA Y UNO CON CUARENTA Y NUEVE CENTAVOS ($4.769.631,49), respectivamente, a partir del período devengado octubre de 2026"
+    },
+    {
+     "id": "ipc",
+     "nombre": "IPC (variación mensual)",
+     "valor": 1.9,
+     "unidad": "%",
+     "vigencia": "dato de septiembre 2026, el último publicado (INDEC publica el IPC a mediados del mes siguiente); publicado el 2026-10-13",
+     "norma": "INDEC, Informe técnico IPC septiembre 2026",
+     "fuente": "https://www.indec.gob.ar/uploads/informesdeprensa/ipc_10_268C45A9444C.pdf",
+     "cita": "El nivel general del Índice de precios al consumidor registró un alza mensual de 1,9% en septiembre de 2026 y acumuló en el año una variación de 23,6%."
     },
     {
      "id": "movilidad",
