@@ -1,6 +1,6 @@
 # Claude en Hidalgo & Asociados — referencia del equipo
 
-**Verificado al 28 de septiembre de 2026** (Haiku 5.5, el 20 de octubre de 2026). Reemplaza al documento de investigación de abril de 2026
+**Verificado al 28 de septiembre de 2026** (Haiku 5.5, el 20 de octubre de 2026; modelos vigentes, anuncios oficiales y guías de prompting de §9, el 23 de octubre de 2026). Reemplaza al documento de investigación de abril de 2026
 (`compass_artifact_wf-162df681...md`), que quedó completamente desactualizado: hablaba de Opus 4.6,
 Sonnet 4.6 y "adaptive thinking", ninguno de los cuales es el estado actual.
 
@@ -204,12 +204,16 @@ casos propios, o se dejan con la nota de procedencia que ya tienen.
 - Haiku 5.5: <https://www.anthropic.com/claude-haiku-5-5>
 - Guía de prompting de Haiku 5.5 (español): <https://platform.claude.com/docs/es/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5>
 - Guía de prompting de Sonnet 5.5 (español): <https://platform.claude.com/docs/es/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5>
-- Fable 5.1 y Mythos 5.1: <https://www.anthropic.com/claude-fable-and-mythos-5-1>
+- Guía de prompting de Opus 5.5 (español): <https://platform.claude.com/docs/es/build-with-claude/prompt-engineering/prompting-claude-opus-5-5>
+- Guía de prompting de Fable 5.1 (español): <https://platform.claude.com/docs/es/build-with-claude/prompt-engineering/prompting-claude-fable-5-1>
+- Fable 5.1 (anuncio oficial, presentado junto con Mythos 5.1): <https://www.anthropic.com/claude-fable-and-mythos-5-1>
 - Esfuerzo en Claude Code (claude.dev): <https://claude.dev/blog/spending-your-effort/>
 - Opus 5.5 en Claude y Claude Code (claude.dev): <https://claude.dev/blog/getting-the-most-out-of-opus-5-5/>
 - Qué cuesta una tarea en Opus 5.5 (claude.dev): <https://claude.dev/blog/what-a-task-costs-on-opus-5-5/>
 - Manejo de datos en Claude Code: <https://docs.anthropic.com/en/docs/claude-code/data-usage>
 - Centro de privacidad: <https://privacy.claude.com>
 
+Los cuatro anuncios oficiales y las cuatro guías de prompting de esta lista se abrieron el 23 de octubre de 2026;
+la tabla de modelos vigentes (§2) se contrastó ese día con <https://platform.claude.com/docs/en/about-claude/models/overview>.
 Los links de claude.dev salieron de una búsqueda: el dominio está bloqueado en el entorno y no se abrieron.
 Claude Design se verificó por captura de pantalla del producto, no por documentación publicada.
