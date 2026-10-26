@@ -11,7 +11,7 @@ Publicado con GitHub Pages en **https://bhidalgo-ar.github.io/payroll-portal-ha/
 | `apps.json` | Catálogo de herramientas. Fuente de verdad de versión, estado y fechas. |
 | `cumpleanios.json`, `frases.json`, `vencimientos.json` | Datos que el portal lee en runtime. `vencimientos.json` alimenta las fichas F.931 del calendario laboral. Ver §9. |
 | `feriados.json` | Feriados nacionales y días no laborables. El portal lo lee para el calendario laboral y los días hábiles del mes; además lo usa `scripts/validar-vencimientos.mjs`. Ver §9. |
-| `indicadores.json` | Indicadores del mes (SMVM, bases SIPA, movilidad) que el portal lee en runtime para la tarjeta "Indicadores del mes". Ver §10. |
+| `indicadores.json` | Indicadores del mes (SMVM, bases SIPA, IPC, movilidad) que el portal lee en runtime para la tarjeta "Indicadores del mes". Ver §10. |
 | `normativa.json` | Normas recientes del Boletín Oficial ya filtradas, que el portal lee en runtime para "Normativa reciente". Ver §10. |
 | `iconos/` | SVG de los accesos rápidos (monday, Outlook, Teams). El portal los pide con la misma base que los JSON (`BASE` + fallback relativo). |
 | `*.html` (resto) | Las herramientas en sí. Cada una es un HTML autónomo, sin backend. |
@@ -268,8 +268,9 @@ Mapeo: F.931 = Seguridad Social, Sujeto "Empleadores.", SIPA, Régimen General.
 Ganancias 4ª = régimen general de retenciones SICORE (RG 2233): la agenda no la
 discrimina aparte; la 2ª quincena se paga el mismo día que vence la DJ F.744. F.1359 es
 anual y no vence entre octubre y diciembre. El entorno tiene que permitir
-`*.arca.gob.ar`, `*.afip.gob.ar`, `*.argentina.gob.ar` y `*.boletinoficial.gob.ar`
-(con el comodín: sin él, `www.` queda bloqueado).
+`*.arca.gob.ar`, `*.afip.gob.ar`, `*.argentina.gob.ar`, `*.boletinoficial.gob.ar` y
+`*.indec.gob.ar` (este último para el IPC, §10) (con el comodín: sin él, `www.` queda
+bloqueado).
 
 Carga del 2026-10-05: vencimientos de oct, nov y dic 2026 (ARCA no publicó 2027 todavía).
 
@@ -352,13 +353,22 @@ local):
 Ejemplos: 15/10 → octubre + noviembre; 05/11 y 10/11 → octubre (anterior) + noviembre;
 11/11 → noviembre + diciembre. Por eso **el período anterior se conserva en el JSON hasta
 el día 10 del mes siguiente**; recién después se puede sacar. Los `id` estables (`smvm`, `sipa-base-min`,
-`sipa-base-max`, `movilidad`) alinean las filas entre períodos.
+`sipa-base-max`, `ipc`, `movilidad`) alinean las filas entre períodos.
 
 **Regla dura:** un indicador sólo se carga desde fuente oficial, con `fuente` y `cita`
 literal. Si no se pudo verificar, no se carga: la celda muestra "—" con "Pendiente de
-publicación oficial" (las filas base SMVM, base mínima y máxima SIPA salen siempre). El mes
+publicación oficial" (las filas base SMVM, base mínima y máxima SIPA e IPC salen siempre). El mes
 siguiente se completa a medida que sale cada norma; no se copia el valor del mes anterior.
 Si el archivo falta o está roto, todo sale en "—".
+
+**IPC** (`id: "ipc"`, `unidad: "%"`): variación mensual del nivel general del IPC nacional
+del INDEC. En la columna de un mes va **el IPC del mes anterior**, que es el último dato
+publicado durante ese mes (INDEC lo publica a mediados del mes siguiente): en "Octubre
+2026" va el IPC de septiembre 2026. `vigencia` lo aclara ("IPC septiembre 2026, publicado
+el AAAA-MM-DD"); `norma` = "INDEC, Informe técnico IPC <mes> <año>"; `fuente` = el PDF del
+informe en `indec.gob.ar` y `cita` = la frase literal con la variación mensual. No se deduce
+de otras normas: la resolución de movilidad de ANSES se calcula con el IPC pero no lo cita
+literal.
 
 ### `normativa.json`
 
