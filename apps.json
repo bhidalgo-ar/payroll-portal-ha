@@ -2,7 +2,7 @@
   "meta": {
     "titulo": "Portal Hidalgo & Asociados",
     "subtitulo": "Herramientas internas del equipo",
-    "version": "1.7",
+    "version": "1.8",
     "ultimaActualizacion": "2026-10-26",
     "ultimaRevision": "2026-10-26",
     "diasReciente": 7,
@@ -77,7 +77,7 @@
       "icono": "🤖",
       "version": "17",
       "categoria": "Herramientas",
-      "estado": "beta",
+      "estado": "productivo",
       "agregado": "2026-04-16",
       "actualizado": "2026-10-20"
     },
@@ -103,7 +103,7 @@
       "icono": "🔎",
       "version": "6.7",
       "categoria": "Nómina",
-      "estado": "beta",
+      "estado": "productivo",
       "repo": "bhidalgo-ar/Controles-Varios",
       "agregado": "2026-08-04",
       "actualizado": "2026-10-13"
