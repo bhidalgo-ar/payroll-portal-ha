@@ -385,9 +385,11 @@ Si el archivo falta o está roto, todo sale en "—".
 **IPC** (`id: "ipc"`, `unidad: "%"`): variación mensual del nivel general del IPC nacional
 del INDEC. En la columna de un mes va **el IPC del mes anterior**, que es el último dato
 publicado durante ese mes (INDEC lo publica a mediados del mes siguiente): en "Octubre
-2026" va el IPC de septiembre 2026. `vigencia` lo aclara ("IPC septiembre 2026, publicado
-el AAAA-MM-DD"); `norma` = "INDEC, Informe técnico IPC <mes> <año>"; `fuente` = el PDF del
-informe en `indec.gob.ar` y `cita` = la frase literal con la variación mensual. No se deduce
+2026" va el IPC de septiembre 2026. `vigencia` lo avisa ("dato de septiembre 2026, el último
+publicado (INDEC publica el IPC a mediados del mes siguiente); publicado el AAAA-MM-DD"); `norma` = "INDEC, Informe técnico IPC <mes> <año>"; `fuente` = el PDF del
+informe en `indec.gob.ar` y `cita` = la frase literal con la variación mensual. El valor
+va con los decimales que publica INDEC (uno): `1.9`, no `1.90`. En la columna "Mes
+siguiente" el IPC queda casi siempre pendiente, porque se publica recién a mediados de ese mes. No se deduce
 de otras normas: la resolución de movilidad de ANSES se calcula con el IPC pero no lo cita
 literal.
 
