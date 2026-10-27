@@ -417,6 +417,27 @@ literal.
 - El portal resalta con "HOY" las normas con `fecha` igual a la fecha real del día. Si el
   archivo falta o está roto, la sección muestra "No hay normativa cargada por ahora".
 
+### Cómo llegar al Boletín Oficial
+
+Desde la nube, `www.boletinoficial.gob.ar` suele cortar la conexión (connection reset o 503)
+y bloquea las ráfagas. Hay tres vías, todas oficiales; se prueban en este orden:
+
+1. **InfoLEG** (`argentina.gob.ar/normativa`): `buscar-boletin?s=1&fecha_publicacion=DD-MM-AAAA`
+   lista lo publicado ese día y cada norma tiene `/texto`. Anda bien, pero carga el boletín
+   con uno o dos días de atraso: el del día casi nunca está.
+2. **`www.boletinoficial.gob.ar`** (`/seccion/primera/AAAAMMDD` y `detalleAviso`): máximo 3
+   requests espaciadas 10 s.
+3. **`otslist.boletinoficial.gob.ar`**: el listado oficial de PDF de cada edición. En
+   `https://otslist.boletinoficial.gob.ar/ots/` (filtro `?date_filter=` por fecha) cada día
+   tiene una fila por sección; la sección 1 es la primera y el PDF se baja de
+   `/ots/download/<hash>/0/`. Tiene la edición del día. Se pasa a texto con `pdftotext`
+   y se busca el organismo o la norma en el sumario. Mismo límite que la vía 2: es el
+   mismo organismo.
+
+Si un valor sale de la vía 3, `fuente` es la URL del PDF y la cita lleva la página
+(`BO Nº NN.NNN, primera sección, p. N`). No hace falta tocar el entorno: el comodín
+`*.boletinoficial.gob.ar` de §9 ya cubre `otslist.`.
+
 ## Forma de trabajar: orquestador y subagentes
 
 El chat principal es el orquestador: entiende el pedido, decide, arma los briefs, verifica lo
