@@ -12,6 +12,7 @@ Publicado con GitHub Pages en **https://bhidalgo-ar.github.io/payroll-portal-ha/
 | `cumpleanios.json`, `frases.json`, `vencimientos.json` | Datos que el portal lee en runtime. `vencimientos.json` alimenta las fichas F.931 del calendario laboral. Ver §9. |
 | `feriados.json` | Feriados nacionales y días no laborables. El portal lo lee para el calendario laboral y los días hábiles del mes; además lo usa `scripts/validar-vencimientos.mjs`. Ver §9. |
 | `indicadores.json` | Indicadores del mes (SMVM, bases SIPA, IPC, movilidad) que el portal lee en runtime para la tarjeta "Indicadores del mes". Ver §10. |
+| `musica.json` | Listas de YouTube y Spotify de "Música del equipo". Cada una lleva `nombre` (vacío = "Lista de YouTube/Spotify"), `url` (el link normal que se comparte; el portal arma el reproductor) y `recomendadaPor` (vacío si no se sabe, nunca inventarlo). Las recomendaciones llegan por mail a gesposito@bhidalgo.com.ar (botón "Recomendar una lista") y se cargan a mano. |
 | `normativa.json` | Normas recientes del Boletín Oficial ya filtradas, que el portal lee en runtime para "Normativa reciente". Ver §10. |
 | `iconos/` | SVG de los accesos rápidos (monday, Outlook, Teams). El portal los pide con la misma base que los JSON (`BASE` + fallback relativo). |
 | `*.html` (resto) | Las herramientas en sí. Cada una es un HTML autónomo, sin backend. |
