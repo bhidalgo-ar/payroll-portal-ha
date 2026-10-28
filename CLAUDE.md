@@ -438,6 +438,28 @@ Si un valor sale de la vía 3, `fuente` es la URL del PDF y la cita lleva la pá
 (`BO Nº NN.NNN, primera sección, p. N`). No hace falta tocar el entorno: el comodín
 `*.boletinoficial.gob.ar` de §9 ya cubre `otslist.`.
 
+**Una norma no está "pendiente de publicación" hasta haber probado las tres vías.** Si
+InfoLEG no tiene cargado el día, se sigue con `otslist` (tiene la edición del día) y
+no se concluye nada con una sola. Si una vía no se pudo consultar, el resumen dice
+"no verificado", no "no publicada". Detalles que ya costaron un error (ANSES, Res.
+304/2026, publicada el 28-10-2026 y no vista por la corrida de la mañana):
+
+- El listado de InfoLEG (`buscar-boletin`) es paginado: recorrer `&page=0,1,2,…` hasta
+  que no haya más filas, no mirar sólo la primera.
+- El organismo figura en mayúsculas y sin tilde (`ADMINISTRACION NACIONAL DE LA
+  SEGURIDAD SOCIAL`); buscar sin distinguir mayúsculas ni acentos. Para las bases SIPA y
+  la movilidad, el rótulo es `HABERES MINIMOS Y MAXIMOS - BASES IMPONIBLES - PBU Y PUAM`.
+- El `/texto` de InfoLEG da 404 el día de publicación aunque la norma ya figure en el
+  listado: el monto y la cita se toman del PDF de `otslist` (`pdftotext -layout`).
+- ANSES publica la resolución del mes siguiente en los últimos días del mes (la de
+  noviembre 2026: sancionada el 27 y publicada el 28-10), no en una fecha fija.
+
+**Horarios de búsqueda.** El boletín del día no siempre está en InfoLEG a primera hora.
+Las corridas de los días 20 a 31 y 1 a 5 deben hacerse dos veces: a la mañana (para lo
+publicado el día anterior) y a las 14:00 hora Argentina (para la edición del día, vía
+`otslist`). Para el IPC (días 12 a 16) la corrida útil es a las 17:00 hora Argentina,
+porque INDEC publica por la tarde (horario sin verificar: confirmarlo la primera vez).
+
 ## Forma de trabajar: orquestador y subagentes
 
 El chat principal es el orquestador: entiende el pedido, decide, arma los briefs, verifica lo
