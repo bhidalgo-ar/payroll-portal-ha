@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "nota": "Listas que muestra el portal en «Música del equipo». Se suman a mano con las recomendaciones que llegan por mail (botón «Recomendar una lista»). url = el link normal de la lista de YouTube o Spotify, tal como se comparte; el portal arma el reproductor. recomendadaPor: nombre de quien la recomendó, o vacío si no se sabe (nunca inventarlo)."
+  },
+  "listas": [
+    {
+      "nombre": "Lista de YouTube",
+      "url": "https://www.youtube.com/playlist?list=PL5Ls9dYg2bl53ycdhb7U7M7Q2-xGuPp3q",
+      "recomendadaPor": ""
+    },
+    {
+      "nombre": "",
+      "url": "https://open.spotify.com/playlist/4CXVoLcdVo3D7PbbBm5XYy",
+      "recomendadaPor": "Willy Esposito"
+    }
+  ]
+}
