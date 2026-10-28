@@ -296,6 +296,35 @@ bloqueado).
 
 Carga del 2026-10-05: vencimientos de oct, nov y dic 2026 (ARCA no publicó 2027 todavía).
 
+### Re-chequeo diario de la agenda de ARCA
+
+Los vencimientos cargados pueden cambiar después de la carga: el 2026-10-28 se detectó
+que ARCA había corrido el F.931 y la 2ª quincena de SICORE de octubre del 10-11-12/11 al
+11-12-13/11. Por eso la corrida diaria, además del Boletín:
+
+1. Consulta la Agenda de Vencimientos (misma receta de arriba: GET con cookies, POST con
+   `impuestosSeleccionados` = `2` y `16`, respuesta latin-1) para el mes en curso y el
+   siguiente. Timeout de 60 s y un reintento: la consulta de un mes llegó a colgarse
+   a los 40 s. La página dice "Información actualizada al <fecha>": ponerla en el resumen.
+2. Compara contra `vencimientos.json` las obligaciones que el portal muestra, grupo por
+   grupo de terminación: F.931 y SICORE RG 2233 (pago de la 1ª quincena y de la 2ª
+   quincena + DJ F.744). El F.931 del portal es el bloque «SISTEMA INTEGRADO DE
+   JUBILACIONES Y PENSIONES - APORTES Y CONTRIBUCIONES», Sujeto «Empleadores.», Régimen
+   General. Hay otros bloques con «Empleadores» (ART, prestaciones dinerarias) y uno de
+   «Provincias adheridas al SIJP» con vencimiento «todos»: no son el del portal.
+3. Antes de editar, `git fetch origin main` y comparar contra `main`, no contra la rama
+   local: otra sesión pudo haber cargado el cambio (pasó el 2026-10-28).
+4. Si una fecha cambió: actualiza el JSON, pone `meta.actualizado` en hoy, anota en
+   `meta.nota` qué se movió y el motivo sólo si se pudo verificar en una fuente oficial
+   (la agenda no lo informa), corre `node scripts/validar-vencimientos.mjs`, lo pasa por un
+   auditor (§ Verificación: reabre la agenda y trata de refutarlo) y abre y mergea el PR
+   (§8). Avisa en la notificación: obligación, período, fecha vieja → fecha nueva.
+5. Si ARCA publicó un mes que no está cargado (por ejemplo, enero 2027), lo carga con el
+   mismo procedimiento.
+6. Si la agenda no responde, el resumen dice "agenda ARCA no verificada hoy". Nunca
+   "sin cambios".
+7. Si no cambió nada, no se abre PR ni se avisa por eso.
+
 ### `feriados.json`
 
 Lo lee el portal: marca los feriados y días no laborables en el calendario de 2 semanas y
