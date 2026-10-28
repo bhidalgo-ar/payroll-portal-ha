@@ -27,6 +27,7 @@
     {"fecha": "2026-08-17", "nombre": "Paso a la Inmortalidad del Gral. José de San Martín", "tipo": "trasladable", "estado": "oficial", "fuente": "Ley 27.399 arts. 1 y 6"},
     {"fecha": "2026-10-12", "nombre": "Día del Respeto a la Diversidad Cultural", "tipo": "trasladable", "estado": "oficial", "fuente": "Ley 27.399 arts. 1 y 6"},
     {"fecha": "2026-11-09", "nombre": "Feriado nacional por la visita del Papa León XIV", "tipo": "puntual", "estado": "oficial", "fuente": "DNU 1103/2026 (BO 28/09/2026) art. 2"},
+    {"fecha": "2026-11-10", "nombre": "Feriado por la visita del Papa León XIV (CABA y Córdoba; feriado bancario nacional)", "tipo": "puntual", "estado": "oficial", "fuente": "DNU 1103/2026; Com. BCRA \"A\" 8487"},
     {"fecha": "2026-11-23", "nombre": "Día de la Soberanía Nacional", "tipo": "trasladable", "estado": "oficial", "fuente": "Ley 27.399 arts. 1 y 6", "fechaOriginal": "2026-11-20"},
     {"fecha": "2026-12-07", "nombre": "Día no laborable con fines turísticos", "tipo": "no_laborable", "estado": "oficial", "fuente": "Res. JGM 164/2025 (BO 26/12/2025) art. 1; Ley 27.399 art. 7"},
     {"fecha": "2026-12-08", "nombre": "Inmaculada Concepción de María", "tipo": "inamovible", "estado": "oficial", "fuente": "Ley 27.399 art. 1"},
