@@ -1,7 +1,7 @@
 {
   "meta": {
-    "actualizado": "2026-10-05",
-    "nota": "Vencimientos de ARCA que muestra el portal en «Próximos vencimientos». Fuente: Agenda de Vencimientos oficial de ARCA (seti.afip.gob.ar), consultada el 2026-10-05; ARCA tiene publicado hasta diciembre 2026. F.931 = SIPA, empleadores, régimen general. Ganancias 4ª categoría = régimen general de retenciones SICORE (RG 2233): la agenda no la discrimina aparte. F.1359 no tiene vencimiento entre oct y dic 2026 (es anual). Se validan con `node scripts/validar-vencimientos.mjs` antes de pushear. Nunca cargar fechas de memoria ni de fuentes no oficiales."
+    "actualizado": "2026-10-28",
+    "nota": "Vencimientos de ARCA que muestra el portal en «Próximos vencimientos». Fuente: Agenda de Vencimientos oficial de ARCA (seti.afip.gob.ar), consultada el 2026-10-05 y de nuevo el 2026-10-28 (F.931 y SICORE del período octubre 2026 pasaron de 10/11/12 a 11/12/13 de noviembre: el 10/11 es feriado bancario nacional por la visita del Papa, Com. BCRA \"A\" 8487); ARCA tiene publicado hasta diciembre 2026. F.931 = SIPA, empleadores, régimen general. Ganancias 4ª categoría = régimen general de retenciones SICORE (RG 2233): la agenda no la discrimina aparte. F.1359 no tiene vencimiento entre oct y dic 2026 (es anual). Se validan con `node scripts/validar-vencimientos.mjs` antes de pushear. Nunca cargar fechas de memoria ni de fuentes no oficiales."
   },
   "vencimientos": [
     {
@@ -71,15 +71,15 @@
       "grupos": [
         {
           "terminaciones": "0-1-2-3",
-          "fecha": "2026-11-10"
-        },
-        {
-          "terminaciones": "4-5-6",
           "fecha": "2026-11-11"
         },
         {
-          "terminaciones": "7-8-9",
+          "terminaciones": "4-5-6",
           "fecha": "2026-11-12"
+        },
+        {
+          "terminaciones": "7-8-9",
+          "fecha": "2026-11-13"
         }
       ],
       "fuente": "https://seti.afip.gob.ar/av/seleccionVencimientos.do"
@@ -91,15 +91,15 @@
       "grupos": [
         {
           "terminaciones": "0-1-2-3",
-          "fecha": "2026-11-10"
-        },
-        {
-          "terminaciones": "4-5-6",
           "fecha": "2026-11-11"
         },
         {
-          "terminaciones": "7-8-9",
+          "terminaciones": "4-5-6",
           "fecha": "2026-11-12"
+        },
+        {
+          "terminaciones": "7-8-9",
+          "fecha": "2026-11-13"
         }
       ],
       "fuente": "https://seti.afip.gob.ar/av/seleccionVencimientos.do"
