@@ -1,6 +1,6 @@
 {
  "meta": {
-  "consultado": "2026-10-26"
+  "consultado": "2026-10-28"
  },
  "periodos": [
   {
@@ -72,6 +72,36 @@
      "norma": "Resolución 4/2026 CNEPYSMVYM (laudo), BO 02-09-2026",
      "fuente": "https://www.boletinoficial.gob.ar/detalleAviso/primera/346775/20260902",
      "cita": "c.- A partir del 1° de noviembre 2026, en PESOS TRESCIENTOS NOVENTA Y OCHO MIL OCHOCIENTOS ($398.800) para todos los trabajadores mensualizados que cumplen la jornada legal completa de trabajo"
+    },
+    {
+     "id": "sipa-base-min",
+     "nombre": "Base imponible mínima SIPA",
+     "valor": 149592.45,
+     "unidad": "ARS/mes",
+     "vigencia": "período devengado noviembre 2026",
+     "norma": "Resolución 304/2026 ANSES (BO 28-10-2026)",
+     "fuente": "https://otslist.boletinoficial.gob.ar/ots/download/a80cf451d984b02c4d88e66245202595bed9c00881f44f921ed82e2f6b64fe60/0/",
+     "cita": "Establécense las bases imponibles mínima y máxima previstas en el primer párrafo del artículo 9° de la Ley N° 24.241 -texto según Ley N° 26.222- en la suma de PESOS CIENTO CUARENTA Y NUEVE MIL QUINIENTOS NOVENTA Y DOS CON CUARENTA Y CINCO CENTAVOS ($ 149.592,45) (BO Nº 36.022, primera sección, p. 32, art. 3°)"
+    },
+    {
+     "id": "sipa-base-max",
+     "nombre": "Base imponible máxima SIPA",
+     "valor": 4861685.38,
+     "unidad": "ARS/mes",
+     "vigencia": "período devengado noviembre 2026",
+     "norma": "Resolución 304/2026 ANSES (BO 28-10-2026)",
+     "fuente": "https://otslist.boletinoficial.gob.ar/ots/download/a80cf451d984b02c4d88e66245202595bed9c00881f44f921ed82e2f6b64fe60/0/",
+     "cita": "y PESOS CUATRO MILLONES OCHOCIENTOS SESENTA Y UN MIL SEISCIENTOS OCHENTA Y CINCO CON TREINTA Y OCHO CENTAVOS ($ 4.861.685,38), respectivamente, a partir del período devengado noviembre de 2026 (BO Nº 36.022, primera sección, p. 32, art. 3°)"
+    },
+    {
+     "id": "movilidad",
+     "nombre": "Movilidad ANSES",
+     "valor": 1.93,
+     "unidad": "%",
+     "vigencia": "mes de noviembre 2026 (IPC septiembre 2026)",
+     "norma": "Resolución 304/2026 ANSES (BO 28-10-2026)",
+     "fuente": "https://otslist.boletinoficial.gob.ar/ots/download/a80cf451d984b02c4d88e66245202595bed9c00881f44f921ed82e2f6b64fe60/0/",
+     "cita": "se efectuó el cálculo de la movilidad a considerar para el mes de noviembre de 2026, en función de los datos publicados por el INSTITUTO NACIONAL DE ESTADÍSTICA Y CENSOS (INDEC), resultando éste del UNO CON NOVENTA Y TRES CENTÉSIMOS POR CIENTO (1,93%) (BO Nº 36.022, primera sección, p. 31)"
     }
    ]
   }
