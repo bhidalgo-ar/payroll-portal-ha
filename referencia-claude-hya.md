@@ -1,6 +1,6 @@
 # Claude en Hidalgo & Asociados — referencia del equipo
 
-**Verificado al 28 de septiembre de 2026** (Haiku 5.5, el 20 de octubre de 2026; modelos vigentes, anuncios oficiales y guías de prompting de §9, el 23 de octubre de 2026). Reemplaza al documento de investigación de abril de 2026
+**Verificado al 28 de septiembre de 2026** (Haiku 5.5, el 20 de octubre de 2026; modelos vigentes, anuncios oficiales, guías de prompting de §9 y consejos para Haiku 5.5 de §2, el 30 de octubre de 2026). Reemplaza al documento de investigación de abril de 2026
 (`compass_artifact_wf-162df681...md`), que quedó completamente desactualizado: hablaba de Opus 4.6,
 Sonnet 4.6 y "adaptive thinking", ninguno de los cuales es el estado actual.
 
@@ -37,6 +37,12 @@ Cuatro escalones. La regla de arranque no cambió: **empezá siempre por Sonnet 
 **Haiku 5.5** — el más rápido, el que menos cupo consume. Es el primer Haiku con niveles de esfuerzo (por defecto, Medium). Sirve para preguntas puntuales,
 resúmenes cortos, clasificar o extraer datos de una lista. Claude Code también lo usa por
 detrás para tareas chicas en paralelo. No lo uses para nada que tenga cálculo encadenado.
+Cómo pedirle (guía oficial de prompting de Haiku 5.5): Low es el nivel más rápido, para preguntas cortas y
+pedidos simples en cantidad; pedirle que responda directo no evita que piense, lo que lo regula es el
+esfuerzo; si tiene búsqueda web, darle la fecha de hoy hace que se apoye en resultados recientes (con
+esfuerzo bajo o instrucciones largas a veces no busca); en tareas largas de agente con instrucciones largas
+(por ejemplo, en Claude Code) y esfuerzo Low a veces se frena antes de terminar, y subir a Medium lo reduce
+(a cambio de más consumo). En la guía HTML son los cuatro consejos de su tarjeta.
 
 **Sonnet 5.5** — el default para todo el día a día: entender una fórmula, cruzar dos planillas,
 redactar un mail, armar un reporte, corregir un bug puntual. En Claude Code se elige con
@@ -213,7 +219,7 @@ casos propios, o se dejan con la nota de procedencia que ya tienen.
 - Manejo de datos en Claude Code: <https://docs.anthropic.com/en/docs/claude-code/data-usage>
 - Centro de privacidad: <https://privacy.claude.com>
 
-Los cuatro anuncios oficiales y las cuatro guías de prompting de esta lista se abrieron el 23 de octubre de 2026;
+Los cuatro anuncios oficiales y las cuatro guías de prompting de esta lista se volvieron a abrir el 30 de octubre de 2026;
 la tabla de modelos vigentes (§2) se contrastó ese día con <https://platform.claude.com/docs/en/about-claude/models/overview>.
 Los links de claude.dev salieron de una búsqueda: el dominio está bloqueado en el entorno y no se abrieron.
 Claude Design se verificó por captura de pantalla del producto, no por documentación publicada.
