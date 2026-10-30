@@ -40,8 +40,9 @@ detrás para tareas chicas en paralelo. No lo uses para nada que tenga cálculo 
 Cómo pedirle (guía oficial de prompting de Haiku 5.5): Low es el nivel más rápido, para preguntas cortas y
 pedidos simples en cantidad; pedirle que responda directo no evita que piense, lo que lo regula es el
 esfuerzo; si tiene búsqueda web, darle la fecha de hoy hace que se apoye en resultados recientes (con
-esfuerzo bajo o instrucciones largas a veces no busca); con instrucciones largas y esfuerzo Low a veces
-se frena antes de terminar, y subir a Medium lo reduce. En la guía HTML son los cuatro consejos de su tarjeta.
+esfuerzo bajo o instrucciones largas a veces no busca); en tareas largas de agente con instrucciones largas
+(por ejemplo, en Claude Code) y esfuerzo Low a veces se frena antes de terminar, y subir a Medium lo reduce
+(a cambio de más consumo). En la guía HTML son los cuatro consejos de su tarjeta.
 
 **Sonnet 5.5** — el default para todo el día a día: entender una fórmula, cruzar dos planillas,
 redactar un mail, armar un reporte, corregir un bug puntual. En Claude Code se elige con
