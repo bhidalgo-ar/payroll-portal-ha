@@ -1,6 +1,6 @@
 {
  "meta": {
-  "consultado": "2026-10-28"
+  "consultado": "2026-11-02"
  },
  "periodos": [
   {
@@ -102,6 +102,22 @@
      "norma": "Resolución 304/2026 ANSES (BO 28-10-2026)",
      "fuente": "https://otslist.boletinoficial.gob.ar/ots/download/a80cf451d984b02c4d88e66245202595bed9c00881f44f921ed82e2f6b64fe60/0/",
      "cita": "se efectuó el cálculo de la movilidad a considerar para el mes de noviembre de 2026, en función de los datos publicados por el INSTITUTO NACIONAL DE ESTADÍSTICA Y CENSOS (INDEC), resultando éste del UNO CON NOVENTA Y TRES CENTÉSIMOS POR CIENTO (1,93%) (BO Nº 36.022, primera sección, p. 31)"
+    }
+   ]
+  },
+  {
+   "periodo": "2026-12",
+   "etiqueta": "Diciembre 2026",
+   "items": [
+    {
+     "id": "smvm",
+     "nombre": "Salario mínimo, vital y móvil",
+     "valor": 406400,
+     "unidad": "ARS/mes",
+     "vigencia": "desde 2026-12-01 hasta 2026-12-31",
+     "norma": "Resolución 4/2026 CNEPYSMVYM (laudo), BO 02-09-2026",
+     "fuente": "https://otslist.boletinoficial.gob.ar/ots/download/80d92b6eae759f3d9051a3632663ccd3cf00e5e8424c15c12c711c060d7cc152/0/",
+     "cita": "d.- A partir del 1° de diciembre de 2026, en PESOS CUATROCIENTOS SEIS MIL CUATROCIENTOS ($ 406.400), para todos los trabajadores mensualizados que cumplen la jornada legal completa de trabajo (BO Nº 35.983, primera sección, p. 28, art. 1°, inc. d)"
     }
    ]
   }
