@@ -169,7 +169,7 @@ requests y servir React desde `npm install react@18.3.1 react-dom@18.3.1`.
 
 ## 6. Inventario de repos de la organización
 
-Estado al 2026-10-26. Actualizar en cada revisión semanal.
+Estado al 2026-11-02. Actualizar en cada revisión semanal.
 
 ### Publicados en el portal
 
