@@ -1,11 +1,19 @@
 {
  "meta": {
-  "consultado": "2026-11-02",
+  "consultado": "2026-11-03",
   "fuente": "Boletín Oficial de la República Argentina, listado de la primera sección",
-  "nota": "Organismo, norma y detalle copiados del sumario de cada edición. Las ediciones del 29-10-2026 (BO Nº 36.023), del 30-10-2026 (BO Nº 36.024) y del 02-11-2026 (BO Nº 36.025) se tomaron del PDF oficial de la primera sección (otslist.boletinoficial.gob.ar) porque el listado web cortó la conexión; por eso el enlace de esas normas es el PDF de la edición.",
+  "nota": "Organismo, norma y detalle copiados del sumario de cada edición. Las ediciones del 29-10-2026 (BO Nº 36.023), del 30-10-2026 (BO Nº 36.024) del 02-11-2026 (BO Nº 36.025) y del 03-11-2026 (BO Nº 36.026) se tomaron del PDF oficial de la primera sección (otslist.boletinoficial.gob.ar) porque el listado web cortó la conexión; por eso el enlace de esas normas es el PDF de la edición.",
   "filtro": "Se muestran ARCA, ANSES, salario mínimo, feriados, SRT (montos y prestaciones) y homologaciones de convenios. Se excluyen estatutos y altas de asociaciones sindicales, concursos y designaciones."
  },
  "items": [
+  {
+   "organismo": "MINISTERIO DE CAPITAL HUMANO - SUBSECRETARÍA DE SEGURIDAD SOCIAL",
+   "norma": "Disposición 15/2026",
+   "detalle": "DI-2026-15-APN-SSSS#MCH",
+   "fecha": "2026-11-03",
+   "tema": "Seguridad social",
+   "url": "https://otslist.boletinoficial.gob.ar/ots/download/2e3b54c0fadbbba0ea7e06c8e47699d43cc84898a48f299e2a80fcbf7a820211/0/"
+  },
   {
    "organismo": "MINISTERIO DE CAPITAL HUMANO - SUBSECRETARÍA DE SEGURIDAD SOCIAL",
    "norma": "Disposición 14/2026",
@@ -58,14 +66,6 @@
    "organismo": "MINISTERIO DE CAPITAL HUMANO - DIRECCIÓN NACIONAL DE RELACIONES Y REGULACIONES DEL TRABAJO",
    "norma": "Disposición 796/2026",
    "detalle": "DI-2026-796-APN-DNRYRT#MCH",
-   "fecha": "2026-10-29",
-   "tema": "Convenciones colectivas de trabajo",
-   "url": "https://otslist.boletinoficial.gob.ar/ots/download/510ca6821c388f67d65f205f0eebe8ba6808dcb0e35dc3d8979d3d792b216dc3/0/"
-  },
-  {
-   "organismo": "MINISTERIO DE CAPITAL HUMANO - DIRECCIÓN NACIONAL DE RELACIONES Y REGULACIONES DEL TRABAJO",
-   "norma": "Disposición 795/2026",
-   "detalle": "DI-2026-795-APN-DNRYRT#MCH",
    "fecha": "2026-10-29",
    "tema": "Convenciones colectivas de trabajo",
    "url": "https://otslist.boletinoficial.gob.ar/ots/download/510ca6821c388f67d65f205f0eebe8ba6808dcb0e35dc3d8979d3d792b216dc3/0/"
