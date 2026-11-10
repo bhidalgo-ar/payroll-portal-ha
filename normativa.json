@@ -1,6 +1,6 @@
 {
  "meta": {
-  "consultado": "2026-11-06",
+  "consultado": "2026-11-10",
   "fuente": "Boletín Oficial de la República Argentina, listado de la primera sección",
   "nota": "Organismo, norma y detalle copiados del sumario de cada edición. Las ediciones del 29-10-2026 (BO Nº 36.023), del 30-10-2026 (BO Nº 36.024), del 02-11-2026 (BO Nº 36.025), del 03-11-2026 (BO Nº 36.026), del 05-11-2026 (BO Nº 36.028) y del 06-11-2026 (BO Nº 36.029) se tomaron del PDF oficial de la primera sección (otslist.boletinoficial.gob.ar) porque el listado web cortó la conexión; por eso el enlace de esas normas es el PDF de la edición.",
   "filtro": "Se muestran ARCA, ANSES, salario mínimo, feriados, SRT (montos y prestaciones) y homologaciones de convenios. Se excluyen estatutos y altas de asociaciones sindicales, concursos y designaciones."
@@ -12,7 +12,9 @@
    "detalle": "RESOL-2026-58-APN-SRT#MCH",
    "fecha": "2026-11-06",
    "tema": "Riesgos del trabajo",
-   "url": "https://otslist.boletinoficial.gob.ar/ots/download/515058d4099addea773cf64943ba390966adc8d085840b3ef6c35282e95a587b/0/"
+   "url": "https://otslist.boletinoficial.gob.ar/ots/download/515058d4099addea773cf64943ba390966adc8d085840b3ef6c35282e95a587b/0/",
+   "resumen": "ESTABLECESE EN PESOS NOVENTA Y SIETE MIL SETECIENTOS CATORCE CON 86/100 ($ 97.714,86) EL IMPORTE QUE SURGE DE APLICAR LA EQUIVALENCIA CONTENIDA EN EL PRIMER PARRAFO DEL ARTICULO 15 DEL DECRETO N° 1.694 DE FECHA 05 DE NOVIEMBRE DE 2009, DE CONFORMIDAD CON LO DISPUESTO EN LA RESOLUCION DE LA ADMINISTRACION NACIONAL DE LA SEGURIDAD SOCIAL (ANSES) N° 304 DE FECHA 27 DE OCTUBRE DE 2026.",
+   "fuenteResumen": "https://www.argentina.gob.ar/normativa/nacional/norma-432057"
   },
   {
    "organismo": "AGENCIA DE RECAUDACIÓN Y CONTROL ADUANERO",
@@ -20,7 +22,9 @@
    "detalle": "RESOG-2026-5924-E-ARCA-ARCA - Procedimiento. Régimen especial de facilidades de pago para Micro, Pequeñas y Medianas Empresas, pequeños contribuyentes y entidades sin fines de lucro. Resolución General N° 5.875. Norma modificatoria.",
    "fecha": "2026-11-05",
    "tema": "Planes de facilidades de pago",
-   "url": "https://otslist.boletinoficial.gob.ar/ots/download/b5b96c1c08e547ac59f9d54d5f5b47c89c2e9a455908a6e638e792befbede5b4/0/"
+   "url": "https://otslist.boletinoficial.gob.ar/ots/download/b5b96c1c08e547ac59f9d54d5f5b47c89c2e9a455908a6e638e792befbede5b4/0/",
+   "resumen": "PROCEDIMIENTO. REGIMEN ESPECIAL DE FACILIDADES DE PAGO PARA MICRO, PEQUEÑAS Y MEDIANAS EMPRESAS, PEQUEÑOS CONTRIBUYENTES Y ENTIDADES SIN FINES DE LUCRO. RESOLUCION GENERAL N° 5.875. NORMA MODIFICATORIA.",
+   "fuenteResumen": "https://www.argentina.gob.ar/normativa/nacional/norma-432029"
   },
   {
    "organismo": "MINISTERIO DE CAPITAL HUMANO - SUBSECRETARÍA DE SEGURIDAD SOCIAL",
@@ -28,7 +32,9 @@
    "detalle": "DI-2026-15-APN-SSSS#MCH",
    "fecha": "2026-11-03",
    "tema": "Seguridad social",
-   "url": "https://otslist.boletinoficial.gob.ar/ots/download/2e3b54c0fadbbba0ea7e06c8e47699d43cc84898a48f299e2a80fcbf7a820211/0/"
+   "url": "https://otslist.boletinoficial.gob.ar/ots/download/2e3b54c0fadbbba0ea7e06c8e47699d43cc84898a48f299e2a80fcbf7a820211/0/",
+   "resumen": "ESTABLECESE EL INDICE COMBINADO PREVISTO EN EL ARTICULO 2º DE LA LEY N° 26.417, SUSTITUIDO POR EL ARTICULO 4º DE LA LEY N° 27.609, PARA LA ACTUALIZACION DE LAS REMUNERACIONES MENSUALES PERCIBIDAS POR LOS TRABAJADORES EN RELACION DE DEPENDENCIA QUE CESEN DESDE EL 30 DE NOVIEMBRE DE 2026 O SOLICITEN SU BENEFICIO DESDE EL 1 DE DICIEMBRE DE 2026, QUE COMO ANEXO Nº IF-2026-104938317-APN-DNPSS#MCH, FORMA PARTE INTEGRANTE DE LA PRESENTE DISPOSICION, DE CONFORMIDAD CON LA METODOLOGIA ESTABLECIDA EN EL ANEXO I DE LA RESOLUCION Nº 3/2021 DE LA ENTONCES SECRETARIA DE SEGURIDAD SOCIAL.",
+   "fuenteResumen": "https://www.argentina.gob.ar/normativa/nacional/norma-431952"
   },
   {
    "organismo": "MINISTERIO DE CAPITAL HUMANO - SUBSECRETARÍA DE SEGURIDAD SOCIAL",
