@@ -1,6 +1,6 @@
 # Claude en Hidalgo & Asociados — referencia del equipo
 
-**Verificado al 28 de septiembre de 2026** (Haiku 5.5, el 20 de octubre de 2026; modelos vigentes, anuncios oficiales, guías de prompting de §9 y consejos para Haiku 5.5 de §2, el 30 de octubre de 2026). Reemplaza al documento de investigación de abril de 2026
+**Verificado al 28 de septiembre de 2026** (Haiku 5.5, el 20 de octubre de 2026; modelos vigentes, anuncios oficiales, guías de prompting de §9 y consejos para Haiku 5.5 de §2, el 30 de octubre de 2026; Fable 5.2 —tabla de modelos vigentes, anuncio, guía de prompting y consejos de §2—, el 11 de noviembre de 2026). Reemplaza al documento de investigación de abril de 2026
 (`compass_artifact_wf-162df681...md`), que quedó completamente desactualizado: hablaba de Opus 4.6,
 Sonnet 4.6 y "adaptive thinking", ninguno de los cuales es el estado actual.
 
@@ -52,10 +52,27 @@ redactar un mail, armar un reporte, corregir un bug puntual. En Claude Code se e
 cambios que tocan varios archivos, o cualquier cosa que sale al cliente. En Claude Code con el
 plan Team Standard es el modelo por defecto (desde la v2.1.280).
 
-**Fable 5.1** — último recurso. Tareas de máxima complejidad y largo aliento: migrar un sistema
+**Fable 5.2** — último recurso (reemplazó a Fable 5.1 como vigente el 9 de noviembre de 2026; Fable 5.1 pasó a modelo anterior, todavía disponible). Tareas de máxima complejidad y largo aliento: migrar un sistema
 completo, auditar todo el repositorio, trabajar en modo autónomo varios minutos. Consume mucho
 cupo. **Solo se llega después de dos fallas de Opus 5.5 en Extra high**, y avisando antes. Para el equipo solo
 está disponible con Créditos de Uso (hoy no habilitados) y solo lo tienen los asientos premium.
+Cómo pedirle (guía oficial de prompting de Fable 5.2): en tareas largas a veces corta antes de terminar,
+sobre todo en Low o Medium; pedirle que responda directo no evita que piense en Medium o más, lo que lo
+regula es el esfuerzo; las reglas de aprobación las aplica al pie de la letra, así que al darle el OK hay que
+nombrar el paso (no un "dale"); y después de una tarea larga conviene pedirle un cierre que se entienda
+solo. En la guía HTML son los cuatro consejos de su tarjeta.
+
+**Oferta de lanzamiento de Fable 5.2 (temporal; pedido de Willy del 11/11/2026: va bien visible en la guía).**
+Según <https://support.claude.com/en/articles/17506494>: en asientos estándar de Team, Fable incluido hasta el
+50 % del cupo semanal desde el 9/11 hasta el 16/11/2026 a las 23:59 hora del Pacífico (17/11 04:59 en Argentina),
+más 1 restablecimiento del límite de Fable que vence ese mismo día. En asientos premium, de 1 a 3 restablecimientos
+según la antigüedad de la organización (menos de 6 meses: 1; de 6 a 12: 2; más de 12: 3), iguales para todos los
+asientos premium, que vencen el 8/3/2027 a las 23:59 hora del Pacífico (9/3/2027 04:59 en Argentina). Un
+restablecimiento devuelve el uso gastado en Fable y rellena la ventana de 5 horas; no sube los límites. Se usa en
+Configuración → Uso → "Limit resets" → "Reset for free". Solo para quienes estaban en la organización antes del
+9/11/2026 a las 10:00 hora del Pacífico; no se transfieren. En la guía HTML es el aviso arriba de las tarjetas, que
+se oculta solo al vencer (la línea de asientos estándar, el 17/11; el aviso entero, el 9/3/2027). Pasadas esas
+fechas vuelve a valer lo de arriba: en asientos estándar, Fable solo con Créditos de Uso.
 
 ### Cómo medir el costo: cupo, no dólares
 
@@ -63,7 +80,7 @@ El equipo entra por el plan de la empresa, no por API. Nadie paga por token, as�
 **la unidad correcta es cuánto cupo consume una consulta, no cuántos dólares cuesta.**
 Ninguna referencia a `$/MTok` ni a precios de API va en la guía.
 
-Escala relativa de consumo de cupo, de menor a mayor: Haiku 5.5 → Sonnet 5.5 → Opus 5.5 → Fable 5.1. En la guía las barras van en escalones parejos
+Escala relativa de consumo de cupo, de menor a mayor: Haiku 5.5 → Sonnet 5.5 → Opus 5.5 → Fable 5.2. En la guía las barras van en escalones parejos
 (25/50/75/100): son visuales, no una medición.
 El salto grande de calidad está entre Haiku y Sonnet; de Sonnet para arriba pagás bastante
 más cupo por unos pocos puntos de mejora.
@@ -125,7 +142,7 @@ resultado determinístico. Arranca cerrado, con un botón que lo abre.
 | Me doy cuenta al instante y lo rehago | Sonnet 5.5, esfuerzo Medium |
 | Hay números o pasos que dependen entre sí | Sonnet 5.5, esfuerzo Medium; si no cierra, High |
 | Toca cálculo de sueldo, retenciones, o sale al cliente | Opus 5.5, High o Extra high |
-| Es un cambio grande en muchos archivos, o una auditoría completa | Opus 5.5 en Extra high. Fable 5.1 solo tras dos fallas de Opus 5.5 en Extra high, avisando antes |
+| Es un cambio grande en muchos archivos, o una auditoría completa | Opus 5.5 en Extra high. Fable 5.2 solo tras dos fallas de Opus 5.5 en Extra high, avisando antes |
 
 Cierre del flujo: una línea con el resultado combinado, más el recordatorio de datos si la
 respuesta involucra pegar información ("¿estás en el plan de la empresa? ver manejo de datos").
@@ -138,7 +155,7 @@ El esfuerzo regula cuánto trabajo hace Claude por pedido: cuántos archivos abr
 hasta dónde avanza antes de volver a preguntar. Ya no hay un interruptor de thinking aparte: la
 perilla es el nivel de esfuerzo, y se elige al lado del selector de modelo (en Code, con `/effort`).
 
-**Escalera:** primero subir el esfuerzo, después cambiar de modelo. Fable 5.1 solo tras dos fallas
+**Escalera:** primero subir el esfuerzo, después cambiar de modelo. Fable 5.2 solo tras dos fallas
 de Opus 5.5 en Extra high. Regla de bolsillo: Sonnet para escribir y armar, Opus para pensar y
 revisar. El criterio para empezar es **Medium**; cada caso de "Por tarea" trae cuándo subirlo
 (criterio del equipo, no medido).
@@ -211,8 +228,9 @@ casos propios, o se dejan con la nota de procedencia que ya tienen.
 - Guía de prompting de Haiku 5.5 (español): <https://platform.claude.com/docs/es/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5>
 - Guía de prompting de Sonnet 5.5 (español): <https://platform.claude.com/docs/es/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5>
 - Guía de prompting de Opus 5.5 (español): <https://platform.claude.com/docs/es/build-with-claude/prompt-engineering/prompting-claude-opus-5-5>
-- Guía de prompting de Fable 5.1 (español): <https://platform.claude.com/docs/es/build-with-claude/prompt-engineering/prompting-claude-fable-5-1>
-- Fable 5.1 (anuncio oficial, presentado junto con Mythos 5.1): <https://www.anthropic.com/claude-fable-and-mythos-5-1>
+- Guía de prompting de Fable 5.2 (español): <https://platform.claude.com/docs/es/build-with-claude/prompt-engineering/prompting-claude-fable-5-2>
+- Fable 5.2 (anuncio oficial del 9 de noviembre de 2026, presentado junto con Mythos 5.2): <https://www.anthropic.com/claude-fable-and-mythos-5-2>
+- Fable en los planes (soporte): <https://support.claude.com/en/articles/15424964-claude-fable-models-on-your-plan>
 - Esfuerzo en Claude Code (claude.dev): <https://claude.dev/blog/spending-your-effort/>
 - Opus 5.5 en Claude y Claude Code (claude.dev): <https://claude.dev/blog/getting-the-most-out-of-opus-5-5/>
 - Qué cuesta una tarea en Opus 5.5 (claude.dev): <https://claude.dev/blog/what-a-task-costs-on-opus-5-5/>
@@ -221,5 +239,7 @@ casos propios, o se dejan con la nota de procedencia que ya tienen.
 
 Los cuatro anuncios oficiales y las cuatro guías de prompting de esta lista se volvieron a abrir el 30 de octubre de 2026;
 la tabla de modelos vigentes (§2) se contrastó ese día con <https://platform.claude.com/docs/en/about-claude/models/overview>.
+El 11 de noviembre de 2026 se volvió a contrastar esa tabla (Fable 5.2 vigente, Fable 5.1 en modelos anteriores) y se
+abrieron el anuncio y la guía de prompting de Fable 5.2, que reemplazan a los de Fable 5.1.
 Los links de claude.dev salieron de una búsqueda: el dominio está bloqueado en el entorno y no se abrieron.
 Claude Design se verificó por captura de pantalla del producto, no por documentación publicada.
