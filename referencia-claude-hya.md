@@ -52,7 +52,7 @@ redactar un mail, armar un reporte, corregir un bug puntual. En Claude Code se e
 cambios que tocan varios archivos, o cualquier cosa que sale al cliente. En Claude Code con el
 plan Team Standard es el modelo por defecto (desde la v2.1.280).
 
-**Fable 5.2** — último recurso (reemplazó a Fable 5.1 como vigente el 9 de noviembre de 2026; Fable 5.1 pasó a modelo anterior). Tareas de máxima complejidad y largo aliento: migrar un sistema
+**Fable 5.2** — último recurso (reemplazó a Fable 5.1 como vigente el 9 de noviembre de 2026; Fable 5.1 pasó a modelo anterior, todavía disponible). Tareas de máxima complejidad y largo aliento: migrar un sistema
 completo, auditar todo el repositorio, trabajar en modo autónomo varios minutos. Consume mucho
 cupo. **Solo se llega después de dos fallas de Opus 5.5 en Extra high**, y avisando antes. Para el equipo solo
 está disponible con Créditos de Uso (hoy no habilitados) y solo lo tienen los asientos premium.
