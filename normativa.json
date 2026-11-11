@@ -1,6 +1,6 @@
 {
  "meta": {
-  "consultado": "2026-11-10",
+  "consultado": "2026-11-11",
   "fuente": "Boletín Oficial de la República Argentina, listado de la primera sección",
   "nota": "Organismo, norma y detalle copiados del sumario de cada edición. Las ediciones del 29-10-2026 (BO Nº 36.023), del 30-10-2026 (BO Nº 36.024), del 02-11-2026 (BO Nº 36.025), del 03-11-2026 (BO Nº 36.026), del 05-11-2026 (BO Nº 36.028) y del 06-11-2026 (BO Nº 36.029) se tomaron del PDF oficial de la primera sección (otslist.boletinoficial.gob.ar) porque el listado web cortó la conexión; por eso el enlace de esas normas es el PDF de la edición.",
   "filtro": "Se muestran ARCA, ANSES, salario mínimo, feriados, SRT (montos y prestaciones) y homologaciones de convenios. Se excluyen estatutos y altas de asociaciones sindicales, concursos y designaciones."
@@ -42,7 +42,9 @@
    "detalle": "DI-2026-14-APN-SSSS#MCH",
    "fecha": "2026-11-02",
    "tema": "Seguridad social",
-   "url": "https://otslist.boletinoficial.gob.ar/ots/download/55516fdb71686782278d386f33dcb83eb463dab507054209e238a16d3e178658/0/"
+   "url": "https://otslist.boletinoficial.gob.ar/ots/download/55516fdb71686782278d386f33dcb83eb463dab507054209e238a16d3e178658/0/",
+   "resumen": "APRUEBASE LA TARIFA SUSTITUTIVA DEL CONVENIO DE CORRESPONSABILIDAD GREMIAL CELEBRADO ENTRE LA UNION ARGENTINA DE TRABAJADORES RURALES Y ESTIBADORES (UATRE), LA FEDERACION AGRARIA ARGENTINA (FILIAL CHACO) Y LA UNION DE COOPERATIVAS AGRICOLAS ALGODONERAS LTDA. (UCAL), REFERENTE A LA PRODUCCION DE ALGODON, MAIZ, TRIGO, SORGO, SOJA Y GIRASOL EN LA PROVINCIA DEL CHACO, HOMOLOGADO POR LA RESOLUCION DE LA ENTONCES SECRETARIA DE SEGURIDAD SOCIAL N° 15/2012 (T.O. DISPOSICION N° 3/2022 DE LA DIRECCION NACIONAL DE COORDINACION DE LOS REGIMENES DE LA SEGURIDAD SOCIAL), QUE COMO ANEXO N° IF-2026-104073769-APN-DNCRSS#MCH, FORMA PARTE INTEGRANTE DE LA PRESENTE.",
+   "fuenteResumen": "https://www.argentina.gob.ar/normativa/nacional/norma-431924"
   },
   {
    "organismo": "AGENCIA DE RECAUDACIÓN Y CONTROL ADUANERO",
