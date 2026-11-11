@@ -77,7 +77,16 @@ fechas vuelve a valer lo de arriba: en asientos estándar, Fable solo con Crédi
 **Fable 5.2 en la comparativa oficial (pedido de Willy del 11/11/2026).** Su anuncio solo publica AA-Briefcase v1.1
 (no GDPval-AA): Fable 5.2 1785 Elo, y en esa misma medición Opus 5.5 1800 y Fable 5.1 1669 (esfuerzo más alto
 disponible de cada modelo). En la guía va solo en "Tareas largas", con el aviso de que es otra medición que la del
-anuncio de Sonnet 5.5 (donde Opus 5.5 tiene 1822).
+anuncio de Sonnet 5.5 (donde Opus 5.5 tiene 1822; los anuncios no explican la diferencia). En la misma fila, por
+rúbrica, Fable 5.2 66,1 % contra 61,2 % de Opus 5.5: también va en la nota.
+
+**"¿Más esfuerzo o un modelo más grande?" (pedido de Willy del 11/11/2026).** Bloque al pie de la Comparativa oficial
+con siete comparaciones textuales de los anuncios de Fable 5.2, Opus 5.5 y Sonnet 5.5 (modelo y esfuerzo contra
+modelo y esfuerzo, con el costo por tarea relativo tal como lo dice Anthropic: "about", "roughly", "less than
+one-tenth") y tres reglas: el modelo nuevo en Low/Medium alcanzó al anterior en Max en varias pruebas (no en todas);
+la mayor parte de la mejora llega en High (guía de Fable 5.2); Max no siempre es mejor (Sonnet 5.5 en FrontierCode
+v1.1). Los anuncios no publican el valor de cada punto de sus gráficos de esfuerzo: no se leen a ojo. No mezclar
+FrontierCode 2.0 (anuncio de Fable 5.2) con FrontierCode v1.1 (anuncios de Opus y Sonnet 5.5).
 
 ### Cómo medir el costo: cupo, no dólares
 
