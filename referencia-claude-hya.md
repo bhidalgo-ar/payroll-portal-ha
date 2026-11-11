@@ -86,6 +86,9 @@ reemplaza. Al 11/11/2026:
 Son mediciones distintas (Opus 5.5 figura 1822 en el de Sonnet 5.5 y 1800 en el de Fable 5.2; los anuncios no
 explican la diferencia): la nota lo aclara. En la tabla de Fable 5.2, por rúbrica, Fable 5.2 66,1 % contra 61,2 % de
 Opus 5.5: también va en la nota.
+Efecto conocido de la regla: al mezclar anuncios, en AA-Briefcase Sonnet 5.5 (1824) queda arriba de Opus 5.5 (1800),
+pero en la única tabla con los dos juntos (Sonnet 5.5) Opus va adelante (1822 contra 1811; GDPval 1846 contra 1844).
+La nota de la guía lo dice explícitamente.
 
 **"Cómo leer estos gráficos: qué modelo y cuánto esfuerzo" (pedidos de Willy del 11/11/2026).** Bloque al pie de la
 Comparativa oficial. Las barras conservan a Sonnet 5 como referencia generacional; el bloque compara solo modelos
