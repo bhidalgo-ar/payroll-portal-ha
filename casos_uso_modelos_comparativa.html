@@ -84,6 +84,27 @@
   .promo h2 { margin: 0 0 6px; font-family: Lora, Georgia, serif; font-size: 22px; font-weight: 600; line-height: 1.25; }
   .promo ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: var(--ink-2); }
   .promo .src { margin-top: 8px; font-size: 13px; color: var(--muted); }
+  /* Esfuerzo o modelo: hallazgos textuales de los anuncios oficiales */
+  .eff-block { margin-top: 8px; display: flex; flex-direction: column; gap: 14px; }
+  .eff-block h2 { margin: 0; font-family: Lora, Georgia, serif; font-size: 26px; font-weight: 600; }
+  .eff-rules { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .eff-rule { padding: 14px 16px; background: var(--soft); border-radius: 12px; font-size: 14px; color: var(--ink-2); }
+  .eff-rule b { display: block; color: var(--slate); margin-bottom: 2px; }
+  .eff-rules.eff-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .eff .cost .none { font-size: 13px; color: var(--muted); }
+  .eff-list { display: flex; flex-direction: column; gap: 10px; }
+  .eff { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 18px; align-items: center; padding: 16px 18px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+  .eff .vs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13px; }
+  .eff .tag { padding: 3px 10px; border-radius: 999px; font-weight: 600; background: var(--t1); }
+  .eff .tag.ref { background: var(--soft); font-weight: 500; }
+  .eff .txt { margin-top: 6px; font-size: 14px; color: var(--ink-2); }
+  .eff .bench { margin-top: 4px; font-size: 12px; color: var(--muted); }
+  .eff .cost .lbl { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .eff .cost .track { height: 12px; border-radius: 6px; background: var(--soft); overflow: hidden; }
+  .eff .cost .fill { height: 100%; border-radius: 6px; background: var(--clay-dark); }
+  .eff .cost .val { margin-top: 4px; font-size: 13px; font-weight: 600; }
+  @media (max-width: 900px) { .eff-rules.eff-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .eff { grid-template-columns: minmax(0, 1fr); } .eff-rules, .eff-rules.eff-4 { grid-template-columns: minmax(0, 1fr); } }
   .rules { margin-top: 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
   .rule { display: flex; gap: 12px; align-items: center; font-size: 14px; padding: 14px 18px; background: var(--soft); border-radius: 12px; }
   .rule svg { flex-shrink: 0; }
@@ -277,7 +298,7 @@
     <div style="display:flex;flex-direction:column;gap:22px;">
       <div class="bench-bar">
         <div class="bench-btns" id="bench-btns"></div>
-        <div class="note">Fuente: anuncios oficiales de Sonnet 5.5 (28/09/2026) y Haiku 5.5 (07/10/2026)</div>
+        <div class="note">Fuente: el anuncio oficial más nuevo de cada modelo que publica el dato (ver nota al pie)</div>
       </div>
       <div class="bench-head">
         <div class="serif" style="font-size:26px;font-weight:600;" id="bench-title"></div>
@@ -291,7 +312,22 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B5573A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
         <span id="bench-take"></span>
       </div>
-      <div class="note" style="line-height:1.5;">Mejor puntaje de cada modelo, medido por Artificial Analysis. Es un benchmark: sirve para comparar modelos, no predice cómo te va a ir con tu tarea. Los puntajes de Haiku 5.5 vienen de su propio anuncio, medidos en otra fecha que los de los demás modelos: la distancia entre modelos es orientativa. Ver los gráficos originales: <a href="https://www.anthropic.com/claude-sonnet-5-5" target="_blank" rel="noopener">Sonnet 5.5 ↗</a> · <a href="https://www.anthropic.com/claude-haiku-5-5" target="_blank" rel="noopener">Haiku 5.5 ↗</a></div>
+      <div class="note" style="line-height:1.5;">Mejor puntaje de cada modelo, medido por Artificial Analysis. Es un benchmark: sirve para comparar modelos, no predice cómo te va a ir con tu tarea. Cada valor sale del anuncio más nuevo que publica ese modelo en ese benchmark: Fable 5.2 (09/11/2026) para Fable 5.2 y Opus 5.5 en Tareas largas; Haiku 5.5 (07/10/2026) para Haiku 5.5 y Sonnet 5.5; Sonnet 5.5 (28/09/2026) para Sonnet 5 y Opus 5.5 en Trabajo real de oficina. Como vienen de mediciones distintas, la distancia entre modelos es orientativa y el orden puede cambiar: en la única tabla que tiene a Sonnet 5.5 y Opus 5.5 juntos (anuncio de Sonnet 5.5), Opus 5.5 va adelante en las dos pruebas (1846 contra 1844 y 1822 contra 1811). Fable 5.2 no publicó Trabajo real de oficina. En la tabla de su anuncio, con el otro puntaje de esa misma prueba (rúbrica), Fable 5.2 va adelante: 66,1 % contra 61,2 % de Opus 5.5. Que Haiku 5.5 supere a Sonnet 5 muestra cuánto mejoró la generación 5.5, no que Haiku reemplace a Sonnet: en la misma tabla, Sonnet 5.5 le saca más de 200 puntos en las dos pruebas. Ver los gráficos originales: <a href="https://www.anthropic.com/claude-sonnet-5-5" target="_blank" rel="noopener">Sonnet 5.5 ↗</a> · <a href="https://www.anthropic.com/claude-haiku-5-5" target="_blank" rel="noopener">Haiku 5.5 ↗</a> · <a href="https://www.anthropic.com/claude-fable-and-mythos-5-2" target="_blank" rel="noopener">Fable 5.2 ↗</a></div>
+      <div class="eff-block">
+        <h2>Cómo leer estos gráficos: qué modelo y cuánto esfuerzo</h2>
+        <div style="font-size:15px;color:var(--ink-2);max-width:900px;">Las barras de arriba incluyen a Sonnet 5 como referencia de cuánto mejoró la generación 5.5. Lo de abajo compara solo los modelos vigentes: Haiku 5.5, Sonnet 5.5, Opus 5.5 y Fable 5.2. Todo sale de los anuncios oficiales.</div>
+        <div class="eyebrow" style="margin-top:6px;">Para qué se distingue cada uno, según Anthropic</div>
+        <div class="eff-rules eff-4" id="eff-modelos"></div>
+        <div class="eyebrow" style="margin-top:6px;">Esfuerzo: tres cosas para saber</div>
+        <div class="eff-rules">
+          <div class="eff-rule"><b>Más esfuerzo, más costo</b>A más esfuerzo, el modelo trabaja más tiempo y gasta más por tarea, y en general saca mejor puntaje. En Fable 5.2, la mayor parte de la mejora llega en High, y por encima es desigual y depende de la tarea (guía de Fable 5.2).</div>
+          <div class="eff-rule"><b>Max, solo en casos raros</b>Usa muchos más tokens que Extra high y no siempre rinde más: en una prueba de código, Sonnet 5.5 sacó menos en Max que en Extra high. La guía de Fable 5.2 lo deja para medir el techo del modelo, para problemas abiertos o para la tarea rara en la que el tiempo y el consumo no importan.</div>
+          <div class="eff-rule"><b>Sonnet con más esfuerzo u Opus</b>En esfuerzos bajos, Sonnet 5.5 rinde más por lo que gasta. En esfuerzos altos rinde parecido a Opus 5.5 y cuesta parecido. Para trabajo complejo y abierto, que exige criterio sostenido, Anthropic dice que Opus 5.5 sigue siendo claramente más fuerte.</div>
+        </div>
+        <div class="eyebrow" style="margin-top:6px;">Comparaciones entre modelos vigentes</div>
+        <div class="eff-list" id="eff-list"></div>
+        <div class="note" style="line-height:1.5;">Son mediciones de Anthropic, en costo por tarea de su plataforma, no del plan de la empresa ni de tareas de H&amp;A. La barra es el costo por tarea del primer caso como parte del segundo, según la frase de Anthropic ("about", "roughly"): es aproximada. Los anuncios no publican el valor de cada punto de sus gráficos de esfuerzo. La regla de la guía no cambia: arrancá en Medium, subí el esfuerzo antes de cambiar de modelo, y Fable sigue siendo el último recurso (en los asientos estándar no sale del cupo normal). Gráficos completos: <a href="https://www.anthropic.com/claude-fable-and-mythos-5-2" target="_blank" rel="noopener">Fable 5.2 ↗</a> · <a href="https://www.anthropic.com/claude-opus-5-5" target="_blank" rel="noopener">Opus 5.5 ↗</a> · <a href="https://www.anthropic.com/claude-sonnet-5-5" target="_blank" rel="noopener">Sonnet 5.5 ↗</a> · <a href="https://www.anthropic.com/claude-haiku-5-5" target="_blank" rel="noopener">Haiku 5.5 ↗</a></div>
+      </div>
     </div>
   </section>
 
@@ -307,7 +343,7 @@
       <span class="sep"></span>
       <svg class="logo-anthropic" role="img" viewBox="0 0 570 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Anthropic"><path d="M139.492 12.9945H160.265V62.9392H173.525V12.9945H194.298V1.06077H139.492V12.9945Z" fill="currentColor"></path><path d="M116.066 44.3757L88.221 1.06077H73.1934V62.9392H86.011V19.6243L113.856 62.9392H128.884V1.06077H116.066V44.3757Z" fill="currentColor"></path><path d="M247.337 25.7238H218.166V1.06077H204.906V62.9392H218.166V37.6575H247.337V62.9392H260.597V1.06077H247.337V25.7238Z" fill="currentColor"></path><path d="M24.663 1.06077L0 62.9392H13.7901L18.834 49.9447H44.6365L49.6796 62.9392H63.4696L38.8066 1.06077H24.663ZM23.2946 38.453L31.7348 16.7072L40.175 38.453H23.2946Z" fill="currentColor"></path><path d="M370.475 0C352.619 0 339.978 13.2597 339.978 32.0884C339.978 50.7403 352.619 64 370.475 64C388.243 64 400.796 50.7403 400.796 32.0884C400.796 13.2597 388.243 0 370.475 0ZM370.475 51.6243C360.044 51.6243 353.68 44.1989 353.68 32.0884C353.68 19.8011 360.044 12.3757 370.475 12.3757C380.818 12.3757 387.094 19.8011 387.094 32.0884C387.094 44.1989 380.818 51.6243 370.475 51.6243Z" fill="currentColor"></path><path d="M555.845 42.1657C553.547 48.1768 548.95 51.6243 542.674 51.6243C532.243 51.6243 525.878 44.1989 525.878 32.0884C525.878 19.8011 532.243 12.3757 542.674 12.3757C548.95 12.3757 553.547 15.8232 555.845 21.8343H569.901C566.453 8.57459 556.11 0 542.674 0C524.818 0 512.177 13.2597 512.177 32.0884C512.177 50.7403 524.818 64 542.674 64C556.199 64 566.541 55.337 569.989 42.1657H555.845Z" fill="currentColor"></path><path d="M471.337 1.06077L496 62.9392H509.525L484.862 1.06077H471.337Z" fill="currentColor"></path><path d="M443.403 1.06077H413.171V62.9392H426.431V40.4862H443.403C457.459 40.4862 466.033 33.0608 466.033 20.7735C466.033 8.48619 457.459 1.06077 443.403 1.06077ZM442.784 28.5525H426.431V12.9945H442.784C449.326 12.9945 452.773 15.6464 452.773 20.7735C452.773 25.9006 449.326 28.5525 442.784 28.5525Z" fill="currentColor"></path><path d="M329.812 19.8895C329.812 8.22099 321.238 1.06077 307.182 1.06077H276.95V62.9392H290.21V38.7182H304.971L318.232 62.9392H332.906L318.223 36.8734C325.593 34.0402 329.812 28.0743 329.812 19.8895ZM290.21 12.9945H306.564C313.105 12.9945 316.552 15.3812 316.552 19.8895C316.552 24.3978 313.105 26.7845 306.564 26.7845H290.21V12.9945Z" fill="currentColor"></path></svg>
     </div>
-    <span>Guía interna H&amp;A · v21 · Datos verificados al 28 de septiembre de 2026 (Haiku 5.5: 20 de octubre de 2026; modelos vigentes y pestaña Fuentes: 30 de octubre de 2026; consejos para Haiku 5.5: 30 de octubre de 2026; Haiku 5.5 en la comparativa oficial: 2 de noviembre de 2026; Fable 5.2, sus consejos, su anuncio en Fuentes y la oferta de lanzamiento: 11 de noviembre de 2026)</span>
+    <span>Guía interna H&amp;A · v22 · Datos verificados al 28 de septiembre de 2026 (Haiku 5.5: 20 de octubre de 2026; modelos vigentes y pestaña Fuentes: 30 de octubre de 2026; consejos para Haiku 5.5: 30 de octubre de 2026; Haiku 5.5 en la comparativa oficial: 2 de noviembre de 2026; Fable 5.2, sus consejos, su anuncio en Fuentes y la oferta de lanzamiento: 11 de noviembre de 2026; Fable 5.2 y «Cómo leer estos gráficos» en la comparativa oficial: 11 de noviembre de 2026)</span>
   </footer>
 </div>
 
@@ -374,19 +410,21 @@ const TIPS = [
   }
 ];
 
-// Números copiados de la tabla oficial del anuncio de Sonnet 5.5 (28/09/2026); Haiku 5.5, de la tabla de su propio anuncio (07/10/2026). No redondear.
+// Regla (Willy, 11/11/2026): cada valor sale del anuncio MÁS NUEVO que publica ese modelo en ese benchmark. No redondear.
+// GDPval-AA: Sonnet 5 y Opus 5.5 del anuncio de Sonnet 5.5 (28/09); Haiku 5.5 y Sonnet 5.5 del de Haiku 5.5 (07/10). Fable 5.2 no lo publica.
+// AA-Briefcase: Sonnet 5 del de Sonnet 5.5 (28/09); Haiku 5.5 y Sonnet 5.5 del de Haiku 5.5 (07/10); Opus 5.5 y Fable 5.2 del de Fable 5.2 (09/11).
 const BENCHES = [
   { name: 'Trabajo real de oficina', title: 'GDPval-AA v2.1',
     what: 'Tareas reales de 44 ocupaciones en 9 industrias. Puntaje comparativo (Elo): más alto es mejor.',
     take: 'Sonnet 5.5 queda casi a la par de Opus 5.5 y unos 400 puntos arriba de Sonnet 5.',
-    rows: [['Sonnet 5', 1449], ['Haiku 5.5', 1620], ['Sonnet 5.5', 1844], ['Opus 5.5', 1846]] },
+    rows: [['Sonnet 5', 1449], ['Haiku 5.5', 1620], ['Sonnet 5.5', 1840], ['Opus 5.5', 1846]] },
   { name: 'Tareas largas', title: 'AA-Briefcase v1.1',
     what: 'Trabajo de conocimiento de largo aliento: tareas que llevan muchos pasos. Puntaje comparativo (Elo): más alto es mejor.',
     take: 'Sonnet 5.5 en Medium, el nivel por defecto en las apps, supera el mejor puntaje de Sonnet 5 por más o menos un noveno del costo por tarea.',
-    rows: [['Sonnet 5', 1359], ['Haiku 5.5', 1578], ['Sonnet 5.5', 1811], ['Opus 5.5', 1822]] }
+    rows: [['Sonnet 5', 1359], ['Haiku 5.5', 1578], ['Fable 5.2', 1785], ['Opus 5.5', 1800], ['Sonnet 5.5', 1824]] }
 ];
 const BENCH_MAX = 2000;
-const BENCH_COLORS = { 'Sonnet 5': '#C9C5B8', 'Haiku 5.5': '#E6B8A2', 'Sonnet 5.5': '#D97757', 'Opus 5.5': '#8F4128' };
+const BENCH_COLORS = { 'Sonnet 5': '#C9C5B8', 'Haiku 5.5': '#E6B8A2', 'Fable 5.2': '#141413', 'Sonnet 5.5': '#D97757', 'Opus 5.5': '#8F4128' };
 
 const FUENTES = [
   { kind: 'Guía oficial', title: 'Prompts para Sonnet 5.5', desc: 'Esfuerzo, iniciativa, búsquedas y verificación.', url: DOCS + 'prompting-claude-sonnet-5-5' },
@@ -399,6 +437,26 @@ const FUENTES = [
   { kind: 'Anuncio', title: 'Claude Opus 5.5', desc: 'Presentación oficial con gráficos y tabla comparativa (22/09/2026).', url: 'https://www.anthropic.com/claude-opus-5-5' },
   { kind: 'Anuncio', title: 'Claude Haiku 5.5', desc: 'Presentación oficial con gráficos y tabla comparativa (07/10/2026).', url: 'https://www.anthropic.com/claude-haiku-5-5' },
   { kind: 'Anuncio', title: 'Claude Sonnet 5.5', desc: 'Presentación oficial con todos los gráficos y la tabla completa.', url: 'https://www.anthropic.com/claude-sonnet-5-5' }
+];
+
+// Para qué se distingue cada modelo: descripciones de los anuncios oficiales y de la tabla de modelos de la documentación.
+const PARA_QUE = [
+  { m: 'Haiku 5.5', t: 'Tareas acotadas, rápidas y en cantidad: resúmenes, clasificar, consultas, buscar un dato puntual. Para código complejo, Anthropic dice que Sonnet 5.5 y Opus 5.5 siguen siendo mejores.' },
+  { m: 'Sonnet 5.5', t: 'Tareas del día a día bien delimitadas, corregir errores, y documentos, presentaciones y planillas prolijas.' },
+  { m: 'Opus 5.5', t: 'Trabajo complejo que exige criterio, y tareas largas de código y de conocimiento.' },
+  { m: 'Fable 5.2', t: 'Razonamiento muy exigente y trabajo largo sin supervisión: sesiones de horas, investigación de varios pasos, análisis hasta el documento terminado. Igual, para la mayoría de las tareas Anthropic recomienda empezar por Opus 5.5.' }
+];
+
+// Comparaciones entre modelos vigentes. Frases de los anuncios oficiales; cost = costo por tarea del primer caso como fracción del
+// segundo, tal como lo dice Anthropic ("about", "roughly"): es aproximado y se muestra con la frase original. cost null = sin cifra.
+const ESFUERZO = [
+  { a: 'Fable 5.2 · Low', b: 'Opus 5.5 · su mejor puntaje', r: 'empata a', txt: 'Mismo puntaje en preguntas de conocimiento experto.', bench: "Humanity's Last Exam (con herramientas) · anuncio de Fable 5.2", cost: 0.1, costTxt: 'menos de un décimo' },
+  { a: 'Fable 5.2 · Medium', b: 'Opus 5.5 · Max', r: 'supera a', txt: 'Lee mejor gráficos y figuras: 66,4 % contra 64,4 %.', bench: 'Chartography (sin herramientas) · anuncio de Fable 5.2', cost: 0.1, costTxt: 'menos de un décimo' },
+  { a: 'Fable 5.2 · Medium', b: 'Opus 5.5 · su mejor puntaje', r: 'empata a', txt: 'Mismo resultado en búsquedas largas para juntar datos.', bench: 'WANDR · anuncio de Fable 5.2', cost: 0.4, costTxt: 'alrededor del 40 %' },
+  { a: 'Fable 5.2 · High', b: 'Opus 5.5 · su mejor puntaje', r: 'empata a', txt: 'Código que se aceptaría tal cual: 45,3 % contra 45,5 %.', bench: 'FrontierCode 2.0 · anuncio de Fable 5.2', cost: 0.5, costTxt: 'más o menos la mitad' },
+  { a: 'Sonnet 5.5 · Max', b: 'Opus 5.5', r: 'rinde parecido a', txt: 'En varias pruebas. Pero en trabajo complejo y abierto, Opus 5.5 sigue siendo claramente más fuerte.', bench: 'Anuncio de Sonnet 5.5', cost: null, costTxt: 'En esfuerzos altos, costo parecido. En esfuerzos bajos, Sonnet 5.5 gasta menos.' },
+  { a: 'Haiku 5.5', b: 'Sonnet 5.5', r: 'queda lejos de', txt: 'Código complejo de varios pasos: 39,2 % contra 70,6 %.', bench: 'Terminal-Bench 4.0 · tabla del anuncio de Haiku 5.5', cost: null, costTxt: 'Haiku gasta mucho menos: conviene para lo simple y repetido.' },
+  { a: 'Haiku 5.5', b: 'Sonnet 5.5', r: 'queda debajo de', txt: 'Trabajo de oficina: 1620 contra 1840. Tareas largas: 1578 contra 1824 (Elo). Supera a Sonnet 5, la generación anterior, no a Sonnet 5.5.', bench: 'GDPval-AA v2.1 y AA-Briefcase v1.1 · tabla del anuncio de Haiku 5.5', cost: null, costTxt: 'Haiku gasta mucho menos: conviene para lo simple y repetido.' }
 ];
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -505,6 +563,21 @@ window.addEventListener('hashchange', route);
 // Avisos con vencimiento: se ocultan solos cuando pasa la fecha de data-hasta.
 document.querySelectorAll('[data-hasta]').forEach((el) => { if (Date.now() > Date.parse(el.dataset.hasta)) el.hidden = true; });
 
+document.getElementById('eff-modelos').innerHTML = PARA_QUE.map((x) => `<div class="eff-rule"><b>${esc(x.m)}</b>${esc(x.t)}</div>`).join('');
+document.getElementById('eff-list').innerHTML = ESFUERZO.map((e) => `
+  <div class="eff">
+    <div>
+      <div class="vs"><span class="tag">${esc(e.a)}</span><span>${esc(e.r)}</span><span class="tag ref">${esc(e.b)}</span></div>
+      <div class="txt">${esc(e.txt)}</div>
+      <div class="bench">${esc(e.bench)}</div>
+    </div>
+    <div class="cost">
+      ${e.cost === null ? '<div class="lbl">Costo</div><div class="none">' + esc(e.costTxt) + '</div>' : `
+      <div class="lbl">Costo por tarea, comparado con el segundo</div>
+      <div class="track"><div class="fill" style="width:${Math.round(e.cost * 100)}%"></div></div>
+      <div class="val">${esc(e.costTxt)}</div>`}
+    </div>
+  </div>`).join('');
 renderTips();
 renderLinks();
 route();

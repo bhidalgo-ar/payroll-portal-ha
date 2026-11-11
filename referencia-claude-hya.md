@@ -74,6 +74,41 @@ Configuración → Uso → "Limit resets" → "Reset for free". Solo para quiene
 se oculta solo al vencer (la línea de asientos estándar, el 17/11; el aviso entero, el 9/3/2027). Pasadas esas
 fechas vuelve a valer lo de arriba: en asientos estándar, Fable solo con Créditos de Uso.
 
+**Comparativa oficial: de dónde sale cada número (regla de Willy del 11/11/2026).** Siempre el valor del anuncio
+oficial MÁS NUEVO que publica ese modelo en ese benchmark; cuando sale un anuncio nuevo con un valor distinto, se
+reemplaza. Al 11/11/2026:
+
+| Benchmark | Sonnet 5 | Haiku 5.5 | Sonnet 5.5 | Opus 5.5 | Fable 5.2 |
+|---|---|---|---|---|---|
+| GDPval-AA v2.1 | 1449 (Sonnet 5.5, 28/09) | 1620 (Haiku 5.5, 07/10) | 1840 (Haiku 5.5) | 1846 (Sonnet 5.5) | no publicado |
+| AA-Briefcase v1.1 | 1359 (Sonnet 5.5) | 1578 (Haiku 5.5) | 1824 (Haiku 5.5) | 1800 (Fable 5.2, 09/11) | 1785 (Fable 5.2) |
+
+Son mediciones distintas (Opus 5.5 figura 1822 en el de Sonnet 5.5 y 1800 en el de Fable 5.2; los anuncios no
+explican la diferencia): la nota lo aclara. En la tabla de Fable 5.2, por rúbrica, Fable 5.2 66,1 % contra 61,2 % de
+Opus 5.5: también va en la nota.
+Efecto conocido de la regla: al mezclar anuncios, en AA-Briefcase Sonnet 5.5 (1824) queda arriba de Opus 5.5 (1800),
+pero en la única tabla con los dos juntos (Sonnet 5.5) Opus va adelante (1822 contra 1811; GDPval 1846 contra 1844).
+La nota de la guía lo dice explícitamente.
+
+**"Cómo leer estos gráficos: qué modelo y cuánto esfuerzo" (pedidos de Willy del 11/11/2026).** Bloque al pie de la
+Comparativa oficial. Las barras conservan a Sonnet 5 como referencia generacional; el bloque compara solo modelos
+vigentes. Tiene tres partes:
+- Para qué se distingue cada modelo, según los anuncios y la tabla de modelos: Haiku, tareas acotadas y en cantidad
+  (Sonnet y Opus 5.5 siguen mejores en código complejo); Sonnet, tareas del día a día bien delimitadas, documentos,
+  presentaciones y planillas; Opus, trabajo complejo que exige criterio; Fable, razonamiento exigente y trabajo largo.
+- Tres reglas de esfuerzo:
+  1. Más esfuerzo cuesta más, y lo grueso de la mejora llega en High.
+  2. Max casi nunca conviene: muchos más tokens que Xhigh, Sonnet 5.5 sacó menos en Max en FrontierCode v1.1, y la
+     guía de Fable 5.2 lo deja para medir el techo.
+  3. Sonnet contra Opus: en esfuerzos bajos Sonnet rinde más por costo; en altos se parecen en puntaje y costo; en
+     trabajo complejo y abierto, Opus sigue claramente más fuerte.
+- Siete comparaciones textuales: cuatro de Fable 5.2 contra Opus 5.5, una de Sonnet 5.5 contra Opus 5.5 y dos de
+  Haiku 5.5 contra Sonnet 5.5, con números de la tabla del anuncio de Haiku: Terminal-Bench 39,2 % contra 70,6 %,
+  GDPval 1620 contra 1840 y Briefcase 1578 contra 1824.
+
+Los anuncios no publican el valor de cada punto de sus gráficos de esfuerzo: no se leen a ojo. No mezclar
+FrontierCode 2.0 (anuncio de Fable 5.2) con FrontierCode v1.1 (anuncios de Opus y Sonnet 5.5).
+
 ### Cómo medir el costo: cupo, no dólares
 
 El equipo entra por el plan de la empresa, no por API. Nadie paga por token, así que
