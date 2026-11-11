@@ -74,6 +74,11 @@ Configuración → Uso → "Limit resets" → "Reset for free". Solo para quiene
 se oculta solo al vencer (la línea de asientos estándar, el 17/11; el aviso entero, el 9/3/2027). Pasadas esas
 fechas vuelve a valer lo de arriba: en asientos estándar, Fable solo con Créditos de Uso.
 
+**Fable 5.2 en la comparativa oficial (pedido de Willy del 11/11/2026).** Su anuncio solo publica AA-Briefcase v1.1
+(no GDPval-AA): Fable 5.2 1785 Elo, y en esa misma medición Opus 5.5 1800 y Fable 5.1 1669 (esfuerzo más alto
+disponible de cada modelo). En la guía va solo en "Tareas largas", con el aviso de que es otra medición que la del
+anuncio de Sonnet 5.5 (donde Opus 5.5 tiene 1822).
+
 ### Cómo medir el costo: cupo, no dólares
 
 El equipo entra por el plan de la empresa, no por API. Nadie paga por token, así que
