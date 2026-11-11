@@ -29,7 +29,7 @@
       "descripcion": "Qué modelo de Claude usar, con cuánto esfuerzo y cómo pedirle las cosas",
       "url": "https://bhidalgo-ar.github.io/payroll-portal-ha/casos_uso_modelos_comparativa.html",
       "icono": "🤖",
-      "version": "21",
+      "version": "22",
       "categoria": "Herramientas",
       "estado": "productivo",
       "agregado": "2026-04-16",
