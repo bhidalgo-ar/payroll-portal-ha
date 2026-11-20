@@ -1,6 +1,6 @@
 # Claude en Hidalgo & Asociados — referencia del equipo
 
-**Verificado al 28 de septiembre de 2026** (Haiku 5.5, el 20 de octubre de 2026; modelos vigentes, anuncios oficiales, guías de prompting de §9 y consejos para Haiku 5.5 de §2, el 30 de octubre de 2026; Fable 5.2 —tabla de modelos vigentes, anuncio, guía de prompting y consejos de §2—, el 11 de noviembre de 2026; Fable no disponible en asientos estándar, el 20 de noviembre de 2026). Reemplaza al documento de investigación de abril de 2026
+**Verificado al 28 de septiembre de 2026** (Haiku 5.5, el 20 de octubre de 2026; modelos vigentes, anuncios oficiales, guías de prompting de §9 y consejos para Haiku 5.5 de §2, el 30 de octubre de 2026; Fable 5.2 —tabla de modelos vigentes, anuncio, guía de prompting y consejos de §2—, el 11 de noviembre de 2026). Reemplaza al documento de investigación de abril de 2026
 (`compass_artifact_wf-162df681...md`), que quedó completamente desactualizado: hablaba de Opus 4.6,
 Sonnet 4.6 y "adaptive thinking", ninguno de los cuales es el estado actual.
 
@@ -54,26 +54,16 @@ plan Team Standard es el modelo por defecto (desde la v2.1.280).
 
 **Fable 5.2** — último recurso (reemplazó a Fable 5.1 como vigente el 9 de noviembre de 2026; Fable 5.1 pasó a modelo anterior, todavía disponible). Tareas de máxima complejidad y largo aliento: migrar un sistema
 completo, auditar todo el repositorio, trabajar en modo autónomo varios minutos. Consume mucho
-cupo. **Solo se llega después de dos fallas de Opus 5.5 en Extra high**, y avisando antes. **No está disponible en
-los asientos estándar** (todos los del equipo menos uno; dato de Willy del 20/11/2026): solo lo tiene el asiento premium.
-En la guía HTML lo dicen la tarjeta de Fable y su recuadro de bloqueo.
+cupo. **Solo se llega después de dos fallas de Opus 5.5 en Extra high**, y avisando antes. Para el equipo solo
+está disponible con Créditos de Uso (hoy no habilitados) y solo lo tienen los asientos premium.
 Cómo pedirle (guía oficial de prompting de Fable 5.2): en tareas largas a veces corta antes de terminar,
 sobre todo en Low o Medium; pedirle que responda directo no evita que piense en Medium o más, lo que lo
 regula es el esfuerzo; las reglas de aprobación las aplica al pie de la letra, así que al darle el OK hay que
 nombrar el paso (no un "dale"); y después de una tarea larga conviene pedirle un cierre que se entienda
 solo. En la guía HTML son los cuatro consejos de su tarjeta.
 
-**Oferta de lanzamiento de Fable 5.2 (temporal; pedido de Willy del 11/11/2026: va bien visible en la guía).**
-Según <https://support.claude.com/en/articles/17506494>: en asientos estándar de Team, Fable incluido hasta el
-50 % del cupo semanal desde el 9/11 hasta el 16/11/2026 a las 23:59 hora del Pacífico (17/11 04:59 en Argentina),
-más 1 restablecimiento del límite de Fable que vence ese mismo día. En asientos premium, de 1 a 3 restablecimientos
-según la antigüedad de la organización (menos de 6 meses: 1; de 6 a 12: 2; más de 12: 3), iguales para todos los
-asientos premium, que vencen el 8/3/2027 a las 23:59 hora del Pacífico (9/3/2027 04:59 en Argentina). Un
-restablecimiento devuelve el uso gastado en Fable y rellena la ventana de 5 horas; no sube los límites. Se usa en
-Configuración → Uso → "Limit resets" → "Reset for free". Solo para quienes estaban en la organización antes del
-9/11/2026 a las 10:00 hora del Pacífico; no se transfieren. En la guía HTML es el aviso arriba de las tarjetas, que
-se oculta solo al vencer (la línea de asientos estándar, el 17/11; el aviso entero, el 9/3/2027). Pasadas esas
-fechas vuelve a valer lo de arriba: en asientos estándar, Fable no está disponible.
+**Oferta de lanzamiento de Fable 5.2:** el aviso se sacó de la guía el 20/11/2026 a pedido de Willy. Fable sigue disponible
+solo con Créditos de Uso, que no están habilitados: hay que pedirle autorización a Willy.
 
 **Comparativa oficial: de dónde sale cada número (regla de Willy del 11/11/2026).** Siempre el valor del anuncio
 oficial MÁS NUEVO que publica ese modelo en ese benchmark; cuando sale un anuncio nuevo con un valor distinto, se
