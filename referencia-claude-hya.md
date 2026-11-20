@@ -1,6 +1,6 @@
 # Claude en Hidalgo & Asociados — referencia del equipo
 
-**Verificado al 28 de septiembre de 2026** (Haiku 5.5, el 20 de octubre de 2026; modelos vigentes, anuncios oficiales, guías de prompting de §9 y consejos para Haiku 5.5 de §2, el 30 de octubre de 2026; Fable 5.2 —tabla de modelos vigentes, anuncio, guía de prompting y consejos de §2—, el 11 de noviembre de 2026). Reemplaza al documento de investigación de abril de 2026
+**Verificado al 20 de noviembre de 2026.** Reemplaza al documento de investigación de abril de 2026
 (`compass_artifact_wf-162df681...md`), que quedó completamente desactualizado: hablaba de Opus 4.6,
 Sonnet 4.6 y "adaptive thinking", ninguno de los cuales es el estado actual.
 

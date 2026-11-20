@@ -67,6 +67,11 @@ configuración, ni un commit que sólo *agrega* el archivo (alta).
 - **`versionPropia: true`** (hoy sólo "Cómo usar Claude"): la app numera sus propios
   cambios con un entero (`(v17)` en cada commit). Su versión se lee de ahí, a mano, y el
   script no la toca.
+- **Pie de "Cómo usar Claude"** (`casos_uso_modelos_comparativa.html`): se actualiza en
+  **cada merge** que toque la guía, con el formato
+  `Guía interna H&A · vN · Datos verificados al <fecha de hoy>`. Una sola fecha, sin detalle
+  por modelo, y sólo si en esa corrida se reabrieron las fuentes oficiales; si no, queda la
+  fecha anterior. Lo mismo para la línea "Verificado al" de `referencia-claude-hya.md`.
 - Una app cuyo repo no está clonado en la sesión queda **sin tocar** y se informa como
   "sin acceso": nunca se asume que no cambió.
 
