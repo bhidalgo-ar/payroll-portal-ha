@@ -62,17 +62,8 @@ regula es el esfuerzo; las reglas de aprobación las aplica al pie de la letra, 
 nombrar el paso (no un "dale"); y después de una tarea larga conviene pedirle un cierre que se entienda
 solo. En la guía HTML son los cuatro consejos de su tarjeta.
 
-**Oferta de lanzamiento de Fable 5.2 (temporal; pedido de Willy del 11/11/2026: va bien visible en la guía).**
-Según <https://support.claude.com/en/articles/17506494>: en asientos estándar de Team, Fable incluido hasta el
-50 % del cupo semanal desde el 9/11 hasta el 16/11/2026 a las 23:59 hora del Pacífico (17/11 04:59 en Argentina),
-más 1 restablecimiento del límite de Fable que vence ese mismo día. En asientos premium, de 1 a 3 restablecimientos
-según la antigüedad de la organización (menos de 6 meses: 1; de 6 a 12: 2; más de 12: 3), iguales para todos los
-asientos premium, que vencen el 8/3/2027 a las 23:59 hora del Pacífico (9/3/2027 04:59 en Argentina). Un
-restablecimiento devuelve el uso gastado en Fable y rellena la ventana de 5 horas; no sube los límites. Se usa en
-Configuración → Uso → "Limit resets" → "Reset for free". Solo para quienes estaban en la organización antes del
-9/11/2026 a las 10:00 hora del Pacífico; no se transfieren. En la guía HTML es el aviso arriba de las tarjetas, que
-se oculta solo al vencer (la línea de asientos estándar, el 17/11; el aviso entero, el 9/3/2027). Pasadas esas
-fechas vuelve a valer lo de arriba: en asientos estándar, Fable solo con Créditos de Uso.
+**Oferta de lanzamiento de Fable 5.2:** el aviso se sacó de la guía el 20/11/2026 a pedido de Willy. Fable sigue disponible
+solo con Créditos de Uso, que no están habilitados: hay que pedirle autorización a Willy.
 
 **Comparativa oficial: de dónde sale cada número (regla de Willy del 11/11/2026).** Siempre el valor del anuncio
 oficial MÁS NUEVO que publica ese modelo en ese benchmark; cuando sale un anuncio nuevo con un valor distinto, se
