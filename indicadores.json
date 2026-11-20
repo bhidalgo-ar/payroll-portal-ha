@@ -1,6 +1,6 @@
 {
  "meta": {
-  "consultado": "2026-11-02"
+  "consultado": "2026-11-20"
  },
  "periodos": [
   {
@@ -92,6 +92,16 @@
      "norma": "Resolución 304/2026 ANSES (BO 28-10-2026)",
      "fuente": "https://otslist.boletinoficial.gob.ar/ots/download/a80cf451d984b02c4d88e66245202595bed9c00881f44f921ed82e2f6b64fe60/0/",
      "cita": "y PESOS CUATRO MILLONES OCHOCIENTOS SESENTA Y UN MIL SEISCIENTOS OCHENTA Y CINCO CON TREINTA Y OCHO CENTAVOS ($ 4.861.685,38), respectivamente, a partir del período devengado noviembre de 2026 (BO Nº 36.022, primera sección, p. 32, art. 3°)"
+    },
+    {
+     "id": "ipc",
+     "nombre": "IPC (variación mensual)",
+     "valor": 2.2,
+     "unidad": "%",
+     "vigencia": "dato de octubre 2026, el último publicado (INDEC publica el IPC a mediados del mes siguiente); publicado el 2026-11-12",
+     "norma": "INDEC, Informe técnico IPC octubre 2026",
+     "fuente": "https://www.indec.gob.ar/uploads/informesdeprensa/ipc_11_269335F5BA6B.pdf",
+     "cita": "El nivel general del Índice de precios al consumidor registró un alza mensual de 2,2% en octubre de 2026, y acumuló en el año una variación de 26,3%."
     },
     {
      "id": "movilidad",
