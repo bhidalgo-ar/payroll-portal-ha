@@ -1,64 +1,8 @@
 {
  "meta": {
-  "consultado": "2026-11-02"
+  "consultado": "2026-11-21"
  },
  "periodos": [
-  {
-   "periodo": "2026-10",
-   "etiqueta": "Octubre 2026",
-   "items": [
-    {
-     "id": "smvm",
-     "nombre": "Salario mínimo, vital y móvil",
-     "valor": 391200,
-     "unidad": "ARS/mes",
-     "vigencia": "desde 2026-10-01 hasta 2026-10-31",
-     "norma": "Resolución 4/2026 CNEPYSMVYM (laudo), BO 02-09-2026",
-     "fuente": "https://www.boletinoficial.gob.ar/detalleAviso/primera/346775/20260902",
-     "cita": "A partir del 1° de octubre de 2026, en PESOS TRESCIENTOS NOVENTA Y UN MIL DOSCIENTOS ($ 391.200) para todos los trabajadores mensualizados que cumplen la jornada legal completa de trabajo"
-    },
-    {
-     "id": "sipa-base-min",
-     "nombre": "Base imponible mínima SIPA",
-     "valor": 146759.98,
-     "unidad": "ARS/mes",
-     "vigencia": "período devengado octubre 2026",
-     "norma": "Resolución 284/2026 ANSES (BO 23-09-2026)",
-     "fuente": "https://www.argentina.gob.ar/normativa/nacional/norma-430390/texto",
-     "cita": "bases imponibles mínima y máxima previstas en el primer párrafo del artículo 9° de la Ley N° 24.241 ... en la suma de PESOS CIENTO CUARENTA Y SEIS MIL SETECIENTOS CINCUENTA Y NUEVE CON NOVENTA Y OCHO CENTAVOS ($146.759,98)"
-    },
-    {
-     "id": "sipa-base-max",
-     "nombre": "Base imponible máxima SIPA",
-     "valor": 4769631.49,
-     "unidad": "ARS/mes",
-     "vigencia": "período devengado octubre 2026",
-     "norma": "Resolución 284/2026 ANSES (BO 23-09-2026)",
-     "fuente": "https://www.argentina.gob.ar/normativa/nacional/norma-430390/texto",
-     "cita": "y PESOS CUATRO MILLONES SETECIENTOS SESENTA Y NUEVE MIL SEISCIENTOS TREINTA Y UNO CON CUARENTA Y NUEVE CENTAVOS ($4.769.631,49), respectivamente, a partir del período devengado octubre de 2026"
-    },
-    {
-     "id": "ipc",
-     "nombre": "IPC (variación mensual)",
-     "valor": 1.9,
-     "unidad": "%",
-     "vigencia": "dato de septiembre 2026, el último publicado (INDEC publica el IPC a mediados del mes siguiente); publicado el 2026-10-13",
-     "norma": "INDEC, Informe técnico IPC septiembre 2026",
-     "fuente": "https://www.indec.gob.ar/uploads/informesdeprensa/ipc_10_268C45A9444C.pdf",
-     "cita": "El nivel general del Índice de precios al consumidor registró un alza mensual de 1,9% en septiembre de 2026 y acumuló en el año una variación de 23,6%."
-    },
-    {
-     "id": "movilidad",
-     "nombre": "Movilidad ANSES",
-     "valor": 1.66,
-     "unidad": "%",
-     "vigencia": "mes de octubre 2026 (IPC agosto 2026)",
-     "norma": "Resolución 284/2026 ANSES (BO 23-09-2026)",
-     "fuente": "https://www.argentina.gob.ar/normativa/nacional/norma-430390/texto",
-     "cita": "se efectuó el cálculo de la movilidad a considerar para el mes de octubre de 2026 ... resultando éste del UNO CON SESENTA Y SEIS CENTÉSIMOS POR CIENTO (1,66%)"
-    }
-   ]
-  },
   {
    "periodo": "2026-11",
    "etiqueta": "Noviembre 2026",
@@ -92,6 +36,16 @@
      "norma": "Resolución 304/2026 ANSES (BO 28-10-2026)",
      "fuente": "https://otslist.boletinoficial.gob.ar/ots/download/a80cf451d984b02c4d88e66245202595bed9c00881f44f921ed82e2f6b64fe60/0/",
      "cita": "y PESOS CUATRO MILLONES OCHOCIENTOS SESENTA Y UN MIL SEISCIENTOS OCHENTA Y CINCO CON TREINTA Y OCHO CENTAVOS ($ 4.861.685,38), respectivamente, a partir del período devengado noviembre de 2026 (BO Nº 36.022, primera sección, p. 32, art. 3°)"
+    },
+    {
+     "id": "ipc",
+     "nombre": "IPC (variación mensual)",
+     "valor": 2.2,
+     "unidad": "%",
+     "vigencia": "dato de octubre 2026, el último publicado (INDEC publica el IPC a mediados del mes siguiente); publicado el 2026-11-12",
+     "norma": "INDEC, Informe técnico IPC octubre 2026",
+     "fuente": "https://www.indec.gob.ar/uploads/informesdeprensa/ipc_11_269335F5BA6B.pdf",
+     "cita": "El nivel general del Índice de precios al consumidor registró un alza mensual de 2,2% en octubre de 2026, y acumuló en el año una variación de 26,3%."
     },
     {
      "id": "movilidad",
