@@ -2,9 +2,9 @@
   "meta": {
     "titulo": "Portal Hidalgo & Asociados",
     "subtitulo": "Herramientas internas del equipo",
-    "version": "2.1",
-    "ultimaActualizacion": "2026-11-16",
-    "ultimaRevision": "2026-11-16",
+    "version": "2.2",
+    "ultimaActualizacion": "2026-11-23",
+    "ultimaRevision": "2026-11-23",
     "diasReciente": 7,
     "repoDefecto": "bhidalgo-ar/payroll-portal-ha"
   },
@@ -35,7 +35,7 @@
       "agregado": "2026-04-16",
       "actualizado": "2026-11-20",
       "versionPropia": true,
-      "cambios": 25
+      "cambios": 29
     },
     {
       "id": 7,
