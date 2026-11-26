@@ -460,14 +460,24 @@ y bloquea las ráfagas. Hay tres vías, todas oficiales; se prueban en este orde
 1. **InfoLEG** (`argentina.gob.ar/normativa`): `buscar-boletin?s=1&fecha_publicacion=DD-MM-AAAA`
    lista lo publicado ese día y cada norma tiene `/texto`. Anda bien, pero carga el boletín
    con uno o dos días de atraso: el del día casi nunca está.
-2. **`www.boletinoficial.gob.ar`** (`/seccion/primera/AAAAMMDD` y `detalleAviso`): máximo 3
-   requests espaciadas 10 s.
-3. **`otslist.boletinoficial.gob.ar`**: el listado oficial de PDF de cada edición. En
-   `https://otslist.boletinoficial.gob.ar/ots/` (filtro `?date_filter=` por fecha) cada día
-   tiene una fila por sección; la sección 1 es la primera y el PDF se baja de
-   `/ots/download/<hash>/0/`. Tiene la edición del día. Se pasa a texto con `pdftotext`
-   y se busca el organismo o la norma en el sumario. Mismo límite que la vía 2: es el
-   mismo organismo.
+2. **`www.boletinoficial.gob.ar`** (`/seccion/primera/AAAAMMDD` y `detalleAviso`): ver el
+   límite de requests más abajo (máximo 5 por corrida, espaciadas 10 s).
+3. **`otslist.boletinoficial.gob.ar`**: el listado oficial de PDF de cada edición. Receta
+   que anda (2 requests): (a) pedir `https://otslist.boletinoficial.gob.ar/ots/` **sin
+   filtro**: lista primero la edición más reciente, cada edición bajo un
+   `<h4>DD-MM-AAAA</h4>`, con una fila por sección (la sección 1 es la primera) y el
+   enlace `/ots/download/<hash>/0/`; (b) bajar ese PDF y pasarlo a texto con
+   `pdftotext -layout`, y buscar el organismo o la norma. No adivinar el formato de
+   `?date_filter=`: con `AAAA-MM-DD` devolvió una página sin filas y el formato que sí
+   sirve no está verificado. Para una edición de otro día, paginar con `?page=N`, de a
+   un pedido. Tiene la edición del día.
+
+**Límite de requests al Boletín: máximo 5 por corrida, entre `www.` y `otslist.`
+(es el mismo organismo), espaciadas 10 s.** Una request por comando: nunca bucles
+`for` ni varias fechas o formatos probados en la misma llamada, y llevar la cuenta de
+las que ya se gastaron. El 2026-11-26 un bucle de 4 pedidos con formatos de fecha a
+ojo fue bloqueado por el clasificador de permisos de la sesión. InfoLEG
+(`argentina.gob.ar`) no entra en este límite, pero tampoco se lo castiga con ráfagas.
 
 Si un valor sale de la vía 3, `fuente` es la URL del PDF y la cita lleva la página
 (`BO Nº NN.NNN, primera sección, p. N`). No hace falta tocar el entorno: el comodín
